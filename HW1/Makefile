@@ -7,7 +7,8 @@ BUILD_DIR = $(CURDIR)/build
 
 build:
 	@cmake -G Ninja -B $(BUILD_DIR) -DCMAKE_BUILD_TYPE=Release; \
-	cd $(BUILD_DIR) && ninja -v
+	cd $(BUILD_DIR) && ninja
+# cd $(BUILD_DIR) && ninja -v
 
 clean: 
 	@$(RM) build ; \

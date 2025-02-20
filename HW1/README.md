@@ -14,6 +14,6 @@
 
 1. 实现`include/ast/constantPropagation.hh`和`lib/ast/constantPropagation.cc`，其中，提供`Program *constantPropagate(Program *root);`函数供main调用。
 
-2. 实现`include/ast/executor.hh`和`lib/ast/executor.cc`，其中，提供`void execute(Program *root);`函数供main调用。
+2. 实现`include/ast/executor.hh`和`lib/ast/executor.cc`，其中，提供`int execute(Program *root);`函数供main调用。
 
 3. 自行修改`tools/main/main.cc`进行测试。最后测评时我们将使用统一的main（基于上述两个供main调用的函数）。
