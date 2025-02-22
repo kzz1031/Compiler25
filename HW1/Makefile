@@ -26,9 +26,10 @@ handin:
 	zip -q -r "docs/$$filename-hw1.zip" \
 	  docs/report.pdf include lib
 
-.PHONY: run run-one
+.PHONY: run run-one run-random
 
 MAIN = $(BUILD_DIR)/tools/main/main
+RANDOM_TEST = $(BUILD_DIR)/tools/main/randomTest
 
 run: $(MAIN)
 	cd $(CURDIR)/test && \
@@ -42,11 +43,13 @@ run: $(MAIN)
 			diff "$${file%%.*}.2.ast" "$${file%%.*}.2-debug3.ast" ; \
 			echo "Comparing parsed write-out with load+then-clone-then-minusConst-converted-write-out"; \
 			diff "$${file%%.*}.2.ast" "$${file%%.*}.2-debug4.ast" ; \
+			echo "Comparing parsed write-out with load+then-clone-then-constant-propagation-write-out"; \
+			diff "$${file%%.*}.2.ast" "$${file%%.*}.2-debug5.ast" ; \
         fi \
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE = test1
+FILE = my_test1
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
@@ -59,4 +62,9 @@ run-one: $(MAIN)
 	diff "${FILE}.2.ast" "${FILE}.2-debug3.ast" ; \
 	echo "Comparing parsed write-out with load+then-clone-then-minusConst-converted-write-out"; \
 	diff "${FILE}.2.ast" "${FILE}.2-debug4.ast" ; \
-	cd .. > /dev/null 2>&1 
+	echo "Comparing parsed write-out with load+then-clone-then-constant-propagation-write-out"; \
+	diff "${FILE}.2.ast" "${FILE}.2-debug5.ast" ; \
+	cd .. > /dev/null 2>&1
+
+run-random: $(RANDOM_TEST)
+	$(RANDOM_TEST)
