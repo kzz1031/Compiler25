@@ -31,12 +31,19 @@ void Executor::visit(MainMethod *node) {
     newNode = nullptr;
     return;
   }
+  bool hasReturn = false;
   if (node->sl != nullptr) {
     for (Stm *stm : *(node->sl)) {
       if (stm != nullptr) {
         stm->accept(*this);
+        if (dynamic_cast<Return *>(stm) != nullptr) {
+          hasReturn = true;
+        }
       }
     }
+  }
+  if (!hasReturn) {
+    returnValue = 0; // reload returnValue
   }
 }
 
