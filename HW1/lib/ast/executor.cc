@@ -93,7 +93,11 @@ void Executor::visit(BinaryOp *node) {
   } else if (node->op->op == "*") {
     returnValue = leftValue * rightValue;
   } else if (node->op->op == "/") {
-    returnValue = leftValue / rightValue;
+    if (rightValue == 0) {
+      throw runtime_error("Executor Error: Division by zero");
+    } else {
+      returnValue = leftValue / rightValue;
+    }
   }
 }
 

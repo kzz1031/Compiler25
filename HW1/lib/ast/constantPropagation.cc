@@ -13,6 +13,7 @@ using namespace fdmj;
 #define ExpList vector<Exp *>
 
 Program *constantPropagationRewrite(Program *root) {
+  //printf("Constant Propagation Rewrite\n");
   if (root == nullptr)
     return nullptr;
   ConstantPropagation v(nullptr);
@@ -148,6 +149,11 @@ void ConstantPropagation::visit(BinaryOp *node) {
     } else if (node->op->op == "*") {
       result = leftVal * rightVal;
     } else if (node->op->op == "/") {
+      if (rightVal == 0) {
+        cerr << "Error: Division by zero" << endl;
+        newNode = new BinaryOp(node->getPos()->clone(), l, node->op->clone(), r);
+        return;
+      }
       result = leftVal / rightVal;
     } else {
       newNode = new BinaryOp(node->getPos()->clone(), l, node->op->clone(), r);
@@ -171,6 +177,11 @@ void ConstantPropagation::visit(UnaryOp *node) {
   } else {
     cerr << "Error: No expression found in the UnaryOp statement" << endl;
     newNode = nullptr;
+    return;
+  }
+  if(node->op->op == "-" && e->getASTKind() == ASTKind::IntExp) {
+    int val = -(static_cast<IntExp *>(e)->val);
+    newNode = new IntExp(node->getPos()->clone(), val);
     return;
   }
   newNode = new UnaryOp(node->getPos()->clone(), node->op->clone(), e);

@@ -107,6 +107,6 @@ int main(int argc, const char *argv[]) {
   int result = execute(root5);
   cout << "Program returned: " << result << endl;
 
-  cout << "-----Done---" << endl;
+  cout << "-----Done-----" << endl;
   return EXIT_SUCCESS;
 }

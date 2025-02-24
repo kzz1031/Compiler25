@@ -1,0 +1,8 @@
+public int main() {
+   x = ((-1)+((-2)*3));
+   x = x;
+   z = 3;
+   z = (z+2);
+   z = (3/0);
+   return x;
+}

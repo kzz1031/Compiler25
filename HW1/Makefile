@@ -53,7 +53,6 @@ FILE = my_test2
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
-	$(MAIN) ${FILE} ; \
 	echo "Parsing ${FILE}.fmj"; \
 	$(MAIN) "${FILE}"; \
 	echo "Comparing parsed write-out with load+then-write-out"; \
