@@ -150,7 +150,7 @@ void ConstantPropagation::visit(BinaryOp *node) {
       result = leftVal * rightVal;
     } else if (node->op->op == "/") {
       if (rightVal == 0) {
-        cerr << "Error: Division by zero" << endl;
+        throw runtime_error("Error: Division by zero");        
         newNode = new BinaryOp(node->getPos()->clone(), l, node->op->clone(), r);
         return;
       }

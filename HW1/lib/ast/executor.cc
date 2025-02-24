@@ -38,6 +38,7 @@ void Executor::visit(MainMethod *node) {
         stm->accept(*this);
         if (dynamic_cast<Return *>(stm) != nullptr) {
           hasReturn = true;
+          break; // break when meet the first return statement
         }
       }
     }
@@ -94,7 +95,7 @@ void Executor::visit(BinaryOp *node) {
     returnValue = leftValue * rightValue;
   } else if (node->op->op == "/") {
     if (rightValue == 0) {
-      throw runtime_error("Executor Error: Division by zero");
+      throw runtime_error("Error: Division by zero");
     } else {
       returnValue = leftValue / rightValue;
     }

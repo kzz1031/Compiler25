@@ -49,7 +49,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE = my_test2
+FILE = my_test4
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

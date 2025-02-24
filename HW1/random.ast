@@ -3,112 +3,50 @@
     <MainMethod>
         <StmList>
             <Assign>
-                <IdExp id="c"/>
+                <IdExp id="q"/>
                 <BinaryOp>
+                    <IntExp val="10"/>
+                    <OpExp op="*"/>
                     <Esc>
                         <StmList>
                             <Assign>
-                                <IdExp id="r"/>
+                                <IdExp id="g"/>
                                 <BinaryOp>
-                                    <IntExp val="19"/>
+                                    <IntExp val="41"/>
                                     <OpExp op="+"/>
-                                    <IntExp val="67"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="r"/>
-                            <OpExp op="+"/>
-                            <IdExp id="r"/>
-                        </BinaryOp>
-                    </Esc>
-                    <OpExp op="+"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="q"/>
-                                <BinaryOp>
-                                    <IdExp id="r"/>
-                                    <OpExp op="*"/>
-                                    <IdExp id="r"/>
+                                    <IntExp val="68"/>
                                 </BinaryOp>
                             </Assign>
                             <Assign>
-                                <IdExp id="o"/>
+                                <IdExp id="p"/>
                                 <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="/"/>
-                                    <IdExp id="r"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="e"/>
-                                <BinaryOp>
-                                    <IdExp id="o"/>
-                                    <OpExp op="+"/>
-                                    <IntExp val="26"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="q"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="*"/>
-                                    <IdExp id="o"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="e"/>
-                            <OpExp op="*"/>
-                            <IdExp id="q"/>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="z"/>
-                <BinaryOp>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="e"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="/"/>
-                                    <IdExp id="e"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="d"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="*"/>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="42"/>
-                                    </UnaryOp>
+                                    <IdExp id="g"/>
+                                    <OpExp op="-"/>
+                                    <IdExp id="g"/>
                                 </BinaryOp>
                             </Assign>
                             <Assign>
                                 <IdExp id="b"/>
                                 <BinaryOp>
-                                    <IntExp val="23"/>
-                                    <OpExp op="*"/>
                                     <UnaryOp>
                                         <OpExp op="-"/>
-                                        <IntExp val="52"/>
+                                        <IntExp val="66"/>
                                     </UnaryOp>
+                                    <OpExp op="*"/>
+                                    <IntExp val="5"/>
                                 </BinaryOp>
                             </Assign>
                             <Assign>
-                                <IdExp id="g"/>
+                                <IdExp id="m"/>
                                 <BinaryOp>
-                                    <IdExp id="e"/>
-                                    <OpExp op="*"/>
                                     <UnaryOp>
                                         <OpExp op="-"/>
-                                        <IntExp val="50"/>
+                                        <IntExp val="62"/>
+                                    </UnaryOp>
+                                    <OpExp op="+"/>
+                                    <UnaryOp>
+                                        <OpExp op="-"/>
+                                        <IntExp val="72"/>
                                     </UnaryOp>
                                 </BinaryOp>
                             </Assign>
@@ -116,578 +54,212 @@
                         <BinaryOp>
                             <IdExp id="g"/>
                             <OpExp op="*"/>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="100"/>
-                            </UnaryOp>
+                            <IdExp id="b"/>
                         </BinaryOp>
                     </Esc>
-                    <OpExp op="-"/>
-                    <IntExp val="11"/>
                 </BinaryOp>
             </Assign>
             <Assign>
-                <IdExp id="l"/>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="w"/>
-                            <BinaryOp>
-                                <UnaryOp>
-                                    <OpExp op="-"/>
-                                    <IntExp val="12"/>
-                                </UnaryOp>
-                                <OpExp op="/"/>
-                                <IdExp id="b"/>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IdExp id="g"/>
-                        <OpExp op="/"/>
-                        <IdExp id="o"/>
-                    </BinaryOp>
-                </Esc>
-            </Assign>
-            <Assign>
-                <IdExp id="w"/>
+                <IdExp id="h"/>
                 <BinaryOp>
-                    <IdExp id="o"/>
-                    <OpExp op="/"/>
-                    <IntExp val="48"/>
+                    <Esc>
+                        <StmList>
+                            <Assign>
+                                <IdExp id="w"/>
+                                <BinaryOp>
+                                    <IdExp id="m"/>
+                                    <OpExp op="-"/>
+                                    <UnaryOp>
+                                        <OpExp op="-"/>
+                                        <IntExp val="81"/>
+                                    </UnaryOp>
+                                </BinaryOp>
+                            </Assign>
+                            <Assign>
+                                <IdExp id="k"/>
+                                <BinaryOp>
+                                    <UnaryOp>
+                                        <OpExp op="-"/>
+                                        <IntExp val="98"/>
+                                    </UnaryOp>
+                                    <OpExp op="+"/>
+                                    <IdExp id="g"/>
+                                </BinaryOp>
+                            </Assign>
+                        </StmList>
+                        <BinaryOp>
+                            <IdExp id="p"/>
+                            <OpExp op="-"/>
+                            <IntExp val="28"/>
+                        </BinaryOp>
+                    </Esc>
+                    <OpExp op="+"/>
+                    <IntExp val="35"/>
                 </BinaryOp>
             </Assign>
             <Assign>
-                <IdExp id="z"/>
+                <IdExp id="j"/>
+                <BinaryOp>
+                    <UnaryOp>
+                        <OpExp op="-"/>
+                        <IntExp val="83"/>
+                    </UnaryOp>
+                    <OpExp op="/"/>
+                    <IdExp id="k"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="c"/>
                 <Esc>
                     <StmList>
                         <Assign>
                             <IdExp id="k"/>
                             <BinaryOp>
-                                <UnaryOp>
-                                    <OpExp op="-"/>
-                                    <IntExp val="2"/>
-                                </UnaryOp>
-                                <OpExp op="/"/>
-                                <IdExp id="e"/>
+                                <IdExp id="m"/>
+                                <OpExp op="+"/>
+                                <IdExp id="h"/>
+                            </BinaryOp>
+                        </Assign>
+                        <Assign>
+                            <IdExp id="f"/>
+                            <BinaryOp>
+                                <IdExp id="j"/>
+                                <OpExp op="+"/>
+                                <IntExp val="9"/>
                             </BinaryOp>
                         </Assign>
                     </StmList>
                     <BinaryOp>
-                        <IdExp id="e"/>
-                        <OpExp op="+"/>
+                        <IntExp val="20"/>
+                        <OpExp op="*"/>
+                        <IdExp id="k"/>
+                    </BinaryOp>
+                </Esc>
+            </Assign>
+            <Assign>
+                <IdExp id="x"/>
+                <BinaryOp>
+                    <UnaryOp>
+                        <OpExp op="-"/>
+                        <IntExp val="35"/>
+                    </UnaryOp>
+                    <OpExp op="+"/>
+                    <IdExp id="k"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="q"/>
+                <Esc>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="c"/>
+                            <BinaryOp>
+                                <UnaryOp>
+                                    <OpExp op="-"/>
+                                    <IntExp val="1"/>
+                                </UnaryOp>
+                                <OpExp op="+"/>
+                                <IntExp val="79"/>
+                            </BinaryOp>
+                        </Assign>
+                        <Assign>
+                            <IdExp id="y"/>
+                            <BinaryOp>
+                                <IdExp id="c"/>
+                                <OpExp op="+"/>
+                                <IdExp id="p"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                    <BinaryOp>
+                        <IdExp id="w"/>
+                        <OpExp op="/"/>
+                        <IdExp id="q"/>
+                    </BinaryOp>
+                </Esc>
+            </Assign>
+            <Assign>
+                <IdExp id="i"/>
+                <Esc>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="a"/>
+                            <BinaryOp>
+                                <IdExp id="m"/>
+                                <OpExp op="/"/>
+                                <IdExp id="h"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                    <BinaryOp>
+                        <IntExp val="73"/>
+                        <OpExp op="*"/>
+                        <IntExp val="35"/>
+                    </BinaryOp>
+                </Esc>
+            </Assign>
+            <Assign>
+                <IdExp id="i"/>
+                <Esc>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="c"/>
+                            <BinaryOp>
+                                <IdExp id="y"/>
+                                <OpExp op="*"/>
+                                <IdExp id="y"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                    <BinaryOp>
+                        <IdExp id="i"/>
+                        <OpExp op="/"/>
                         <UnaryOp>
                             <OpExp op="-"/>
-                            <IntExp val="85"/>
+                            <IntExp val="16"/>
                         </UnaryOp>
                     </BinaryOp>
                 </Esc>
             </Assign>
             <Assign>
-                <IdExp id="z"/>
-                <BinaryOp>
-                    <IdExp id="w"/>
-                    <OpExp op="/"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="u"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="/"/>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="30"/>
-                                    </UnaryOp>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="q"/>
-                                <BinaryOp>
-                                    <IntExp val="50"/>
-                                    <OpExp op="+"/>
-                                    <IntExp val="40"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="g"/>
-                                <BinaryOp>
-                                    <IntExp val="92"/>
-                                    <OpExp op="/"/>
-                                    <IdExp id="d"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="q"/>
-                            <OpExp op="*"/>
-                            <IdExp id="q"/>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="z"/>
+                <IdExp id="i"/>
                 <Esc>
                     <StmList>
                         <Assign>
-                            <IdExp id="f"/>
+                            <IdExp id="n"/>
                             <BinaryOp>
-                                <IdExp id="d"/>
-                                <OpExp op="-"/>
+                                <UnaryOp>
+                                    <OpExp op="-"/>
+                                    <IntExp val="78"/>
+                                </UnaryOp>
+                                <OpExp op="+"/>
+                                <IdExp id="k"/>
+                            </BinaryOp>
+                        </Assign>
+                        <Assign>
+                            <IdExp id="h"/>
+                            <BinaryOp>
+                                <IntExp val="60"/>
+                                <OpExp op="+"/>
                                 <UnaryOp>
                                     <OpExp op="-"/>
                                     <IntExp val="3"/>
                                 </UnaryOp>
                             </BinaryOp>
                         </Assign>
-                        <Assign>
-                            <IdExp id="i"/>
-                            <BinaryOp>
-                                <IdExp id="w"/>
-                                <OpExp op="+"/>
-                                <IdExp id="z"/>
-                            </BinaryOp>
-                        </Assign>
-                        <Assign>
-                            <IdExp id="n"/>
-                            <BinaryOp>
-                                <IntExp val="7"/>
-                                <OpExp op="-"/>
-                                <UnaryOp>
-                                    <OpExp op="-"/>
-                                    <IntExp val="12"/>
-                                </UnaryOp>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IdExp id="l"/>
-                        <OpExp op="*"/>
-                        <UnaryOp>
-                            <OpExp op="-"/>
-                            <IntExp val="93"/>
-                        </UnaryOp>
-                    </BinaryOp>
-                </Esc>
-            </Assign>
-            <Assign>
-                <IdExp id="r"/>
-                <BinaryOp>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="u"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="-"/>
-                                    <IdExp id="k"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="w"/>
-                                <BinaryOp>
-                                    <IdExp id="f"/>
-                                    <OpExp op="*"/>
-                                    <IdExp id="q"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="x"/>
-                                <BinaryOp>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="66"/>
-                                    </UnaryOp>
-                                    <OpExp op="+"/>
-                                    <IdExp id="g"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="41"/>
-                            </UnaryOp>
-                            <OpExp op="*"/>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="34"/>
-                            </UnaryOp>
-                        </BinaryOp>
-                    </Esc>
-                    <OpExp op="-"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="j"/>
-                                <BinaryOp>
-                                    <IdExp id="n"/>
-                                    <OpExp op="/"/>
-                                    <IdExp id="c"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="j"/>
-                                <BinaryOp>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="77"/>
-                                    </UnaryOp>
-                                    <OpExp op="/"/>
-                                    <IdExp id="e"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="u"/>
-                            <OpExp op="+"/>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="5"/>
-                            </UnaryOp>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="n"/>
-                <BinaryOp>
-                    <IntExp val="49"/>
-                    <OpExp op="/"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="v"/>
-                                <BinaryOp>
-                                    <IdExp id="k"/>
-                                    <OpExp op="-"/>
-                                    <IntExp val="56"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="b"/>
-                                <BinaryOp>
-                                    <IdExp id="g"/>
-                                    <OpExp op="*"/>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="21"/>
-                                    </UnaryOp>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="o"/>
-                                <BinaryOp>
-                                    <IdExp id="q"/>
-                                    <OpExp op="/"/>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="35"/>
-                                    </UnaryOp>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="f"/>
-                            <OpExp op="/"/>
-                            <IntExp val="95"/>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="l"/>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="a"/>
-                            <BinaryOp>
-                                <UnaryOp>
-                                    <OpExp op="-"/>
-                                    <IntExp val="56"/>
-                                </UnaryOp>
-                                <OpExp op="-"/>
-                                <IdExp id="o"/>
-                            </BinaryOp>
-                        </Assign>
-                        <Assign>
-                            <IdExp id="r"/>
-                            <BinaryOp>
-                                <IdExp id="n"/>
-                                <OpExp op="-"/>
-                                <IntExp val="83"/>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IdExp id="z"/>
-                        <OpExp op="+"/>
-                        <UnaryOp>
-                            <OpExp op="-"/>
-                            <IntExp val="47"/>
-                        </UnaryOp>
-                    </BinaryOp>
-                </Esc>
-            </Assign>
-            <Assign>
-                <IdExp id="d"/>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="o"/>
-                            <BinaryOp>
-                                <IntExp val="19"/>
-                                <OpExp op="-"/>
-                                <IdExp id="r"/>
-                            </BinaryOp>
-                        </Assign>
-                        <Assign>
-                            <IdExp id="e"/>
-                            <BinaryOp>
-                                <IntExp val="42"/>
-                                <OpExp op="*"/>
-                                <IntExp val="75"/>
-                            </BinaryOp>
-                        </Assign>
-                        <Assign>
-                            <IdExp id="g"/>
-                            <BinaryOp>
-                                <IntExp val="23"/>
-                                <OpExp op="/"/>
-                                <IdExp id="e"/>
-                            </BinaryOp>
-                        </Assign>
-                        <Assign>
-                            <IdExp id="y"/>
-                            <BinaryOp>
-                                <IntExp val="22"/>
-                                <OpExp op="+"/>
-                                <IdExp id="n"/>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IntExp val="1"/>
-                        <OpExp op="/"/>
-                        <UnaryOp>
-                            <OpExp op="-"/>
-                            <IntExp val="85"/>
-                        </UnaryOp>
-                    </BinaryOp>
-                </Esc>
-            </Assign>
-            <Assign>
-                <IdExp id="w"/>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="x"/>
-                            <BinaryOp>
-                                <IntExp val="90"/>
-                                <OpExp op="/"/>
-                                <IdExp id="q"/>
-                            </BinaryOp>
-                        </Assign>
                     </StmList>
                     <BinaryOp>
                         <UnaryOp>
                             <OpExp op="-"/>
-                            <IntExp val="75"/>
+                            <IntExp val="29"/>
                         </UnaryOp>
-                        <OpExp op="/"/>
-                        <IdExp id="f"/>
-                    </BinaryOp>
-                </Esc>
-            </Assign>
-            <Assign>
-                <IdExp id="q"/>
-                <BinaryOp>
-                    <UnaryOp>
                         <OpExp op="-"/>
-                        <IntExp val="3"/>
-                    </UnaryOp>
-                    <OpExp op="/"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="w"/>
-                                <BinaryOp>
-                                    <IdExp id="v"/>
-                                    <OpExp op="*"/>
-                                    <IdExp id="x"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="i"/>
-                                <BinaryOp>
-                                    <IdExp id="f"/>
-                                    <OpExp op="-"/>
-                                    <IdExp id="o"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="p"/>
-                                <BinaryOp>
-                                    <IdExp id="o"/>
-                                    <OpExp op="+"/>
-                                    <IdExp id="v"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="48"/>
-                            </UnaryOp>
-                            <OpExp op="*"/>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="7"/>
-                            </UnaryOp>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="c"/>
-                <BinaryOp>
-                    <UnaryOp>
-                        <OpExp op="-"/>
-                        <IntExp val="39"/>
-                    </UnaryOp>
-                    <OpExp op="+"/>
-                    <IntExp val="65"/>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="x"/>
-                <BinaryOp>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="k"/>
-                                <BinaryOp>
-                                    <IdExp id="z"/>
-                                    <OpExp op="*"/>
-                                    <IntExp val="63"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="x"/>
-                                <BinaryOp>
-                                    <IdExp id="d"/>
-                                    <OpExp op="+"/>
-                                    <IdExp id="b"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="f"/>
-                                <BinaryOp>
-                                    <IdExp id="r"/>
-                                    <OpExp op="*"/>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="53"/>
-                                    </UnaryOp>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="55"/>
-                            </UnaryOp>
-                            <OpExp op="*"/>
-                            <IntExp val="96"/>
-                        </BinaryOp>
-                    </Esc>
-                    <OpExp op="+"/>
-                    <Esc>
-                        <StmList>
-                            <Assign>
-                                <IdExp id="e"/>
-                                <BinaryOp>
-                                    <UnaryOp>
-                                        <OpExp op="-"/>
-                                        <IntExp val="46"/>
-                                    </UnaryOp>
-                                    <OpExp op="*"/>
-                                    <IdExp id="g"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="f"/>
-                                <BinaryOp>
-                                    <IdExp id="e"/>
-                                    <OpExp op="+"/>
-                                    <IdExp id="w"/>
-                                </BinaryOp>
-                            </Assign>
-                            <Assign>
-                                <IdExp id="k"/>
-                                <BinaryOp>
-                                    <IdExp id="x"/>
-                                    <OpExp op="-"/>
-                                    <IdExp id="c"/>
-                                </BinaryOp>
-                            </Assign>
-                        </StmList>
-                        <BinaryOp>
-                            <IdExp id="n"/>
-                            <OpExp op="+"/>
-                            <UnaryOp>
-                                <OpExp op="-"/>
-                                <IntExp val="10"/>
-                            </UnaryOp>
-                        </BinaryOp>
-                    </Esc>
-                </BinaryOp>
-            </Assign>
-            <Assign>
-                <IdExp id="l"/>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="f"/>
-                            <BinaryOp>
-                                <IdExp id="z"/>
-                                <OpExp op="*"/>
-                                <IdExp id="v"/>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IdExp id="e"/>
-                        <OpExp op="*"/>
-                        <IntExp val="86"/>
+                        <IdExp id="y"/>
                     </BinaryOp>
                 </Esc>
             </Assign>
             <Return>
-                <Esc>
-                    <StmList>
-                        <Assign>
-                            <IdExp id="o"/>
-                            <BinaryOp>
-                                <UnaryOp>
-                                    <OpExp op="-"/>
-                                    <IntExp val="72"/>
-                                </UnaryOp>
-                                <OpExp op="-"/>
-                                <IdExp id="z"/>
-                            </BinaryOp>
-                        </Assign>
-                    </StmList>
-                    <BinaryOp>
-                        <IdExp id="b"/>
-                        <OpExp op="+"/>
-                        <UnaryOp>
-                            <OpExp op="-"/>
-                            <IntExp val="78"/>
-                        </UnaryOp>
-                    </BinaryOp>
-                </Esc>
+                <IdExp id="c"/>
             </Return>
         </StmList>
     </MainMethod>

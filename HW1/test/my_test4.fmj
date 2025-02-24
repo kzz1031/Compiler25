@@ -1,4 +1,6 @@
 public int main() {
+   x = 0;
+   return x;
    x = (-(1+(100+(-(1+2)))));
    return x;
 }
