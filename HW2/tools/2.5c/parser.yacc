@@ -5,14 +5,14 @@ extern void yyerror(char*);
 extern int yywrap();
 %}
 
-%token RE
+%token PATTERN
 
 %type S
 
 %start S
 
 %%
-S : RE;
+S : PATTERN;
 %%
 
 int main() {

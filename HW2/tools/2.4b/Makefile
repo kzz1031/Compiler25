@@ -15,9 +15,12 @@ run:
 
 test:
 	@cd ../../$(TEST_DIR); \
+	echo "---Running tests for 2.4b---"; \
 	for file in $$(ls .); do \
 		if [ "$${file##*.}" = "txt" ]; then \
-			echo "$${file%%.*}".txt; \
+			echo "Input file: $${file%%.*}".txt; \
+			cat "$${file%%.*}".txt; \
+			echo ""; \
 			../../$(BUILD_DIR)/main < "$${file%%.*}".txt; \
 		fi \
 	done; \

@@ -11,7 +11,7 @@
 %}
 
 %%
-a((b|a*c)x)*|x*a { return PATTERN; }
+a((b|a*c)x)*|x*a { return RE; }
 . { return yytext[0]; }
 \n {}
 %%
