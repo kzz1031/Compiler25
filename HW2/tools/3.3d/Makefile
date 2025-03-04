@@ -6,7 +6,7 @@ TEST_DIR = test/3.3d
 
 build:
 	@mkdir -p build; \
-	yacc -d -v -Wcounterexamples -o build/parser.c parser.yacc; \
+	yacc -d -v -o build/parser.c parser.yacc; \
 	lex -o build/lexer.c lexer.lex; \
 	cc -o build/main build/lexer.c build/parser.c
 

@@ -4,9 +4,9 @@
 %}
 
 %%
-"("     { printf("LEFT_PAREN\n"); }
-")"     { printf("RIGHT_PAREN\n"); }
-"["     { printf("LEFT_BRACKET\n"); }
-"]"     { printf("RIGHT_BRACKET\n"); }
+"("     { return LEFT_PAREN; }
+")"     { return RIGHT_PAREN; }
+"["     { return LEFT_BRACKET; }
+"]"     { return RIGHT_BRACKET; }
 .       { /* ignore other characters */ }
 %%
