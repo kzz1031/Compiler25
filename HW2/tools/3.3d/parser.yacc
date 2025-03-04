@@ -9,7 +9,7 @@ extern int yywrap();
 %token LEFT_PAREN RIGHT_PAREN LEFT_BRACKET RIGHT_BRACKET
 
 // non-terminal symbols
-%type S T
+%type S T P
 
 // start symbol
 %start S
@@ -18,10 +18,13 @@ extern int yywrap();
 S   :   /* empty */
     |   LEFT_BRACKET T RIGHT_BRACKET S
     |   LEFT_PAREN S RIGHT_PAREN S
-    |   LEFT_BRACKET S RIGHT_BRACKET S
     ; 
-T   :   LEFT_PAREN T 
-    |   LEFT_PAREN S
+T   :   P
+    |   LEFT_PAREN T RIGHT_PAREN T
+    |   LEFT_BRACKET T RIGHT_BRACKET T
+    ;
+P   :   /* empty */
+    |   '(' P
     ;
 %%
 
