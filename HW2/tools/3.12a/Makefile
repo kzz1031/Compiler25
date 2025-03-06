@@ -34,6 +34,7 @@ test: $(TARGET)
 			# cat "$${file%%.*}".txt; \
 			# echo ""; \
 			../../$(CURRENT_DIR)/build/parser "$${file%%.*}".txt; \
+			echo ""; \
 		fi \
 	done; \
 	cd ../../$(CURRENT_DIR)

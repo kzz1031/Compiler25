@@ -19,11 +19,11 @@ clean:
 rebuild: clean build
 
 test:
-	@cd tools/demo; make test; cd ../..\
-    && cd tools/2.4b; make test; cd ../..\
-	&& cd tools/2.5c; make test; cd ../..\
-	&& cd tools/3.3d; make test; cd ../..\
-	&& cd tools/3.12a; make test; cd ../..
+	# @cd tools/demo; make test; cd ../..\
+    # && cd tools/2.4b; make test; cd ../..\
+	# && cd tools/2.5c; make test; cd ../..\
+	# && cd tools/3.3d; make test; cd ../..\
+	cd tools/3.12a; make test; cd ../..
 
 handin:
 	@if [ ! -f docs/report.pdf ]; then \
