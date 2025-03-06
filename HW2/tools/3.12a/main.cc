@@ -38,14 +38,14 @@ std::vector<std::string> tokenize(const std::string &filename) {
 
 // 定义LR(0)解析表
 std::map<std::pair<int, std::string>, std::string> parsing_table = {
-    {{0, "id"}, "s1"}, {{0, "E"}, "2"},
-    {{1, "("}, "s3"}, {{1, "+"}, "r1"}, {{1, ")"}, "r1"}, {{1, "$"}, "r1"},
-    {{2, "+"}, "s4"}, {{2, ")"}, "r2"}, {{2, "$"}, "acc"},
-    {{3, "id"}, "s1"}, {{3, "E"}, "5"},
-    {{4, "id"}, "s1"}, {{4, "E"}, "6"},
-    {{5, ")"}, "s7"},
-    {{6, "+"}, "r3"}, {{6, ")"}, "r3"}, {{6, "$"}, "r3"},
-    {{7, "+"}, "r2"}, {{7, ")"}, "r2"}, {{7, "$"}, "r2"}
+    {{0, "id"}, "s2"}, {{0, "E"}, "s1"},
+    {{1, "+"}, "s3"}, {{1, "$"}, "acc"},
+    {{2, "+"}, "r1"}, {{2, ")"}, "r1"}, {{2, "$"}, "r1"}, {{2, "id"}, "r1"}, {{2, "("}, "s5"},
+    {{3, "id"}, "s5"},
+    {{4, "id"}, "s2"},
+    {{5, "+"}, "r3"}, {{5, ")"}, "r3"}, {{5, "$"}, "r3"}, {{5, "id"}, "r3"}, {{5, "("}, "r3"},
+    {{6, "+"}, "s3"}, {{6, ")"}, "s7"},
+    {{7, "+"}, "r2"}, {{7, ")"}, "r2"}, {{7, "$"}, "r2"}, {{7, "id"}, "r2"}, {{7, "("}, "r2"}
 };
 
 std::map<int, std::pair<std::string, int>> productions = {
@@ -61,7 +61,7 @@ bool parse(const std::vector<std::string> &tokens) {
         int state = states.top();
         std::string token = tokens[index];
         auto action = parsing_table.find({state, token});
-
+        std::cout << "State: " << state << ", Token: " << token << std::endl;
         if (action == parsing_table.end()) {
             std::cerr << "Syntax error at token " << token << std::endl;
             return false;
