@@ -15,7 +15,7 @@ run:
 
 test:
 	@cd ../../$(TEST_DIR); \
-	echo "---Running tests for 3.3b---"; \
+	echo "---Running tests for 3.3d---"; \
 	for file in $$(ls .); do \
 		if [ "$${file##*.}" = "txt" ]; then \
 			echo "Input file: $${file%%.*}".txt; \
