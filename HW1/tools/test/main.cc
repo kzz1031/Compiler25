@@ -52,7 +52,7 @@ int main(int argc, const char *argv[]) {
   x->SaveFile(file_ast_1.c_str());
 
   // constantPropagation
-  Program *cp = ConstantPropagation(root);
+  Program *cp = constantPropagate(root);
   x = ast2xml(cp, with_location_info);
   assert(!x->Error() && "AST is not valid!");
   x->SaveFile(file_ast_2.c_str());

@@ -12,7 +12,7 @@ using namespace fdmj;
 #define StmList vector<Stm *>
 #define ExpList vector<Exp *>
 
-Program *constantPropagationRewrite(Program *root) {
+Program *constantPropagate(Program *root) {
   //printf("Constant Propagation Rewrite\n");
   if (root == nullptr)
     return nullptr;

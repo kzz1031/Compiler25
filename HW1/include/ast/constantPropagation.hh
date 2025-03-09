@@ -7,7 +7,7 @@
 using namespace std;
 using namespace fdmj;
 
-Program *constantPropagationRewrite(Program *root);
+Program *constantPropagate(Program *root);
 
 class ConstantPropagation : public ASTVisitor {
 public:
