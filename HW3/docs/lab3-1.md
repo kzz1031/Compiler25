@@ -1,4 +1,4 @@
-# lab3: FDMJ2025
+# lab3-1: FDMJ2025
 
 # Syntax
 

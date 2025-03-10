@@ -12,9 +12,11 @@ using namespace std;
 using namespace fdmj;
 
 Name_Maps* makeNameMaps(Program* node) {
-    AST_Name_Map_Visitor name_visitor;
-    node->accept(name_visitor);
-    return name_visitor.getNameMaps();
+    std::cout << "TODO" << std::endl;
+    return nullptr;
+    // AST_Name_Map_Visitor name_visitor;
+    // node->accept(name_visitor);
+    // return name_visitor.getNameMaps();
 }
 
 bool Name_Maps::is_class(string class_name) {
