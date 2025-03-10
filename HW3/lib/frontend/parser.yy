@@ -87,7 +87,7 @@ MAINMETHOD: PUBLIC INT MAIN '(' ')' '{' STMLIST '}'
 #ifdef DEBUG
     cerr << "MainMethod" << endl;
 #endif
-    $$ = new MainMethod(p, $7) ;
+    $$ = new MainMethod(p, nullptr, $7) ;
   }
   ;
 STMLIST: // empty
