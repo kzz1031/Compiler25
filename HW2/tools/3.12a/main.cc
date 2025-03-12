@@ -139,9 +139,9 @@ int main(int argc, char *argv[]) {
     std::cout << std::endl;
     
     if (parse(tokens)) {
-        std::cout << "Parsing successful!" << std::endl;
+        std::cout << "accept" << std::endl;
     } else {
-        std::cout << "Parsing failed!" << std::endl;
+        std::cout << "reject" << std::endl;
     }
 
     return 0;

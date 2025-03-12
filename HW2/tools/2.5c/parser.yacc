@@ -17,9 +17,9 @@ S : PATTERN;
 
 int main() {
     if (yyparse() == 0) {
-        printf("Accepted\n");
+        printf("accept\n");
     } else {
-        printf("Rejected\n");
+        printf("reject\n");
     }
     return 0;
 }
