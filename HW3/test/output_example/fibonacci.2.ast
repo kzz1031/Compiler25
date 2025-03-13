@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="n"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="fib"/>
+                </Type>
+                <IdExp id="o"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="n"/>
+                <Esc>
+                    <StmList>
+                        <PutCh>
+                            <IntExp val="69"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="110"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="116"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="101"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="114"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="116"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="104"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="101"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="110"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="117"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="109"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="98"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="101"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="114"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="111"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="102"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="116"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="101"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="114"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="109"/>
+                        </PutCh>
+                        <PutCh>
+                            <IntExp val="58"/>
+                        </PutCh>
+                    </StmList>
+                    <GetInt/>
+                </Esc>
+            </Assign>
+            <If>
+                <BinaryOp>
+                    <BinaryOp>
+                        <IdExp id="n"/>
+                        <OpExp op="&lt;"/>
+                        <IntExp val="0"/>
+                    </BinaryOp>
+                    <OpExp op="||"/>
+                    <BinaryOp>
+                        <IdExp id="n"/>
+                        <OpExp op="&gt;"/>
+                        <IntExp val="47"/>
+                    </BinaryOp>
+                </BinaryOp>
+                <Return>
+                    <UnaryOp>
+                        <OpExp op="-"/>
+                        <IntExp val="1"/>
+                    </UnaryOp>
+                </Return>
+            </If>
+            <Return>
+                <Esc>
+                    <StmList>
+                        <While>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="&lt;"/>
+                                <IdExp id="n"/>
+                            </BinaryOp>
+                            <PutCh>
+                                <Esc>
+                                    <StmList>
+                                        <PutInt>
+                                            <CallExp>
+                                                <IdExp id="o"/>
+                                                <IdExp id="f"/>
+                                                <ParList>
+                                                    <IdExp id="i"/>
+                                                </ParList>
+                                            </CallExp>
+                                        </PutInt>
+                                    </StmList>
+                                    <Esc>
+                                        <StmList>
+                                            <Assign>
+                                                <IdExp id="i"/>
+                                                <BinaryOp>
+                                                    <IdExp id="i"/>
+                                                    <OpExp op="+"/>
+                                                    <IntExp val="1"/>
+                                                </BinaryOp>
+                                            </Assign>
+                                        </StmList>
+                                        <IntExp val="32"/>
+                                    </Esc>
+                                </Esc>
+                            </PutCh>
+                        </While>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
+                    </StmList>
+                    <IntExp val="0"/>
+                </Esc>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="fib"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="f"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="n"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <If>
+                            <BinaryOp>
+                                <BinaryOp>
+                                    <IdExp id="n"/>
+                                    <OpExp op="=="/>
+                                    <IntExp val="0"/>
+                                </BinaryOp>
+                                <OpExp op="||"/>
+                                <BinaryOp>
+                                    <IdExp id="n"/>
+                                    <OpExp op="=="/>
+                                    <IntExp val="1"/>
+                                </BinaryOp>
+                            </BinaryOp>
+                            <Return>
+                                <IdExp id="n"/>
+                            </Return>
+                            <Return>
+                                <BinaryOp>
+                                    <CallExp>
+                                        <This/>
+                                        <IdExp id="f"/>
+                                        <ParList>
+                                            <BinaryOp>
+                                                <IdExp id="n"/>
+                                                <OpExp op="-"/>
+                                                <IntExp val="1"/>
+                                            </BinaryOp>
+                                        </ParList>
+                                    </CallExp>
+                                    <OpExp op="+"/>
+                                    <CallExp>
+                                        <This/>
+                                        <IdExp id="f"/>
+                                        <ParList>
+                                            <BinaryOp>
+                                                <IdExp id="n"/>
+                                                <OpExp op="-"/>
+                                                <IntExp val="2"/>
+                                            </BinaryOp>
+                                        </ParList>
+                                    </CallExp>
+                                </BinaryOp>
+                            </Return>
+                        </If>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                    <IntExp val="7"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="l"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c1"/>
+                </Type>
+                <IdExp id="o1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c1"/>
+                </Type>
+                <IdExp id="o2"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="l"/>
+                <Length>
+                    <IdExp id="a"/>
+                </Length>
+            </Assign>
+            <While>
+                <BinaryOp>
+                    <IdExp id="i"/>
+                    <OpExp op="&lt;"/>
+                    <IdExp id="l"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <If>
+                            <BinaryOp>
+                                <BinaryOp>
+                                    <BinaryOp>
+                                        <IdExp id="i"/>
+                                        <OpExp op="/"/>
+                                        <IntExp val="2"/>
+                                    </BinaryOp>
+                                    <OpExp op="*"/>
+                                    <IntExp val="2"/>
+                                </BinaryOp>
+                                <OpExp op="=="/>
+                                <IdExp id="i"/>
+                            </BinaryOp>
+                            <Assign>
+                                <ArrayExp>
+                                    <IdExp id="a"/>
+                                    <IdExp id="i"/>
+                                </ArrayExp>
+                                <CallExp>
+                                    <IdExp id="o1"/>
+                                    <IdExp id="m1"/>
+                                    <ParList>
+                                        <IdExp id="i"/>
+                                    </ParList>
+                                </CallExp>
+                            </Assign>
+                            <Assign>
+                                <ArrayExp>
+                                    <IdExp id="a"/>
+                                    <IdExp id="i"/>
+                                </ArrayExp>
+                                <CallExp>
+                                    <IdExp id="o2"/>
+                                    <IdExp id="m1"/>
+                                    <ParList>
+                                        <IdExp id="i"/>
+                                        <IdExp id="j"/>
+                                        <IdExp id="k"/>
+                                        <BinaryOp>
+                                            <UnaryOp>
+                                                <OpExp op="-"/>
+                                                <IntExp val="2"/>
+                                            </UnaryOp>
+                                            <OpExp op="*"/>
+                                            <IntExp val="2"/>
+                                        </BinaryOp>
+                                        <UnaryOp>
+                                            <OpExp op="-"/>
+                                            <IntExp val="4"/>
+                                        </UnaryOp>
+                                    </ParList>
+                                </CallExp>
+                            </Assign>
+                        </If>
+                        <Assign>
+                            <IdExp id="i"/>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <PutArray>
+                <IdExp id="l"/>
+                <IdExp id="a"/>
+            </PutArray>
+            <Return>
+                <IdExp id="l"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="i1"/>
+                    <IntInit val="2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m1"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return>
+                            <ClassVar>
+                                <This/>
+                                <IdExp id="i1"/>
+                            </ClassVar>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c2"/>
+            <ExtendsId eid="c1"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m1"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return>
+                            <BinaryOp>
+                                <ClassVar>
+                                    <This/>
+                                    <IdExp id="i1"/>
+                                </ClassVar>
+                                <OpExp op="+"/>
+                                <IdExp id="x"/>
+                            </BinaryOp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

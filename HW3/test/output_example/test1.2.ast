@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="x"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="100"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="y"/>
+                <IntInit val="19"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="A"/>
+                </Type>
+                <IdExp id="b"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="x"/>
+                <IntExp val="1"/>
+            </Assign>
+            <Return>
+                <IdExp id="x"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="B"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="c"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList>
+                        <VarDecl>
+                            <Type typeKind="INT"/>
+                            <IdExp id="c"/>
+                        </VarDecl>
+                    </VarDeclList>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="c"/>
+                            <IntExp val="100"/>
+                        </Assign>
+                        <Starttime/>
+                        <Return>
+                            <BinaryOp>
+                                <IdExp id="c"/>
+                                <OpExp op="&amp;&amp;"/>
+                                <IdExp id="c"/>
+                            </BinaryOp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+                <MethodDecl>
+                    <Type typeKind="ARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="m1"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                        <Formal>
+                            <Type typeKind="ARRAY">
+                                <Arity val="0"/>
+                            </Type>
+                            <IdExp id="y"/>
+                        </Formal>
+                        <Formal>
+                            <Type typeKind="CLASS">
+                                <IdExp id="b"/>
+                            </Type>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList/>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="A"/>
+            <ExtendsId eid="B"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="z"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList>
+                        <VarDecl>
+                            <Type typeKind="INT"/>
+                            <IdExp id="c"/>
+                        </VarDecl>
+                    </VarDeclList>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="c"/>
+                            <IntExp val="100"/>
+                        </Assign>
+                        <Starttime/>
+                        <Return>
+                            <BinaryOp>
+                                <IdExp id="c"/>
+                                <OpExp op="&amp;&amp;"/>
+                                <IdExp id="c"/>
+                            </BinaryOp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>
