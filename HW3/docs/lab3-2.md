@@ -105,7 +105,6 @@ Prog -> MainMethod ClassDeclList
            | if '(' Exp ')' Stm else Stm | if '(' Exp ')' Stm // 检查Exp为int
            | while '(' Exp ')' Stm | while '(' Exp ')' ';' // 检查Exp
            | Exp '=' Exp ';' // 检查类型是否兼容，允许upcast，允许int和bool之间的隐式转换
-           | Exp '[' ']' '=' '{' ExpList '}' ';' // 检查Exp为array，ExpList为int
            | Exp '.' id '(' ExpList ')' ';' // 检查Exp为class，Exp有id方法，ExpList匹配方法参数
            | continue ';' | break ';' // 检查在while里
            | return Exp ';' // 检查Exp为int
