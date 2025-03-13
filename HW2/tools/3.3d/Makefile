@@ -19,8 +19,8 @@ test:
 	for file in $$(ls .); do \
 		if [ "$${file##*.}" = "txt" ]; then \
 			echo "Input file: $${file%%.*}".txt; \
-			cat "$${file%%.*}".txt; \
-			echo ""; \
+			# cat "$${file%%.*}".txt; \
+			# echo ""; \
 			../../$(BUILD_DIR)/main < "$${file%%.*}".txt; \
 		fi \
 	done; \

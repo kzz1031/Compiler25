@@ -15,11 +15,11 @@ int parse_file(const std::string &filename) {
   std::string word;
   int wordCount = 0;
   while (file >> word) {
-    std::cout << word << " ";
+    //std::cout << word << " ";
     ++wordCount;
   }
-  std::cout << "word count: " <<wordCount;
-  std::cout << std::endl;
+//   std::cout << "word count: " <<wordCount;
+//   std::cout << std::endl;
 
   file.close();
   return wordCount;
