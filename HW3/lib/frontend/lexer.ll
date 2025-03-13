@@ -44,10 +44,7 @@ identifier      [a-z_A-Z][a-z_A-Z0-9]*
 <INITIAL>\r {  ++currentLine; currentColumn = 1; }
 <INITIAL>\n {  ++currentLine; currentColumn = 1; }
 <INITIAL>"public" { return Token::PUBLIC; }
-<INITIAL>"static" { return Token::STATIC; }
-<INITIAL>"void" { return Token::VOID; }
 <INITIAL>"int" { return Token::INT; }
-<INITIAL>"boolean" { return Token::BOOLEAN; }
 <INITIAL>"class" { return Token::CLASS; }
 <INITIAL>"extends" { return Token::EXTENDS; }
 <INITIAL>"main" { return Token::MAIN; }

@@ -80,9 +80,9 @@
 %type <varDeclList> VAR_DECL_LIST
 %type <varDecl> VAR_DECL
 %type <formalList> FORMAL_LIST FORMAL_REST
-%type <IntExp> CONST
-%type <intExpList> EXP_LIST EXP_REST CONST_LIST CONST_REST
-
+%type <intExp> CONST
+%type <expList> EXP_LIST EXP_REST
+%type <intExpList> CONST_LIST CONST_REST
 // 运算符优先级和结合性
 %left OR
 %left AND
@@ -121,16 +121,10 @@ MAINMETHOD: PUBLIC INT MAIN '(' ')' '{' VAR_DECL_LIST STM_LIST '}'
 
 STM_LIST: /* empty */
   {
-#ifdef DEBUG
-    cerr << "STM_LIST empty" << endl;
-#endif
     $$ = new vector<Stm*>();
   }
   | STM STM_LIST
   {
-#ifdef DEBUG
-    cerr << "STM STM_LIST" << endl;
-#endif
     vector<Stm*> *v = $2;
     v->push_back($1);
     rotate(v->begin(), v->end() - 1, v->end());
@@ -162,13 +156,9 @@ STM: '{' STM_LIST '}'
   {
     $$ = new Assign(p, $1, $3);
   }
-  | EXP '[' ']' '=' '{' EXP_LIST '}' ';'
-  {
-    $$ = new ArrayInit(p, $1, $6);
-  }
   | EXP '.' ID '(' EXP_LIST ')' ';'
   {
-    $$ = new Call(p, $1, $3, $5);
+    $$ = new CallStm(p, $1, $3, $5);
   }
   | CONTINUE ';'
   {
@@ -196,11 +186,11 @@ STM: '{' STM_LIST '}'
   }
   | STARTTIME '(' ')' ';'
   {
-    $$ = new StartTime(p);
+    $$ = new Starttime(p);
   }
   | STOPTIME '(' ')' ';'
   {
-    $$ = new StopTime(p);
+    $$ = new Stoptime(p);
   }
   | error ';'
   {
@@ -283,7 +273,7 @@ VAR_DECL: CLASS ID ID ';'
   {
     Pos *pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
     Pos *p1 = new Pos(@4.sline, @4.scolumn, @4.eline, @4.ecolumn);
-    $$ = new VarDecl(p, new Type(pos), $2, new IntExp(p1, $4));
+    $$ = new VarDecl(p, new Type(pos), $2, $4);
   }
   | INT '[' ']' ID ';'
   {
@@ -291,7 +281,7 @@ VAR_DECL: CLASS ID ID ';'
     IntExp* exp = new IntExp(p, 0);
     $$ = new VarDecl(p, new Type(pos, exp), $4);
   }
-  | INT '[' ']' ID '=' '{' EXP_LIST '}' ';'
+  | INT '[' ']' ID '=' '{' CONST_LIST '}' ';'
   {
     Pos *pos = new Pos(@4.sline, @4.scolumn, @4.eline, @4.ecolumn);
     IntExp* exp = new IntExp(p, 0);
@@ -302,7 +292,7 @@ VAR_DECL: CLASS ID ID ';'
     Pos *pos = new Pos(@5.sline, @5.scolumn, @5.eline, @5.ecolumn);
     IntExp* exp = new IntExp(pos, $3);
     $$ = new VarDecl(p, new Type(pos, exp), $5);  }
-  | INT '[' NONNEGATIVEINT ']' ID '=' '{' EXP_LIST '}' ';'
+  | INT '[' NONNEGATIVEINT ']' ID '=' '{' CONST_LIST '}' ';'
   {
     Pos *pos = new Pos(@5.sline, @5.scolumn, @5.eline, @5.ecolumn);
     IntExp* exp = new IntExp(pos, $3);
@@ -386,75 +376,79 @@ FORMAL_REST: /* empty */
   }
   ;
 
-EXP: '(' EXP ADD EXP ')'
+EXP: EXP ADD EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "+"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "+"), $3);
   }
-  | '(' EXP MINUS EXP ')'
+  | EXP MINUS EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "-"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "-"), $3);
   }
-  | '(' EXP TIMES EXP ')'
+  | EXP TIMES EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "*"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "*"), $3);
   }
-  | '(' EXP DIVIDE EXP ')'
+  | EXP DIVIDE EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "/"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "/"), $3);
   }
-  | '(' EXP AND EXP ')'
+  | EXP AND EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "&&"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "&&"), $3);
   }
-  | '(' EXP OR EXP ')'
+  | EXP OR EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "||"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "||"), $3);
   }
-  | '(' EXP LT EXP ')'
+  | EXP LT EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "<"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "<"), $3);
   }
-  | '(' EXP LE EXP ')'
+  | EXP LE EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "<="), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "<="), $3);
   }
-  | '(' EXP GT EXP ')'
+  | EXP GT EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, ">"), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, ">"), $3);
   }
-  | '(' EXP GE EXP ')'
+  | EXP GE EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, ">="), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, ">="), $3);
   }
-  | '(' EXP EQ EXP ')'
+  | EXP EQ EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "=="), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "=="), $3);
   }
-  | '(' EXP NE EXP ')'
+  | EXP NE EXP
   {
-    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
-    $$ = new BinaryOp(p, $2, new OpExp(p1, "!="), $4);
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new BinaryOp(p, $1, new OpExp(p1, "!="), $3);
   }
-  |  NOT EXP 
+  | NOT EXP
   {
     Pos *p1 = new Pos(@1.sline, @1.scolumn, @1.eline, @1.ecolumn);
     $$ = new UnaryOp(p, new OpExp(p1, "!"), $2);
   }
   | MINUS EXP %prec UMINUS
   {
-    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
-    $$ = new UnaryOp(p, new OpExp(p1, "-"), $3);
+    Pos *p1 = new Pos(@1.sline, @1.scolumn, @1.eline, @1.ecolumn);
+    $$ = new UnaryOp(p, new OpExp(p1, "-"), $2);
+  }
+  | '(' EXP ')'
+  {
+    $$ = $2;
   }
   | NONNEGATIVEINT
   {
@@ -546,7 +540,7 @@ CONST_LIST: /* empty */
   }
   | CONST CONST_REST
   {
-    vector<Exp*>* v = new vector<Exp*>();
+    vector<IntExp*>* v = new vector<IntExp*>();
     v->push_back($1);
     if ($2 != nullptr) {
       v->insert(v->end(), $2->begin(), $2->end());
@@ -571,7 +565,7 @@ CONST_REST: /* empty */
   }
   | ',' CONST CONST_REST
   {
-    vector<Exp*>* v = new vector<Exp*>();
+    vector<IntExp*>* v = new vector<IntExp*>();
     v->push_back($2);
     if ($3 != nullptr) {
       v->insert(v->end(), $3->begin(), $3->end());
@@ -586,6 +580,20 @@ ID: IDENTIFIER
   }
   ;
 
+TYPE: CLASS ID
+  {
+    $$ = new Type(p, $2);
+  }
+  | INT '[' ']'
+  {
+    IntExp* exp = new IntExp(p, 0);
+    $$ = new Type(p, exp);
+  }
+  | INT
+  {
+    $$ = new Type(p);
+  }
+  ;
 %%
 /*
 void yyerror(char *s) {
