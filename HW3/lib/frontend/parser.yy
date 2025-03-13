@@ -56,6 +56,10 @@
 
 //terminals with no value 
 %token PUBLIC INT MAIN RETURN 
+%token CLASS EXTENDS
+%token IF ELSE WHILE BREAK CONTINUE THIS NEW LENGTH
+%token TRUE FALSE PUTINT PUTCH PUTARRAY GETINT GETCH GETARRAY
+%token STARTTIME STOPTIME NOT
 //terminals with value
 %token<i> NONNEGATIVEINT
 %token<s> IDENTIFIER
@@ -65,43 +69,67 @@
 %type <program> PROG 
 %type <mainMethod> MAINMETHOD 
 %type <stm> STM
-%type <stmList> STMLIST
+%type <stmList> STM_LIST
 %type <exp> EXP
 %type <idExp> ID 
+%type <type> TYPE
+%type <classDeclList> CLASS_DECL_LIST
+%type <classDecl> CLASS_DECL
+%type <methodDeclList> METHOD_DECL_LIST
+%type <methodDecl> METHOD_DECL
+%type <varDeclList> VAR_DECL_LIST
+%type <varDecl> VAR_DECL
+%type <formalList> FORMAL_LIST FORMAL_REST
+%type <IntExp> CONST
+%type <intExpList> EXP_LIST EXP_REST CONST_LIST CONST_REST
+
+// 运算符优先级和结合性
+%left OR
+%left AND
+%left EQ NE
+%left LT LE GT GE
+%left ADD MINUS
+%left TIMES DIVIDE
+%right UMINUS NOT
+%left '.' '[' '('
+
+// if-else 优先级
+%nonassoc THEN
+%nonassoc ELSE
 
 %start PROG
 %expect 0
 
 %%
-PROG: MAINMETHOD 
+PROG: MAINMETHOD CLASS_DECL_LIST
   { 
 #ifdef DEBUG
     cerr << "Program" << endl;
 #endif
-    result->root = new Program(p, $1);
-    //$$ = result->root;
+    result->root = new Program(p, $1, $2);
+    $$ = result->root;
   }
   ;
-MAINMETHOD: PUBLIC INT MAIN '(' ')' '{' STMLIST '}'
+MAINMETHOD: PUBLIC INT MAIN '(' ')' '{' VAR_DECL_LIST STM_LIST '}'
   {
 #ifdef DEBUG
     cerr << "MainMethod" << endl;
 #endif
-    $$ = new MainMethod(p, nullptr, $7) ;
+    $$ = new MainMethod(p, $7, $8) ;
   }
   ;
-STMLIST: // empty
+
+STM_LIST: /* empty */
   {
 #ifdef DEBUG
-    cerr << "STMLIST empty" << endl;
+    cerr << "STM_LIST empty" << endl;
 #endif
     $$ = new vector<Stm*>();
   }
-  |
-  STM STMLIST
+  | STM STM_LIST
   {
 #ifdef DEBUG
-    cerr << "STM STMLIST" << endl;
+    cerr << "STM STM_LIST" << endl;
 #endif
     vector<Stm*> *v = $2;
     v->push_back($1);
@@ -109,104 +137,451 @@ STMLIST: // empty
     $$ = v;
   }
   ;
-STM: ID '=' EXP ';'
+
+STM: '{' STM_LIST '}'
   {
-#ifdef DEBUG
-    cerr << "Assign" << endl;
-#endif
+    $$ = new Nested(p, $2);
+  }
+  | IF '(' EXP ')' STM ELSE STM
+  {
+    $$ = new If(p, $3, $5, $7);
+  }
+  | IF '(' EXP ')' STM %prec THEN
+  {
+    $$ = new If(p, $3, $5, nullptr);
+  }
+  | WHILE '(' EXP ')' STM
+  {
+    $$ = new While(p, $3, $5);
+  }
+  | WHILE '(' EXP ')' ';'
+  {
+    $$ = new While(p, $3, nullptr);
+  }
+  | EXP '=' EXP ';'
+  {
     $$ = new Assign(p, $1, $3);
   }
-  |
-  RETURN EXP ';'
+  | EXP '[' ']' '=' '{' EXP_LIST '}' ';'
   {
-#ifdef DEBUG
-    cerr << "Return" << endl;
-#endif
+    $$ = new ArrayInit(p, $1, $6);
+  }
+  | EXP '.' ID '(' EXP_LIST ')' ';'
+  {
+    $$ = new Call(p, $1, $3, $5);
+  }
+  | CONTINUE ';'
+  {
+    $$ = new Continue(p);
+  }
+  | BREAK ';'
+  {
+    $$ = new Break(p);
+  }
+  | RETURN EXP ';'
+  {
     $$ = new Return(p, $2);
   }
+  | PUTINT '(' EXP ')' ';'
+  {
+    $$ = new PutInt(p, $3);
+  }
+  | PUTCH '(' EXP ')' ';'
+  {
+    $$ = new PutCh(p, $3);
+  }
+  | PUTARRAY '(' EXP ',' EXP ')' ';'
+  {
+    $$ = new PutArray(p, $3, $5);
+  }
+  | STARTTIME '(' ')' ';'
+  {
+    $$ = new StartTime(p);
+  }
+  | STOPTIME '(' ')' ';'
+  {
+    $$ = new StopTime(p);
+  }
+  | error ';'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }
   ;
-EXP: '(' EXP ADD EXP ')'
+  | error '}'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }
+  ;
+  
+CLASS_DECL_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | CLASS_DECL CLASS_DECL_LIST
+  {
+    if ($1 != nullptr) {
+      vector<ClassDecl*>* v = new vector<ClassDecl*>();
+      v->push_back($1);
+      if ($2 != nullptr) {
+        v->insert(v->end(), $2->begin(), $2->end());
+      }
+      $$ = v;
+    } else {
+      $$ = $2;
+    }
+  }
+  ;
+
+CLASS_DECL: PUBLIC CLASS ID '{' VAR_DECL_LIST METHOD_DECL_LIST '}'
+  {
+    $$ = new ClassDecl(p, $3, nullptr, $5, $6);
+  }
+  | PUBLIC CLASS ID EXTENDS ID '{' VAR_DECL_LIST METHOD_DECL_LIST '}'
+  {
+    $$ = new ClassDecl(p, $3, $5, $7, $8);
+  }
+  |
+  error '}'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }//error recovery
+  ;
+
+VAR_DECL_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | VAR_DECL VAR_DECL_LIST
+  {
+    if ($1 != nullptr) {
+      vector<VarDecl*>* v = new vector<VarDecl*>();
+      v->push_back($1);
+      if ($2 != nullptr) {
+        v->insert(v->end(), $2->begin(), $2->end());
+      }
+      $$ = v;
+    } else {
+      $$ = $2;
+    }
+  }
+  ;
+//TODO
+VAR_DECL: CLASS ID ID ';'
+  {
+    Pos *pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new VarDecl(p, new Type(pos, $2), $3);
+  }
+  | INT ID ';'
+  {
+    Pos *pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new VarDecl(p, new Type(pos), $2);
+  }
+  | INT ID '=' CONST ';'
+  {
+    Pos *pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    Pos *p1 = new Pos(@4.sline, @4.scolumn, @4.eline, @4.ecolumn);
+    $$ = new VarDecl(p, new Type(pos), $2, new IntExp(p1, $4));
+  }
+  | INT '[' ']' ID ';'
+  {
+    Pos *pos = new Pos(@4.sline, @4.scolumn, @4.eline, @4.ecolumn);
+    IntExp* exp = new IntExp(p, 0);
+    $$ = new VarDecl(p, new Type(pos, exp), $4);
+  }
+  | INT '[' ']' ID '=' '{' EXP_LIST '}' ';'
+  {
+    Pos *pos = new Pos(@4.sline, @4.scolumn, @4.eline, @4.ecolumn);
+    IntExp* exp = new IntExp(p, 0);
+    $$ = new VarDecl(p, new Type(pos, exp), $4, $7);
+  }
+  | INT '[' NONNEGATIVEINT ']' ID ';'
+  {
+    Pos *pos = new Pos(@5.sline, @5.scolumn, @5.eline, @5.ecolumn);
+    IntExp* exp = new IntExp(pos, $3);
+    $$ = new VarDecl(p, new Type(pos, exp), $5);  }
+  | INT '[' NONNEGATIVEINT ']' ID '=' '{' EXP_LIST '}' ';'
+  {
+    Pos *pos = new Pos(@5.sline, @5.scolumn, @5.eline, @5.ecolumn);
+    IntExp* exp = new IntExp(pos, $3);
+    $$ = new VarDecl(p, new Type(pos, exp), $5, $8);
+  }
+  | INT error ';'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }
+  | CLASS error ';'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }
+  ;
+
+METHOD_DECL_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | METHOD_DECL METHOD_DECL_LIST
+  {
+    if ($1 != nullptr) {
+      vector<MethodDecl*>* v = new vector<MethodDecl*>();
+      v->push_back($1);
+      if ($2 != nullptr) {
+        v->insert(v->end(), $2->begin(), $2->end());
+      }
+      $$ = v;
+    } else {
+      $$ = $2;
+    }
+  }
+  ;
+
+METHOD_DECL: PUBLIC TYPE ID '(' FORMAL_LIST ')' '{' VAR_DECL_LIST STM_LIST '}'
   {
 #ifdef DEBUG
-    cerr << "EXP ADD EXP" << endl;
+    cerr << "MethodDecl" << endl;
 #endif
+    $$ = new MethodDecl(p, $2, $3, $5, $8, $9);
+  }
+  | error '}'
+  {
+    yyerrok;
+    $$ = nullptr;
+  }
+  ;
+
+FORMAL_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | TYPE ID FORMAL_REST
+  {
+    vector<Formal*>* v = new vector<Formal*>();
+    Pos* pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    v->push_back(new Formal(pos, $1, $2));
+    if ($3 != nullptr) {
+      v->insert(v->end(), $3->begin(), $3->end());
+    }
+    $$ = v;
+  }
+  ;
+
+FORMAL_REST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  |
+  ',' TYPE ID FORMAL_REST
+  {
+    vector<Formal*>* v = new vector<Formal*>();
+    Pos* pos = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    v->push_back(new Formal(pos, $2, $3));
+    if ($4 != nullptr) {
+      v->insert(v->end(), $4->begin(), $4->end());
+    }
+    $$ = v;
+  }
+  ;
+
+EXP: '(' EXP ADD EXP ')'
+  {
     Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
     $$ = new BinaryOp(p, $2, new OpExp(p1, "+"), $4);
   }
-  |
-  '(' EXP MINUS EXP ')'
+  | '(' EXP MINUS EXP ')'
   {
-#ifdef DEBUG
-    cerr << "EXP MINUS EXP" << endl;
-#endif
     Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
     $$ = new BinaryOp(p, $2, new OpExp(p1, "-"), $4);
   }
-  |
-  '(' EXP TIMES EXP ')'
+  | '(' EXP TIMES EXP ')'
   {
-#ifdef DEBUG
-    cerr << "EXP TIMES EXP" << endl;
-#endif
     Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
     $$ = new BinaryOp(p, $2, new OpExp(p1, "*"), $4);
   }
-  |
-  '(' EXP DIVIDE EXP ')'
+  | '(' EXP DIVIDE EXP ')'
   {
-#ifdef DEBUG
-    cerr << "EXP DIVIDE EXP" << endl;
-#endif
     Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
     $$ = new BinaryOp(p, $2, new OpExp(p1, "/"), $4);
   }
-  |
-  NONNEGATIVEINT
+  | '(' EXP AND EXP ')'
   {
-#ifdef DEBUG
-    cerr << "NonNegativeInt: " << $1 << endl;
-#endif
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "&&"), $4);
+  }
+  | '(' EXP OR EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "||"), $4);
+  }
+  | '(' EXP LT EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "<"), $4);
+  }
+  | '(' EXP LE EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "<="), $4);
+  }
+  | '(' EXP GT EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, ">"), $4);
+  }
+  | '(' EXP GE EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, ">="), $4);
+  }
+  | '(' EXP EQ EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "=="), $4);
+  }
+  | '(' EXP NE EXP ')'
+  {
+    Pos *p1 = new Pos(@3.sline, @3.scolumn, @3.eline, @3.ecolumn);
+    $$ = new BinaryOp(p, $2, new OpExp(p1, "!="), $4);
+  }
+  |  NOT EXP 
+  {
+    Pos *p1 = new Pos(@1.sline, @1.scolumn, @1.eline, @1.ecolumn);
+    $$ = new UnaryOp(p, new OpExp(p1, "!"), $2);
+  }
+  | MINUS EXP %prec UMINUS
+  {
+    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
+    $$ = new UnaryOp(p, new OpExp(p1, "-"), $3);
+  }
+  | NONNEGATIVEINT
+  {
     $$ = new IntExp(p, $1);
   }
-  |
-  '(' MINUS EXP ')'
+  | TRUE
   {
-#ifdef DEBUG
-    cerr << "- EXP" << endl;
-#endif
-    Pos *p1 = new Pos(@2.sline, @2.scolumn, @2.eline, @2.ecolumn);
-    $$ =  new UnaryOp(p, new OpExp(p1, "-"), $3);
+    $$ = new BoolExp(p, true);
   }
-  |
-  '(' EXP ')'
+  | FALSE
   {
-#ifdef DEBUG
-    cerr << "( EXP )" << endl;
-#endif
-    $$ = $2;
+    $$ = new BoolExp(p, false);
   }
-  |
-  '(' '{' STMLIST '}' EXP ')'
+  | THIS
   {
-#ifdef DEBUG
-    cerr << "( { STMLIST } EXP )" << endl;
-#endif
-    $$ = new Esc(p, $3, $5);
+    $$ = new This(p);
   }
-  |
-  ID
+  | LENGTH '(' EXP ')'
   {
-#ifdef DEBUG
-    cerr << "ID" << endl;
-#endif
+    $$ = new Length(p, $3);
+  }
+  | GETINT '(' ')'
+  {
+    $$ = new GetInt(p);
+  }
+  | GETCH '(' ')'
+  {
+    $$ = new GetCh(p);
+  }
+  | GETARRAY '(' EXP ')'
+  {
+    $$ = new GetArray(p, $3);
+  }
+  | ID
+  {
     $$ = $1;
   }
+  | EXP '.' ID
+  {
+    $$ = new ClassVar(p, $1, $3);
+  }
+  | EXP '[' EXP ']'
+  {
+    $$ = new ArrayExp(p, $1, $3);
+  }
+  | EXP '.' ID '(' EXP_LIST ')'
+  {
+    $$ = new CallExp(p, $1, $3, $5);
+  }
+  | '(' '{' STM_LIST'}' EXP ')'
+  {
+    $$ = new Esc(p, $3, $5);
+  }
   ;
+
+EXP_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | EXP EXP_REST
+  {
+    vector<Exp*>* v = new vector<Exp*>();
+    v->push_back($1);
+    if ($2 != nullptr) {
+      v->insert(v->end(), $2->begin(), $2->end());
+    }
+    $$ = v;
+  }
+  ;
+
+EXP_REST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | ',' EXP EXP_REST
+  {
+    vector<Exp*>* v = new vector<Exp*>();
+    v->push_back($2);
+    if ($3 != nullptr) {
+      v->insert(v->end(), $3->begin(), $3->end());
+    }
+    $$ = v;
+  }
+  ;
+
+CONST_LIST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | CONST CONST_REST
+  {
+    vector<Exp*>* v = new vector<Exp*>();
+    v->push_back($1);
+    if ($2 != nullptr) {
+      v->insert(v->end(), $2->begin(), $2->end());
+    }
+    $$ = v;
+  }
+  ;
+
+CONST: NONNEGATIVEINT
+  {
+    $$ = new IntExp(p, $1);
+  }
+  | MINUS NONNEGATIVEINT
+  {
+    $$ = new IntExp(p, -$2);
+  }
+  ;
+
+CONST_REST: /* empty */
+  {
+    $$ = nullptr;
+  }
+  | ',' CONST CONST_REST
+  {
+    vector<Exp*>* v = new vector<Exp*>();
+    v->push_back($2);
+    if ($3 != nullptr) {
+      v->insert(v->end(), $3->begin(), $3->end());
+    }
+    $$ = v;
+  }
+  ;
+
 ID: IDENTIFIER
   {
-#ifdef DEBUG
-    cerr << "Identifier: " << $1 << endl;
-#endif
     $$ = new IdExp(p, $1);
   }
   ;
