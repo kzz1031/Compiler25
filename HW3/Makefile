@@ -28,7 +28,7 @@ handin:
 	fi; \
 	echo "请输入'学号-姓名' (例如: 12345678910-某个人)"; \
 	read filename; \
-	zip -q -r "docs/$$filename-hw1.zip" \
+	zip -q -r "docs/$$filename-hw3.zip" \
 	  docs/report.pdf include lib
 
 .PHONY: run run-one

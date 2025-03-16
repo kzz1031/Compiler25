@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDMJAST>
+    <NameMaps>
+        <Class name="__main__">
+            <Method name="main">
+                <Formal id="_^return^_main">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_main"/>
+                    </Formal>
+                </Formal>
+                <Var id="i">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="i"/>
+                        <IntInit val="0"/>
+                    </VarDecl>
+                </Var>
+                <Var id="n">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="n"/>
+                    </VarDecl>
+                </Var>
+                <Var id="o">
+                    <VarDecl>
+                        <Type typeKind="CLASS">
+                            <IdExp id="fib"/>
+                        </Type>
+                        <IdExp id="o"/>
+                    </VarDecl>
+                </Var>
+            </Method>
+        </Class>
+        <Class name="fib">
+            <Method name="f">
+                <Formal id="n">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="n"/>
+                    </Formal>
+                </Formal>
+                <Formal id="_^return^_f">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_f"/>
+                    </Formal>
+                </Formal>
+            </Method>
+        </Class>
+    </NameMaps>
+    <Program>
+        <MainMethod>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="n"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="i"/>
+                    <IntInit val="0"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="fib"/>
+                    </Type>
+                    <IdExp id="o"/>
+                </VarDecl>
+            </VarDeclList>
+            <StmList>
+                <Assign>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                    <Esc s_kind="Value" typeKind="INT" lvalue="false">
+                        <StmList>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="69"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="110"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="116"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="101"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="114"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="32"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="116"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="104"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="101"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="32"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="110"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="117"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="109"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="98"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="101"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="114"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="32"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="111"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="102"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="32"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="116"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="101"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="114"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="109"/>
+                            </PutCh>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="58"/>
+                            </PutCh>
+                        </StmList>
+                        <GetInt s_kind="Value" typeKind="INT" lvalue="false"/>
+                    </Esc>
+                </Assign>
+                <If>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                            <OpExp op="&lt;"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </BinaryOp>
+                        <OpExp op="||"/>
+                        <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                            <OpExp op="&gt;"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="47"/>
+                        </BinaryOp>
+                    </BinaryOp>
+                    <Return s_kind="Value" typeKind="INT" lvalue="false">
+                        <UnaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <OpExp op="-"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                        </UnaryOp>
+                    </Return>
+                </If>
+                <Return s_kind="Value" typeKind="INT" lvalue="false">
+                    <Esc s_kind="Value" typeKind="INT" lvalue="false">
+                        <StmList>
+                            <While>
+                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                    <OpExp op="&lt;"/>
+                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                </BinaryOp>
+                                <PutCh>
+                                    <Esc s_kind="Value" typeKind="INT" lvalue="false">
+                                        <StmList>
+                                            <PutInt>
+                                                <CallExp s_kind="Value" typeKind="INT" lvalue="false">
+                                                    <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" type_par="fib" id="o"/>
+                                                    <IdExp id="f" s_kind="MethodName"/>
+                                                    <ParList>
+                                                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                                    </ParList>
+                                                </CallExp>
+                                            </PutInt>
+                                        </StmList>
+                                        <Esc s_kind="Value" typeKind="INT" lvalue="false">
+                                            <StmList>
+                                                <Assign>
+                                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                                        <OpExp op="+"/>
+                                                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                                                    </BinaryOp>
+                                                </Assign>
+                                            </StmList>
+                                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="32"/>
+                                        </Esc>
+                                    </Esc>
+                                </PutCh>
+                            </While>
+                            <PutCh>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                            </PutCh>
+                        </StmList>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                    </Esc>
+                </Return>
+            </StmList>
+        </MainMethod>
+        <ClassDeclList>
+            <ClassDecl>
+                <IdExp id="fib"/>
+                <VarDeclList/>
+                <MethodDeclList>
+                    <MethodDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="f"/>
+                        <FormalList>
+                            <Formal>
+                                <Type typeKind="INT"/>
+                                <IdExp id="n"/>
+                            </Formal>
+                        </FormalList>
+                        <VarDeclList/>
+                        <StmList>
+                            <If>
+                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                        <OpExp op="=="/>
+                                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                                    </BinaryOp>
+                                    <OpExp op="||"/>
+                                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                        <OpExp op="=="/>
+                                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                                    </BinaryOp>
+                                </BinaryOp>
+                                <Return s_kind="Value" typeKind="INT" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                </Return>
+                                <Return s_kind="Value" typeKind="INT" lvalue="false">
+                                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                        <CallExp s_kind="Value" typeKind="INT" lvalue="false">
+                                            <This s_kind="Value" typeKind="CLASS" lvalue="false" type_par="fib"/>
+                                            <IdExp id="f" s_kind="MethodName"/>
+                                            <ParList>
+                                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                                    <OpExp op="-"/>
+                                                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                                                </BinaryOp>
+                                            </ParList>
+                                        </CallExp>
+                                        <OpExp op="+"/>
+                                        <CallExp s_kind="Value" typeKind="INT" lvalue="false">
+                                            <This s_kind="Value" typeKind="CLASS" lvalue="false" type_par="fib"/>
+                                            <IdExp id="f" s_kind="MethodName"/>
+                                            <ParList>
+                                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="n"/>
+                                                    <OpExp op="-"/>
+                                                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="2"/>
+                                                </BinaryOp>
+                                            </ParList>
+                                        </CallExp>
+                                    </BinaryOp>
+                                </Return>
+                            </If>
+                        </StmList>
+                    </MethodDecl>
+                </MethodDeclList>
+            </ClassDecl>
+        </ClassDeclList>
+    </Program>
+</FDMJAST>

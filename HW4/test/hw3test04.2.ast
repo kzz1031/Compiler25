@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDMJAST>
+    <NameMaps>
+        <Class name="__main__">
+            <Method name="main">
+                <Formal id="_^return^_main">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_main"/>
+                    </Formal>
+                </Formal>
+                <Var id="a">
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="0"/>
+                        </Type>
+                        <IdExp id="a"/>
+                        <IntInitList>
+                            <IntExp val="1"/>
+                            <IntExp val="2"/>
+                            <IntExp val="3"/>
+                            <IntExp val="4"/>
+                            <IntExp val="5"/>
+                            <IntExp val="6"/>
+                            <IntExp val="7"/>
+                            <IntExp val="8"/>
+                            <IntExp val="9"/>
+                            <IntExp val="10"/>
+                        </IntInitList>
+                    </VarDecl>
+                </Var>
+                <Var id="aa">
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="0"/>
+                        </Type>
+                        <IdExp id="aa"/>
+                        <IntInitList>
+                            <IntExp val="3"/>
+                            <IntExp val="4"/>
+                            <IntExp val="5"/>
+                        </IntInitList>
+                    </VarDecl>
+                </Var>
+            </Method>
+        </Class>
+    </NameMaps>
+    <Program>
+        <MainMethod>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="a"/>
+                    <IntInitList>
+                        <IntExp val="1"/>
+                        <IntExp val="2"/>
+                        <IntExp val="3"/>
+                        <IntExp val="4"/>
+                        <IntExp val="5"/>
+                        <IntExp val="6"/>
+                        <IntExp val="7"/>
+                        <IntExp val="8"/>
+                        <IntExp val="9"/>
+                        <IntExp val="10"/>
+                    </IntInitList>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="aa"/>
+                    <IntInitList>
+                        <IntExp val="3"/>
+                        <IntExp val="4"/>
+                        <IntExp val="5"/>
+                    </IntInitList>
+                </VarDecl>
+            </VarDeclList>
+            <StmList>
+                <If>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                            <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="0" id="a"/>
+                            <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                                <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="0" id="aa"/>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                            </ArrayExp>
+                        </ArrayExp>
+                        <OpExp op="&lt;"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                    </BinaryOp>
+                    <Assign>
+                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="0" id="aa"/>
+                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="0" id="a"/>
+                    </Assign>
+                </If>
+                <Return s_kind="Value" typeKind="INT" lvalue="false">
+                    <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="0" id="aa"/>
+                        <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="9"/>
+                            <OpExp op="&gt;"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                        </BinaryOp>
+                    </ArrayExp>
+                </Return>
+            </StmList>
+        </MainMethod>
+        <ClassDeclList/>
+    </Program>
+</FDMJAST>
