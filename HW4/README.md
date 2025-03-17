@@ -1,0 +1,1 @@
+You are to add "ast2tree.hh" and "ast2tree.cc" to include/ir and lib/ir. These are to convert AST (read with xml2ast) to TREE. Note that the input AST file (under the test) has all the semantic information needed.
