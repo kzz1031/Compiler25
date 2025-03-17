@@ -29,6 +29,8 @@
       - 子类继承父类的变量，但不能重复声明同名变量
       - 子类继承父类的方法，可以重写方法的实现，但方法的签名(返回值和参数列表)不能改变。例如父类是`int f(int a, int[] b)`，子类只能是`int f(int, int[])`的签名，参数名可以不一样但函数名、类型、参数类型顺序必须一样。
       - 只能单继承，不允许多继承，不允许成环
+        - FDMJ语法中，只有1个extend，自然只有单继承、不允许多继承
+        - 限制若`a extends b`，b必须事先声明，因此保证了继承关系的方向性（父类先于子类存在），而且单继承形成的是树结构，没有回溯的可能性，因此不会存在循环继承的问题 
 
 ## Value Type (4)
 
@@ -126,7 +128,7 @@ Prog -> MainMethod ClassDeclList
         ExpRest -> ε | ',' Exp ExpRest
   ClassDeclList -> ε | ClassDecl ClassDeclList
     ClassDecl -> public class id '{' VarDeclList MethodDeclList '}' 
-               | public class id extends id '{' VarDeclList MethodDeclList '}' // 检查继承关系
+               | public class id extends id '{' VarDeclList MethodDeclList '}'
       MethodDeclList -> ε | MethodDecl MethodDeclList
       MethodDecl -> public Type id '(' FormalList ')' '{' VarDeclList StmList '}'
         Type -> class id | int | int '[' ']'
@@ -136,19 +138,16 @@ Prog -> MainMethod ClassDeclList
 
 # Checking
 
-需要多次遍历AST。以下是遍历3遍的示例：
+需要多次遍历AST。以下是遍历2遍的示例：
 
-1. 预处理阶段：检查并记录
-   1. **遍历**类：
-      - 记录extend关系
-      - 检查类变量与方法是否重定义
-      - 记录类变量与方法
-   2. **遍历**类：查看是否有父类，如果有，先递归做父类，然后将父类变量与方法复制到子类
-      - 能够检查extend关系是否有循环
-      - 如果变量与父类中的同名，报错重定义
-      - 如果方法与父类中的同名，检查签名是否相同(返回值和参数列表类型)，若不同则报错
-2. 类型检查阶段：按照规则检查类、类中的变量和方法、主方法
-   1. **遍历**AST
+1. 预处理阶段：
+   - 记录类及其extend关系
+   - 记录类内变量与方法
+   - 检查类内变量与方法是否重定义
+2. 类型检查阶段：
+   - 检查类内变量，如果与父类中的同名，报错重定义
+   - 检查类内方法，如果与父类中的同名，检查签名是否相同(返回值和参数列表类型)，若不同则报错
+   - 检查方法内部，按照规则
 
 
 
