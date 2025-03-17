@@ -273,10 +273,10 @@ class Const : public Exp {
 
 class Call : public Exp {
   public:
-    string *id;
+    string id;
     Exp *obj;
     std::vector<tree::Exp*> *args;
-    Call(Type t, string *id, Exp *obj, std::vector<tree::Exp*> *args) : 
+    Call(Type t, string id, Exp *obj, std::vector<tree::Exp*> *args) : 
       Exp(t), id(id), obj(obj), args(args) {}
     Kind getTreeKind() { return Kind::CALL; }
     void accept(Visitor &v) { v.visit(this); }
@@ -284,9 +284,9 @@ class Call : public Exp {
 
 class ExtCall : public Exp {
   public:
-    string *extfun;
+    string extfun;
     std::vector<tree::Exp*> *args;
-    ExtCall(Type t, string *extfun, std::vector<tree::Exp*> *args) : 
+    ExtCall(Type t, string extfun, std::vector<tree::Exp*> *args) : 
       Exp(t), extfun(extfun), args(args) {}
     Kind getTreeKind() { return Kind::EXTCALL; }
     void accept(Visitor &v) { v.visit(this); }
