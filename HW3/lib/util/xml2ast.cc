@@ -1132,7 +1132,7 @@ GetArray* create_getArray(XMLElement* element) {
     while (ce) {
         Exp *e = create_exp(ce);
         if (e != nullptr) {
-            if (exp != nullptr) exp = e;
+            if (exp == nullptr) exp = e;
             else cerr << "Error: GetArray: More than one expression in GetArray" << endl;
         } else {
             cerr << "Error: GetArray: Unknown element in GetArray" << endl;
