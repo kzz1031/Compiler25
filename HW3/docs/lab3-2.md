@@ -109,7 +109,7 @@ Prog -> MainMethod ClassDeclList
            | Exp '=' Exp ';' // 检查类型是否兼容，允许upcast，允许int和bool之间的隐式转换
            | Exp '.' id '(' ExpList ')' ';' // 检查Exp为class，Exp有id方法，ExpList匹配方法参数
            | continue ';' | break ';' // 检查在while里
-           | return Exp ';' // 检查Exp为int
+           | return Exp ';' // 检查Exp为函数返回值
            | putint '(' Exp ')' ';' | putch '(' Exp ')' ';' // 检查Exp为int
            | putarray '(' Exp ',' Exp ')' ';' // 检查第一个Exp为int，第二个Exp为array
            | starttime '(' ')' ';' | stoptime '(' ')' ';'
