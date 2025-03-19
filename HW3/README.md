@@ -32,3 +32,8 @@ Some more notes below:
    2. `Program* fdmjParser(ifstream &, const bool);`
    3. `Name_Maps* makeNameMaps(Program* );`
    4. `AST_Semant_Map* semant_analyze(Program* );`
+      - 注意到，`makeNameMaps`会在 `semant_analyze`中被调用
+3. 接口说明如下
+   - 如果fmj语法错误，则 `fdmjParser`会报错（输出错误位置和错误原因），然后程序直接退出
+   - 如果fmj语法正确，但类型检查错误，则 `makeNameMaps`或 `semant_analyze`会报错（输出错误位置和错误原因），然后程序直接退出
+   - 如果fmj语法正确，且类型检查正确，则程序正常运行完成
