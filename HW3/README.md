@@ -26,8 +26,10 @@ Some more notes below:
 
 补充说明：
 
-1. 本作业就是在HW1的FDMJ-SLP parser改为FDMJ parser，因此基本代码结构不变。只需要需修改lexer.ll及parser.yy，以及相关的header文件（比如ASTLexer.hh）。FDMJAST的定义以及相关XML的代码已给定。
-2. 自行修改 `tools/main/main.cc`进行测试。最后测评时我们将使用统一的main。需要暴露的接口如下；
+1. 本作业分为语法解析和类型检查两部分。
+   1. 语法解析部分位于`frontend`文件夹。总体是将HW1的FDMJ-SLP parser改为FDMJ parser。基本代码结构不变，只需要需修改lexer.ll及parser.yy，以及相关的header文件（比如ASTLexer.hh）。FDMJAST的定义以及相关XML的代码已给定。
+   2. 类型检查部分位于`ast`文件夹。`Name_Maps`数据结构不变，需要实现的是`makeNameMaps`和`semant_analyze`的相关逻辑。
+2. 自行修改 `tools/main/main.cc`进行测试，最后测评时我们将使用统一的main。需要暴露的接口如下；
    1. `Program* fdmjParser(const string &, const bool);`
    2. `Program* fdmjParser(ifstream &, const bool);`
    3. `Name_Maps* makeNameMaps(Program* );`
