@@ -97,7 +97,7 @@ Prog -> MainMethod ClassDeclList
     VarDeclList -> ε | VarDecl VarDeclList
       VarDecl -> class id id ';' // id <=> [a-z_A-Z][a-z_A-Z0-9]*
                | int id ';' | int id '=' Const ';' 
-               | int '[' ']' id ';' | int '[' ']' id '=' '{' ConstList '}' ';'
+               | int '[' ']' id ';' | int '[' ']' id '=' '{' ConstList '}' ';' // 数组长度只由[]内的数字决定，若为空则是0
                | int '[' NUM ']' id ';' | int '[' NUM ']' id '=' '{' ConstList '}' ';' // NUM <=> [1-9][0-9]*|0
         Const -> NUM | '-' NUM
         ConstList -> ε | Const ConstRest
@@ -119,7 +119,7 @@ Prog -> MainMethod ClassDeclList
            | getarray '(' Exp ')' // 返回int，检查Exp是array
            | id // 返回变量类型
            | this // 返回class
-           | Exp op Exp | '!' Exp | '-' Exp // 检查Exp是int或array，若为array检查是否长度相同，返回Exp类型
+           | Exp op Exp | '!' Exp | '-' Exp // 检查Exp是int或array，返回Exp类型。不用检查两个数组的长度是否相同，因为有些数组长度是runtime才能确定的（比如getarray()）
            | '(' Exp ')' | '(' '{' StmList '}' Exp ')' // 返回Exp类型
            | Exp '.' id // 检查Exp为class，检查Exp是否有id，返回id类型
            | Exp '.' id '(' ExpList ')' // 检查Exp为class，检查Exp是否有id，检查ExpList是否匹配参数列表，返回方法类型
