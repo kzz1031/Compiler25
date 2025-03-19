@@ -177,11 +177,11 @@
                     </FormalList>
                     <VarDeclList/>
                     <StmList>
-                        <Return>
-                            <BinaryOp>
-                                <ClassVar>
+                        <Return s_kind="Value" typeKind="Int" lvalue="false">
+                            <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                <ClassVar s_kind="Value" typeKind="Int" lvalue="true">
                                     <This s_kind="Value" typeKind="Class" lvalue="false" cid="c2"/>
-                                    <IdExp id="i1"/>
+                                    <IdExp id="i1" s_kind="Value" typeKind="Int" lvalue="true"/>
                                 </ClassVar>
                                 <OpExp op="+"/>
                                 <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="x"/>
