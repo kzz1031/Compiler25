@@ -26,48 +26,16 @@ Some more notes below:
 
 补充说明：
 
-1. 本作业就是在HW1的FDMJ-SLP parser改为FDMJ parser，因此基本代码结构不变。只需要需修改lexer.ll及parser.yy，以及相关的header文件（比如ASTLexer.hh）。FDMJAST的定义以及相关XML的代码已给定。
-2. 自行修改 `tools/main/main.cc`进行测试。最后测评时我们将使用统一的main。需要暴露的接口如下；
+1. 本作业分为语法解析和类型检查两部分。
+   1. 语法解析部分位于`frontend`文件夹。总体是将HW1的FDMJ-SLP parser改为FDMJ parser。基本代码结构不变，只需要需修改lexer.ll及parser.yy，以及相关的header文件（比如ASTLexer.hh）。FDMJAST的定义以及相关XML的代码已给定。
+   2. 类型检查部分位于`ast`文件夹。`Name_Maps`数据结构不变，需要实现的是`makeNameMaps`和`semant_analyze`的相关逻辑。
+2. 自行修改 `tools/main/main.cc`进行测试，最后测评时我们将使用统一的main。需要暴露的接口如下；
    1. `Program* fdmjParser(const string &, const bool);`
    2. `Program* fdmjParser(ifstream &, const bool);`
    3. `Name_Maps* makeNameMaps(Program* );`
    4. `AST_Semant_Map* semant_analyze(Program* );`
-
-# 语义分析检查项目
-
-语义分析器进行以下类型检查:
-
-1. 赋值语句检查:
-   - 左侧必须是左值
-   - 左右类型必须兼容(考虑继承关系)
-
-2. 方法调用检查:
-   - 调用对象必须是类类型
-   - 方法必须存在于该类或其父类中
-   - 参数数量必须匹配 
-   - 参数类型必须兼容
-
-3. 数组操作检查:
-   - 数组访问的对象必须是数组类型
-   - 索引必须是整数类型
-   - 数组长度操作必须作用于数组
-
-4. 控制流检查:
-   - continue/break必须在循环内
-   - if/while条件必须是布尔类型
-   - return类型必须与方法声明匹配
-
-5. 操作符类型检查:
-   - 算术操作符(+,-,*,/)作用于整数
-   - 比较操作符(<,<=,>,>=)作用于整数
-   - 相等操作符(==,!=)检查类型兼容性
-   - 逻辑操作符(&&,||,!)作用于布尔值
-
-6. 变量引用检查:
-   - 变量必须先声明后使用
-   - 类成员访问检查类型正确性
-   - this关键字只能在方法内使用
-
-7. 继承相关检查:
-   - 检查类继承层次无循环
-   - 方法重写时参数和返回类型需兼容
+      - 注意到，`makeNameMaps`会在 `semant_analyze`中被调用
+3. 接口说明如下
+   - 如果fmj语法错误，则 `fdmjParser`会报错（输出错误位置和错误原因），然后程序直接退出
+   - 如果fmj语法正确，但类型检查错误，则 `makeNameMaps`或 `semant_analyze`会报错（输出错误位置和错误原因），然后程序直接退出
+   - 如果fmj语法正确，且类型检查正确，则程序正常运行完成

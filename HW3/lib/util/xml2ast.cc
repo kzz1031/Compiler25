@@ -991,6 +991,23 @@ ClassVar* create_classVar(XMLElement* element) {
         return nullptr;
     }
     XMLElement *ce = element->FirstChildElement();
+    //updated to take care of two IdExp case (March 17, 2025)
+    while (ce) {
+        Exp *e = create_exp(ce);
+        if (exp == nullptr) { //the first must be object expression
+            exp = e;
+            ce = ce->NextSiblingElement();
+            continue;
+        } else {
+            if (e->getASTKind() != ASTKind::IdExp) {
+                cerr << "Error: ClassVar: second element is not an IdExpe" << endl;
+                return nullptr;
+            }
+            id = static_cast<IdExp*>(e);
+        }
+        ce = ce->NextSiblingElement();
+    }
+    /* updated to take care of two IdExp case (March 17, 2025)
     while (ce) {
         if (string(ce->Name()) == "IdExp" ) {
             id = create_leafnode<IdExp>(ce, "IdExp", "id", ATTR_TYPE::ID); 
@@ -1001,6 +1018,7 @@ ClassVar* create_classVar(XMLElement* element) {
         }
         ce = ce->NextSiblingElement();
     }
+    */
     return new ClassVar(get_position(element), exp, id);
 }
 
@@ -1114,7 +1132,7 @@ GetArray* create_getArray(XMLElement* element) {
     while (ce) {
         Exp *e = create_exp(ce);
         if (e != nullptr) {
-            if (exp != nullptr) exp = e;
+            if (exp == nullptr) exp = e;
             else cerr << "Error: GetArray: More than one expression in GetArray" << endl;
         } else {
             cerr << "Error: GetArray: Unknown element in GetArray" << endl;
