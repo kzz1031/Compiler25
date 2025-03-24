@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Starttime/>
+            <While>
+                <UnaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                    <OpExp op="!"/>
+                    <Esc s_kind="Value" typeKind="Int" lvalue="false">
+                        <StmList>
+                            <Assign>
+                                <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                    <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                </ArrayExp>
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                            </Assign>
+                            <Assign>
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                    <OpExp op="+"/>
+                                    <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                </BinaryOp>
+                            </Assign>
+                        </StmList>
+                        <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
+                    </Esc>
+                </UnaryOp>
+                <If>
+                    <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                        <OpExp op="&gt;="/>
+                        <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="8"/>
+                    </BinaryOp>
+                    <Break/>
+                </If>
+            </While>
+            <PutArray>
+                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="8"/>
+                <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+            </PutArray>
+            <While>
+                <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                    <BoolExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                    <OpExp op="=="/>
+                    <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <Assign>
+                            <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
+                            </ArrayExp>
+                            <GetInt s_kind="Value" typeKind="Int" lvalue="false"/>
+                        </Assign>
+                        <If>
+                            <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                            <Break/>
+                        </If>
+                        <If>
+                            <UnaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                <OpExp op="!"/>
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                            </UnaryOp>
+                            <Break/>
+                        </If>
+                    </StmList>
+                </Nested>
+            </While>
+            <Continue/>
+            <Stoptime/>
+            <Return s_kind="Value" typeKind="Int" lvalue="false">
+                <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                    <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1000"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

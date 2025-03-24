@@ -37,6 +37,9 @@ XMLDocument* ast2xml(Program *node, AST_Semant_Map *semant_map, bool location_fl
 }
 
 static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
+  #ifdef DEBUG
+  cout<<"start set position and semant"<<endl;
+  #endif
   if (_location_flag && pos != nullptr) {
     if (pos->sline != 0 && pos->scolumn != 0 && pos->eline != 0 && pos->ecolumn != 0) {
       el->SetAttribute("bline", to_string(pos->sline).c_str());
@@ -52,12 +55,18 @@ static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
   }
   AST_Semant::Kind kd = semant->get_kind();
   TypeKind tk = semant->get_type();
+  #ifdef DEBUG
+  cout<< "TypeKind: "<< static_cast<int>(tk) <<endl;
+  #endif
   el->SetAttribute("s_kind", AST_Semant::s_kind_string(kd).c_str());
   if (kd == AST_Semant::Kind::Value) {
       el->SetAttribute("typeKind", fdmj::type_kind_string(tk).c_str());
       el->SetAttribute("lvalue", semant->is_lvalue() ? "true" : "false");
       switch (tk) {
         case TypeKind::CLASS:
+          #ifdef DEBUG
+          cout<<"TypeKind: CLASS"<<endl;
+          #endif
           el->SetAttribute("cid", get<string>(semant->get_type_par()).c_str());
           break;
         case TypeKind::INT:
@@ -74,6 +83,9 @@ static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
       cerr << "Error: at position " << p.print() << endl;
       cerr << "Error: Unknown semantic kind" << endl;
   }
+  #ifdef DEBUG
+  cout<<"end set position and semant"<<endl;
+  #endif
 }
 
 template<class T>
@@ -210,7 +222,7 @@ cout<<"Type" <<endl;
 void AST2XML::visit(VarDecl *node) {
   if (!node) return;
 #ifdef DEBUG
-cout<<"VarDecl"<<endl;
+cout<<"VarDecl"<< " node id: "<< node->id->id <<endl;
 #endif
   XMLElement *cn = doc->NewElement("VarDecl");
   set_position_and_semant(cn, node->getPos(), node);
@@ -231,6 +243,9 @@ cout<<"VarDecl"<<endl;
   set_position_and_semant(cn1, node->id->getPos(), node->id);
   cn->InsertEndChild(cn1);
   //insert the init
+  #ifdef DEBUG
+  cout<<"VarDecl init"<<endl;
+  #endif
   if (holds_alternative<IntExp*>(node->init) == true) {
     XMLElement *cn2 = doc->NewElement("IntInit");
     cn2->SetAttribute("val", to_string(get<IntExp*>(node->init)->val).c_str());
@@ -249,6 +264,9 @@ cout<<"VarDecl"<<endl;
       cn->InsertEndChild(cn3);
     }
   }
+  #ifdef DEBUG
+  cout<<"VarDecl done"<<endl;
+  #endif
   el = cn;
 }
 
@@ -764,7 +782,7 @@ cout<<"Esc"<<endl;
 void AST2XML::visit(IdExp *node) {
   if (!node) return;
 #ifdef DEBUG
-cout<<"IdExp"<<endl;
+cout<<"IdExp: "<< node->id <<endl;
 #endif
   XMLElement *cn = doc->NewElement("IdExp");
   set_position_and_semant(cn, node->getPos(), node);

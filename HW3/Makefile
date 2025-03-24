@@ -43,7 +43,7 @@ run: $(MAIN_EXE)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE = bubblesort
+FILE = example
 
 run-one: $(MAIN_EXE)
 	cd $(TEST_DIR) && \

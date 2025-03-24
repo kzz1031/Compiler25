@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList/>
+        <StmList/>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C2"/>
+            <ExtendsId eid="C1"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="C3"/>
+            <ExtendsId eid="C2"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="C1"/>
+            <ExtendsId eid="C0"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="C0"/>
+            <ExtendsId eid="C3"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

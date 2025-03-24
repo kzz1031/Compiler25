@@ -1,5 +1,5 @@
 #define DEBUG
-#undef DEBUG
+// #undef DEBUG
 
 #include <iostream>
 #include <map>
@@ -10,6 +10,13 @@
 
 using namespace std;
 using namespace fdmj;
+
+
+#ifdef DEBUG
+#define DEBUG_PRINT(msg) std::cerr << msg << std::endl
+#else
+#define DEBUG_PRINT(msg)
+#endif
 
 Name_Maps* makeNameMaps(Program* node) {
     //std::cout << "TODO" << std::endl;
@@ -177,6 +184,10 @@ vector<Formal*>* Name_Maps::get_method_formal_list(string class_name, string met
         }
     }
     return fl;
+}
+
+set<string> Name_Maps::get_all_classes() {
+    return classes;
 }
 
 void Name_Maps::print() {

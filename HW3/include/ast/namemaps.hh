@@ -41,11 +41,10 @@ public:
     bool add_method_formal_list(string class_name, string method_name, vector<string> vl);
     vector<Formal*>* get_method_formal_list(string class_name, string method_name);
 
-    Type* get_method_return_type(string class_name, string method_name) {
-        return get_method_var(class_name, method_name, "return") ? 
-               get_method_var(class_name, method_name, "return")->type : nullptr;
+    Formal* get_method_return_type(string class_name, string method_name) {
+        return get_method_formal(class_name, method_name, "^_method_return");
     }
-
+    set<string> get_all_classes();
     void print();
     
 };

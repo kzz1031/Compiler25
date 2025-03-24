@@ -116,15 +116,17 @@ void AST_Name_Map_Visitor::visit(MethodDecl* node) {
         new Type(node->getPos(), node->type->typeKind, node->type->cid, node->type->arity),
         new IdExp(node->getPos(), "^_method_return")
     );
-    
-    vector<string> formal_names = {"^_method_return"};
+
+    vector<string> formal_names;
     if (node->fl != nullptr) {
         for (auto f : *(node->fl)) {
             formal_names.push_back(f->id->id);
+            DEBUG_PRINT("Adding formal parameter: " << current_class << "->" << current_method << "->" << f->id->id<< "type: " << static_cast<int>(f->type->typeKind));
             f->accept(*this);
             name_maps->add_method_formal(current_class, current_method, f->id->id, f);
         }
     }
+    formal_names.push_back("^_method_return");
     name_maps->add_method_formal(current_class, current_method, "^_method_return", return_formal);
     name_maps->add_method_formal_list(current_class, current_method, formal_names);
     
@@ -146,15 +148,23 @@ void AST_Name_Map_Visitor::visit(MethodDecl* node) {
 void AST_Name_Map_Visitor::visit(VarDecl* node) {
     if (node == nullptr) return;
     
-    // Handle variable declarations based on context
     if (current_method.empty()) {
-        // Class variable
-        DEBUG_PRINT("Adding class variable: "
-                    << current_class << "->" << node->id->id);
+    
+        DEBUG_PRINT("Checking class variable: " << current_class << "->" << node->id->id);
+        if (name_maps->is_class_var(current_class, node->id->id)) {
+            cerr << "Error: Variable " << node->id->id << " already declared in class " << current_class << endl;
+            exit(EXIT_FAILURE);
+        }
         name_maps->add_class_var(current_class, node->id->id, node);
     } else {
-        // Method variable
-        DEBUG_PRINT("Adding method variable: " << current_class << "->" << current_method << "->" << node->id->id);
+
+        DEBUG_PRINT("Checking method variable: " << current_class << "->" << current_method << "->" << node->id->id);
+        if (name_maps->is_method_var(current_class, current_method, node->id->id) ||
+            name_maps->is_method_formal(current_class, current_method, node->id->id)) {
+            cerr << "Error: Variable " << node->id->id << " already declared in method " 
+                 << current_class << "->" << current_method << endl;
+            exit(EXIT_FAILURE);
+        }
         name_maps->add_method_var(current_class, current_method, node->id->id, node);
     }
 }

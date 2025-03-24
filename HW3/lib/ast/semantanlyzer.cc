@@ -72,7 +72,7 @@ AST_Semant_Map* semant_analyze(Program* node) {
     Name_Maps* name_maps = makeNameMaps(node);
     AST_Semant_Visitor semant_visitor(name_maps);
     semant_visitor.visit(node);
-    std::cerr << "Semantic Analysis Done" << std::endl;
+    std::cerr << "Semantic Analysis Done" << std::endl << std::endl;
     return semant_visitor.getSemantMap();
 }
 
@@ -97,19 +97,18 @@ void AST_Semant_Visitor::visit(Program* node) {
 void AST_Semant_Visitor::visit(MainMethod* node) {
     DEBUG_PRINT("\n=== Visiting MainMethod ===");
     if (node == nullptr) return;
-    
-    // 将 main 方法视为特殊类 "^_main" 的一个方法
+    std::cout << "Visiting MainMethod" << std::endl;
     current_class = "^_main";
     current_method = "main";
     current_return_type = TypeKind::INT;
     
-        if (node->vdl != nullptr) {
+    if (node->vdl != nullptr) {
         for (auto vd : *(node->vdl)) {
             vd->accept(*this);
         }
     }
     
-        if (node->sl != nullptr) {
+    if (node->sl != nullptr) {
         for (auto s : *(node->sl)) {
             s->accept(*this);
         }
@@ -226,15 +225,27 @@ void AST_Semant_Visitor::visit(While* node) {
 
 void AST_Semant_Visitor::visit(CallStm* node) {
     DEBUG_PRINT("\n=== Visiting CallStm ===");
+    DEBUG_PRINT("name: " << node->name->id);
     if (node == nullptr) return;
     
-    // Visit object
+    // Visit object and name
     if (node->obj == nullptr) {
         cerr << "Error: Null object in method call" << endl;
         return;
     }
     
     node->obj->accept(*this);
+    node->name->accept(*this);
+
+    // Visit all parameters before type checking
+    if (node->par != nullptr) {
+    for (auto param : *(node->par)) {
+            if (param != nullptr) {
+                param->accept(*this);
+            }
+        }
+    }
+
     auto obj_sem = semant_map->getSemant(node->obj);
     
     if (obj_sem == nullptr) {
@@ -258,14 +269,14 @@ void AST_Semant_Visitor::visit(CallStm* node) {
         if (!name_maps->is_method(class_name, node->name->id)) {
             cerr << "Error at " << node->getPos()->print() << ": Method " << node->name->id 
                  << " not found in class " << class_name << endl;
-            return;
+            exit(EXIT_FAILURE);
         }
         
         // Check parameters
         auto formal_list = name_maps->get_method_formal_list(class_name, node->name->id);
         if (formal_list == nullptr) {
             cerr << "Error: Could not get formal parameter list for method " << node->name->id << endl;
-            return;
+            exit(EXIT_FAILURE);
         }
         
         size_t param_count = (node->par != nullptr) ? node->par->size() : 0;
@@ -273,7 +284,7 @@ void AST_Semant_Visitor::visit(CallStm* node) {
             cerr << "Error at " << node->getPos()->print() 
                  << ": Wrong number of parameters. Expected " << formal_list->size() 
                  << ", got " << param_count << endl;
-            return;
+            exit(EXIT_FAILURE);
         }
         
         if (node->par != nullptr) {
@@ -323,26 +334,23 @@ void AST_Semant_Visitor::visit(Return* node) {
             cerr << "Error: Could not get semantic info for return expression" << endl;
             return;
         }
-        
-        // 获取返回值形参的类型信息
-        auto return_formal = name_maps->get_method_formal(current_class, current_method, "^_method_return");
-        if (return_formal != nullptr) {
-            if (!check_compatible_types(return_formal->type->typeKind,
-                                     return_formal->type->cid ? variant<monostate,string,int>(return_formal->type->cid->id) : monostate(),
-                                     exp_sem->get_type(),
-                                     exp_sem->get_type_par(),
-                                     name_maps)) {
-                cerr << "Error at " << node->getPos()->print() << ": Return type mismatch" << endl;
-            }
+        if (!check_compatible_types(current_return_type, monostate(),
+                                  exp_sem->get_type(), exp_sem->get_type_par(),
+                                  name_maps)) {
+            cerr << "Error at " << node->getPos()->print() << ": Return type mismatch" << endl;
         }
-        
-        semant_map->setSemant(node, exp_sem);
+
+        semant_map->setSemant(node, new AST_Semant(
+            AST_Semant::Kind::Value,
+            current_return_type,
+            monostate(),
+            false  // Return value is not an lvalue
+        ));
     } else {
         if (current_return_type != TypeKind::INT) {
             cerr << "Error at " << node->getPos()->print() << ": Missing return value for non-void method" << endl;
         }
     }
-    DEBUG_PRINT("Return statement semantic check passed");
 }
 
 void AST_Semant_Visitor::visit(Continue* node) {
@@ -394,30 +402,47 @@ void AST_Semant_Visitor::visit(Type* node) {
 void AST_Semant_Visitor::visit(VarDecl* node) {
     DEBUG_PRINT("\n=== Visiting VarDecl ===");
     if (node == nullptr) return;
-    //std::cout << "Visiting VarDecl" << std::endl;
-    // Process type
+    
     if (node->type != nullptr) {
         node->type->accept(*this);
         DEBUG_PRINT("Variable type: " << static_cast<int>(node->type->typeKind));
     }
     
     // Process initialization if present
-    if (!holds_alternative<monostate>(node->init)) {
-        if (holds_alternative<IntExp*>(node->init)) {
-            get<IntExp*>(node->init)->accept(*this);
-        } else if (holds_alternative<vector<IntExp*>*>(node->init)) {
-            for (auto exp : *get<vector<IntExp*>*>(node->init)) {
-                if (exp != nullptr) exp->accept(*this);
-            }
+    // if (!holds_alternative<monostate>(node->init)) {
+    //     if (holds_alternative<IntExp*>(node->init)) {
+    //         get<IntExp*>(node->init)->accept(*this);
+    //     } else if (holds_alternative<vector<IntExp*>*>(node->init)) {
+    //         for (auto exp : *get<vector<IntExp*>*>(node->init)) {
+    //             if (exp != nullptr) exp->accept(*this);
+    //         }
+    //     }
+    // }
+    // else {
+    //     DEBUG_PRINT("No initialization for variable: " << node->id->id);
+    // }
+    return;
+    //Set semantic info for variable - modify type parameter handling
+    variant<monostate,string,int> type_par;
+    if (node->type->typeKind == TypeKind::ARRAY) {
+        // For array types, directly use the arity value
+        if (node->type->arity) {
+            type_par = node->type->arity->val;  // Use the actual integer value from IntExp
+        } else {
+            type_par = 0;  // Default arity if not specified
         }
+    } else if (node->type->typeKind == TypeKind::CLASS) {
+        // For class types, use class name as parameter
+        type_par = node->type->cid ? variant<monostate,string,int>(node->type->cid->id) : monostate();
+    } else {
+        // For other types, use monostate
+        type_par = monostate();
     }
-    //std::cout << "VarDecl done" << std::endl;
-    
-    // Set semantic info for variable
+
     semant_map->setSemant(node, new AST_Semant(
         AST_Semant::Kind::Value,
         node->type->typeKind,
-        node->type->cid ? variant<monostate,string,int>(node->type->cid->id) : monostate(),
+        type_par,
         true  // Variables are lvalues
     ));
 }
@@ -429,11 +454,20 @@ void AST_Semant_Visitor::visit(Formal* node) {
         node->type->accept(*this);
     }
     
-    // Set semantic info for formal parameter
+    // Set semantic info for formal parameter with array support
+    variant<monostate,string,int> type_par;
+    if (node->type->typeKind == TypeKind::ARRAY) {
+        type_par = node->type->arity ? variant<monostate,string,int>(node->type->arity->val) : variant<monostate,string,int>(0);
+    } else if (node->type->typeKind == TypeKind::CLASS) {
+        type_par = node->type->cid ? variant<monostate,string,int>(node->type->cid->id) : monostate();
+    } else {
+        type_par = monostate();
+    }
+    return;
     semant_map->setSemant(node, new AST_Semant(
         AST_Semant::Kind::Value,
         node->type->typeKind,
-        node->type->cid ? variant<monostate,string,int>(node->type->cid->id) : monostate(),
+        type_par,
         true  // Formal parameters are lvalues
     ));
 }
@@ -594,35 +628,37 @@ void AST_Semant_Visitor::visit(CallExp* node) {
     // Visit object and method name
     if (node->obj != nullptr) node->obj->accept(*this);
     auto obj_sem = semant_map->getSemant(node->obj);
-    DEBUG_PRINT("Object type: " << static_cast<int>(obj_sem->get_type()));
+    // Visit method name
+    if (node->name != nullptr) node->name->accept(*this);
     if (obj_sem == nullptr) {
-        cerr << "Error: Could not get semantic info for object in method call" << endl;
-        return;
+        cerr << "Error at " << node->getPos()->print() << ": Object is null in method call" << endl;
+        exit(EXIT_FAILURE);
     }
     
     // Check if calling on a class type
     if (obj_sem->get_type() != TypeKind::CLASS) {
         cerr << "Error at " << node->getPos()->print() << ": Method call on non-class type" << endl;
-        return;
+        exit(EXIT_FAILURE);
     }
     
     string class_name = get<string>(obj_sem->get_type_par());
-    DEBUG_PRINT("Method call on class: " << class_name);
+        
     // Check method existence and parameters
     if (!name_maps->is_method(class_name, node->name->id)) {
         cerr << "Error at " << node->getPos()->print() << ": Method " << node->name->id 
              << " not found in class " << class_name << endl;
         return;
     }
-    DEBUG_PRINT("Method name: " << node->name->id);
+    
     // Check parameters
     auto formal_list = name_maps->get_method_formal_list(class_name, node->name->id);
     if (node->par != nullptr) {
-        if (formal_list->size() - 1 != node->par->size()) {
+        if (formal_list->size() - 1 != node->par->size()) { // -1 for return type
             cerr << "Error at " << node->getPos()->print() << ": Wrong number of parameters" << endl;
-            return;
+            exit(EXIT_FAILURE);
         }
-        
+        DEBUG_PRINT("First fomal type: " << static_cast<int>((*formal_list)[0]->type->typeKind));
+        DEBUG_PRINT("Second fomal type: " << static_cast<int>((*formal_list)[1]->type->typeKind));
         for (size_t i = 0; i < node->par->size(); i++) {
             (*node->par)[i]->accept(*this);
             auto param_sem = semant_map->getSemant((*node->par)[i]);
@@ -634,23 +670,24 @@ void AST_Semant_Visitor::visit(CallExp* node) {
                                      param_sem->get_type_par(),
                                      name_maps)) {
                 cerr << "Error at " << node->getPos()->print() << ": Parameter type mismatch" << endl;
+                exit(EXIT_FAILURE);
             }
         }
     }
     
-    // Set return type semantic
-    auto method_var = name_maps->get_method_var(class_name, node->name->id, "return");
-    if(method_var == NULL)
-        DEBUG_PRINT("method_var is NULL");
-
-    if (method_var != nullptr) {
-        semant_map->setSemant(node, new AST_Semant(
-            AST_Semant::Kind::Value,
-            method_var->type->typeKind,
-            method_var->type->cid ? variant<monostate,string,int>(method_var->type->cid->id) : monostate(),
-            false
-        ));
-    }
+    // Set return type semantic for method call
+    Formal* return_formal = (*formal_list)[formal_list->size() - 1];  // Last formal is return type
+    Type* method_type = return_formal->type;
+    DEBUG_PRINT("Class name: " << class_name << " Method name: " << node->name->id);
+    DEBUG_PRINT("Method return type: " << static_cast<int>(method_type->typeKind)<< " Method name: " << node->name->id);
+    AST_Semant* method_semant = new AST_Semant(
+        AST_Semant::Kind::Value,
+        method_type ? method_type->typeKind : TypeKind::INT,  // Default to INT if not found
+        method_type && method_type->cid ? variant<monostate,string,int>(method_type->cid->id) : monostate(),
+        false
+    );
+    semant_map->setSemant(node, method_semant);
+    DEBUG_PRINT("CallExp semantic info set with type " << static_cast<int>(method_semant->get_type()));
 }
 
 void AST_Semant_Visitor::visit(ClassVar* node) {
@@ -677,11 +714,20 @@ void AST_Semant_Visitor::visit(ClassVar* node) {
         return;
     }
     
-    // Set semantic info for class variable
+    // Set semantic info for class variable with array support
+    variant<monostate,string,int> type_par;
+    if (var_decl->type->typeKind == TypeKind::ARRAY) {
+        type_par = var_decl->type->arity ? variant<monostate,string,int>(var_decl->type->arity->val) : variant<monostate,string,int>(0);
+    } else if (var_decl->type->typeKind == TypeKind::CLASS) {
+        type_par = var_decl->type->cid ? variant<monostate,string,int>(var_decl->type->cid->id) : monostate();
+    } else {
+        type_par = monostate();
+    }
+    
     semant_map->setSemant(node, new AST_Semant(
         AST_Semant::Kind::Value,
         var_decl->type->typeKind,
-        var_decl->type->cid ? variant<monostate,string,int>(var_decl->type->cid->id) : monostate(),
+        type_par,
         true  // Class variables are lvalues
     ));
 }
@@ -768,17 +814,53 @@ void AST_Semant_Visitor::visit(GetArray* node) {
 
 void AST_Semant_Visitor::visit(IdExp* node) {
     DEBUG_PRINT("\n=== Visiting IdExp: " << (node ? node->id : "null") << " ===");
+    DEBUG_PRINT("current_class: " << current_class << " current_method: " << current_method);
     if (node == nullptr) return;
     
-    // Check variable exists in current scope
+    for (const auto& class_name : name_maps->get_all_classes()) {
+        if (name_maps->is_method(class_name, node->id)) {
+            DEBUG_PRINT("Found method: " << node->id << " in class " << class_name);
+            auto formal_list = name_maps->get_method_formal_list(class_name, node->id);
+            if (formal_list != nullptr && !formal_list->empty()) {
+                Formal* return_formal = (*formal_list)[formal_list->size() - 1];
+                Type* method_type = return_formal->type;
+                
+                variant<monostate,string,int> type_par;
+                if (method_type->typeKind == TypeKind::ARRAY) {
+                    type_par = method_type->arity ? variant<monostate,string,int>(method_type->arity->val) : variant<monostate,string,int>(0);
+                } else if (method_type->typeKind == TypeKind::CLASS) {
+                    type_par = method_type->cid ? variant<monostate,string,int>(method_type->cid->id) : monostate();
+                } else {
+                    type_par = monostate();
+                }
+                
+                semant_map->setSemant(node, new AST_Semant(
+                    AST_Semant::Kind::MethodName,
+                    method_type->typeKind,
+                    type_par,
+                    false
+                ));
+                return;
+            }
+        }
+    }
+    
     if (!current_method.empty()) {
-        // Check method locals first
         auto method_var = name_maps->get_method_var(current_class, current_method, node->id);
         if (method_var != nullptr) {
+            variant<monostate,string,int> type_par;
+            if (method_var->type->typeKind == TypeKind::ARRAY) {
+                type_par = method_var->type->arity ? variant<monostate,string,int>(method_var->type->arity->val) : variant<monostate,string,int>(0);
+            } else if (method_var->type->typeKind == TypeKind::CLASS) {
+                type_par = method_var->type->cid ? variant<monostate,string,int>(method_var->type->cid->id) : monostate();
+            } else {
+                type_par = monostate();
+            }
+            
             semant_map->setSemant(node, new AST_Semant(
                 AST_Semant::Kind::Value,
                 method_var->type->typeKind,
-                method_var->type->cid ? variant<monostate,string,int>(method_var->type->cid->id) : monostate(),
+                type_par,
                 true
             ));
             return;
@@ -787,23 +869,43 @@ void AST_Semant_Visitor::visit(IdExp* node) {
         // Check method parameters
         auto formal = name_maps->get_method_formal(current_class, current_method, node->id);
         if (formal != nullptr) {
+            variant<monostate,string,int> type_par;
+            if (formal->type->typeKind == TypeKind::ARRAY) {
+                type_par = formal->type->arity ? variant<monostate,string,int>(formal->type->arity->val) : variant<monostate,string,int>(0);
+            } else if (formal->type->typeKind == TypeKind::CLASS) {
+                type_par = formal->type->cid ? variant<monostate,string,int>(formal->type->cid->id) : monostate();
+            } else {
+                type_par = monostate();
+            }
+            
             semant_map->setSemant(node, new AST_Semant(
                 AST_Semant::Kind::Value,
                 formal->type->typeKind,
-                formal->type->cid ? variant<monostate,string,int>(formal->type->cid->id) : monostate(),
+                type_par,
                 true
             ));
+            DEBUG_PRINT("IdExp semantic info set with type " << static_cast<int>(formal->type->typeKind));
             return;
         }
     }
     
     // Check class fields
     auto class_var = name_maps->get_class_var(current_class, node->id);
+    DEBUG_PRINT("Class var"<< " current class: "<<current_class<< " node id: "<<node->id);
     if (class_var != nullptr) {
+        variant<monostate,string,int> type_par;
+        if (class_var->type->typeKind == TypeKind::ARRAY) {
+            type_par = class_var->type->arity ? variant<monostate,string,int>(class_var->type->arity->val) : variant<monostate,string,int>(0);
+        } else if (class_var->type->typeKind == TypeKind::CLASS) {
+            type_par = class_var->type->cid ? variant<monostate,string,int>(class_var->type->cid->id) : monostate();
+        } else {
+            type_par = monostate();
+        }
+        
         semant_map->setSemant(node, new AST_Semant(
             AST_Semant::Kind::Value,
             class_var->type->typeKind,
-            class_var->type->cid ? variant<monostate,string,int>(class_var->type->cid->id) : monostate(),
+            type_par,
             true
         ));
         return;
@@ -822,5 +924,3 @@ void AST_Semant_Visitor::visit(IntExp* node) {
     if (node == nullptr) return;
     semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, TypeKind::INT, monostate(), false));
 }
-
-// rest of the code
