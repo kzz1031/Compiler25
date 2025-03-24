@@ -1,5 +1,5 @@
 #define DEBUG
-// #undef DEBUG
+#undef DEBUG
 
 #include <iostream>
 #include <map>
@@ -65,7 +65,6 @@ bool check_compatible_types(TypeKind t1, variant<monostate,string,int> p1,
 }
 
 AST_Semant_Map* semant_analyze(Program* node) {
-    std::cerr << "Start Semantic Analysis" << std::endl;
     if (node == nullptr) {
         return nullptr;
     }
@@ -97,7 +96,6 @@ void AST_Semant_Visitor::visit(Program* node) {
 void AST_Semant_Visitor::visit(MainMethod* node) {
     DEBUG_PRINT("\n=== Visiting MainMethod ===");
     if (node == nullptr) return;
-    std::cout << "Visiting MainMethod" << std::endl;
     current_class = "^_main";
     current_method = "main";
     current_return_type = TypeKind::INT;
@@ -666,21 +664,13 @@ void AST_Semant_Visitor::visit(ClassVar* node) {
     VarDecl* var_decl = nullptr;
     string current_check_class = class_name;
     
-    do {
-        var_decl = name_maps->get_class_var(current_check_class, node->id->id);
+    auto ancestors = name_maps->get_ancestors(class_name);
+    for (const auto& ancestor : ancestors) {
+        var_decl = name_maps->get_class_var(ancestor, node->id->id);
         if (var_decl != nullptr) {
             break;
         }
-        // Get parent class
-        auto ancestors = name_maps->get_ancestors(current_check_class);
-        if (!ancestors.empty()) {
-            // Move to parent class - take the first ancestor since we are dealing with single inheritance
-            current_check_class = *ancestors.begin();
-        } else {
-            break;
-        }
-    } while (true);
-
+    }
     if (var_decl == nullptr) {
         cerr << "Error at " << node->getPos()->print() << ": Variable " << node->id->id 
              << " not found in class " << class_name << " or its ancestors" << endl;
