@@ -43,7 +43,7 @@ run: $(MAIN_EXE)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE = example
+FILE = hw3test08
 
 run-one: $(MAIN_EXE)
 	cd $(TEST_DIR) && \

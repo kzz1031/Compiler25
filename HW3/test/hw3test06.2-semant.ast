@@ -10,8 +10,8 @@
             </VarDecl>
         </VarDeclList>
         <StmList>
-            <Return>
-                <ClassVar>
+            <Return s_kind="Value" typeKind="Int" lvalue="false">
+                <ClassVar s_kind="Value" typeKind="Int" lvalue="true">
                     <IdExp s_kind="Value" typeKind="Class" lvalue="true" cid="c2" id="c2"/>
                     <IdExp id="x"/>
                 </ClassVar>

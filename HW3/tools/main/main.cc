@@ -11,7 +11,7 @@ using namespace std;
 using namespace fdmj;
 using namespace tinyxml2;
 
-#define with_location_info true
+#define with_location_info false
 // false means no location info in the AST XML files
 
 Program *prog();

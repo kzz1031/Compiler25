@@ -65,7 +65,7 @@ static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
       switch (tk) {
         case TypeKind::CLASS:
           #ifdef DEBUG
-          cout<<"TypeKind: CLASS"<<endl;
+          cout<<"TypeKind: CLASS"<< " CLASS name: "<<get<string>(semant->get_type_par())<<endl;
           #endif
           el->SetAttribute("cid", get<string>(semant->get_type_par()).c_str());
           break;

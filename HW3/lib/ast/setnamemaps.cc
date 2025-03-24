@@ -82,11 +82,17 @@ void AST_Name_Map_Visitor::visit(ClassDecl* node) {
     current_method = "";
     
     // Add class to name maps
-    name_maps->add_class(node->id->id);
+    if(!name_maps->add_class(node->id->id)) {
+        cerr << "Error at Position: " << node->getPos()->print() << ": Class " << node->id->id << " already declared" << endl;
+        exit(EXIT_FAILURE);
+    }
     
     // Handle inheritance
     if (node->eid != nullptr) {
-        name_maps->add_class_hiearchy(node->id->id, node->eid->id);
+        if( !name_maps->add_class_hiearchy(node->id->id, node->eid->id))    {
+            cerr << "Error at Position: " << node->getPos()->print() << ": Loop detected in class hierarchy" << endl;
+            exit(EXIT_FAILURE);
+        }
     }
     
     // Visit class variables
@@ -155,7 +161,10 @@ void AST_Name_Map_Visitor::visit(VarDecl* node) {
             cerr << "Error: Variable " << node->id->id << " already declared in class " << current_class << endl;
             exit(EXIT_FAILURE);
         }
-        name_maps->add_class_var(current_class, node->id->id, node);
+        if(!name_maps->add_class_var(current_class, node->id->id, node)){
+            cerr << "Error: Variable " << node->id->id << " already declared in class " << current_class << endl;
+            exit(EXIT_FAILURE);
+        }
     } else {
 
         DEBUG_PRINT("Checking method variable: " << current_class << "->" << current_method << "->" << node->id->id);
