@@ -22,6 +22,12 @@
                     <IntExp val="2"/>
                 </IntInitList>
             </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="b1"/>
+                </Type>
+                <IdExp id="bo"/>
+            </VarDecl>
         </VarDeclList>
         <StmList>
             <CallStm>

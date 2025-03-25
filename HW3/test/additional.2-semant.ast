@@ -44,7 +44,7 @@
                         </VarDecl>
                     </VarDeclList>
                     <StmList>
-                        <Return s_kind="Value" typeKind="Class" lvalue="false" cid="c1">
+                        <Return s_kind="Value" typeKind="Class" lvalue="false" cid="c2">
                             <IdExp s_kind="Value" typeKind="Class" lvalue="true" cid="c2" id="o"/>
                         </Return>
                     </StmList>

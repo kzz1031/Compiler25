@@ -181,7 +181,7 @@ void AST_Semant_Visitor::visit(Assign* node) {
     
     if (!left_sem->is_lvalue()) {
         cerr << "Error at " << node->getPos()->print() << ": Left side of assignment must be an lvalue" << endl;
-        return;
+        exit(EXIT_FAILURE);
     }
     
     // Check type compatibility
@@ -189,6 +189,7 @@ void AST_Semant_Visitor::visit(Assign* node) {
                               right_sem->get_type(), right_sem->get_type_par(),
                               name_maps)) {
         cerr << "Error at " << node->getPos()->print() << ": Type mismatch in assignment" << endl;
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -203,6 +204,7 @@ void AST_Semant_Visitor::visit(While* node) {
     // Check if condition is boolean
     if (cond_sem->get_type() != TypeKind::INT) {
         cerr << "Error at " << node->getPos()->print() << ": While condition must be boolean" << endl;
+        exit(EXIT_FAILURE);
     }
     
     // Enter loop context
@@ -280,7 +282,7 @@ void AST_Semant_Visitor::visit(CallStm* node) {
         size_t param_count = (node->par != nullptr) ? node->par->size() : 0;
         if (formal_list->size() - 1 != param_count) { // -1 for return type
             cerr << "Error at " << node->getPos()->print() 
-                 << ": Wrong number of parameters. Expected " << formal_list->size() 
+                 << ": Wrong number of parameters. Expected " << formal_list->size() - 1 
                  << ", got " << param_count << endl;
             exit(EXIT_FAILURE);
         }
@@ -333,10 +335,29 @@ void AST_Semant_Visitor::visit(Return* node) {
             cerr << "Error: Could not get semantic info for return expression" << endl;
             exit(EXIT_FAILURE);
         }
+
+        variant<monostate,string,int> method_return_type_par = monostate();
+        if (current_return_type == TypeKind::CLASS) {
+            auto formal_list = name_maps->get_method_formal_list(current_class, current_method);
+            if (formal_list != nullptr && !formal_list->empty()) {
+                auto return_formal = (*formal_list)[formal_list->size() - 1];
+                if (return_formal->type->cid) {
+                    method_return_type_par = return_formal->type->cid->id;
+                }
+            }
+        }
+
+        if (!check_compatible_types(current_return_type, method_return_type_par,
+                                  exp_sem->get_type(), exp_sem->get_type_par(),
+                                  name_maps)) {
+            cerr << "Error at " << node->getPos()->print() << ": Return type mismatch" << endl;
+            exit(EXIT_FAILURE);
+        }
+
         semant_map->setSemant(node, new AST_Semant(
             AST_Semant::Kind::Value,
-            exp_sem->get_type(),
-            exp_sem->get_type_par(),
+            current_return_type,
+            exp_sem->get_type_par(),  // 使用方法声明的返回类型参数，实现向上转型
             false  // Return value is not an lvalue
         ));
     } else {
@@ -444,6 +465,7 @@ void AST_Semant_Visitor::visit(If* node) {
         auto cond_sem = semant_map->getSemant(node->exp);
         if (cond_sem->get_type() != TypeKind::INT) {
             cerr << "Error at " << node->getPos()->print() << ": If condition must be boolean" << endl;
+            exit(EXIT_FAILURE);
         }
     }
     
@@ -663,13 +685,14 @@ void AST_Semant_Visitor::visit(ClassVar* node) {
     // Check variable exists in class hierarchy
     VarDecl* var_decl = nullptr;
     string current_check_class = class_name;
-    
+    var_decl = name_maps->get_class_var(class_name, node->id->id);
+
     auto ancestors = name_maps->get_ancestors(class_name);
     for (const auto& ancestor : ancestors) {
-        var_decl = name_maps->get_class_var(ancestor, node->id->id);
         if (var_decl != nullptr) {
             break;
         }
+        var_decl = name_maps->get_class_var(ancestor, node->id->id);
     }
     if (var_decl == nullptr) {
         cerr << "Error at " << node->getPos()->print() << ": Variable " << node->id->id 
