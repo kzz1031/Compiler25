@@ -242,6 +242,14 @@ void AST_Semant_Visitor::visit(CallStm* node) {
         cerr << "Error: Could not get semantic info for object" << endl;
         exit(EXIT_FAILURE);
     }
+    
+    string class_name = get<string>(obj_sem->get_type_par());
+    // Check method existence and parameters
+    if (!name_maps->is_method(class_name, node->name->id)) {
+        cerr << "Error at " << node->getPos()->print() << ": Method " << node->name->id 
+             << " not found in class " << class_name << endl;
+        exit(EXIT_FAILURE);
+    }
 
     node->name->accept(*this);
 
