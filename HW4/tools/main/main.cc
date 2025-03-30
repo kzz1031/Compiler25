@@ -42,7 +42,7 @@ int main(int argc, const char *argv[]) {
     }
     semant_map->getNameMaps()->print();
     cout << "Converting AST to IR" << endl;
-    Compiler_Config::print_config();
+    //Compiler_Config::print_config();
     tree::Program *ir = ast2tree(root, semant_map);
     cout << "Saving IR (XML) to: " << file_irp << endl;
     XMLDocument *x = tree2xml(ir);

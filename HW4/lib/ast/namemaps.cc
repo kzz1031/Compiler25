@@ -75,6 +75,10 @@ vector<string>* Name_Maps::get_ancestors(string class_name) {
 
 bool Name_Maps::is_method(string class_name, string method_name) {
     pair<string, string> p(class_name, method_name);
+    cerr<< "is_method: "<<class_name<<" "<<method_name<<endl;
+    if(methods.find(p) != methods.end()) {
+        cerr<< "is_method: "<<class_name<<" "<<method_name;
+    }
     return methods.find(p) != methods.end();
 }
 
