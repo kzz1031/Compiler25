@@ -10,5 +10,6 @@ target_compile_features(${PATCHDEMO} PUBLIC cxx_std_17)
 target_link_libraries(${PATCHDEMO} PUBLIC
   util
   ir
+  ast
   vendor_xml
 )
