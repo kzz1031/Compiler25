@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_main" return_type="INT" last_temp="100" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Statements>
+                    <Label label="100"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putchar">
+                            <Arguments>
+                                <ESeq>
+                                    <Sequence>
+                                        <Move>
+                                            <Temp type="INT" temp="100"/>
+                                            <Const value="1"/>
+                                        </Move>
+                                    </Sequence>
+                                    <Const value="19"/>
+                                </ESeq>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Const value="100"/>
+                    </Return>
+                </Statements>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>
