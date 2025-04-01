@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="103" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Statements>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="INT" temp="102"/>
+                        <Const value="3"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <BinOp op="+">
+                            <Temp type="INT" temp="100"/>
+                            <Temp type="INT" temp="101"/>
+                        </BinOp>
+                    </Move>
+                    <Return>
+                        <Memory>
+                            <BinOp op="+">
+                                <Temp type="INT" temp="101"/>
+                                <BinOp op="*">
+                                    <Temp type="INT" temp="102"/>
+                                    <Const value="4"/>
+                                </BinOp>
+                            </BinOp>
+                        </Memory>
+                    </Return>
+                </Statements>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

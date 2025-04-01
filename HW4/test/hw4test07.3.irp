@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="109">
+        <Blocks>
+            <Block entry_label="109">
+                <Statements>
+                    <Label label="109"/>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="19"/>
+                    </Move>
+                    <Sequence>
+                        <Label label="100"/>
+                        <CJump relop="!=" true="101" false="102">
+                            <Const value="1"/>
+                            <Const value="0"/>
+                        </CJump>
+                        <Label label="101"/>
+                        <Sequence>
+                            <Sequence>
+                                <Label label="103"/>
+                                <CJump relop="!=" true="104" false="105">
+                                    <Const value="2"/>
+                                    <Const value="0"/>
+                                </CJump>
+                                <Label label="104"/>
+                                <Sequence>
+                                    <Sequence>
+                                        <Label label="106"/>
+                                        <CJump relop="!=" true="107" false="108">
+                                            <Const value="3"/>
+                                            <Const value="0"/>
+                                        </CJump>
+                                        <Label label="107"/>
+                                        <Jump label="106"/>
+                                        <Label label="108"/>
+                                    </Sequence>
+                                </Sequence>
+                                <Jump label="103"/>
+                                <Label label="105"/>
+                            </Sequence>
+                        </Sequence>
+                        <Jump label="100"/>
+                        <Label label="102"/>
+                    </Sequence>
+                    <Return>
+                        <Const value="0"/>
+                    </Return>
+                </Statements>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

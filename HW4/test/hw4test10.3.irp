@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="109" last_label="150">
+        <Blocks>
+            <Block entry_label="150">
+                <Statements>
+                    <Label label="150"/>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="19"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="INT" temp="109"/>
+                                    <Const value="0"/>
+                                </Move>
+                                <Sequence>
+                                    <CJump relop="!=" true="140" false="146">
+                                        <ESeq>
+                                            <Sequence>
+                                                <Move>
+                                                    <Temp type="INT" temp="105"/>
+                                                    <Const value="0"/>
+                                                </Move>
+                                                <Sequence>
+                                                    <CJump relop="!=" true="110" false="116">
+                                                        <BinOp op="+">
+                                                            <Const value="1"/>
+                                                            <ESeq>
+                                                                <Sequence>
+                                                                    <Move>
+                                                                        <Temp type="INT" temp="103"/>
+                                                                        <Const value="0"/>
+                                                                    </Move>
+                                                                    <CJump relop="&gt;" true="102" false="103">
+                                                                        <Temp type="INT" temp="101"/>
+                                                                        <Const value="1"/>
+                                                                    </CJump>
+                                                                    <Label label="102"/>
+                                                                    <Move>
+                                                                        <Temp type="INT" temp="103"/>
+                                                                        <Const value="1"/>
+                                                                    </Move>
+                                                                    <Label label="103"/>
+                                                                </Sequence>
+                                                                <Temp type="INT" temp="103"/>
+                                                            </ESeq>
+                                                        </BinOp>
+                                                        <Const value="0"/>
+                                                    </CJump>
+                                                    <Label label="116"/>
+                                                    <CJump relop="!=" true="112" false="113">
+                                                        <ESeq>
+                                                            <Sequence>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="104"/>
+                                                                    <Const value="0"/>
+                                                                </Move>
+                                                                <CJump relop="&gt;" true="107" false="108">
+                                                                    <Temp type="INT" temp="101"/>
+                                                                    <Const value="2"/>
+                                                                </CJump>
+                                                                <Label label="107"/>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="104"/>
+                                                                    <Const value="1"/>
+                                                                </Move>
+                                                                <Label label="108"/>
+                                                            </Sequence>
+                                                            <Temp type="INT" temp="104"/>
+                                                        </ESeq>
+                                                        <Const value="0"/>
+                                                    </CJump>
+                                                </Sequence>
+                                                <Label label="117"/>
+                                                <Move>
+                                                    <Temp type="INT" temp="105"/>
+                                                    <Const value="1"/>
+                                                </Move>
+                                                <Label label="118"/>
+                                            </Sequence>
+                                            <Temp type="INT" temp="105"/>
+                                        </ESeq>
+                                        <Const value="0"/>
+                                    </CJump>
+                                    <Label label="146"/>
+                                    <CJump relop="!=" true="142" false="143">
+                                        <ESeq>
+                                            <Sequence>
+                                                <Move>
+                                                    <Temp type="INT" temp="108"/>
+                                                    <Const value="0"/>
+                                                </Move>
+                                                <Sequence>
+                                                    <CJump relop="!=" true="136" false="131">
+                                                        <ESeq>
+                                                            <Sequence>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="106"/>
+                                                                    <Const value="0"/>
+                                                                </Move>
+                                                                <CJump relop="&gt;" true="122" false="123">
+                                                                    <Temp type="INT" temp="101"/>
+                                                                    <Const value="3"/>
+                                                                </CJump>
+                                                                <Label label="122"/>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="106"/>
+                                                                    <Const value="1"/>
+                                                                </Move>
+                                                                <Label label="123"/>
+                                                            </Sequence>
+                                                            <Temp type="INT" temp="106"/>
+                                                        </ESeq>
+                                                        <Const value="0"/>
+                                                    </CJump>
+                                                    <Label label="136"/>
+                                                    <CJump relop="!=" true="132" false="133">
+                                                        <ESeq>
+                                                            <Sequence>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="107"/>
+                                                                    <Const value="0"/>
+                                                                </Move>
+                                                                <CJump relop="!=" true="127" false="128">
+                                                                    <Temp type="INT" temp="101"/>
+                                                                    <Const value="0"/>
+                                                                </CJump>
+                                                                <Label label="127"/>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="107"/>
+                                                                    <Const value="1"/>
+                                                                </Move>
+                                                                <Label label="128"/>
+                                                            </Sequence>
+                                                            <Temp type="INT" temp="107"/>
+                                                        </ESeq>
+                                                        <Const value="0"/>
+                                                    </CJump>
+                                                </Sequence>
+                                                <Label label="137"/>
+                                                <Move>
+                                                    <Temp type="INT" temp="108"/>
+                                                    <Const value="1"/>
+                                                </Move>
+                                                <Label label="138"/>
+                                            </Sequence>
+                                            <Temp type="INT" temp="108"/>
+                                        </ESeq>
+                                        <Const value="0"/>
+                                    </CJump>
+                                </Sequence>
+                                <Label label="147"/>
+                                <Move>
+                                    <Temp type="INT" temp="109"/>
+                                    <Const value="1"/>
+                                </Move>
+                                <Label label="148"/>
+                            </Sequence>
+                            <Temp type="INT" temp="109"/>
+                        </ESeq>
+                    </Move>
+                    <Return>
+                        <Temp type="INT" temp="100"/>
+                    </Return>
+                </Statements>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

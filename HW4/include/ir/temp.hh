@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <cstdio>
+#include <iostream>
 
 using namespace std;
 
@@ -62,6 +63,7 @@ class Temp_map {
         next_temp++;
       }
       t_map[next_temp] = true;
+      std::cerr<<"===new temp: "<<next_temp<<endl;
       return new Temp(next_temp++);
     }
 

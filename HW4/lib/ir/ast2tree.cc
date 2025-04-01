@@ -19,9 +19,10 @@ using namespace std;
 #ifdef DEBUG
 #define DEBUG_PRINT(x) cout << x << endl;
 #endif
-// 生成类表，映射每个类的变量和方法到地址偏移
+
 Name_Maps* name_maps;
 Temp_map* temp_map;
+Method_var_table* current_mvt;
 
 Class_table* generate_class_table(AST_Semant_Map* semant_map) {
     Class_table* ct = new Class_table();
@@ -48,24 +49,43 @@ Class_table* generate_class_table(AST_Semant_Map* semant_map) {
     return ct;
 }
 
-// 为方法生成变量表，包括形参和局部变量
 Method_var_table* generate_method_var_table(string class_name, string method_name, Name_Maps* nm, Temp_map* tm) {
     Method_var_table* mvt = new Method_var_table();
-    // 添加this指针
+    // add this pointer
     if (class_name != "_^main^_") {
+        DEBUG_PRINT("add this pointer");
         tree::Temp* this_temp = tm->newtemp();
         mvt->var_temp_map->insert({"this", this_temp});
         mvt->var_type_map->insert({"this", tree::Type::PTR});
     }
-    // 添加形参
-    nm->is_method(class_name, method_name);
+
+    // add local variables
+    if (nm->is_method(class_name, method_name)) {
+        auto var_list = nm->get_method_var_list(class_name, method_name);
+        DEBUG_PRINT("local variables size: "<<var_list->size());
+        for (auto& var_name : *var_list) {
+            tree::Temp* var_temp = tm->newtemp();
+            mvt->var_temp_map->insert({var_name, var_temp});
+            DEBUG_PRINT("add local variables: "<<var_name);
+            auto var = nm->get_method_var(class_name, method_name, var_name);
+            if (var->type->typeKind == TypeKind::INT) {
+                mvt->var_type_map->insert({var_name, tree::Type::INT});
+            } else {
+                mvt->var_type_map->insert({var_name, tree::Type::PTR});
+            }
+        }
+    }
+
+    // add formal parameters
     if (nm->is_method(class_name, method_name)) {
         auto formal_list = nm->get_method_formal_list(class_name, method_name);
         for (auto& formal_name : *formal_list) {
+            // if(&formal_name == &formal_list->back()) {
+            //     continue;
+            // }
             tree::Temp* formal_temp = tm->newtemp();
             mvt->var_temp_map->insert({formal_name, formal_temp});
             
-            // 获取形参类型
             auto formal = nm->get_method_formal(class_name, method_name, formal_name);
             if (formal->type->typeKind == TypeKind::INT) {
                 mvt->var_type_map->insert({formal_name, tree::Type::INT});
@@ -75,40 +95,20 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
         }
     }
     
-    // 添加局部变量
-    if (nm->is_method(class_name, method_name)) {
-        auto var_list = nm->get_method_var_list(class_name, method_name);
-        for (auto& var_name : *var_list) {
-            tree::Temp* var_temp = tm->newtemp();
-            mvt->var_temp_map->insert({var_name, var_temp});
-            
-            // 获取变量类型
-            auto var = nm->get_method_var(class_name, method_name, var_name);
-            if (var->type->typeKind == TypeKind::INT) {
-                mvt->var_type_map->insert({var_name, tree::Type::INT});
-            } else {
-                mvt->var_type_map->insert({var_name, tree::Type::PTR});
-            }
-        }
-    }
     return mvt;
 }
 
-// 实现ASTToTreeVisitor类的方法
 void ASTToTreeVisitor::visit(fdmj::Program* node) {
-    // 创建函数声明列表
     DEBUG_PRINT("visit fdmj::Program");
     vector<tree::FuncDecl*>* fdl = new vector<tree::FuncDecl*>();
     
-    // 处理主方法
     if (node->main != nullptr) {
         node->main->accept(*this);
         if (visit_tree_result != nullptr) {
             fdl->push_back(static_cast<tree::FuncDecl*>(visit_tree_result));
         }
     }
-    
-    // 处理类声明
+    // no use
     if (node->cdl != nullptr) {
         for (auto classDecl : *(node->cdl)) {
             classDecl->accept(*this);
@@ -123,48 +123,27 @@ void ASTToTreeVisitor::visit(fdmj::Program* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
-    // 使用全局temp_map
     DEBUG_PRINT("visit fdmj::MainMethod");
-    // 创建入口标签
-    tree::Label* entry_label = temp_map->newlabel();
-    tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
     
-    // 创建语句列表
     vector<tree::Stm*>* sl = new vector<tree::Stm*>();
-    sl->push_back(label_stm);
-    
-    Method_var_table* mvt = generate_method_var_table("_^main^_", "main", name_maps, temp_map);
-    // 处理变量声明
+    current_mvt = generate_method_var_table("_^main^_", "main", name_maps, temp_map);
+
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
             DEBUG_PRINT("visit fdmj::MainMethod"<<" varDecl id: "<<varDecl->id->id);
-            // 为每个变量创建临时变量
             string var_name = varDecl->id->id;
-            tree::Temp* var_temp = temp_map->newtemp();
+            tree::Temp* var_temp = current_mvt->var_temp_map->at(var_name);
             
-            // 添加到方法变量表
-            mvt->var_temp_map->insert({var_name, var_temp});
-            
-            // 确定变量类型
-            if (varDecl->type->typeKind == TypeKind::INT) {
-                mvt->var_type_map->insert({var_name, tree::Type::INT});
-            } else {
-                mvt->var_type_map->insert({var_name, tree::Type::PTR});
-            }
-            
-            // 处理初始化（如果有）
             if (varDecl->init.index() != 0) { // 不是monostate
                 if (varDecl->init.index() == 1) { // IntExp*
                     IntExp* init_int = get<IntExp*>(varDecl->init);
                     int value = init_int->val;
                     sl->push_back(new tree::Move(new tree::TempExp(tree::Type::INT, var_temp), new tree::Const(value)));
                 }
-                // 数组初始化暂不处理
             }
         }
     }
     
-    // 处理语句
     if (node->sl != nullptr) {
         for (auto stm : *(node->sl)) {
             stm->accept(*this);
@@ -177,18 +156,19 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
         }
     }
     
-    // 创建块
+    tree::Label* entry_label = temp_map->newlabel();
+    tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
+    
+    sl->insert(sl->begin(), label_stm);
+    
     vector<tree::Block*>* bl = new vector<tree::Block*>();
     tree::Block* block = new tree::Block(entry_label, nullptr, sl);
     bl->push_back(block);
     
-    // 创建函数声明
-    visit_tree_result = new tree::FuncDecl("_^main^_^main", nullptr, bl, tree::Type::INT, temp_map->next_temp, temp_map->next_label);
+    visit_tree_result = new tree::FuncDecl("_^main^_^main", nullptr, bl, tree::Type::INT, temp_map->next_temp - 1, temp_map->next_label - 1); // minus 1 because of the label and temp are not used
 }
 
 void ASTToTreeVisitor::visit(fdmj::ClassDecl* node) {
-    // 类声明会生成多个函数声明（每个方法一个）
-    // 这里只处理第一个方法，其他方法需要在Program的visit中处理
     if (node->mdl != nullptr && !node->mdl->empty()) {
         node->mdl->at(0)->accept(*this);
     } else {
@@ -208,25 +188,17 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
-    // 使用全局temp_map
-    
-    // 创建入口标签
-    tree::Label* entry_label = temp_map->newlabel();
-    tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
-    
-    // 创建语句列表
     vector<tree::Stm*>* sl = new vector<tree::Stm*>();
-    sl->push_back(label_stm);
     
-    // 获取方法变量表
-    // 这里需要知道类名，暂时使用空字符串
-    Method_var_table* mvt = generate_method_var_table("", node->id->id, nullptr, temp_map);
+    current_mvt = generate_method_var_table("", node->id->id, nullptr, temp_map);
     
-    // 处理形参
     vector<tree::Temp*>* args = new vector<tree::Temp*>();
     if (node->fl != nullptr) {
         for (auto formal : *(node->fl)) {
             formal->accept(*this);
+            formal->accept(*this);
+            // 形参处理在方法变量表中完成
+            formal->accept(*this);  
             // 形参处理在方法变量表中完成
         }
     }
@@ -234,28 +206,15 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
     // 处理变量声明
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
-            // 为每个变量创建临时变量
             string var_name = varDecl->id->id;
-            tree::Temp* var_temp = temp_map->newtemp();
+            tree::Temp* var_temp = current_mvt->var_temp_map->at(var_name);
             
-            // 添加到方法变量表
-            mvt->var_temp_map->insert({var_name, var_temp});
-            
-            // 确定变量类型
-            if (varDecl->type->typeKind == TypeKind::INT) {
-                mvt->var_type_map->insert({var_name, tree::Type::INT});
-            } else {
-                mvt->var_type_map->insert({var_name, tree::Type::PTR});
-            }
-            
-            // 处理初始化（如果有）
             if (varDecl->init.index() != 0) { // 不是monostate
                 if (varDecl->init.index() == 1) { // IntExp*
                     IntExp* init_int = get<IntExp*>(varDecl->init);
                     int value = init_int->val;
                     sl->push_back(new tree::Move(new tree::TempExp(tree::Type::INT, var_temp), new tree::Const(value)));
                 }
-                // 数组初始化暂不处理
             }
         }
     }
@@ -272,6 +231,13 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
             }
         }
     }
+    
+    // 最后创建入口标签，确保其编号最大
+    tree::Label* entry_label = temp_map->newlabel();
+    tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
+    
+    // 将entry_label插入到语句列表的头部
+    sl->insert(sl->begin(), label_stm);
     
     // 创建块
     vector<tree::Block*>* bl = new vector<tree::Block*>();
@@ -682,9 +648,8 @@ void ASTToTreeVisitor::visit(fdmj::IntExp* node) {
 void ASTToTreeVisitor::visit(fdmj::IdExp* node) {
     // 使用全局temp_map
     // 创建变量表达式,需要从方法变量表中获取对应的临时变量
-    // 这里简化处理,直接创建一个新的临时变量
     DEBUG_PRINT("visit fdmj::IdExp"<<" node id: "<<node->id);
-    tree::Temp* temp = temp_map->newtemp();
+    tree::Temp* temp = current_mvt->var_temp_map->at(node->id);
     visit_tree_result = new tree::TempExp(tree::Type::INT, temp);
 }
 
@@ -759,10 +724,14 @@ void ASTToTreeVisitor::visit(fdmj::GetArray* node) {
 
 tree::Program* ast2tree(fdmj::Program* prog, AST_Semant_Map* semant_map) {
     DEBUG_PRINT("start ast2tree");
+    
+    // 初始化全局temp_map，确保它是新创建的
     temp_map = new Temp_map();
     
     ASTToTreeVisitor visitor;
     name_maps = semant_map->getNameMaps();
     prog->accept(visitor);
+    
+    // 返回结果前不要释放temp_map，因为树中的节点可能还在使用它
     return dynamic_cast<tree::Program*>(visitor.getTree());
 }

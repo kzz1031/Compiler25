@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDMJAST>
+    <NameMaps>
+        <Class name="_^main^_">
+            <Method name="main">
+                <Formal id="_^return^_main">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_main"/>
+                    </Formal>
+                </Formal>
+                <Var id="x">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="x"/>
+                    </VarDecl>
+                </Var>
+                <Var id="y">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="y"/>
+                        <IntInit val="19"/>
+                    </VarDecl>
+                </Var>
+            </Method>
+        </Class>
+    </NameMaps>
+    <Program>
+        <MainMethod>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="y"/>
+                    <IntInit val="19"/>
+                </VarDecl>
+            </VarDeclList>
+            <StmList>
+                <While>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                    <Nested>
+                        <StmList>
+                            <Continue/>
+                            <While>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="2"/>
+                                <Nested>
+                                    <StmList>
+                                        <Break/>
+                                        <While>
+                                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="3"/>
+                                            <Nested>
+                                                <StmList>
+                                                    <Continue/>
+                                                </StmList>
+                                            </Nested>
+                                        </While>
+                                    </StmList>
+                                </Nested>
+                            </While>
+                        </StmList>
+                    </Nested>
+                </While>
+                <Return>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                </Return>
+            </StmList>
+        </MainMethod>
+        <ClassDeclList/>
+    </Program>
+</FDMJAST>

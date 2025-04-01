@@ -52,6 +52,7 @@ public:
     bool add_method_formal_list(string class_name, string method_name, vector<string> vl);
     vector<string>* get_method_formal_list(string class_name, string method_name);
 
+    vector<string>* get_all_classes();
     void print();
 };
 
