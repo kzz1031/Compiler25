@@ -72,6 +72,7 @@ class Temp_map {
         next_label++;
       }
       l_map[next_label] = true;
+      std::cerr<<"===new label: "<<next_label<<endl;
       return new Label(next_label++);
     }
 

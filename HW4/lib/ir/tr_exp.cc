@@ -27,6 +27,9 @@ Tr_cx* Tr_ex::unCx(Temp_map* tm) {
     tree::Label* fl = tm->newlabel();
     t->add_patch(tl);
     f->add_patch(fl);
+    if(e == NULL) {
+        cerr<<"===expression is NULL==="<<endl;
+    }
     return new Tr_cx(t, f, new tree::Cjump("!=", e, new tree::Const(0), tl, fl));
 }
 

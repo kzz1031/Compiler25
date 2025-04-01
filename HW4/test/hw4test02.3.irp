@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="105" last_label="130">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="106" last_label="131">
         <Blocks>
             <Block entry_label="130">
                 <Statements>
@@ -18,7 +18,7 @@
                                     <Const value="0"/>
                                 </Move>
                                 <Sequence>
-                                    <CJump relop="!=" true="120" false="126">
+                                    <CJump relop="!=" true="127" false="126">
                                         <ESeq>
                                             <Sequence>
                                                 <Move>
@@ -47,7 +47,7 @@
                                         <Const value="0"/>
                                     </CJump>
                                     <Label label="126"/>
-                                    <CJump relop="!=" true="122" false="123">
+                                    <CJump relop="!=" true="122" false="128">
                                         <ESeq>
                                             <Sequence>
                                                 <Move>
@@ -55,12 +55,12 @@
                                                     <Const value="0"/>
                                                 </Move>
                                                 <Sequence>
-                                                    <CJump relop="!=" true="116" false="111">
+                                                    <CJump relop="!=" true="116" false="118">
                                                         <Const value="4"/>
                                                         <Const value="0"/>
                                                     </CJump>
                                                     <Label label="116"/>
-                                                    <CJump relop="!=" true="112" false="113">
+                                                    <CJump relop="!=" true="117" false="113">
                                                         <ESeq>
                                                             <Sequence>
                                                                 <Move>

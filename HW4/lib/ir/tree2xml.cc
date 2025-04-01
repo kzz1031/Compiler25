@@ -1,5 +1,5 @@
 #define DEBUG
-#undef DEBUG
+// #undef DEBUG
 
 #include <iostream>
 #include <string>
@@ -14,6 +14,12 @@ using namespace tree;
 using namespace tinyxml2;
 
 #define FuncDeclList vector<FuncDecl*>
+
+#ifdef DEBUG
+#define DEBUG_PRINT(x) cout << x << endl;
+#else
+#define DEBUG_PRINT(x)
+#endif
 
 XMLDocument* tree2xml(Program* prog) {
 #ifdef DEBUG
@@ -136,9 +142,18 @@ void Tree2XML::visit(Cjump* node) {
     element->SetAttribute("relop", node->relop.c_str());
     element->SetAttribute("true", node->t->name());
     element->SetAttribute("false", node->f->name());
+    DEBUG_PRINT("visit_tree_result: "<<" cjump: "<<node->relop);
+    if(node->left == NULL) {
+        DEBUG_PRINT("===node->left error===");
+    }
     node->left->accept(*this);
+    DEBUG_PRINT("finished left");
     if (visit_result != nullptr) element->InsertEndChild(visit_result);
+    if(node->right == NULL) {
+        DEBUG_PRINT("===node->right error===");
+    }
     node->right->accept(*this);
+    DEBUG_PRINT("finished right");
     if (visit_result != nullptr) element->InsertEndChild(visit_result);
     visit_result = element;
 }
