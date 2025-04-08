@@ -38,22 +38,22 @@
                         <ESeq>
                             <Sequence>
                                 <Sequence>
-                                    <CJump relop="!=" true="105" false="106">
+                                    <CJump relop="!=" true="107" false="108">
                                         <Temp type="INT" temp="100"/>
                                         <Const value="0"/>
                                     </CJump>
-                                    <Label label="105"/>
+                                    <Label label="107"/>
                                     <Move>
                                         <Temp type="INT" temp="100"/>
                                         <Const value="0"/>
                                     </Move>
-                                    <Jump label="107"/>
-                                    <Label label="106"/>
+                                    <Jump label="109"/>
+                                    <Label label="108"/>
                                     <Move>
                                         <Temp type="INT" temp="100"/>
                                         <Const value="1"/>
                                     </Move>
-                                    <Label label="107"/>
+                                    <Label label="109"/>
                                 </Sequence>
                             </Sequence>
                             <Temp type="INT" temp="100"/>
