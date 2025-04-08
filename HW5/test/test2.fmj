@@ -1,0 +1,9 @@
+public int main() {
+   int[10] a;
+   int[10] b;
+   
+   a[0]=1;
+   b[0]=a[1<2];
+   if (a[0]==1) b[9]=1;
+   return a[1]+b[1]; 
+}

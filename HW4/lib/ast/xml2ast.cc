@@ -52,11 +52,11 @@ Program* xml2ast(XMLElement *element, AST_Semant_Map **sm) {
     }
     *sm = global_semant_map;
 #ifdef DEBUG
-    if (sm->getNameMaps() == nullptr) {
+    if ((*sm)->getNameMaps() == nullptr) {
         cerr << "----Error: No NameMaps found" << endl;
         return nullptr;
     } else {
-        sm->getNameMaps()->print();
+        (*sm)->getNameMaps()->print();
     }
 #endif
     return prog;
@@ -1092,12 +1092,14 @@ ClassVar* create_classVar(XMLElement* element) {
     AST_Semant *se = get_semant(element); //read the semant info of the node
     XMLElement *ce = element->FirstChildElement();
     while (ce) {
-        if (string(ce->Name()) == "IdExp" ) {
-            id = create_leafnode<IdExp>(ce, "IdExp", "id", ATTR_TYPE::ID); 
-        } else { //everything else should be an expression
-            Exp *e = create_exp(ce);
-            if (exp == nullptr) exp = e;
-            else cerr << "Error: ClassVar: Unknown element in ClassVar" << endl;
+        Exp *e = create_exp(ce);
+        if (exp == nullptr) exp = e;
+        else if (id == nullptr && e->getASTKind()==ASTKind::IdExp) 
+        //only if the ID is not the object, then it's the method ID
+            id = static_cast<IdExp*>(e);
+        else {
+            cerr << "Error: ClassVar: More than one expression in ClassVar" << endl;
+            return nullptr;
         }
         ce = ce->NextSiblingElement();
     }
@@ -1337,17 +1339,20 @@ Name_Maps* create_NameMaps(XMLElement* xml_root) {
             for (XMLElement* xml_formal = xml_method->FirstChildElement("Formal"); 
                     xml_formal != nullptr; xml_formal = xml_formal->NextSiblingElement("Formal")) {
                 string formal_name = xml_formal->Attribute("id");
+#ifdef DEBUG
+                cout << "Reading formal " << formal_name << " for " << method_name << " in " << class_name << endl;
+#endif
                 XMLElement *formal_node = xml_formal->FirstChildElement("Formal");
                 if (formal_node == nullptr) {
                     cerr << "Error: Formal not found for formal " << formal_name << " in method " << method_name << " in class " << class_name << endl;
                     continue;
                 }
                 Formal* formal = create_formal(formal_node);
+#ifdef DEBUG
+                cout << "Formal created for " << formal->id->id << " with type " << type_kind_string(formal->type->typeKind) << endl;
+#endif
                 name_maps->add_method_formal(class_name, method_name, formal_name, formal);
                 formal_names.push_back(formal_name); // Add formal_name to the list
-#ifdef DEBUG
-                cout << "Reading formal " << formal_name << " for " << method_name << " in " << class_name << endl;
-#endif
             }
             // Add the list of formal names to methodFormalList
             name_maps->add_method_formal_list(class_name, method_name, formal_names);

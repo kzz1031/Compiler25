@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="100"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="16"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="12"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="c2^m2"/>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="8"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="c1^m1"/>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="100"/>
+                    </Move>
+                    <Return>
+                        <Call id="m2" type="INT">
+                            <Memory>
+                                <BinOp op="+" type="PTR">
+                                    <Temp type="PTR" temp="100"/>
+                                    <Const value="12"/>
+                                </BinOp>
+                            </Memory>
+                            <Arguments>
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="10"/>
+                            </Arguments>
+                        </Call>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="c1^m1" return_type="PTR" last_temp="103" last_label="100" arg_temp_0="100" arg_temp_1="101">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Temp type="INT" temp="101"/>
+                    </Move>
+                    <Return>
+                        <Temp type="PTR" temp="100"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="c2^m2" return_type="INT" last_temp="104" last_label="100" arg_temp_0="100" arg_temp_1="101">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Return>
+                        <BinOp op="+" type="INT">
+                            <Memory>
+                                <BinOp op="+" type="PTR">
+                                    <Call id="m1" type="PTR">
+                                        <Memory>
+                                            <BinOp op="+" type="PTR">
+                                                <Temp type="PTR" temp="100"/>
+                                                <Const value="8"/>
+                                            </BinOp>
+                                        </Memory>
+                                        <Arguments>
+                                            <Temp type="PTR" temp="100"/>
+                                            <Temp type="INT" temp="101"/>
+                                        </Arguments>
+                                    </Call>
+                                    <Const value="0"/>
+                                </BinOp>
+                            </Memory>
+                            <Memory>
+                                <BinOp op="+" type="PTR">
+                                    <Temp type="PTR" temp="100"/>
+                                    <Const value="4"/>
+                                </BinOp>
+                            </Memory>
+                        </BinOp>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>
