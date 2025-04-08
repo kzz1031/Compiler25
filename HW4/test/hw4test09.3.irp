@@ -10,7 +10,7 @@
                         <Const value="19"/>
                     </Move>
                     <ExpressionStatement>
-                        <ExtCall extfun="putchar">
+                        <ExtCall extfun="putch">
                             <Arguments>
                                 <ESeq>
                                     <Sequence>

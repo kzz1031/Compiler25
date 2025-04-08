@@ -73,7 +73,9 @@ class ASTToTreeVisitor : public fdmj::AST_Visitor {
 public:
      tree::Tree *visit_tree_result = nullptr;
      //** Here add some "visitor-level members" */
-
+     Tr_Exp* tr_exp = nullptr;
+     vector<pair<tree::Label*, tree::Label*>> while_labels;
+     
      ~ASTToTreeVisitor() { }
 
      ASTToTreeVisitor() { }

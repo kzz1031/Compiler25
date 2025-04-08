@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="113">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="115">
         <Blocks>
-            <Block entry_label="113">
+            <Block entry_label="115">
                 <Statements>
-                    <Label label="113"/>
+                    <Label label="115"/>
                     <Sequence>
                         <CJump relop="!=" true="105" false="106">
                             <ESeq>
@@ -64,16 +64,16 @@
                                                 <Temp type="INT" temp="104"/>
                                                 <Const value="0"/>
                                             </Move>
-                                            <CJump relop="&gt;" true="110" false="111">
+                                            <CJump relop="&gt;" true="112" false="113">
                                                 <Const value="9"/>
                                                 <Const value="10"/>
                                             </CJump>
-                                            <Label label="110"/>
+                                            <Label label="112"/>
                                             <Move>
                                                 <Temp type="INT" temp="104"/>
                                                 <Const value="1"/>
                                             </Move>
-                                            <Label label="111"/>
+                                            <Label label="113"/>
                                         </Sequence>
                                         <Temp type="INT" temp="104"/>
                                     </ESeq>

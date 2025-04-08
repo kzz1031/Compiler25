@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="103" last_label="111">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="103" last_label="113">
         <Blocks>
-            <Block entry_label="111">
+            <Block entry_label="113">
                 <Statements>
-                    <Label label="111"/>
+                    <Label label="113"/>
                     <Move>
                         <Temp type="INT" temp="101"/>
                         <Const value="19"/>
@@ -42,6 +42,7 @@
                                     </ESeq>
                                 </BinOp>
                             </Move>
+                            <Jump label="102"/>
                         </Sequence>
                         <Jump label="100"/>
                         <Label label="102"/>

@@ -171,8 +171,8 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
         nullptr, 
         bl, 
         tree::Type::INT, 
-        temp_map->next_temp, 
-        temp_map->next_label
+        temp_map->next_temp - 1, 
+        temp_map->next_label - 1
     );
 }
 
@@ -296,8 +296,8 @@ void ASTToTreeVisitor::visit(fdmj::If* node) {
     tree::Label* end_label = temp_map->newlabel();
     Tr_ex* ex = new Tr_ex(cond_exp);
     Tr_cx* cx = ex->unCx(temp_map);
-    cx->true_list->add_patch(then_label);
-    cx->false_list->add_patch(else_label);
+    cx->true_list->patch(then_label);
+    cx->false_list->patch(else_label);
     // 创建条件跳转
     if(cond_exp == NULL) {
         DEBUG_PRINT("===cond_exp error===");
@@ -329,12 +329,14 @@ void ASTToTreeVisitor::visit(fdmj::If* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::While* node) {
-    // 使用全局temp_map
-    
-    // 创建标签
-    tree::Label* test_label = temp_map->newlabel();
-    tree::Label* body_label = temp_map->newlabel();
-    tree::Label* end_label = temp_map->newlabel();
+    DEBUG_PRINT("visit fdmj::While");
+
+    tree::Label* test_label = temp_map->newlabel();  // 循环测试标签
+    tree::Label* body_label = temp_map->newlabel();  // 循环体标签
+    tree::Label* end_label = temp_map->newlabel();   // 循环结束标签
+
+    // 将当前while循环的标签压入栈
+    while_labels.push_back({test_label, end_label});
     
     // 处理条件表达式
     node->exp->accept(*this);
@@ -356,16 +358,17 @@ void ASTToTreeVisitor::visit(fdmj::While* node) {
     sl->push_back(new tree::Jump(test_label));
     sl->push_back(new tree::LabelStm(end_label));
     
+    // 弹出当前while循环的标签
+    while_labels.pop_back();
+    
     visit_tree_result = new tree::Seq(sl);
 }
 
 void ASTToTreeVisitor::visit(fdmj::Assign* node) {
     DEBUG_PRINT("visit fdmj::Assign");
-    // 处理左值
     node->left->accept(*this);
     tree::Exp* lhs_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
     
-    // 处理右值
     node->exp->accept(*this);
     tree::Exp* rhs_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
     
@@ -397,19 +400,28 @@ void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::Continue* node) {
-    // 创建跳转到循环测试标签的语句
-    // 需要知道当前循环的测试标签，这里简化处理
-    visit_tree_result = nullptr;
+    DEBUG_PRINT("visit fdmj::Continue");
+    if (!while_labels.empty()) {
+        tree::Label* continue_label = while_labels.back().first;
+        visit_tree_result = new tree::Jump(continue_label);
+    } else {
+        visit_tree_result = nullptr;
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::Break* node) {
-    // 创建跳转到循环结束标签的语句
-    // 需要知道当前循环的结束标签，这里简化处理
-    visit_tree_result = nullptr;
+    DEBUG_PRINT("visit fdmj::Break");
+    if (!while_labels.empty()) {
+        tree::Label* break_label = while_labels.back().second;
+        visit_tree_result = new tree::Jump(break_label);
+    } else {
+        visit_tree_result = nullptr;
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::Return* node) {
     // 处理返回表达式
+    DEBUG_PRINT("visit fdmj::Return");
     if (node->exp != nullptr) {
         node->exp->accept(*this);
         tree::Exp* ret_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
@@ -434,16 +446,14 @@ void ASTToTreeVisitor::visit(fdmj::PutInt* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::PutCh* node) {
-    // 处理参数表达式
     node->exp->accept(*this);
     tree::Exp* arg_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
     
-    // 创建参数列表
+
     vector<tree::Exp*>* args = new vector<tree::Exp*>();
     args->push_back(arg_exp);
     
-    // 创建外部调用
-    tree::ExtCall* call = new tree::ExtCall(tree::Type::INT, "putchar", args);
+    tree::ExtCall* call = new tree::ExtCall(tree::Type::INT, "putch", args);
     visit_tree_result = new tree::ExpStm(call);
 }
 
@@ -471,17 +481,18 @@ void ASTToTreeVisitor::visit(fdmj::BinaryOp* node) {
     
     // 处理左操作数
     node->left->accept(*this);
-    tree::Exp* lhs_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
+    Tr_ex* left_tr = dynamic_cast<Tr_ex*>(tr_exp);
+    
     // 处理右操作数
     node->right->accept(*this);
-    tree::Exp* rhs_exp = dynamic_cast<tree::Exp*>(visit_tree_result);
+    Tr_ex* right_tr = dynamic_cast<Tr_ex*>(tr_exp);
     
     string op = node->op->op;
     
     if (op == "+" || op == "-" || op == "*" || op == "/") {
         // 算术运算直接使用 Binop
-        visit_tree_result = new tree::Binop(tree::Type::INT, op, lhs_exp, rhs_exp);
-        DEBUG_PRINT("visit_tree_result: " << " binary op: " << op);
+        tr_exp = new Tr_ex(new tree::Binop(tree::Type::INT, op, left_tr->exp, right_tr->exp));
+        DEBUG_PRINT("tr_exp: " << " binary op: " << op);
     } 
     else if (op == "==" || op == "!=" || op == "<" || op == "<=" || op == ">" || op == ">=") {
         // 比较运算使用 Tr_cx
@@ -494,24 +505,18 @@ void ASTToTreeVisitor::visit(fdmj::BinaryOp* node) {
         Patch_list* false_list = new Patch_list(); 
         false_list->add_patch(f_label);
         
-        if(lhs_exp == NULL || rhs_exp == NULL) {
+        if(left_tr->exp == NULL || right_tr->exp == NULL) {
             DEBUG_PRINT("===lhs_exp or rhs_exp error===");
         }
         
-        tree::Cjump* cjump = new tree::Cjump(op, lhs_exp, rhs_exp, t_label, f_label);
-        Tr_cx* cx = new Tr_cx(true_list, false_list, cjump);
-        
-        // 将条件结果转换为表达式
-        visit_tree_result = cx->unEx(temp_map)->exp;
-        DEBUG_PRINT("visit_tree_result: " << " binary op: " << op);
+        tree::Cjump* cjump = new tree::Cjump(op, left_tr->exp, right_tr->exp, t_label, f_label);
+        tr_exp = new Tr_cx(true_list, false_list, cjump);
+        DEBUG_PRINT("tr_exp: " << " binary op: " << op);
     }
     else if (op == "||") {
-
-        Tr_cx* left_cx = (new Tr_ex(lhs_exp))->unCx(temp_map); //bugs
-        Tr_cx* right_cx = (new Tr_ex(rhs_exp))->unCx(temp_map);
+        Tr_cx* left_cx = left_tr->unCx(temp_map);
+        Tr_cx* right_cx = right_tr->unCx(temp_map);
         
-        tree::Label* t_label = temp_map->newlabel();
-        tree::Label* f_label = temp_map->newlabel();
         tree::Label* second_label = temp_map->newlabel();
         
         // 修改左操作数的false跳转到第二个条件
@@ -525,29 +530,20 @@ void ASTToTreeVisitor::visit(fdmj::BinaryOp* node) {
         
         // 合并true列表（左条件或右条件满足一个即为真）
         Patch_list* true_list = new Patch_list();
-        true_list->add_patch(t_label);
+        for(auto label : *(right_cx->true_list->patch_list)) {
+            true_list->add_patch(label);
+        }
         left_cx->true_list->add(true_list);
         
-        // 使用右条件的false列表作为整体的false列表
-        Patch_list* false_list = new Patch_list();
-        false_list->add_patch(f_label);
-        right_cx->false_list->add(false_list);
-        
         // 创建新的条件跳转
-        Tr_cx* result_cx = new Tr_cx(left_cx->true_list, right_cx->false_list, new tree::Seq(sl));
-        
-        // 转换为表达式
-        visit_tree_result = result_cx->unEx(temp_map)->exp;
-        DEBUG_PRINT("visit_tree_result: " << " binary op: " << op);
+        tr_exp = new Tr_cx(left_cx->true_list, right_cx->false_list, new tree::Seq(sl));
+        DEBUG_PRINT("tr_exp: " << " binary op: " << op);
     }
     else if (op == "&&") {
         // 处理逻辑与
-        // 先将左右操作数转换为 Tr_cx
-        Tr_cx* left_cx = (new Tr_ex(lhs_exp))->unCx(temp_map);
-        Tr_cx* right_cx = (new Tr_ex(rhs_exp))->unCx(temp_map);
+        Tr_cx* left_cx = left_tr->unCx(temp_map);
+        Tr_cx* right_cx = right_tr->unCx(temp_map);
         
-        tree::Label* t_label = temp_map->newlabel();
-        tree::Label* f_label = temp_map->newlabel();
         tree::Label* second_label = temp_map->newlabel();
         
         // 修改左操作数的true跳转到第二个条件
@@ -560,37 +556,40 @@ void ASTToTreeVisitor::visit(fdmj::BinaryOp* node) {
         sl->push_back(right_cx->stm);
         
         // 使用右条件的true列表作为整体的true列表
-        Patch_list* true_list = new Patch_list();
-        true_list->add_patch(t_label);
-        right_cx->true_list->add(true_list);
-        
         // 合并false列表（左条件或右条件不满足一个即为假）
         Patch_list* false_list = new Patch_list();
-        false_list->add_patch(f_label);
+        for(auto label : *(right_cx->false_list->patch_list)) {
+            false_list->add_patch(label);
+        }
         left_cx->false_list->add(false_list);
         
         // 创建新的条件跳转
-        Tr_cx* result_cx = new Tr_cx(right_cx->true_list, left_cx->false_list, new tree::Seq(sl));
-        
-        visit_tree_result = result_cx->unEx(temp_map)->exp;
-        DEBUG_PRINT("visit_tree_result: " << " binary op: " << op);
+        tr_exp = new Tr_cx(right_cx->true_list, left_cx->false_list, new tree::Seq(sl));
+        DEBUG_PRINT("tr_exp: " << " binary op: " << op);
+    }
+    
+    // 最后设置visit_tree_result
+    if (tr_exp != nullptr) {
+        visit_tree_result = dynamic_cast<Tr_ex*>(tr_exp)->exp;
     }
 }
 
 void ASTToTreeVisitor::visit(fdmj::UnaryOp* node) {
-    // 使用全局temp_map
-    
     // 处理操作数
     node->exp->accept(*this);
-    tree::Exp* exp = dynamic_cast<tree::Exp*>(visit_tree_result);
+    Tr_ex* exp_tr = dynamic_cast<Tr_ex*>(tr_exp);
     
     // 创建一元操作表达式（通过二元操作实现）
     if (node->op->op == "-") {
         // 负号：0 - exp
-        visit_tree_result = new tree::Binop(tree::Type::INT, "-", new tree::Const(0), exp);
+        tr_exp = new Tr_ex(new tree::Binop(tree::Type::INT, "-", new tree::Const(0), exp_tr->exp));
     } else if (node->op->op == "!") {
         // 非：1 xor exp
-        visit_tree_result = new tree::Binop(tree::Type::INT, "xor", new tree::Const(1), exp);
+        tr_exp = new Tr_ex(new tree::Binop(tree::Type::INT, "xor", new tree::Const(1), exp_tr->exp));
+    }
+    
+    if (tr_exp != nullptr) {
+        visit_tree_result = dynamic_cast<Tr_ex*>(tr_exp)->exp;
     }
 }
 
@@ -669,15 +668,16 @@ void ASTToTreeVisitor::visit(fdmj::This* node) {
 void ASTToTreeVisitor::visit(fdmj::IntExp* node) {
     DEBUG_PRINT("visit fdmj::IntExp"<<" node val: "<<node->val);
     // 创建整数常量表达式
-    visit_tree_result = new tree::Const(node->val);
-    DEBUG_PRINT("visit_tree_result: "<<node->val);
+    tr_exp = new Tr_ex(new tree::Const(node->val));
+    visit_tree_result = dynamic_cast<Tr_ex*>(tr_exp)->exp;
+    DEBUG_PRINT("tr_exp: "<<node->val);
 }
 
 void ASTToTreeVisitor::visit(fdmj::IdExp* node) {
-    // 使用全局temp_map
     DEBUG_PRINT("visit fdmj::IdExp"<<" node id: "<<node->id);
     tree::Temp* temp = current_mvt->var_temp_map->at(node->id);
-    visit_tree_result = new tree::TempExp(tree::Type::INT, temp);
+    tr_exp = new Tr_ex(new tree::TempExp(tree::Type::INT, temp));
+    visit_tree_result = dynamic_cast<Tr_ex*>(tr_exp)->exp;
 }
 
 void ASTToTreeVisitor::visit(fdmj::Length* node) {

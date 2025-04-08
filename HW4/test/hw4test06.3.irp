@@ -17,6 +17,7 @@
                         </CJump>
                         <Label label="101"/>
                         <Sequence>
+                            <Jump label="100"/>
                             <Sequence>
                                 <Label label="103"/>
                                 <CJump relop="!=" true="104" false="105">
@@ -24,6 +25,9 @@
                                     <Const value="0"/>
                                 </CJump>
                                 <Label label="104"/>
+                                <Sequence>
+                                    <Jump label="105"/>
+                                </Sequence>
                                 <Jump label="103"/>
                                 <Label label="105"/>
                             </Sequence>
