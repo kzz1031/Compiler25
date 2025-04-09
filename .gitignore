@@ -38,3 +38,5 @@ build/
 
 # vi temp files
 *.swp
+
+*.zip
