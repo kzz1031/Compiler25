@@ -145,6 +145,12 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
             stm->accept(*this);
             if (tr_exp != nullptr) {
                 Tr_nx* tr_nx = dynamic_cast<Tr_nx*>(tr_exp);
+                if(tr_nx == nullptr) {
+                    tr_nx = dynamic_cast<Tr_ex*>(tr_exp)->unNx(temp_map);
+                }
+                if (tr_nx == nullptr) {
+                    tr_nx = dynamic_cast<Tr_cx*>(tr_exp)->unNx(temp_map);
+                }
                 sl->push_back(tr_nx->stm);
             }
         }
@@ -246,12 +252,17 @@ void ASTToTreeVisitor::visit(fdmj::Nested* node) {
             stm->accept(*this);
             if (tr_exp != nullptr) {
                 Tr_nx* stm_tr = dynamic_cast<Tr_nx*>(tr_exp);
+                if(stm_tr == nullptr) {
+                    stm_tr = dynamic_cast<Tr_ex*>(tr_exp)->unNx(temp_map);
+                }
+                if(stm_tr == nullptr) {
+                    stm_tr = dynamic_cast<Tr_cx*>(tr_exp)->unNx(temp_map);
+                }
                 if (stm_tr != nullptr) {
                     sl->push_back(stm_tr->stm);
                 }
             }
         }
-        
         tr_exp = new Tr_nx(new tree::Seq(sl));
     } else {
         tr_exp = new Tr_nx(new tree::Seq());
@@ -344,7 +355,6 @@ void ASTToTreeVisitor::visit(fdmj::Assign* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
-    // 处理对象表达式
     tree::Exp* obj_exp = nullptr;
     if (node->obj != nullptr) {
         node->obj->accept(*this);
@@ -352,12 +362,14 @@ void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
         obj_exp = obj_tr->exp;
     }
     
-    // 处理参数
     vector<tree::Exp*>* args = new vector<tree::Exp*>();
     if (node->par != nullptr) {
         for (auto arg : *(node->par)) {
             arg->accept(*this);
             Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
+            if(arg_tr == nullptr) {
+                arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+            }
             if (arg_tr != nullptr) {
                 args->push_back(arg_tr->exp);
             }
@@ -402,7 +414,9 @@ void ASTToTreeVisitor::visit(fdmj::Return* node) {
 void ASTToTreeVisitor::visit(fdmj::PutInt* node) {
     node->exp->accept(*this);
     Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
-    
+    if(arg_tr == nullptr) {
+        arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+    }
     vector<tree::Exp*>* args = new vector<tree::Exp*>();
     args->push_back(arg_tr->exp);
     
@@ -423,7 +437,6 @@ void ASTToTreeVisitor::visit(fdmj::PutCh* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::PutArray* node) {
-    // 简化处理，实际应该遍历数组并输出每个元素
     tr_exp = nullptr;
 }
 
@@ -678,7 +691,9 @@ void ASTToTreeVisitor::visit(fdmj::GetArray* node) {
     if (node->exp != nullptr) {
         node->exp->accept(*this);
         Tr_ex* array_tr = dynamic_cast<Tr_ex*>(tr_exp);
-        // 调用获取数组的外部函数 
+        if(array_tr == nullptr) {
+            array_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+        }
         vector<tree::Exp*>* args = new vector<tree::Exp*>();
         args->push_back(array_tr->exp);
         tr_exp = new Tr_ex(new tree::ExtCall(tree::Type::PTR, "getarray", args));
