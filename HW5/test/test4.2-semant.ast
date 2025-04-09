@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDMJAST>
+    <NameMaps>
+        <Class name="_^main^_">
+            <Method name="main">
+                <Formal id="_^return^_main">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_main"/>
+                    </Formal>
+                </Formal>
+                <Var id="a">
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="4"/>
+                        </Type>
+                        <IdExp id="a"/>
+                        <IntInitList>
+                            <IntExp val="1"/>
+                            <IntExp val="2"/>
+                            <IntExp val="3"/>
+                            <IntExp val="4"/>
+                        </IntInitList>
+                    </VarDecl>
+                </Var>
+                <Var id="i">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="i"/>
+                        <IntInit val="0"/>
+                    </VarDecl>
+                </Var>
+                <Var id="sum">
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="sum"/>
+                        <IntInit val="0"/>
+                    </VarDecl>
+                </Var>
+            </Method>
+        </Class>
+    </NameMaps>
+    <Program>
+        <MainMethod>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="4"/>
+                    </Type>
+                    <IdExp id="a"/>
+                    <IntInitList>
+                        <IntExp val="1"/>
+                        <IntExp val="2"/>
+                        <IntExp val="3"/>
+                        <IntExp val="4"/>
+                    </IntInitList>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="sum"/>
+                    <IntInit val="0"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="i"/>
+                    <IntInit val="0"/>
+                </VarDecl>
+            </VarDeclList>
+            <StmList>
+                <While>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                        <OpExp op="&lt;"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="4"/>
+                    </BinaryOp>
+                    <Nested>
+                        <StmList>
+                            <Assign>
+                                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="sum"/>
+                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="sum"/>
+                                    <OpExp op="+"/>
+                                    <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" type_par="4" id="a"/>
+                                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                    </ArrayExp>
+                                </BinaryOp>
+                            </Assign>
+                            <Assign>
+                                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="i"/>
+                                    <OpExp op="+"/>
+                                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                                </BinaryOp>
+                            </Assign>
+                        </StmList>
+                    </Nested>
+                </While>
+                <Return>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="sum"/>
+                </Return>
+            </StmList>
+        </MainMethod>
+        <ClassDeclList/>
+    </Program>
+</FDMJAST>
