@@ -22,7 +22,7 @@
                     <Move>
                         <Memory>
                             <BinOp op="+" type="PTR">
-                                <Temp type="INT" temp="100"/>
+                                <Temp type="PTR" temp="100"/>
                                 <BinOp op="*" type="INT">
                                     <BinOp op="+" type="INT">
                                         <ESeq>
@@ -30,14 +30,14 @@
                                                 <Move>
                                                     <Temp type="INT" temp="102"/>
                                                     <Memory>
-                                                        <Temp type="INT" temp="100"/>
+                                                        <Temp type="PTR" temp="100"/>
                                                     </Memory>
                                                 </Move>
-                                                <CJump relop="&gt;=" true="101" false="100">
+                                                <CJump relop="&gt;=" true="100" false="101">
                                                     <Const value="0"/>
                                                     <Temp type="INT" temp="102"/>
                                                 </CJump>
-                                                <Label label="101"/>
+                                                <Label label="100"/>
                                                 <ExpressionStatement>
                                                     <ExtCall extfun="exit" type="INT">
                                                         <Arguments>
@@ -45,7 +45,7 @@
                                                         </Arguments>
                                                     </ExtCall>
                                                 </ExpressionStatement>
-                                                <Label label="100"/>
+                                                <Label label="101"/>
                                             </Sequence>
                                             <Const value="0"/>
                                         </ESeq>
@@ -60,7 +60,7 @@
                     <Return>
                         <Memory>
                             <BinOp op="+" type="PTR">
-                                <Temp type="INT" temp="100"/>
+                                <Temp type="PTR" temp="100"/>
                                 <BinOp op="*" type="INT">
                                     <BinOp op="+" type="INT">
                                         <ESeq>
@@ -68,14 +68,14 @@
                                                 <Move>
                                                     <Temp type="INT" temp="103"/>
                                                     <Memory>
-                                                        <Temp type="INT" temp="100"/>
+                                                        <Temp type="PTR" temp="100"/>
                                                     </Memory>
                                                 </Move>
-                                                <CJump relop="&gt;=" true="103" false="102">
+                                                <CJump relop="&gt;=" true="102" false="103">
                                                     <Const value="0"/>
                                                     <Temp type="INT" temp="103"/>
                                                 </CJump>
-                                                <Label label="103"/>
+                                                <Label label="102"/>
                                                 <ExpressionStatement>
                                                     <ExtCall extfun="exit" type="INT">
                                                         <Arguments>
@@ -83,7 +83,7 @@
                                                         </Arguments>
                                                     </ExtCall>
                                                 </ExpressionStatement>
-                                                <Label label="102"/>
+                                                <Label label="103"/>
                                             </Sequence>
                                             <Const value="0"/>
                                         </ESeq>
