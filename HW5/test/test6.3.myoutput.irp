@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Temp type="INT" temp="101"/>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Memory>
+                                    <BinOp op="+" type="PTR">
+                                        <Call id="m1" type="INT">
+                                            <Temp type="INT" temp="100"/>
+                                            <Arguments/>
+                                        </Call>
+                                        <BinOp op="*" type="INT">
+                                            <Const value="0"/>
+                                            <Const value="4"/>
+                                        </BinOp>
+                                    </BinOp>
+                                </Memory>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Const value="1"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Temp type="INT" temp="101"/>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Memory>
+                                    <BinOp op="+" type="PTR">
+                                        <Call id="m1" type="INT">
+                                            <Temp type="INT" temp="100"/>
+                                            <Arguments/>
+                                        </Call>
+                                        <BinOp op="*" type="INT">
+                                            <Const value="0"/>
+                                            <Const value="4"/>
+                                        </BinOp>
+                                    </BinOp>
+                                </Memory>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Const value="1"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Temp type="INT" temp="101"/>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Memory>
+                                    <BinOp op="+" type="PTR">
+                                        <Call id="m1" type="INT">
+                                            <Temp type="INT" temp="100"/>
+                                            <Arguments/>
+                                        </Call>
+                                        <BinOp op="*" type="INT">
+                                            <Const value="0"/>
+                                            <Const value="4"/>
+                                        </BinOp>
+                                    </BinOp>
+                                </Memory>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Const value="1"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="101" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="INT" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="100"/>
+                    </Move>
+                    <Return>
+                        <Call id="m2" type="INT">
+                            <Temp type="INT" temp="100"/>
+                            <Arguments>
+                                <Const value="10"/>
+                            </Arguments>
+                        </Call>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="101" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="INT" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="100"/>
+                    </Move>
+                    <Return>
+                        <Call id="m2" type="INT">
+                            <Temp type="INT" temp="100"/>
+                            <Arguments>
+                                <Const value="10"/>
+                            </Arguments>
+                        </Call>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="101" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="INT" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="100"/>
+                    </Move>
+                    <Return>
+                        <Call id="m2" type="INT">
+                            <Temp type="INT" temp="100"/>
+                            <Arguments>
+                                <Const value="10"/>
+                            </Arguments>
+                        </Call>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>
