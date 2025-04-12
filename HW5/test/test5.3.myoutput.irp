@@ -7,7 +7,7 @@
                     <Label label="100"/>
                     <ExpressionStatement>
                         <Call id="m" type="INT">
-                            <Temp type="INT" temp="100"/>
+                            <Temp type="PTR" temp="100"/>
                             <Arguments/>
                         </Call>
                     </ExpressionStatement>
@@ -25,7 +25,7 @@
                     <Label label="100"/>
                     <ExpressionStatement>
                         <Call id="m" type="INT">
-                            <Temp type="INT" temp="100"/>
+                            <Temp type="PTR" temp="100"/>
                             <Arguments/>
                         </Call>
                     </ExpressionStatement>

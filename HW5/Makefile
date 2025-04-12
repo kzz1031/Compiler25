@@ -44,7 +44,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE ?= hw3test06
+FILE ?= test2
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

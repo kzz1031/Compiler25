@@ -5,6 +5,20 @@
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <Temp type="PTR" temp="101"/>
+                        </Memory>
+                        <Const value="0"/>
+                    </Move>
                     <Return>
                         <Const value="1"/>
                     </Return>
@@ -17,6 +31,20 @@
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <Temp type="PTR" temp="101"/>
+                        </Memory>
+                        <Const value="0"/>
+                    </Move>
                     <Return>
                         <Const value="1"/>
                     </Return>
@@ -29,6 +57,20 @@
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <Temp type="PTR" temp="101"/>
+                        </Memory>
+                        <Const value="0"/>
+                    </Move>
                     <Return>
                         <Const value="1"/>
                     </Return>

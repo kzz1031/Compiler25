@@ -8,7 +8,7 @@
                     <Move>
                         <Memory>
                             <BinOp op="+" type="PTR">
-                                <Temp type="INT" temp="100"/>
+                                <Temp type="PTR" temp="100"/>
                                 <Const value="0"/>
                             </BinOp>
                         </Memory>
@@ -16,7 +16,7 @@
                     </Move>
                     <Return>
                         <Call id="m2" type="INT">
-                            <Temp type="INT" temp="100"/>
+                            <Temp type="PTR" temp="100"/>
                             <Arguments>
                                 <Const value="10"/>
                             </Arguments>
@@ -34,7 +34,7 @@
                     <Move>
                         <Memory>
                             <BinOp op="+" type="PTR">
-                                <Temp type="INT" temp="100"/>
+                                <Temp type="PTR" temp="100"/>
                                 <Const value="0"/>
                             </BinOp>
                         </Memory>
@@ -42,7 +42,7 @@
                     </Move>
                     <Return>
                         <Call id="m2" type="INT">
-                            <Temp type="INT" temp="100"/>
+                            <Temp type="PTR" temp="100"/>
                             <Arguments>
                                 <Const value="10"/>
                             </Arguments>
@@ -60,7 +60,7 @@
                     <Move>
                         <Memory>
                             <BinOp op="+" type="PTR">
-                                <Temp type="INT" temp="100"/>
+                                <Temp type="PTR" temp="100"/>
                                 <Const value="0"/>
                             </BinOp>
                         </Memory>
@@ -68,7 +68,7 @@
                     </Move>
                     <Return>
                         <Call id="m2" type="INT">
-                            <Temp type="INT" temp="100"/>
+                            <Temp type="PTR" temp="100"/>
                             <Arguments>
                                 <Const value="10"/>
                             </Arguments>
