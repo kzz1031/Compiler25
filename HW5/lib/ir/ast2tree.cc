@@ -191,7 +191,6 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
     DEBUG_PRINT("visit fdmj::VarDecl");
     DEBUG_PRINT("var name: "<<node->id->id);
     Temp* var_temp = current_mvt->var_temp_map->at(node->id->id);
-    DEBUG_PRINT("var temp: "<<var_temp);
 
     if(node->type->typeKind == TypeKind::ARRAY) {
         DEBUG_PRINT("var type: array");
@@ -227,9 +226,10 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
                     new tree::Mem(tree::Type::INT, 
                         new tree::Binop(tree::Type::PTR, "+", 
                             new tree::TempExp(tree::Type::PTR, var_temp),
-                            new tree::Binop(tree::Type::INT, "*", 
-                                new tree::Const(i + 1),
-                                new tree::Const(4)))), 
+                            // new tree::Binop(tree::Type::INT, "*", 
+                            //     new tree::Const(i + 1),
+                            //     new tree::Const(4)))), 
+                            new tree::Const((i + 1)*4))),
                     new tree::Const(val)
                 ));
             }
@@ -293,14 +293,11 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
         }
     }
     
-    // 最后创建入口标签，确保其编号最大
     tree::Label* entry_label = temp_map->newlabel();
     tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
     
-    // 将entry_label插入到语句列表的头部
     sl->insert(sl->begin(), label_stm);
     
-    // 创建块
     vector<tree::Block*>* bl = new vector<tree::Block*>();
     tree::Block* block = new tree::Block(entry_label, nullptr, sl);
     bl->push_back(block);
@@ -523,13 +520,160 @@ void ASTToTreeVisitor::visit(fdmj::Stoptime* node) {
 
 void ASTToTreeVisitor::visit(fdmj::BinaryOp* node) {
     DEBUG_PRINT("visit fdmj::BinaryOp" << " node op: " << node->op->op);
+    string op = node->op->op;
+    node->left->accept(*this);
+    Tr_ex* left_tr = dynamic_cast<Tr_ex*>(tr_exp);
+    node->right->accept(*this);
+    Tr_ex* right_tr = dynamic_cast<Tr_ex*>(tr_exp);
+
+    if ((op == "+" || op == "-" || op == "*" || op == "/") && 
+        left_tr != nullptr && right_tr != nullptr &&
+        left_tr->exp->type == tree::Type::PTR && right_tr->exp->type == tree::Type::PTR) {
+        // 创建临时变量
+        tree::Temp* left_len_temp = temp_map->newtemp();      // 存储数组长度
+        tree::Temp* right_len_temp = temp_map->newtemp();     // 存储数组长度
+        tree::Temp* result_array = temp_map->newtemp();  // 存储结果数组
+        tree::Temp* index_temp = temp_map->newtemp();    // 循环索引
+        tree::Temp* bound_temp = temp_map->newtemp();    // 循环边界
+        
+        // 创建标签
+        tree::Label* error_label = temp_map->newlabel();
+        tree::Label* ok_label = temp_map->newlabel();
+        tree::Label* loop_label = temp_map->newlabel();
+        tree::Label* loop_body = temp_map->newlabel();
+        tree::Label* loop_exit = temp_map->newlabel();
+
+        vector<tree::Stm*>* stms = new vector<tree::Stm*>();
+        
+        // 获取左数组长度
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::INT, left_len_temp),
+            new tree::Mem(tree::Type::INT, left_tr->exp)
+        ));
+        
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::INT, right_len_temp),
+            new tree::Mem(tree::Type::INT, right_tr->exp)
+        ));
+        // 检查两个数组长度是否相等
+        stms->push_back(new tree::Cjump(
+            "!=",
+            new tree::TempExp(tree::Type::INT, left_len_temp),
+            new tree::TempExp(tree::Type::INT, right_len_temp),
+            error_label,
+            ok_label
+        ));
+        
+        // 长度不等则退出
+        stms->push_back(new tree::LabelStm(error_label));
+        stms->push_back(new tree::ExpStm(
+            new tree::ExtCall(tree::Type::INT, "exit", 
+                new vector<tree::Exp*>{new tree::Const(-1)})
+        ));
+        
+        // 长度相等，分配结果数组空间
+        stms->push_back(new tree::LabelStm(ok_label));
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::PTR, result_array),
+            new tree::ExtCall(tree::Type::PTR, "malloc",
+                new vector<tree::Exp*>{
+                    new tree::Binop(tree::Type::INT, "*",
+                        new tree::Binop(tree::Type::INT, "+",
+                            new tree::TempExp(tree::Type::INT, left_len_temp),
+                            new tree::Const(1)
+                        ),
+                        new tree::Const(4)
+                    )
+                }
+            )
+        ));
+        
+        // 设置结果数组的长度
+        stms->push_back(new tree::Move(
+            new tree::Mem(tree::Type::INT, new tree::TempExp(tree::Type::PTR, result_array)),
+            new tree::TempExp(tree::Type::INT, left_len_temp)
+        ));
+        
+        // 初始化循环变量
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::INT, index_temp),
+            new tree::Const(4)  // 从4开始，跳过长度字段
+        ));
+        
+        // 设置循环边界
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::INT, bound_temp),
+            new tree::Binop(tree::Type::INT, "*",
+                new tree::Binop(tree::Type::INT, "+",
+                    new tree::TempExp(tree::Type::INT, left_len_temp),
+                    new tree::Const(1)
+                ),
+                new tree::Const(4)
+            )
+        ));
+        
+        // 开始循环
+        stms->push_back(new tree::LabelStm(loop_label));
+        stms->push_back(new tree::Cjump(
+            "<",
+            new tree::TempExp(tree::Type::INT, index_temp),
+            new tree::TempExp(tree::Type::INT, bound_temp),
+            loop_body,
+            loop_exit
+        ));
+        
+        // 循环体
+        stms->push_back(new tree::LabelStm(loop_body));
+        stms->push_back(new tree::Move(
+            new tree::Mem(tree::Type::INT,
+                new tree::Binop(tree::Type::PTR, "+",
+                    new tree::TempExp(tree::Type::PTR, result_array),
+                    new tree::TempExp(tree::Type::INT, index_temp)
+                )
+            ),
+            new tree::Binop(tree::Type::INT, op,
+                new tree::Mem(tree::Type::INT,
+                    new tree::Binop(tree::Type::PTR, "+",
+                        left_tr->exp,
+                        new tree::TempExp(tree::Type::INT, index_temp)
+                    )
+                ),
+                new tree::Mem(tree::Type::INT,
+                    new tree::Binop(tree::Type::PTR, "+",
+                        right_tr->exp,
+                        new tree::TempExp(tree::Type::INT, index_temp)
+                    )
+                )
+            )
+        ));
+        
+        // 更新循环变量
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::INT, index_temp),
+            new tree::Binop(tree::Type::INT, "+",
+                new tree::TempExp(tree::Type::INT, index_temp),
+                new tree::Const(4)
+            )
+        ));
+        
+        // 跳回循环开始
+        stms->push_back(new tree::Jump(loop_label));
+        stms->push_back(new tree::LabelStm(loop_exit));
+        
+        // 返回结果数组
+        tr_exp = new Tr_ex(new tree::Eseq(
+            tree::Type::PTR,
+            new tree::Seq(stms),
+            new tree::TempExp(tree::Type::PTR, result_array)
+        ));
+        return;
+    }
+
     Tr_ex* left_ex = nullptr;
     Tr_ex* right_ex = nullptr;
     Tr_cx* left_cx = nullptr;
     Tr_cx* right_cx = nullptr;
 
-    string op = node->op->op;
-    
     if (op == "+" || op == "-" || op == "*" || op == "/" ||
         op == "==" || op == "!=" || op == "<" || op == "<=" || op == ">" || op == ">=") {
         node->left->accept(*this);
@@ -642,18 +786,18 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
     if(index_tr == nullptr) {
         index_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
     }
-    tree::Temp* index_temp = temp_map->newtemp();
+    tree::Temp* index_temp = nullptr;
     tree::Stm* index_stm = nullptr;
     // 添加数组下标检查
     tree::Temp* len_temp = temp_map->newtemp();
     vector<tree::Stm*>* check_stms = new vector<tree::Stm*>();
-    if(node->index->getASTKind() != ASTKind::IntExp){ // not constant
+
+    if(node->index->getASTKind() != ASTKind::IntExp && node->index->getASTKind() != ASTKind::IdExp){ // not constant
+        index_temp = temp_map->newtemp();
         index_stm = new tree::Move(
             new tree::TempExp(tree::Type::INT, index_temp),
             index_tr->exp
         );
-    } else {
-        index_temp = nullptr;
     }
     // 读取数组长度到临时变量
     check_stms->push_back(new tree::Move(
