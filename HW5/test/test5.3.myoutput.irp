@@ -5,10 +5,34 @@
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="100"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="8"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="D^m"/>
+                    </Move>
                     <ExpressionStatement>
                         <Call id="m" type="INT">
-                            <Temp type="PTR" temp="100"/>
-                            <Arguments/>
+                            <Memory>
+                                <BinOp op="+" type="PTR">
+                                    <Temp type="PTR" temp="100"/>
+                                    <Const value="4"/>
+                                </BinOp>
+                            </Memory>
+                            <Arguments>
+                                <Temp type="PTR" temp="100"/>
+                            </Arguments>
                         </Call>
                     </ExpressionStatement>
                     <Return>
@@ -18,17 +42,11 @@
             </Block>
         </Blocks>
     </FunctionDeclaration>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="101" last_label="100">
+    <FunctionDeclaration name="D^m" return_type="INT" last_temp="101" last_label="100" arg_temp_0="100">
         <Blocks>
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
-                    <ExpressionStatement>
-                        <Call id="m" type="INT">
-                            <Temp type="PTR" temp="100"/>
-                            <Arguments/>
-                        </Call>
-                    </ExpressionStatement>
                     <Return>
                         <Const value="0"/>
                     </Return>
