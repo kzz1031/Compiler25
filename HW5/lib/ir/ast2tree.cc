@@ -612,15 +612,13 @@ void ASTToTreeVisitor::visit(fdmj::Assign* node) {
 
 void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
     DEBUG_PRINT("visit fdmj::CallStm");
+    vector<tree::Exp*>* args = new vector<tree::Exp*>();
+    
     if (node->obj != nullptr) {
+        // 处理对象调用
         node->obj->accept(*this);
         Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
-        if(obj_tr == nullptr) {
-            obj_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
-        }
         
-        // 构造参数列表，this指针作为第一个参数
-        vector<tree::Exp*>* args = new vector<tree::Exp*>();
         args->push_back(obj_tr->exp);  // this指针
         
         if (node->par != nullptr) {
@@ -634,7 +632,6 @@ void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
             }
         }
 
-        // 获取方法地址并调用
         int offset = (class_table->get_method_pos(node->name->id)) * 4;
         tr_exp = new Tr_nx(new tree::ExpStm(
             new tree::Call(
@@ -649,29 +646,30 @@ void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
                 args
             )
         ));
-        return;
-    }
-    tree::Exp* obj_exp = nullptr;
-    if (node->obj != nullptr) {
-        node->obj->accept(*this);
-        Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
-        obj_exp = obj_tr->exp;
-    }
-    
-    vector<tree::Exp*>* args = new vector<tree::Exp*>();
-    if (node->par != nullptr) {
-        for (auto arg : *(node->par)) {
-            arg->accept(*this);
-            Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
-            if(arg_tr == nullptr) {
-                arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
-            }
-            if (arg_tr != nullptr) {
+    } else {
+        // 处理非对象方法调用
+        args->push_back(new tree::TempExp(tree::Type::PTR, current_mvt->get_var_temp("this")));
+        
+        if (node->par != nullptr) {
+            for (auto arg : *(node->par)) {
+                arg->accept(*this);
+                Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
+                if(arg_tr == nullptr) {
+                    arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+                }
                 args->push_back(arg_tr->exp);
             }
         }
+        
+        tr_exp = new Tr_nx(new tree::ExpStm(
+            new tree::Call(
+                tree::Type::INT, 
+                node->name->id,
+                nullptr,
+                args
+            )
+        ));
     }
-    tr_exp = new Tr_nx(new tree::ExpStm(new tree::Call(tree::Type::INT, node->name->id, obj_exp, args)));
 }
 
 void ASTToTreeVisitor::visit(fdmj::Continue* node) {
@@ -1354,11 +1352,25 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
                 args->push_back(arg_tr->exp);
             }
         }
-        string method_name = current_class_name + "^" + node->name->id;
+        string method_name = node->name->id;
+        string class_name = current_class_name;
+
+        // 在当前类及其祖先类中查找方法定义
+        if(!name_maps->is_method(current_class_name, method_name)) {
+            vector<string>* ancestors = name_maps->get_ancestors(current_class_name);
+            for(auto ancestor : *ancestors) {
+                if(name_maps->is_method(ancestor, method_name)) {
+                    class_name = ancestor;
+                    break;
+                }
+            }
+        }
+
+        auto return_formal = name_maps->get_method_formal(class_name, method_name, "_^return^_" + method_name);
+        tree::Type return_type = return_formal->type->typeKind == TypeKind::INT ? tree::Type::INT : tree::Type::PTR;
         
-        // 创建方法调用
         tr_exp = new Tr_ex(new tree::Call(
-            tree::Type::INT, 
+            return_type, 
             method_name,
             nullptr, 
             args
