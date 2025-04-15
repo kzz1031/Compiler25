@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="100">
         <Blocks>
             <Block entry_label="100">
                 <Sequence>
@@ -19,57 +19,84 @@
                         </Memory>
                         <Const value="0"/>
                     </Move>
-                    <Return>
-                        <Const value="1"/>
-                    </Return>
-                </Sequence>
-            </Block>
-        </Blocks>
-    </FunctionDeclaration>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
-        <Blocks>
-            <Block entry_label="100">
-                <Sequence>
-                    <Label label="100"/>
                     <Move>
-                        <Temp type="PTR" temp="101"/>
+                        <Temp type="PTR" temp="100"/>
                         <ExtCall extfun="malloc" type="PTR">
                             <Arguments>
-                                <Const value="4"/>
+                                <Const value="16"/>
                             </Arguments>
                         </ExtCall>
                     </Move>
                     <Move>
                         <Memory>
-                            <Temp type="PTR" temp="101"/>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="12"/>
+                            </BinOp>
                         </Memory>
-                        <Const value="0"/>
-                    </Move>
-                    <Return>
-                        <Const value="1"/>
-                    </Return>
-                </Sequence>
-            </Block>
-        </Blocks>
-    </FunctionDeclaration>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="100">
-        <Blocks>
-            <Block entry_label="100">
-                <Sequence>
-                    <Label label="100"/>
-                    <Move>
-                        <Temp type="PTR" temp="101"/>
-                        <ExtCall extfun="malloc" type="PTR">
-                            <Arguments>
-                                <Const value="4"/>
-                            </Arguments>
-                        </ExtCall>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="PTR" temp="103"/>
+                                    <ExtCall extfun="malloc" type="PTR">
+                                        <Arguments>
+                                            <Const value="16"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </Move>
+                                <Move>
+                                    <Memory>
+                                        <Temp type="PTR" temp="103"/>
+                                    </Memory>
+                                    <Const value="3"/>
+                                </Move>
+                                <Move>
+                                    <Memory>
+                                        <BinOp op="+" type="PTR">
+                                            <Temp type="PTR" temp="103"/>
+                                            <Const value="4"/>
+                                        </BinOp>
+                                    </Memory>
+                                    <Const value="1"/>
+                                </Move>
+                                <Move>
+                                    <Memory>
+                                        <BinOp op="+" type="PTR">
+                                            <Temp type="PTR" temp="103"/>
+                                            <Const value="8"/>
+                                        </BinOp>
+                                    </Memory>
+                                    <Const value="2"/>
+                                </Move>
+                                <Move>
+                                    <Memory>
+                                        <BinOp op="+" type="PTR">
+                                            <Temp type="PTR" temp="103"/>
+                                            <Const value="12"/>
+                                        </BinOp>
+                                    </Memory>
+                                    <Const value="3"/>
+                                </Move>
+                            </Sequence>
+                            <Temp type="PTR" temp="103"/>
+                        </ESeq>
                     </Move>
                     <Move>
                         <Memory>
-                            <Temp type="PTR" temp="101"/>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="4"/>
+                            </BinOp>
                         </Memory>
-                        <Const value="0"/>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="INT" temp="104"/>
+                                    <Const value="1"/>
+                                </Move>
+                            </Sequence>
+                            <Temp type="INT" temp="104"/>
+                        </ESeq>
                     </Move>
                     <Return>
                         <Const value="1"/>

@@ -23,25 +23,27 @@ using namespace std;
 Class_table* generate_class_table(AST_Semant_Map* semant_map) {
     Class_table* ct = new Class_table();
     Name_Maps* nm = semant_map->getNameMaps();
-    int var_offset = 0;
-    int method_offset = 0;
+    int offset = 0;
     
     for (auto& class_name : *(nm->get_class_list())) {
         for (auto& var_name : *(nm->get_class_var_list(class_name))) {
-            string full_var_name = class_name + "_" + var_name;
-            if (ct->var_pos_map.find(full_var_name) == ct->var_pos_map.end()) {
-                ct->var_pos_map[full_var_name] = var_offset++;
+            if (ct->var_pos_map.find(var_name) == ct->var_pos_map.end()) {
+                ct->var_pos_map[var_name] = offset++;
+                DEBUG_PRINT("var name: "<<var_name<<" offset: "<<offset);
             }
         }
         
         for (auto& method_name : *(nm->get_method_list(class_name))) {
-            string full_method_name = class_name + "_" + method_name;
-            if (ct->method_pos_map.find(full_method_name) == ct->method_pos_map.end()) {
-                ct->method_pos_map[full_method_name] = method_offset++;
+            if(class_name == "_^main^_") {
+                continue;
+            }
+            if (ct->method_pos_map.find(method_name) == ct->method_pos_map.end()) {
+                ct->method_pos_map[method_name] = offset++;
+                DEBUG_PRINT("method name: "<<method_name<<" offset: "<<offset);
             }
         }
     }
-    
+    DEBUG_PRINT("offset: "<<offset);
     return ct;
 }
 
@@ -54,15 +56,12 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
         mvt->var_temp_map->insert({"this", this_temp});
         mvt->var_type_map->insert({"this", tree::Type::PTR});
     }
-
     // add local variables
     if (nm->is_method(class_name, method_name)) {
         auto var_list = nm->get_method_var_list(class_name, method_name);
-        DEBUG_PRINT("local variables size: "<<var_list->size());
         for (auto& var_name : *var_list) {
             tree::Temp* var_temp = tm->newtemp();
             mvt->var_temp_map->insert({var_name, var_temp});
-            DEBUG_PRINT("add local variables: "<<var_name);
             auto var = nm->get_method_var(class_name, method_name, var_name);
             if (var->type->typeKind == TypeKind::INT) {
                 mvt->var_type_map->insert({var_name, tree::Type::INT});
@@ -96,7 +95,8 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
 
 void ASTToTreeVisitor::visit(fdmj::Program* node) {
     DEBUG_PRINT("visit fdmj::Program");
-    vector<tree::FuncDecl*>* fdl = new vector<tree::FuncDecl*>();
+
+    fdl = new vector<tree::FuncDecl*>();
     
     if (node->main != nullptr) {
         node->main->accept(*this);
@@ -104,14 +104,11 @@ void ASTToTreeVisitor::visit(fdmj::Program* node) {
             fdl->push_back(static_cast<tree::FuncDecl*>(visit_tree_result));
         }
     }
-    // no use
+
     if (node->cdl != nullptr) {
+        temp_map = new Temp_map();
         for (auto classDecl : *(node->cdl)) {
             classDecl->accept(*this);
-            if (visit_tree_result != nullptr) {
-                tree::FuncDecl* fd = static_cast<tree::FuncDecl*>(visit_tree_result);
-                fdl->push_back(fd);
-            }
         }
     }
     
@@ -123,13 +120,12 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
     
     vector<tree::Stm*>* sl = new vector<tree::Stm*>();
     current_mvt = generate_method_var_table("_^main^_", "main", name_maps, temp_map);
+    current_class_name = "_^main^_";
+    current_method_name = "main";
 
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
             DEBUG_PRINT("visit fdmj::MainMethod"<<" varDecl id: "<<varDecl->id->id);
-            if(varDecl->init.index() == 0) {
-                continue;
-            }
             varDecl->accept(*this);
             if(tr_exp == nullptr) {
                 continue;
@@ -182,6 +178,17 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::ClassDecl* node) {
+    current_class_name = node->id->id;
+    if (node->mdl != nullptr) {
+        for (auto methodDecl : *(node->mdl)) {
+            methodDecl->accept(*this);
+            if (visit_tree_result != nullptr) {
+                vector<tree::Stm*>* sl = new vector<tree::Stm*>();
+                tree::FuncDecl* fd = static_cast<tree::FuncDecl*>(visit_tree_result);
+                fdl->push_back(fd);
+            }
+        }
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::Type* node) {
@@ -189,12 +196,19 @@ void ASTToTreeVisitor::visit(fdmj::Type* node) {
 
 void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
     DEBUG_PRINT("visit fdmj::VarDecl");
-    DEBUG_PRINT("var name: "<<node->id->id);
+    
     Temp* var_temp = current_mvt->var_temp_map->at(node->id->id);
-
+    DEBUG_PRINT("var name: "<<node->id->id<<" var_temp: "<<var_temp->name());
     if(node->type->typeKind == TypeKind::ARRAY) {
         DEBUG_PRINT("var type: array");
-        int array_size = node->type->arity ? node->type->arity->val : 0;
+        int array_size = 0;
+        if(node->init.index() == 2) { // vector<IntExp*>
+            auto init_array = std::get<vector<IntExp*>*>(node->init);
+            array_size = init_array != nullptr ? init_array->size() : 0;
+        }
+       if(array_size == 0)
+            array_size = node->type->arity->val;
+
         DEBUG_PRINT("array size: "<<array_size);
         vector<tree::Stm*>* stms = new vector<tree::Stm*>();
         
@@ -226,9 +240,6 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
                     new tree::Mem(tree::Type::INT, 
                         new tree::Binop(tree::Type::PTR, "+", 
                             new tree::TempExp(tree::Type::PTR, var_temp),
-                            // new tree::Binop(tree::Type::INT, "*", 
-                            //     new tree::Const(i + 1),
-                            //     new tree::Const(4)))), 
                             new tree::Const((i + 1)*4))),
                     new tree::Const(val)
                 ));
@@ -239,7 +250,7 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
     }
     // 处理普通整数变量初始化 
     else if(node->type->typeKind == TypeKind::INT) {
-        if(std::holds_alternative<IntExp*>(node->init)) {
+        if(node->init.index() == 1) { // IntExp*    
             auto init_int = std::get<IntExp*>(node->init);
             int value = init_int->val;
             tr_exp = new Tr_nx(new tree::Move(
@@ -247,35 +258,184 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
                 new tree::Const(value)
             ));
         }
-        else if(std::holds_alternative<monostate>(node->init)) {
+        else if(node->init.index() == 0) { // null
             tr_exp = nullptr;
         }
+    }
+    if(node->type->typeKind == TypeKind::CLASS) {
+
+        string class_name = node->type->cid->id;
+        vector<string> class_hierarchy;
+        class_hierarchy.push_back(class_name);
+        vector<string>* ancestor_classes = name_maps->get_ancestors(class_name);
+        for(auto it : *ancestor_classes) {
+            class_hierarchy.push_back(it);
+        }
+
+        int total_size = (class_table->var_pos_map.size() + class_table->method_pos_map.size()) * 4;
+        vector<tree::Stm*>* stms = new vector<tree::Stm*>();
+        
+        // 分配对象内存
+        stms->push_back(new tree::Move(
+            new tree::TempExp(tree::Type::PTR, var_temp),
+            new tree::ExtCall(
+                tree::Type::PTR,
+                "malloc",
+                new vector<tree::Exp*>{new tree::Const(total_size)}
+            )
+        ));
+
+        set<string> method_initialized;
+        // 从父类到子类依次初始化变量
+        for(auto it = class_hierarchy.begin(); it != class_hierarchy.end(); ++it) {
+            string curr_class = *it;
+            auto var_list = name_maps->get_class_var_list(curr_class);
+
+            for(auto& var_name : *var_list) {
+                auto var = name_maps->get_class_var(curr_class, var_name);
+                string full_var_name = curr_class + "_" + var_name;
+                
+                int offset = (class_table->get_var_pos(var_name)) * 4; 
+
+                if(var->init.index() != 0) { // 有初始值
+                    if(var->type->typeKind == TypeKind::INT) {
+                        if(auto init_int = std::get<IntExp*>(var->init)) {
+                            vector<tree::Stm*>* init_stms = new vector<tree::Stm*>();
+                            tree::Temp* int_temp = temp_map->newtemp();
+                            init_stms->push_back(new tree::Move(
+                                new tree::TempExp(tree::Type::INT, int_temp),
+                                new tree::Const(init_int->val)
+                            ));
+                            stms->push_back(new tree::Move(
+                                new tree::Mem(tree::Type::INT,
+                                    new tree::Binop(tree::Type::PTR, "+",
+                                        new tree::TempExp(tree::Type::PTR, var_temp),
+                                        new tree::Const(offset)
+                                    )
+                                ),
+                                new tree::Eseq(
+                                    tree::Type::INT,
+                                    new tree::Seq(init_stms),
+                                    new tree::TempExp(tree::Type::INT, int_temp)
+                                )
+                            ));
+                        }
+                    }
+                    else if(var->type->typeKind == TypeKind::ARRAY) {
+                        if(auto init_array = std::get<vector<IntExp*>*>(var->init)) {
+                            int array_size = var->type->arity->val > 0 ? var->type->arity->val : init_array->size();
+                            tree::Temp* array_temp = temp_map->newtemp();
+                            DEBUG_PRINT("===array size: "<<var->type->arity->val<<" var name: "<<full_var_name<<"===");
+
+                            vector<tree::Stm*>* array_stms = new vector<tree::Stm*>();
+                            array_stms->push_back(new tree::Move(
+                                new tree::TempExp(tree::Type::PTR, array_temp),
+                                new tree::ExtCall(
+                                    tree::Type::PTR,
+                                    "malloc",
+                                    new vector<tree::Exp*>{new tree::Const((array_size + 1) * 4)}
+                                )
+                            ));
+                            
+                            // 设置数组长度
+                            array_stms->push_back(new tree::Move(
+                                new tree::Mem(tree::Type::INT,
+                                    new tree::TempExp(tree::Type::PTR, array_temp)
+                                ),
+                                new tree::Const(array_size)
+                            ));
+                            
+                            // 初始化数组元素
+                            for(size_t i = 0; i < init_array->size(); i++) {
+                                array_stms->push_back(new tree::Move(
+                                    new tree::Mem(tree::Type::INT,
+                                        new tree::Binop(tree::Type::PTR, "+",
+                                            new tree::TempExp(tree::Type::PTR, array_temp),
+                                            new tree::Const((i + 1) * 4)
+                                        )
+                                    ),
+                                    new tree::Const((*init_array)[i]->val)
+                                ));
+                            }
+                            
+                            // 将数组指针存入对象字段
+                            stms->push_back(new tree::Move(
+                                new tree::Mem(tree::Type::PTR,
+                                    new tree::Binop(tree::Type::PTR, "+",
+                                        new tree::TempExp(tree::Type::PTR, var_temp),
+                                        new tree::Const(offset)
+                                    )
+                                ),
+                                new tree::Eseq(
+                                    tree::Type::PTR,
+                                    new tree::Seq(array_stms),
+                                    new tree::TempExp(tree::Type::PTR, array_temp)
+                                )
+                            ));
+                        }
+                    }
+                }
+            }
+        }
+        
+        for(auto it = class_hierarchy.begin(); it != class_hierarchy.end(); ++it) {
+            string curr_class = *it;
+            auto method_list = name_maps->get_method_list(curr_class);
+            for(auto & method_name : *method_list) {
+                int offset = (class_table->get_method_pos(method_name)) * 4;
+                string full_method_name = curr_class + "^" + method_name;
+                String_Label* method_label = new String_Label(full_method_name);
+                if(method_initialized.find(method_name) == method_initialized.end()) {
+                    stms->push_back(new tree::Move(
+                        new tree::Mem(tree::Type::PTR,
+                            new tree::Binop(tree::Type::PTR, "+",
+                                new tree::TempExp(tree::Type::PTR, var_temp),
+                                new tree::Const(offset)
+                            )
+                        ),
+                        new tree::Name(method_label))
+                    );
+                    method_initialized.insert(method_name);
+                }
+            }
+        }
+        tr_exp = new Tr_nx(new tree::Seq(stms));
+        return;
     }
 }
 
 void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
+    DEBUG_PRINT("visit fdmj::MethodDecl"<<" Method name: "<<node->id->id << " Current class: "<<current_class_name);
+    current_mvt = generate_method_var_table(current_class_name, node->id->id, name_maps, temp_map);
+    current_method_name = node->id->id;
     vector<tree::Stm*>* sl = new vector<tree::Stm*>();
-    
-    current_mvt = generate_method_var_table("", node->id->id, nullptr, temp_map);
-    
     vector<tree::Temp*>* args = new vector<tree::Temp*>();
+    args->push_back(current_mvt->var_temp_map->at("this"));
+
     if (node->fl != nullptr) {
         for (auto formal : *(node->fl)) {
             formal->accept(*this);
+            args->push_back(current_mvt->var_temp_map->at(formal->id->id));
         }
     }
-    
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
-            string var_name = varDecl->id->id;
-            tree::Temp* var_temp = current_mvt->var_temp_map->at(var_name);
-            
-            if (varDecl->init.index() != 0) { // 不是monostate
-                if (varDecl->init.index() == 1) { // IntExp*
-                    IntExp* init_int = get<IntExp*>(varDecl->init);
-                    int value = init_int->val;
-                    sl->push_back(new tree::Move(new tree::TempExp(tree::Type::INT, var_temp), new tree::Const(value)));
+            DEBUG_PRINT("visit fdmj::MethodDecl"<<" varDecl id: "<<varDecl->id->id);
+            if(varDecl->init.index() == 0) {
+                continue;
+            }
+            varDecl->accept(*this);
+            if(tr_exp == nullptr) {
+                continue;
+            }
+            Tr_nx* tr_nx = dynamic_cast<Tr_nx*>(tr_exp);
+            tree::Seq* seq = dynamic_cast<tree::Seq*>(tr_nx->stm);
+            if (seq != nullptr && seq->sl != nullptr) {
+                for (auto s : *(seq->sl)) {
+                    sl->push_back(s);
                 }
+            } else {
+                sl->push_back(tr_nx->stm);
             }
         }
     }
@@ -284,11 +444,15 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
     if (node->sl != nullptr) {
         for (auto stm : *(node->sl)) {
             stm->accept(*this);
-            if (visit_tree_result != nullptr) {
-                tree::Stm* tree_stm = dynamic_cast<tree::Stm*>(visit_tree_result);
-                if (tree_stm != nullptr) {
-                    sl->push_back(tree_stm);
+            if (tr_exp != nullptr) {
+                Tr_nx* tr_nx = dynamic_cast<Tr_nx*>(tr_exp);
+                if(tr_nx == nullptr) {
+                    tr_nx = dynamic_cast<Tr_ex*>(tr_exp)->unNx(temp_map);
                 }
+                if (tr_nx == nullptr) {
+                    tr_nx = dynamic_cast<Tr_cx*>(tr_exp)->unNx(temp_map);
+                }
+                sl->push_back(tr_nx->stm);
             }
         }
     }
@@ -302,12 +466,35 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
     tree::Block* block = new tree::Block(entry_label, nullptr, sl);
     bl->push_back(block);
     
-    // 创建函数声明
-    string method_name = "_" + node->id->id; // 临时方法名
-    visit_tree_result = new tree::FuncDecl(method_name, args, bl, tree::Type::INT, temp_map->next_temp, temp_map->next_label);
+    string method_name = current_class_name + "^" + node->id->id;
+    DEBUG_PRINT("====method name: "<<method_name);
+    visit_tree_result = new tree::FuncDecl(
+        method_name, 
+        args, 
+        bl, 
+        node->type->typeKind == TypeKind::INT ? tree::Type::INT : tree::Type::PTR, 
+        temp_map->next_temp - 1, 
+        temp_map->next_label - 1);
+    DEBUG_PRINT("===visit_tree_result: "<<node->id->id);
 }
 
 void ASTToTreeVisitor::visit(fdmj::Formal* node) {
+    DEBUG_PRINT("visit fdmj::Formal");
+    if(node->id == nullptr || node->type == nullptr) {
+        return;
+    }
+
+    tree::Temp* formal_temp = temp_map->newtemp();
+    
+    if(current_mvt != nullptr) {
+        current_mvt->var_temp_map->insert({node->id->id, formal_temp});
+        
+        if(node->type->typeKind == TypeKind::INT) {
+            current_mvt->var_type_map->insert({node->id->id, tree::Type::INT});
+        } else {
+            current_mvt->var_type_map->insert({node->id->id, tree::Type::PTR});
+        }
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::Nested* node) {
@@ -421,6 +608,46 @@ void ASTToTreeVisitor::visit(fdmj::Assign* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
+    DEBUG_PRINT("visit fdmj::CallStm");
+    if (node->obj != nullptr) {
+        node->obj->accept(*this);
+        Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
+        if(obj_tr == nullptr) {
+            obj_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+        }
+        
+        // 构造参数列表，this指针作为第一个参数
+        vector<tree::Exp*>* args = new vector<tree::Exp*>();
+        args->push_back(obj_tr->exp);  // this指针
+        
+        if (node->par != nullptr) {
+            for (auto arg : *(node->par)) {
+                arg->accept(*this);
+                Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
+                if(arg_tr == nullptr) {
+                    arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+                }
+                args->push_back(arg_tr->exp);
+            }
+        }
+
+        // 获取方法地址并调用
+        int offset = (class_table->get_method_pos(node->name->id)) * 4;
+        tr_exp = new Tr_nx(new tree::ExpStm(
+            new tree::Call(
+                tree::Type::INT,
+                node->name->id,
+                new tree::Mem(tree::Type::PTR,
+                    new tree::Binop(tree::Type::PTR, "+",
+                        obj_tr->exp,
+                        new tree::Const(offset)
+                    )
+                ),
+                args
+            )
+        ));
+        return;
+    }
     tree::Exp* obj_exp = nullptr;
     if (node->obj != nullptr) {
         node->obj->accept(*this);
@@ -786,11 +1013,25 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
     if(index_tr == nullptr) {
         index_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
     }
+    tree::Temp* array_temp = nullptr;
+    tree::Stm* array_stm = nullptr;
     tree::Temp* index_temp = nullptr;
     tree::Stm* index_stm = nullptr;
     // 添加数组下标检查
     tree::Temp* len_temp = temp_map->newtemp();
     vector<tree::Stm*>* check_stms = new vector<tree::Stm*>();
+
+    if(node->arr->getASTKind() != ASTKind::IdExp) { // not constant
+        array_temp = temp_map->newtemp();
+        array_stm = new tree::Move(
+            new tree::TempExp(tree::Type::PTR, array_temp),
+            array_tr->exp
+        );
+    }
+    else {
+        string array_id = dynamic_cast<fdmj::IdExp*>(node->arr)->id;
+        array_temp = current_mvt->var_temp_map->at(array_id);
+    }
 
     if(node->index->getASTKind() != ASTKind::IntExp && node->index->getASTKind() != ASTKind::IdExp){ // not constant
         index_temp = temp_map->newtemp();
@@ -799,10 +1040,15 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
             index_tr->exp
         );
     }
+    if(node->index->getASTKind() == ASTKind::IdExp) {
+        string index_id = dynamic_cast<fdmj::IdExp*>(node->index)->id;
+        index_temp = current_mvt->var_temp_map->at(index_id);
+    }
+    
     // 读取数组长度到临时变量
     check_stms->push_back(new tree::Move(
         new tree::TempExp(tree::Type::INT, len_temp),
-        new tree::Mem(tree::Type::INT, array_tr->exp)
+        new tree::Mem(tree::Type::INT, new tree::TempExp(tree::Type::PTR, array_temp))
     ));
     
     // 检查下标是否越界
@@ -845,11 +1091,21 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
         new tree::Const(4)
     );
     
-    tree::Exp* addr = new tree::Binop(tree::Type::PTR, "+", array_tr->exp, offset);
+    tree::Exp* addr = new tree::Binop(tree::Type::PTR, "+", new tree::TempExp(tree::Type::PTR, array_temp), offset);
     
-    if(index_temp != nullptr) {
+    if((node->index->getASTKind() != ASTKind::IntExp && node->index->getASTKind() != ASTKind::IdExp)
+        || node->arr->getASTKind()!= ASTKind::IdExp) { // not constant  
+        DEBUG_PRINT("visit fdmj::ArrayExp"<<" not constant");
         std::vector<tree::Stm*> *seq_stms = new std::vector<tree::Stm*>();
-        seq_stms->push_back(index_stm);
+        if(array_stm != nullptr) {
+            seq_stms->push_back(array_stm);
+        }
+        if(index_stm != nullptr) {
+            seq_stms->push_back(index_stm);
+        }
+        if(seq_stms->size() == 0){
+            DEBUG_PRINT("===seq_stms empty===");
+        }
         tree::Seq* seq = new tree::Seq(seq_stms);
         tree::Eseq* eseq = new tree::Eseq(
             tree::Type::INT,
@@ -865,41 +1121,94 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
-    tree::Exp* obj_exp = nullptr;
+    DEBUG_PRINT("visit fdmj::CallExp");
+    
+    vector<tree::Exp*>* args = new vector<tree::Exp*>();
+    
+    // 处理对象调用
     if (node->obj != nullptr) {
         node->obj->accept(*this);
         Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
-        obj_exp = obj_tr->exp;
-    }
-    
-    // 处理参数
-    vector<tree::Exp*>* args = new vector<tree::Exp*>();
-    if (node->par != nullptr) {
-        for (auto arg : *(node->par)) {
-            arg->accept(*this);
-            Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
-            if(arg_tr == nullptr) {
-                arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
-            }
-            if (arg_tr != nullptr) {
+        string class_var_name = dynamic_cast<fdmj::IdExp*>(node->obj)->id;
+        if(obj_tr == nullptr) {
+            obj_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+        }
+        Temp* obj_temp = current_mvt->var_temp_map->at(class_var_name);
+        args->push_back(new tree::TempExp(tree::Type::PTR, obj_temp));  // this指针
+
+        if (node->par != nullptr) {
+            for (auto arg : *(node->par)) {
+                arg->accept(*this);
+                Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
+                if(arg_tr == nullptr) {
+                    arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+                }
                 args->push_back(arg_tr->exp);
             }
         }
-    }   
-    string method_name = node->name->id;
-    tr_exp = new Tr_ex(new tree::Call(tree::Type::INT, method_name, obj_exp, args));
+
+        string method_name = node->name->id;
+        int offset = class_table->get_method_pos(method_name) * 4;
+        
+        // 获取方法返回值类型
+        DEBUG_PRINT("current_class_name: " << current_class_name<< " method_name: " << method_name);
+        VarDecl* class_decl = name_maps->get_method_var(current_class_name, current_method_name, class_var_name);
+        DEBUG_PRINT("class_decl: " << class_decl->type->cid->id);
+        if(name_maps->is_method(class_decl->type->cid->id, method_name)) {
+            DEBUG_PRINT("is_method");
+        }
+        auto return_formal = name_maps->get_method_formal(class_decl->type->cid->id, method_name, "_^return^_" + method_name);
+        tree::Type return_type = return_formal->type->typeKind == TypeKind::INT ? tree::Type::INT : tree::Type::PTR;
+        
+        // 创建方法调用
+        tr_exp = new Tr_ex(new tree::Call(
+            return_type,
+            method_name,
+            // 从对象的虚表中获取方法地址
+            new tree::Mem(tree::Type::PTR,
+                new tree::Binop(tree::Type::PTR, "+",
+                    new tree::TempExp(tree::Type::PTR, obj_temp),
+                    new tree::Const(offset)
+                )
+            ),
+            args
+        ));
+    }
+    // 处理非对象方法调用(如当前类中的方法)
+    else {
+        // 添加this指针作为第一个参数
+        args->push_back(new tree::TempExp(tree::Type::PTR, current_mvt->get_var_temp("this")));
+        
+        if (node->par != nullptr) {
+            for (auto arg : *(node->par)) {
+                arg->accept(*this);
+                Tr_ex* arg_tr = dynamic_cast<Tr_ex*>(tr_exp);
+                if(arg_tr == nullptr) {
+                    arg_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+                }
+                args->push_back(arg_tr->exp);
+            }
+        }
+        string method_name = current_class_name + "^" + node->name->id;
+        
+        // 创建方法调用
+        tr_exp = new Tr_ex(new tree::Call(
+            tree::Type::INT, 
+            method_name,
+            nullptr, 
+            args
+        ));
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::ClassVar* node) {
     node->obj->accept(*this);
     Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
     
-    int offset = 0;
+    int offset = class_table->get_var_pos(node->id->id) * 4;
     
-    // 计算地址：obj + offset
     tree::Exp* addr = new tree::Binop(tree::Type::PTR, "+", obj_tr->exp, new tree::Const(offset));
     
-    // 创建内存访问
     tr_exp = new Tr_ex(new tree::Mem(tree::Type::INT, addr));
 }
 
@@ -910,7 +1219,7 @@ void ASTToTreeVisitor::visit(fdmj::BoolExp* node) {
 
 void ASTToTreeVisitor::visit(fdmj::This* node) {
     // 获取this指针
-    tree::Temp* temp = temp_map->newtemp();
+    tree::Temp* temp = current_mvt->get_var_temp("this");
     tr_exp = new Tr_ex(new tree::TempExp(tree::Type::PTR, temp));
 }
 
@@ -1002,6 +1311,7 @@ tree::Program* ast2tree(fdmj::Program* prog, AST_Semant_Map* semant_map) {
 
     visitor.name_maps = semant_map->getNameMaps();
     visitor.temp_map = new Temp_map();
+    visitor.class_table = generate_class_table(semant_map);
     prog->accept(visitor);
     
     return dynamic_cast<tree::Program*>(visitor.getTree());
