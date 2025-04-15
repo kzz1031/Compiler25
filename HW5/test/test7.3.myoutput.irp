@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="100">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="105" last_label="100">
         <Blocks>
             <Block entry_label="100">
                 <Sequence>
@@ -85,17 +85,44 @@
                         <Memory>
                             <BinOp op="+" type="PTR">
                                 <Temp type="PTR" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="PTR" temp="104"/>
+                                    <ExtCall extfun="malloc" type="PTR">
+                                        <Arguments>
+                                            <Const value="4"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </Move>
+                                <Move>
+                                    <Memory>
+                                        <Temp type="PTR" temp="104"/>
+                                    </Memory>
+                                    <Const value="0"/>
+                                </Move>
+                            </Sequence>
+                            <Temp type="PTR" temp="104"/>
+                        </ESeq>
+                    </Move>
+                    <Move>
+                        <Memory>
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
                                 <Const value="4"/>
                             </BinOp>
                         </Memory>
                         <ESeq>
                             <Sequence>
                                 <Move>
-                                    <Temp type="INT" temp="104"/>
+                                    <Temp type="INT" temp="105"/>
                                     <Const value="1"/>
                                 </Move>
                             </Sequence>
-                            <Temp type="INT" temp="104"/>
+                            <Temp type="INT" temp="105"/>
                         </ESeq>
                     </Move>
                     <Return>
