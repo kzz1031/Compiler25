@@ -44,7 +44,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE ?= test3
+FILE ?= test9
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
