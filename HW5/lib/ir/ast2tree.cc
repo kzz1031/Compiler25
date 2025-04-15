@@ -733,7 +733,23 @@ void ASTToTreeVisitor::visit(fdmj::PutCh* node) {
 }
 
 void ASTToTreeVisitor::visit(fdmj::PutArray* node) {
-    tr_exp = nullptr;
+    DEBUG_PRINT("visit fdmj::PutArray");
+    node->arr->accept(*this);
+    Tr_ex* arr_tr = dynamic_cast<Tr_ex*>(tr_exp);
+    node->n->accept(*this);
+    Tr_ex* index_tr = dynamic_cast<Tr_ex*>(tr_exp);
+    if(index_tr == nullptr) {
+        index_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
+    }
+    vector<tree::Exp*>* args = new vector<tree::Exp*>();
+    args->push_back(arr_tr->exp);
+    args->push_back(index_tr->exp);
+   
+    tr_exp = new Tr_nx(new tree::ExpStm(
+        new tree::ExtCall(tree::Type::INT, "putarray", 
+            args
+        )
+    ));
 }
 
 void ASTToTreeVisitor::visit(fdmj::Starttime* node) {
@@ -1247,7 +1263,6 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
         
         // 分情况获取类型信息
         if (auto id_exp = dynamic_cast<fdmj::IdExp*>(node->obj)) {
-            // 如果是简单变量调用
             class_var_name = id_exp->id;
             VarDecl* class_decl = name_maps->get_method_var(current_class_name, current_method_name, class_var_name);
             class_name = class_decl->type->cid->id;
@@ -1449,7 +1464,7 @@ void ASTToTreeVisitor::visit(fdmj::GetArray* node) {
         }
         vector<tree::Exp*>* args = new vector<tree::Exp*>();
         args->push_back(array_tr->exp);
-        tr_exp = new Tr_ex(new tree::ExtCall(tree::Type::PTR, "getarray", args));
+        tr_exp = new Tr_ex(new tree::ExtCall(tree::Type::INT, "getarray", args));
     } else {
         tr_exp = nullptr;
     }

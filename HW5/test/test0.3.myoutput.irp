@@ -21,7 +21,7 @@
                     </Move>
                     <Move>
                         <Temp type="INT" temp="101"/>
-                        <ExtCall extfun="getarray" type="PTR">
+                        <ExtCall extfun="getarray" type="INT">
                             <Arguments>
                                 <Temp type="PTR" temp="100"/>
                             </Arguments>
@@ -107,6 +107,14 @@
                             <Temp type="PTR" temp="104"/>
                         </ESeq>
                     </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putarray" type="INT">
+                            <Arguments>
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
                     <Return>
                         <Memory>
                             <BinOp op="+" type="PTR">

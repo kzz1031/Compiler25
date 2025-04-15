@@ -169,7 +169,7 @@
                     </Move>
                     <Move>
                         <Temp type="INT" temp="105"/>
-                        <ExtCall extfun="getarray" type="PTR">
+                        <ExtCall extfun="getarray" type="INT">
                             <Arguments>
                                 <Temp type="PTR" temp="100"/>
                             </Arguments>
