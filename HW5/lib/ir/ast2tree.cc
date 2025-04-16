@@ -663,7 +663,7 @@ void ASTToTreeVisitor::visit(fdmj::CallStm* node) {
         
         tr_exp = new Tr_nx(new tree::ExpStm(
             new tree::Call(
-                tree::Type::INT, 
+                tree::Type::INT, //type does not matter
                 node->name->id,
                 nullptr,
                 args
