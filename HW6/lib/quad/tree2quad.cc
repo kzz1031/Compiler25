@@ -195,6 +195,7 @@ void Tree2Quad::visit(tree::Move *move) {
     
     // 处理 dst 是内存访问的情况 (Store)
     if (dst->getTreeKind() == Kind::MEM) {
+        DEBUG_PRINT("Mem <- Temp/Const/Name");
         Mem *mem = static_cast<Mem*>(dst);
         src->accept(*this);
         QuadTerm *src_term = output_term;
@@ -438,7 +439,6 @@ void Tree2Quad::visit(Mem* node) {
     node->mem->accept(*this);
     QuadTerm* addr = output_term;
     
-    // 创建新的临时变量存储加载结果
     Temp* temp = temp_map->newtemp();
     TempExp* dst = new TempExp(node->type, temp);
     

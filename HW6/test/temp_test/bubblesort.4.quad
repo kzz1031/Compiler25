@@ -28,7 +28,7 @@ Function _^main^_^main() last_label=107 last_temp=148:
     MOVE t113:PTR <- t101:PTR; def: 113 use: 101 
     MOVE t112:PTR <- t100:PTR; def: 112 use: 100 
     LOAD t106:INT <- Mem(t142:INT); def: 106 use: 142 
-    CALL  <- bubbleSort[t114:PTR] (t113:PTR, t112:PTR, t106:INT); def: use: 106 113 114 112 
+    CALL bubbleSort[t114:PTR] (t113:PTR, t112:PTR, t106:INT); def: use: 106 113 114 112 
     LABEL L102; def: use: 
     MOVE t116:INT <- t102:INT; def: 116 use: 102 
     LOAD t107:INT <- Mem(t143:INT); def: 107 use: 143 
@@ -38,15 +38,15 @@ Function _^main^_^main() last_label=107 last_temp=148:
     LOAD t108:INT <- Mem(t144:INT); def: 108 use: 144 
     CJUMP >= t102:INT t108:INT? L105 : L106; def: use: 102 108 
     LABEL L105; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L106; def: use: 
     LOAD t119:INT <- Mem(t148:INT); def: 119 use: 148 
-    EXTCALL  <- putint(t119:INT); def: use: 119 
-    EXTCALL  <- putch(Const:32); def: use: 
+    EXTCALL putint(t119:INT); def: use: 119 
+    EXTCALL putch(Const:32); def: use: 
     MOVE_BINOP t102:INT <- (+, t102:INT, Const:1); def: 102 use: 102 
     JUMP L102; def: use: 
     LABEL L104; def: use: 
-    EXTCALL  <- putch(Const:10); def: use: 
+    EXTCALL putch(Const:10); def: use: 
     RETURN Const:0; def: use: 
 Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
   Block: Entry Label: L127
@@ -67,7 +67,7 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
     LOAD t106:INT <- Mem(t135:INT); def: 106 use: 135 
     CJUMP >= t100:INT t106:INT? L110 : L111; def: use: 100 106 
     LABEL L110; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L111; def: use: 
     LOAD t119:INT <- Mem(t139:INT); def: 119 use: 139 
     MOVE_BINOP t107:INT <- (+, t100:INT, Const:1); def: 107 use: 100 
@@ -75,7 +75,7 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
     LOAD t108:INT <- Mem(t140:INT); def: 108 use: 140 
     CJUMP >= t107:INT t108:INT? L112 : L113; def: use: 107 108 
     LABEL L112; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L113; def: use: 
     LOAD t144:INT <- Mem(t143:PTR); def: 144 use: 143 
     CJUMP > t119:INT t144:INT? L124 : L125; def: use: 119 144 
@@ -84,21 +84,21 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
     LOAD t109:INT <- Mem(t145:INT); def: 109 use: 145 
     CJUMP >= t100:INT t109:INT? L116 : L117; def: use: 100 109 
     LABEL L116; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L117; def: use: 
     LOAD t101:INT <- Mem(t149:INT); def: 101 use: 149 
     MOVE t123:PTR <- t103:PTR; def: 123 use: 103 
     LOAD t110:INT <- Mem(t150:INT); def: 110 use: 150 
     CJUMP >= t100:INT t110:INT? L118 : L119; def: use: 100 110 
     LABEL L118; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L119; def: use: 
     MOVE_BINOP t111:INT <- (+, t100:INT, Const:1); def: 111 use: 100 
     MOVE t125:PTR <- t103:PTR; def: 125 use: 103 
     LOAD t112:INT <- Mem(t151:INT); def: 112 use: 151 
     CJUMP >= t111:INT t112:INT? L120 : L121; def: use: 111 112 
     LABEL L120; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L121; def: use: 
     LOAD t159:INT <- Mem(t158:PTR); def: 159 use: 158 
     STORE t155:INT -> Mem(t159:INT); def: 155 use: 159 
@@ -107,7 +107,7 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
     LOAD t114:INT <- Mem(t160:INT); def: 114 use: 160 
     CJUMP >= t113:INT t114:INT? L122 : L123; def: use: 113 114 
     LABEL L122; def: use: 
-    EXTCALL  <- exit(Const:-1); def: use: 
+    EXTCALL exit(Const:-1); def: use: 
     LABEL L123; def: use: 
     LOAD t164:INT <- Mem(t163:PTR); def: 164 use: 163 
     STORE t101:INT -> Mem(t164:INT); def: 101 use: 164 
@@ -122,5 +122,5 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
     MOVE t131:PTR <- t102:PTR; def: 131 use: 102 
     MOVE t130:PTR <- t103:PTR; def: 130 use: 103 
     MOVE_BINOP t129:INT <- (-, t104:INT, Const:1); def: 129 use: 104 
-    MOVE_CALL t133:INT <-  <- bubbleSort[t132:PTR] (t131:PTR, t130:PTR, t129:INT); def: 133 use: 
+    MOVE_CALL t133:INT <- bubbleSort[t132:PTR] (t131:PTR, t130:PTR, t129:INT); def: 133 use: 
     RETURN t133:INT; def: use: 133 
