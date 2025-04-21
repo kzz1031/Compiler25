@@ -1,0 +1,6 @@
+public int main() {
+   int x; 
+   int y=19;
+   x = 2+(y>0);
+   return(({if (x) x=0; else x=1;} x));
+}

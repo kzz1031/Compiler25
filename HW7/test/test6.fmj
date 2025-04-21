@@ -1,0 +1,24 @@
+public int main() {
+   class D d;
+   class C c;
+   c = d;
+   putint(c.m1()[0]);
+   return(1);
+}
+
+public class C {
+   class D y;
+   int[] z = {1,2,3};
+   public int[] m1() {
+	int[] a={1,2,3};
+        return(a);
+   }
+}
+
+public class D extends C {
+   public int[] m1() {
+        return this.z;
+   }
+}
+
+

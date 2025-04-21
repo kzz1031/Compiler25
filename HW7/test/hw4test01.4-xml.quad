@@ -1,0 +1,19 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="101">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </move>
+            <return kind="RETURN">
+                <value kind="TEMP" id="100" type="INT"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

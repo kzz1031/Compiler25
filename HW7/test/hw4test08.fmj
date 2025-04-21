@@ -1,0 +1,6 @@
+public int main() {
+   int x; 
+   int y=19;
+   if (({if (({if (x) x=x;} x)) x=x;} x)) y=20;
+   return(y);
+}

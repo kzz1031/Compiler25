@@ -1,0 +1,83 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="105" last_temp_num="104">
+        <block kind="BLOCK" entry="105">
+            <label kind="LABEL" name="105"/>
+            <move kind="MOVE" dst="101" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="101"/>
+                </def>
+            </move>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="2"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="103" temp_type="INT" op="+">
+                <left kind="TEMP" id="101" type="INT"/>
+                <right kind="TEMP" id="102" type="INT"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+                <use>
+                    <temp id="101"/>
+                    <temp id="102"/>
+                </use>
+            </movebinop>
+            <move kind="MOVE" dst="101" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="101"/>
+                </def>
+            </move>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="2"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="103" temp_type="INT" op="*">
+                <left kind="TEMP" id="101" type="INT"/>
+                <right kind="TEMP" id="102" type="INT"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+                <use>
+                    <temp id="101"/>
+                    <temp id="102"/>
+                </use>
+            </movebinop>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </move>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="100" temp_type="INT" op="+">
+                <left kind="CONST" value="0"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </movebinop>
+            <cjump kind="CJUMP" relop="!=" true="102" false="103">
+                <left kind="CONST" value="0"/>
+                <right kind="CONST" value="1"/>
+            </cjump>
+            <label kind="LABEL" name="102"/>
+            <jump kind="JUMP" target="104"/>
+            <label kind="LABEL" name="103"/>
+            <label kind="LABEL" name="104"/>
+            <return kind="RETURN">
+                <value kind="CONST" value="0"/>
+            </return>
+        </block>
+    </funcdecl>
+</program>

@@ -1,0 +1,34 @@
+Function _^main^_^main() last_label=110 last_temp=104:
+  Block: Entry Label: L110
+    Exit labels: L102 L103 
+    LABEL L110; def: use: 
+    MOVE t10100:INT <- Const:19; def: 10100 use: 
+    MOVE t10400:INT <- Const:2; def: 10400 use: 
+    MOVE t10300:INT <- Const:0; def: 10300 use: 
+    CJUMP > t10100:INT Const:0? L102 : L103; def: use: 10100 
+  Block: Entry Label: L102
+    Exit labels: L103 
+    LABEL L102; def: use: 
+    MOVE t10301:INT <- Const:1; def: 10301 use: 
+    JUMP L103; def: use: 
+  Block: Entry Label: L103
+    Exit labels: L107 L108 
+    LABEL L103; def: use: 
+    PHI t10302:INT <- (t10301, L102; t10300, L110); def: 10302 use: 10300 10301 
+    MOVE_BINOP t10000:INT <- (+, t10400:INT, t10302:INT); def: 10000 use: 10400 10302 
+    CJUMP != t10000:INT Const:0? L107 : L108; def: use: 10000 
+  Block: Entry Label: L107
+    Exit labels: L109 
+    LABEL L107; def: use: 
+    MOVE t10001:INT <- Const:0; def: 10001 use: 
+    JUMP L109; def: use: 
+  Block: Entry Label: L108
+    Exit labels: L109 
+    LABEL L108; def: use: 
+    MOVE t10002:INT <- Const:1; def: 10002 use: 
+    JUMP L109; def: use: 
+  Block: Entry Label: L109
+    Exit labels: 
+    LABEL L109; def: use: 
+    PHI t10003:INT <- (t10001, L107; t10002, L108); def: 10003 use: 10001 10002 
+    RETURN t10003:INT; def: use: 10003 

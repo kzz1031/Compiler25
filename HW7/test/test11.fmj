@@ -1,0 +1,7 @@
+public int main() {
+   int[] a;
+   int[5] b;
+   int[5] c;
+   a = b + c;
+   return(0);
+}
