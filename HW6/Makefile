@@ -45,10 +45,10 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=test1
+FILE=hw4test01
 
 run-one: $(MAIN)
-	cd $(CURDIR)/test && \
+	cd $(CURDIR)/test/temp_test && \
 	echo "Reading ${FILE}.3.irp"; \
 	$(MAIN) "${FILE}"; \
 	cd .. > /dev/null 2>&1 

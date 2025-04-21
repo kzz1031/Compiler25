@@ -40,6 +40,7 @@ int main(int argc, const char *argv[]) {
     tree::Program *ir_canon = canon(ir);
     cout << "Writing Canonicalized IR to " << file_irp_canon << endl;
     XMLDocument *doc = tree2xml(ir_canon);
+    cout << "Writing IR to: " << file_irp_canon << endl;
     doc->SaveFile(file_irp_canon.c_str()); 
     QuadProgram *qd = tree2quad(ir_canon);
     if (qd == nullptr) {
