@@ -203,17 +203,16 @@ void Tree2Quad::visit(tree::Move *move) {
         
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
-        // 收集use的临时变量
+
         if (src_term->kind == QuadTermKind::TEMP)
             def->insert(src_term->get_temp()->temp);
         if (dst_term->kind == QuadTermKind::TEMP)
             use->insert(dst_term->get_temp()->temp);
-            
         visit_result->push_back(new QuadStore(move, src_term, dst_term, def, use));
         return;
     }
     if(dynamic_cast<TempExp*>(dst) == nullptr) {
-        
+        DEBUG_PRINT("dst is not TempExp");
         visit_result = nullptr;
         return;
     }
@@ -245,6 +244,7 @@ void Tree2Quad::visit(tree::Move *move) {
         
         visit_result = new vector<QuadStm*>();
         visit_result->push_back(new QuadMoveExtCall(move, dst_temp, extcall, def, use));
+        DEBUG_PRINT("finish Temp <- ExtCall");
     }
     else if (src->getTreeKind() == Kind::MEM) {
         DEBUG_PRINT("Temp <- Mem");
@@ -451,6 +451,7 @@ void Tree2Quad::visit(Mem* node) {
     QuadLoad* load = new QuadLoad(node, dst, addr, def, use);
     visit_result = new vector<QuadStm*>{load};
     output_term = new QuadTerm(dst);
+    DEBUG_PRINT("finish Mem");
 }
 
 void Tree2Quad::visit(TempExp* node) {
@@ -470,10 +471,10 @@ void Tree2Quad::visit(Name* node) {
 #ifdef DEBUG
     cout << "Converting to Quad: Name" << endl;
 #endif
-    if (!node || !node->name) {
-        output_term = nullptr;
-        return;
-    }
+    // if (!node || !node->name) {
+    //     output_term = nullptr;
+    //     return;
+    // }
 
     output_term = new QuadTerm(node->sname->name);
 }

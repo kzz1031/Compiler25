@@ -1,0 +1,126 @@
+Function _^main^_^main() last_label=107 last_temp=148:
+  Block: Entry Label: L107
+    Exit labels: 
+    LABEL L107; def: use: 
+    MOVE_EXTCALL t100:PTR <- malloc(Const:32); def: 100 use: 
+    LOAD t123:INT <- Mem(t100:PTR); def: 123 use: 100 
+    STORE Const:7 -> Mem(t123:INT); def: use: 123 
+    LOAD t125:INT <- Mem(t124:PTR); def: 125 use: 124 
+    STORE Const:6 -> Mem(t125:INT); def: use: 125 
+    LOAD t127:INT <- Mem(t126:PTR); def: 127 use: 126 
+    STORE Const:3 -> Mem(t127:INT); def: use: 127 
+    LOAD t129:INT <- Mem(t128:PTR); def: 129 use: 128 
+    STORE Const:0 -> Mem(t129:INT); def: use: 129 
+    LOAD t131:INT <- Mem(t130:PTR); def: 131 use: 130 
+    STORE Const:5 -> Mem(t131:INT); def: use: 131 
+    LOAD t133:INT <- Mem(t132:PTR); def: 133 use: 132 
+    STORE Const:9 -> Mem(t133:INT); def: use: 133 
+    LOAD t135:INT <- Mem(t134:PTR); def: 135 use: 134 
+    STORE Const:1 -> Mem(t135:INT); def: use: 135 
+    LOAD t137:INT <- Mem(t136:PTR); def: 137 use: 136 
+    STORE Const:2 -> Mem(t137:INT); def: use: 137 
+    MOVE_EXTCALL t101:PTR <- malloc(Const:8); def: 101 use: 
+    LOAD t139:PTR <- Mem(t138:PTR); def: 139 use: 138 
+    STORE Name:b1^bubbleSort -> Mem(t139:PTR); def: use: 139 
+    MOVE t102:INT <- Const:0; def: 102 use: 
+    LOAD t111:PTR <- Mem(t141:PTR); def: 111 use: 141 
+    MOVE t114:PTR <- t111:PTR; def: 114 use: 111 
+    MOVE t113:PTR <- t101:PTR; def: 113 use: 101 
+    MOVE t112:PTR <- t100:PTR; def: 112 use: 100 
+    LOAD t106:INT <- Mem(t142:INT); def: 106 use: 142 
+    CALL  <- bubbleSort[t114:PTR] (t113:PTR, t112:PTR, t106:INT); def: use: 106 113 114 112 
+    LABEL L102; def: use: 
+    MOVE t116:INT <- t102:INT; def: 116 use: 102 
+    LOAD t107:INT <- Mem(t143:INT); def: 107 use: 143 
+    CJUMP < t116:INT t107:INT? L103 : L104; def: use: 107 116 
+    LABEL L103; def: use: 
+    MOVE t118:PTR <- t100:PTR; def: 118 use: 100 
+    LOAD t108:INT <- Mem(t144:INT); def: 108 use: 144 
+    CJUMP >= t102:INT t108:INT? L105 : L106; def: use: 102 108 
+    LABEL L105; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L106; def: use: 
+    LOAD t119:INT <- Mem(t148:INT); def: 119 use: 148 
+    EXTCALL  <- putint(t119:INT); def: use: 119 
+    EXTCALL  <- putch(Const:32); def: use: 
+    MOVE_BINOP t102:INT <- (+, t102:INT, Const:1); def: 102 use: 102 
+    JUMP L102; def: use: 
+    LABEL L104; def: use: 
+    EXTCALL  <- putch(Const:10); def: use: 
+    RETURN Const:0; def: use: 
+Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=166:
+  Block: Entry Label: L127
+    Exit labels: 
+    LABEL L127; def: use: 
+    MOVE t100:INT <- Const:0; def: 100 use: 
+    CJUMP <= t104:INT Const:1? L102 : L103; def: use: 104 
+    LABEL L102; def: use: 
+    RETURN Const:0; def: use: 
+    JUMP L104; def: use: 
+    LABEL L103; def: use: 
+    LABEL L104; def: use: 
+    LABEL L107; def: use: 
+    MOVE_BINOP t134:INT <- (-, t104:INT, Const:1); def: 134 use: 104 
+    CJUMP < t100:INT t134:INT? L108 : L109; def: use: 100 134 
+    LABEL L108; def: use: 
+    MOVE t116:PTR <- t103:PTR; def: 116 use: 103 
+    LOAD t106:INT <- Mem(t135:INT); def: 106 use: 135 
+    CJUMP >= t100:INT t106:INT? L110 : L111; def: use: 100 106 
+    LABEL L110; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L111; def: use: 
+    LOAD t119:INT <- Mem(t139:INT); def: 119 use: 139 
+    MOVE_BINOP t107:INT <- (+, t100:INT, Const:1); def: 107 use: 100 
+    MOVE t118:PTR <- t103:PTR; def: 118 use: 103 
+    LOAD t108:INT <- Mem(t140:INT); def: 108 use: 140 
+    CJUMP >= t107:INT t108:INT? L112 : L113; def: use: 107 108 
+    LABEL L112; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L113; def: use: 
+    LOAD t144:INT <- Mem(t143:PTR); def: 144 use: 143 
+    CJUMP > t119:INT t144:INT? L124 : L125; def: use: 119 144 
+    LABEL L124; def: use: 
+    MOVE t121:PTR <- t103:PTR; def: 121 use: 103 
+    LOAD t109:INT <- Mem(t145:INT); def: 109 use: 145 
+    CJUMP >= t100:INT t109:INT? L116 : L117; def: use: 100 109 
+    LABEL L116; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L117; def: use: 
+    LOAD t101:INT <- Mem(t149:INT); def: 101 use: 149 
+    MOVE t123:PTR <- t103:PTR; def: 123 use: 103 
+    LOAD t110:INT <- Mem(t150:INT); def: 110 use: 150 
+    CJUMP >= t100:INT t110:INT? L118 : L119; def: use: 100 110 
+    LABEL L118; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L119; def: use: 
+    MOVE_BINOP t111:INT <- (+, t100:INT, Const:1); def: 111 use: 100 
+    MOVE t125:PTR <- t103:PTR; def: 125 use: 103 
+    LOAD t112:INT <- Mem(t151:INT); def: 112 use: 151 
+    CJUMP >= t111:INT t112:INT? L120 : L121; def: use: 111 112 
+    LABEL L120; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L121; def: use: 
+    LOAD t159:INT <- Mem(t158:PTR); def: 159 use: 158 
+    STORE t155:INT -> Mem(t159:INT); def: 155 use: 159 
+    MOVE_BINOP t113:INT <- (+, t100:INT, Const:1); def: 113 use: 100 
+    MOVE t127:PTR <- t103:PTR; def: 127 use: 103 
+    LOAD t114:INT <- Mem(t160:INT); def: 114 use: 160 
+    CJUMP >= t113:INT t114:INT? L122 : L123; def: use: 113 114 
+    LABEL L122; def: use: 
+    EXTCALL  <- exit(Const:-1); def: use: 
+    LABEL L123; def: use: 
+    LOAD t164:INT <- Mem(t163:PTR); def: 164 use: 163 
+    STORE t101:INT -> Mem(t164:INT); def: 101 use: 164 
+    JUMP L126; def: use: 
+    LABEL L125; def: use: 
+    LABEL L126; def: use: 
+    MOVE_BINOP t100:INT <- (+, t100:INT, Const:1); def: 100 use: 100 
+    JUMP L107; def: use: 
+    LABEL L109; def: use: 
+    LOAD t128:PTR <- Mem(t166:PTR); def: 128 use: 166 
+    MOVE t132:PTR <- t128:PTR; def: 132 use: 128 
+    MOVE t131:PTR <- t102:PTR; def: 131 use: 102 
+    MOVE t130:PTR <- t103:PTR; def: 130 use: 103 
+    MOVE_BINOP t129:INT <- (-, t104:INT, Const:1); def: 129 use: 104 
+    MOVE_CALL t133:INT <-  <- bubbleSort[t132:PTR] (t131:PTR, t130:PTR, t129:INT); def: 133 use: 
+    RETURN t133:INT; def: use: 133 

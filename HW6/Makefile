@@ -36,7 +36,7 @@ GENTESTS = $(BUILD_DIR)/tools/generatetests/gentests
 PATCHDEMO = $(BUILD_DIR)/tools/patchdemo/patchdemo
 
 run: $(MAIN)
-	cd $(CURDIR)/test && \
+	cd $(CURDIR)/test/temp_test && \
 	for file in $$(ls .); do \
 		if [ "$${file#*.}" = "3.irp" ]; then \
 			echo "Reading $${file}"; \
@@ -45,7 +45,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=hw4test01
+FILE=bubblesort
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test/temp_test && \
