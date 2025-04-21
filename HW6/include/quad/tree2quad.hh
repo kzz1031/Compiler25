@@ -17,6 +17,7 @@ public:
 
     // You may add other "visitor global variables" here
     QuadFuncDecl* quad_func_decl;
+
     void visit(tree::Program *prog) override;
     void visit(tree::FuncDecl *func) override;
     void visit(tree::Block *block) override;

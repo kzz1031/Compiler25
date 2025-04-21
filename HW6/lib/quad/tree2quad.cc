@@ -95,8 +95,6 @@ void Tree2Quad::visit(FuncDecl* node) {
         blocks->push_back(quad_block);
     }
 
-
-
     // Create function declaration
     DEBUG_PRINT("func name"<< node->name);
     QuadFuncDecl* func_decl = new QuadFuncDecl(
@@ -189,27 +187,36 @@ void Tree2Quad::visit(tree::Cjump* node) {
 
 void Tree2Quad::visit(tree::Move *move) {
     DEBUG_PRINT("Converting to Quad: Move");
-    // 获取dst和src的表达式
+
     Tree *dst = move->dst;
     Tree *src = move->src;
-    
-    // 处理 dst 是内存访问的情况 (Store)
+    vector<QuadStm*> *result;
     if (dst->getTreeKind() == Kind::MEM) {
-        DEBUG_PRINT("Mem <- Temp/Const/Name");
-        Mem *mem = static_cast<Mem*>(dst);
+        result = new vector<QuadStm*>();
+        tree::Mem *mem = static_cast<tree::Mem*>(dst);
+        DEBUG_PRINT("Mem <- Temp/Const/Name/Mem");
+        mem->mem->accept(*this);
+        QuadTerm *dst_term = output_term;
+        if(visit_result){
+            result->insert(result->end(), visit_result->begin(), visit_result->end());
+            visit_result = nullptr;
+        }
         src->accept(*this);
         QuadTerm *src_term = output_term;
-        dst->accept(*this);
-        QuadTerm *dst_term = output_term;
+        if(visit_result){
+            result->insert(result->end(), visit_result->begin(), visit_result->end());
+            visit_result = nullptr;
+        }
         
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
 
         if (src_term->kind == QuadTermKind::TEMP)
-            def->insert(src_term->get_temp()->temp);
+            use->insert(src_term->get_temp()->temp);
         if (dst_term->kind == QuadTermKind::TEMP)
             use->insert(dst_term->get_temp()->temp);
-        visit_result->push_back(new QuadStore(move, src_term, dst_term, def, use));
+        result->push_back(new QuadStore(move, src_term, dst_term, def, use));
+        visit_result = result;
         return;
     }
     if(dynamic_cast<TempExp*>(dst) == nullptr) {
@@ -219,17 +226,14 @@ void Tree2Quad::visit(tree::Move *move) {
     }
     TempExp *dst_temp = static_cast<TempExp*>(dst);
     
-    // 处理不同类型的源操作数
+
     if (src->getTreeKind() == Kind::CALL) {
-        // 处理函数调用
         src->accept(*this);
         QuadCall *call = static_cast<QuadCall*>(visit_result->back());
         visit_result->pop_back();
-        
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
         def->insert(dst_temp->temp);
-        // QuadCall中的use会被自动处理
         
         visit_result->push_back(new QuadMoveCall(move, dst_temp, call, def, use));
     }
@@ -248,8 +252,14 @@ void Tree2Quad::visit(tree::Move *move) {
         DEBUG_PRINT("finish Temp <- ExtCall");
     }
     else if (src->getTreeKind() == Kind::MEM) {
+        result = new vector<QuadStm*>();
         DEBUG_PRINT("Temp <- Mem");
-        src->accept(*this);
+        Mem* mem = static_cast<Mem*>(src);
+        mem->mem->accept(*this);
+        if(visit_result){
+            result->insert(result->end(), visit_result->begin(), visit_result->end());
+            visit_result = nullptr;
+        }
         QuadTerm *src_term = output_term;
         
         auto def = new set<Temp*>();
@@ -257,8 +267,8 @@ void Tree2Quad::visit(tree::Move *move) {
         def->insert(dst_temp->temp);
         if (src_term->kind == QuadTermKind::TEMP)
             use->insert(src_term->get_temp()->temp);
-        visit_result = new vector<QuadStm*>();
-        visit_result->push_back(new QuadLoad(move, dst_temp, src_term, def, use));
+        result->push_back(new QuadLoad(move, dst_temp, src_term, def, use));
+        visit_result = result;
     }
     else if(src->getTreeKind() == Kind::BINOP){
         DEBUG_PRINT("Temp <- Binop");
@@ -401,11 +411,13 @@ void Tree2Quad::visit(Binop* node) {
     QuadTerm* left = output_term;
     if(visit_result){
         result->insert(result->end(), visit_result->begin(), visit_result->end());
+        visit_result = nullptr;
     }
     node->right->accept(*this);
     QuadTerm* right = output_term;
     if(visit_result){
         result->insert(result->end(), visit_result->begin(), visit_result->end());
+        visit_result = nullptr;
     }
     Temp* temp = temp_map->newtemp();
     DEBUG_PRINT("new temp: " << temp->name());
@@ -435,8 +447,12 @@ void Tree2Quad::visit(Mem* node) {
         output_term = nullptr;
         return;
     }
-
+    vector<QuadStm*>* result = new vector<QuadStm*>();
     node->mem->accept(*this);
+    if(visit_result){
+        result->insert(result->end(), visit_result->begin(), visit_result->end());
+        visit_result = nullptr;
+    }
     QuadTerm* addr = output_term;
     
     Temp* temp = temp_map->newtemp();
@@ -449,7 +465,8 @@ void Tree2Quad::visit(Mem* node) {
     }
     
     QuadLoad* load = new QuadLoad(node, dst, addr, def, use);
-    visit_result = new vector<QuadStm*>{load};
+    result->push_back(load);
+    visit_result = result;
     output_term = new QuadTerm(dst);
     DEBUG_PRINT("finish Mem");
 }
