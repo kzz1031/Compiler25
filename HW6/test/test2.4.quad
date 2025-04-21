@@ -1,0 +1,4 @@
+Function main() last_label=100 last_temp=100:
+  Block: Entry Label: L100
+    Exit labels: 
+    RETURN Const:0; def: use: 
