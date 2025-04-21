@@ -234,7 +234,14 @@ void Tree2Quad::visit(tree::Move *move) {
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
         def->insert(dst_temp->temp);
-        
+        if(call->obj_term->get_temp()) {
+            use->insert(call->obj_term->get_temp()->temp);
+        }
+        for(auto arg : *(call->args)) {
+            if(arg->get_temp()) {
+                use->insert(arg->get_temp()->temp);
+            }
+        }
         visit_result->push_back(new QuadMoveCall(move, dst_temp, call, def, use));
     }
     else if (src->getTreeKind() == Kind::EXTCALL) {
@@ -246,7 +253,11 @@ void Tree2Quad::visit(tree::Move *move) {
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
         def->insert(dst_temp->temp);
-        
+        for(auto arg : *(extcall->args)) {
+            if(arg->get_temp()) {
+                use->insert(arg->get_temp()->temp);
+            }
+        }
         visit_result = new vector<QuadStm*>();
         visit_result->push_back(new QuadMoveExtCall(move, dst_temp, extcall, def, use));
         DEBUG_PRINT("finish Temp <- ExtCall");
@@ -353,18 +364,24 @@ void Tree2Quad::visit(Return* node) {
 #ifdef DEBUG
     cout << "Converting to Quad: Return" << endl;
 #endif
+    vector<QuadStm*>* result = new vector<QuadStm*>();
     if (!node || !node->exp) {
         visit_result = nullptr;
         return;
     }
 
     node->exp->accept(*this);
+    if(visit_result){
+        result->insert(result->end(), visit_result->begin(), visit_result->end());
+        visit_result = nullptr;
+    }
     set<Temp*>* def = new set<Temp*>();
     if(auto temp = output_term->get_temp()) {
         def->insert(temp->temp);
     }
     QuadReturn* ret = new QuadReturn(node, output_term, nullptr, def);
-    visit_result = new vector<QuadStm*>{ret};
+    result->push_back(ret);
+    visit_result = result;
     output_term = nullptr;
 }
 
