@@ -1,4 +1,4 @@
-Function _^main^_^main() last_label=105 last_temp=105:
+Function _^main^_^main() last_label=105 last_temp=104:
   Block: Entry Label: L105
     Exit labels: 
     LABEL L105; def: use: 
@@ -8,6 +8,5 @@ Function _^main^_^main() last_label=105 last_temp=105:
     LABEL L102; def: use: 
     MOVE t103:INT <- Const:1; def: 103 use: 
     LABEL L103; def: use: 
-    MOVE t104:INT <- t103:INT; def: 104 use: 103 
-    EXTCALL putch(t104:INT); def: use: 104 
+    EXTCALL putch(t103:INT); def: use: 103 
     RETURN t101:INT; def: use: 101 
