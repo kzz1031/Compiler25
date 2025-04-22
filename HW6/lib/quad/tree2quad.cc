@@ -283,16 +283,19 @@ void Tree2Quad::visit(tree::Move *move) {
     }
     else if(src->getTreeKind() == Kind::BINOP){
         DEBUG_PRINT("Temp <- Binop");
+        result = new vector<QuadStm*>();
         Binop* binop = static_cast<Binop*>(src);
         binop->left->accept(*this);
         QuadTerm* left = output_term;
         if(visit_result){
-            visit_result->insert(visit_result->end(), visit_result->begin(), visit_result->end());
+            result->insert(result->end(), visit_result->begin(), visit_result->end());
+            visit_result = nullptr;
         }
         binop->right->accept(*this);
         QuadTerm* right = output_term;
         if(visit_result){
-            visit_result->insert(visit_result->end(), visit_result->begin(), visit_result->end());
+            result->insert(result->end(), visit_result->begin(), visit_result->end());
+            visit_result = nullptr;
         }  
         set<Temp*>* def = new set<Temp*>();
         def->insert(dst_temp->temp);
@@ -304,9 +307,8 @@ void Tree2Quad::visit(tree::Move *move) {
         if (auto t = right->get_temp()) {
             use->insert(t->temp);
         }
-
-        visit_result = new vector<QuadStm*>();
-        visit_result->push_back(new QuadMoveBinop(move, dst_temp, left, binop->op, right, def, use));
+        result->push_back(new QuadMoveBinop(move, dst_temp, left, binop->op, right, def, use));
+        visit_result = result;
     }
     else {
         DEBUG_PRINT("Temp <- Temp");
@@ -427,12 +429,14 @@ void Tree2Quad::visit(Binop* node) {
     node->left->accept(*this);
     QuadTerm* left = output_term;
     if(visit_result){
+        DEBUG_PRINT("left has result");
         result->insert(result->end(), visit_result->begin(), visit_result->end());
         visit_result = nullptr;
     }
     node->right->accept(*this);
     QuadTerm* right = output_term;
     if(visit_result){
+        DEBUG_PRINT("right has result");
         result->insert(result->end(), visit_result->begin(), visit_result->end());
         visit_result = nullptr;
     }
