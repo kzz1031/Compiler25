@@ -1,0 +1,16 @@
+Function _^main^_^main() last_label=100 last_temp=106:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE_EXTCALL t100:PTR <- malloc(Const:8); def: 100 use: 
+    MOVE_BINOP t105:PTR <- (+, t100:PTR, Const:4); def: 105 use: 100 
+    STORE Name:D^m -> Mem(t105:PTR); def: use: 105 
+    MOVE_BINOP t106:PTR <- (+, t100:PTR, Const:4); def: 106 use: 100 
+    LOAD t103:PTR <- Mem(t106:PTR); def: 103 use: 106 
+    CALL m[t103:PTR] (t100:PTR); def: use: 100 103 
+    RETURN Const:0; def: use: 
+Function D^m(t100) last_label=100 last_temp=101:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    RETURN Const:0; def: use: 
