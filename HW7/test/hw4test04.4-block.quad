@@ -14,7 +14,7 @@ Function _^main^_^main() last_label=110 last_temp=104:
   Block: Entry Label: L103
     Exit labels: L107 L108 
     LABEL L103; def: use: 
-    MOVE_BINOP t100:INT <- (+, t104:INT, t103:INT); def: 100 use: 103 104 
+    MOVE_BINOP t100:INT <- (+, t104:INT, t103:INT); def: 100 use: 104 103 
     CJUMP != t100:INT Const:0? L107 : L108; def: use: 100 
   Block: Entry Label: L107
     Exit labels: L109 

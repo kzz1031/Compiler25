@@ -47,7 +47,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=bubblesort
+FILE=hw4test05
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

@@ -29,6 +29,9 @@ static void deleteUnreachableBlocks(QuadFuncDecl* func, ControlFlowInfo* domInfo
 static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo);
 static void renameVariables(QuadFuncDecl* func, ControlFlowInfo* domInfo);
 static void cleanupUnusedPhi(QuadFuncDecl* func);
+static void renameQuadTerm(QuadTerm* term, const map<int, stack<int>>& stacks);
+static void renameQuadStmAfterDef(QuadStm* stmt, const map<int, stack<int>>& stacks);
+static void renameQuadStmAfterUse(QuadStm* stmt, const map<int, stack<int>>& stacks);
 
 static void deleteUnreachableBlocks(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
     for(auto block : *func->quadblocklist) {
@@ -58,7 +61,7 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
                 if (defBlocks.find(temp->num) == defBlocks.end()) {
                     defBlocks[temp->num] = set<int>();
                 }
-                DEBUG_PRINT("Adding block " << blockNum << " to defBlocks for temp " << temp->num);
+                //DEBUG_PRINT("Adding block " << blockNum << " to defBlocks for temp " << temp->num);
                 defBlocks[temp->num].insert(blockNum);
             }
         }
@@ -101,8 +104,7 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
                     QuadBlock* insertBlock = domInfo->labelToBlock[dfBlock];
                     if (!insertBlock || !insertBlock->quadlist) continue;
                     
-                    // 创建 phi 参数列表
-                    DEBUG_PRINT("InsertBlock: " << dfBlock<< "  var: " << var->str()<<" at block: "<< block);
+                    //DEBUG_PRINT("InsertBlock: " << dfBlock<< "  var: " << var->str()<<" at block: "<< block);
                     vector<pair<Temp*, Label*>>* phiArgs = new vector<pair<Temp*, Label*>>();
                     for (auto pred : domInfo->predecessors[dfBlock]) {
                         QuadBlock* predBlock = domInfo->labelToBlock[pred];
@@ -136,94 +138,135 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
     }
 }
 static void renameVariables(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
-    // // 为每个变量维护一个计数器栈
-    // map<Temp*, vector<int>> counters;
-    // map<Temp*, stack<int>> stacks;
+    DEBUG_PRINT("\n" << "Renaming variables in function: " << func->funcname << "\n");
+    map<int, int> counters;  // Count[a]
+    map<int, stack<int>> stacks;     // Stack[a]
+     
+    for (auto block : *func->quadblocklist) {
+        for (auto stmt : *block->quadlist) {
+            if (stmt->def) {
+                for (auto temp : *stmt->def) {
+                    int origNum = temp->num > 999 ? VersionedTemp::origTempNum(temp->num) : temp->num;
+                    if (counters.find(origNum) == counters.end()) {
+                        counters[origNum] = -1;
+                        stacks[origNum] = stack<int>();
+                    }
+                }
+            }
+            if (stmt->use) {
+                for (auto temp : *stmt->use) {
+                    int origNum = temp->num > 999 ? VersionedTemp::origTempNum(temp->num) : temp->num;
+                    if (counters.find(origNum) == counters.end()) {
+                        counters[origNum] = -1;
+                        stacks[origNum] = stack<int>();
+                    }
+                }
+            }
+        }
+    }
+
+    function<void(int)> rename = [&](int blockNum) {
+        QuadBlock* block = domInfo->labelToBlock[blockNum];
+        if (!block || !block->quadlist) return;
+        
+        // map<int, int> originalSize;
+
+        int index = 0;
+        for (auto stmt : *block->quadlist) {
+            DEBUG_PRINT("Processing statement: " << index++ << " in block: " << block->entry_label->num);
+            if (stmt->kind != QuadKind::PHI) {
+                if (stmt->use) {
+                    set<Temp*>* newUse = new set<Temp*>();
+                    for (auto temp : *stmt->use) {
+                        DEBUG_PRINT("Using temp: " << temp->num);
+                        int origNum = temp->num > 999 ? VersionedTemp::origTempNum(temp->num) : temp->num;
+                        if (!stacks[origNum].empty()) {
+                            newUse->insert(new Temp(stacks[origNum].top()));
+                        }
+                        else {
+                            newUse->insert(temp);
+                        }
+                    }
+                    delete stmt->use;
+                    stmt->use = newUse;
+                }
+                renameQuadStmAfterUse(stmt, stacks);
+            }
+            if (stmt->def) {
+                set<Temp*>* newDef = new set<Temp*>();
+                for (auto temp : *stmt->def) {
+                    DEBUG_PRINT("Defining temp: " << temp->num);
+                    int origNum = temp->num > 999 ? VersionedTemp::origTempNum(temp->num) : temp->num;
+                    
+                    int newVersion = counters[origNum] + 1;
+                    counters[origNum] = newVersion;
+                    int newNum = VersionedTemp::versionedTempNum(origNum, newVersion);
+                    stacks[origNum].push(newNum);
+                    DEBUG_PRINT("At block: "<< block->entry_label->num <<"  Renaming temp " << origNum << " to " << newNum);
+                    Temp* newTemp = new Temp(newNum);
+                    newDef->insert(newTemp);
+                }
+                delete stmt->def;
+                stmt->def = newDef;
+            }
+            renameQuadStmAfterDef(stmt, stacks);
+        }
+
+        for (int succNum : domInfo->successors[blockNum]) {
+            QuadBlock* succ = domInfo->labelToBlock[succNum];
+            if (!succ || !succ->quadlist) continue;
+
+            for (auto stmt : *succ->quadlist) {
+                if (stmt->kind != QuadKind::PHI) continue;
+                auto phi = static_cast<QuadPhi*>(stmt);
+                
+                for (auto& arg : *phi->args) {
+                    if (arg.second->num == block->entry_label->num) {
+                        int origNum = arg.first->num;
+                        if (!stacks[origNum].empty()) {
+                            arg.first = new Temp(stacks[origNum].top());
+                            DEBUG_PRINT("At block: "<< block->entry_label->num <<"  Renaming phi arg " << origNum << " to " << stacks[origNum].top());
+                        }
+                    }
+                }
+                set<Temp*>* newUse = new set<Temp*>();
+                for (auto& arg : *phi->args) {
+                    newUse->insert(arg.first);
+                }
+                delete phi->use;
+                phi->use = newUse;
+            }
+        }
+        
+        // 递归处理支配树中的子节点
+        for (auto child : domInfo->domTree[blockNum]) {
+            DEBUG_PRINT("Father block: "<< blockNum  << " Renaming child block: " << child);
+            rename(child);
+        }
+        
+        // 恢复栈到原始大小
+        for (auto stmt : *block->quadlist) {
+            if (stmt->def) {
+                for (auto temp : *stmt->def) {
+                    int origNum = temp->num > 999 ? VersionedTemp::origTempNum(temp->num) : temp->num;
+                    if (!stacks[origNum].empty()) {
+                        stacks[origNum].pop();
+                    }
+                }
+            }
+        }
+        // for (auto& pair : stacks) {
+        //     while (pair.second.size() > originalSize[pair.first]) {
+        //         pair.second.pop();
+        //     }
+        // }
+    };
     
-    // // 初始化计数器和栈
-    // for (auto block : *func->quadblocklist) {
-    //     for (auto stmt : *block->quadlist) {
-    //         if (stmt->def) {
-    //             for (auto temp : *stmt->def) {
-    //                 if (counters.find(temp) == counters.end()) {
-    //                     counters[temp] = vector<int>{0};
-    //                     stacks[temp] = stack<int>();
-    //                     stacks[temp].push(0);
-    //                 }
-    //             }
-    //         }
-    //         if (stmt->use) {
-    //             for (auto temp : *stmt->use) {
-    //                 if (counters.find(temp) == counters.end()) {
-    //                     counters[temp] = vector<int>{0};
-    //                     stacks[temp] = stack<int>();
-    //                     stacks[temp].push(0);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    
-    // // 递归重命名函数
-    // function<void(int)> rename = [&](int blockNum) {
-    //     QuadBlock* block = domInfo->labelToBlock[blockNum];
-    //     if (!block || !block->quadlist) return;
-        
-    //     // 保存原始栈大小
-    //     map<Temp*, int> originalSize;
-    //     for (auto& pair : stacks) {
-    //         originalSize[pair.first] = pair.second.size();
-    //     }
-        
-    //     // 重命名基本块中的变量
-    //     for (auto stmt : *block->quadlist) {
-    //         // 重命名使用
-    //         if (stmt->use) {
-    //             for (auto temp : *stmt->use) {
-    //                 if (!stacks[temp].empty()) {
-    //                     temp->num = stacks[temp].top();
-    //                 }
-    //             }
-    //         }
-            
-    //         // 处理 phi 函数的特殊情况
-    //         if (stmt->kind == QuadKind::PHI) {
-    //             auto phi = static_cast<QuadPhi*>(stmt);
-    //             for (auto& arg : *phi->args) {
-    //                 if (!stacks[arg.first].empty()) {
-    //                     arg.first->num = stacks[arg.first].top();
-    //                 }
-    //             }
-    //         }
-            
-    //         // 重命名定义
-    //         if (stmt->def) {
-    //             for (auto temp : *stmt->def) {
-    //                 int newVersion = counters[temp].back() + 1;
-    //                 counters[temp].push_back(newVersion);
-    //                 stacks[temp].push(newVersion);
-    //                 temp->num = newVersion;
-    //             }
-    //         }
-    //     }
-        
-    //     // 递归处理支配树中的子节点
-    //     for (auto child : domInfo->domTree[blockNum]) {
-    //         rename(child);
-    //     }
-        
-    //     // 恢复栈到原始大小
-    //     for (auto& pair : stacks) {
-    //         while (pair.second.size() > originalSize[pair.first]) {
-    //             pair.second.pop();
-    //         }
-    //     }
-    // };
-    
-    // // 从入口基本块开始重命名
-    // if (!func->quadblocklist->empty()) {
-    //     rename(func->quadblocklist->front()->entry_label->num);
-    // }
+    // 从入口基本块开始重命名
+    if (!func->quadblocklist->empty()) {
+        rename(func->quadblocklist->front()->entry_label->num);
+    }
+    DEBUG_PRINT("Completed for function: " << func->funcname);
 }
 static void cleanupUnusedPhi(QuadFuncDecl* func) {
     if (!func || !func->quadblocklist) return;
@@ -283,6 +326,169 @@ static void cleanupUnusedPhi(QuadFuncDecl* func) {
     } while (changed);
 }
 
+static void renameQuadTerm(QuadTerm* term, const map<int, stack<int>>& stacks) {
+    if (!term || term->kind != QuadTermKind::TEMP) return;
+    
+    TempExp* tempExp = term->get_temp();
+    if (!tempExp || !tempExp->temp) return;
+    
+    int origNum = tempExp->temp->num > 999 ? VersionedTemp::origTempNum(tempExp->temp->num) : tempExp->temp->num;
+    auto it = stacks.find(origNum);
+    if (it != stacks.end() && !it->second.empty()) {
+        tempExp->temp = new Temp(it->second.top());
+    }
+}
+
+static void renameQuadStmAfterUse(QuadStm* stmt, const map<int, stack<int>>& stacks) {
+    if (!stmt) return;
+    
+    switch (stmt->kind) {
+        case QuadKind::MOVE: {
+            auto move = static_cast<QuadMove*>(stmt);
+            renameQuadTerm(move->src, stacks);
+            break;
+        }
+        case QuadKind::LOAD: {
+            auto load = static_cast<QuadLoad*>(stmt);
+            renameQuadTerm(load->src, stacks);
+            break;
+        }
+        case QuadKind::STORE: {
+            auto store = static_cast<QuadStore*>(stmt);
+            renameQuadTerm(store->src, stacks);
+            break;
+        }
+        case QuadKind::MOVE_BINOP: {
+            auto binop = static_cast<QuadMoveBinop*>(stmt);
+            renameQuadTerm(binop->left, stacks);
+            renameQuadTerm(binop->right, stacks);
+            break;
+        }
+        case QuadKind::CALL: {
+            auto call = static_cast<QuadCall*>(stmt);
+            if (call->obj_term) renameQuadTerm(call->obj_term, stacks);
+            if (call->args) {
+                for (auto arg : *call->args) {
+                    renameQuadTerm(arg, stacks);
+                }
+            }
+            break;
+        }
+        case QuadKind::MOVE_CALL: {
+            auto moveCall = static_cast<QuadMoveCall*>(stmt);
+            if (moveCall->call) renameQuadStmAfterUse(moveCall->call, stacks);
+            break;
+        }
+        case QuadKind::EXTCALL: {
+            auto extCall = static_cast<QuadExtCall*>(stmt);
+            if (extCall->args) {
+                for (auto arg : *extCall->args) {
+                    renameQuadTerm(arg, stacks);
+                }
+            }
+            break;
+        }
+        case QuadKind::MOVE_EXTCALL: {
+            auto moveExtCall = static_cast<QuadMoveExtCall*>(stmt);
+            if (moveExtCall->extcall) renameQuadStmAfterUse(moveExtCall->extcall, stacks);
+            break;
+        }
+        case QuadKind::CJUMP: {
+            auto cjump = static_cast<QuadCJump*>(stmt);
+            renameQuadTerm(cjump->left, stacks);
+            renameQuadTerm(cjump->right, stacks);
+            break;
+        }
+        case QuadKind::RETURN: {
+            auto ret = static_cast<QuadReturn*>(stmt);
+            renameQuadTerm(ret->value, stacks);
+            break;
+        }
+        case QuadKind::PHI: {
+            break;
+        }
+        default:
+            DEBUG_PRINT("Unknown statement kind: " << static_cast<int>(stmt->kind));
+            break;
+    }
+}
+
+static void renameQuadStmAfterDef(QuadStm* stmt, const map<int, stack<int>>& stacks) {
+    if (!stmt) return;
+    
+    switch (stmt->kind) {
+        case QuadKind::MOVE: {
+            auto move = static_cast<QuadMove*>(stmt);
+            auto it = stacks.find(move->dst->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                move->dst->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        case QuadKind::LOAD: {
+            auto load = static_cast<QuadLoad*>(stmt);
+            auto it = stacks.find(load->dst->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                load->dst->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        case QuadKind::STORE: {
+            auto store = static_cast<QuadStore*>(stmt);
+            renameQuadTerm(store->dst, stacks);
+            break;
+        }
+        case QuadKind::MOVE_BINOP: {
+            auto binop = static_cast<QuadMoveBinop*>(stmt);
+            auto it = stacks.find(binop->dst->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                binop->dst->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        case QuadKind::CALL: {
+            break;
+        }
+        case QuadKind::MOVE_CALL: {
+            auto moveCall = static_cast<QuadMoveCall*>(stmt);
+            auto it = stacks.find(moveCall->dst->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                moveCall->dst->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        case QuadKind::EXTCALL: {
+            break;
+        }
+        case QuadKind::MOVE_EXTCALL: {
+            auto moveExtCall = static_cast<QuadMoveExtCall*>(stmt);
+            auto it = stacks.find(moveExtCall->dst->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                DEBUG_PRINT(" MOVE_EXTCALL: " << moveExtCall->dst->temp->num << " to " << it->second.top());
+                moveExtCall->dst->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        case QuadKind::CJUMP: {
+            break;
+        }
+        case QuadKind::RETURN: {
+            break;
+        }
+        case QuadKind::PHI: {
+            auto phi = static_cast<QuadPhi*>(stmt);
+            auto it = stacks.find(phi->temp->temp->num);
+            if (it != stacks.end() && !it->second.empty()) {
+                phi->temp->temp = new Temp(it->second.top());
+            }
+            break;
+        }
+        default:
+            DEBUG_PRINT("Unknown statement kind: " << static_cast<int>(stmt->kind));
+            break;
+    }
+}
+
 QuadProgram *quad2ssa(QuadProgram* program) {
     // Create a new QuadProgram to hold the SSA version
     QuadProgram* ssaProgram = new QuadProgram(static_cast<tree::Program*>(program->node), new vector<QuadFuncDecl*>());
@@ -293,14 +499,14 @@ QuadProgram *quad2ssa(QuadProgram* program) {
         // Compute control flow information
         domInfo->computeEverything();
         
-        // for(auto block : *func->quadblocklist) {
-        //     if (block->entry_label) {
-        //         DEBUG_PRINT("Block: " << block->entry_label->num);
-        //         for(auto dominantFrontier : domInfo->dominanceFrontiers[block->entry_label->num]) {
-        //             DEBUG_PRINT("  Dominance Frontier: " << dominantFrontier);
-        //         }
-        //     }
-        // }
+        for(auto block : *func->quadblocklist) {
+            if (block->entry_label) {
+                DEBUG_PRINT("Block: " << block->entry_label->num);
+                for(auto dominantFrontier : domInfo->domTree[block->entry_label->num]) {
+                    DEBUG_PRINT("  Dominate: " << dominantFrontier);
+                }
+            }
+        }
         // Eliminate unreachable blocks
         deleteUnreachableBlocks(func, domInfo);
         

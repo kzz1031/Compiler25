@@ -9,7 +9,7 @@ Function _^main^_^main() last_label=110 last_temp=104:
     LABEL L102; def: use: 
     MOVE t103:INT <- Const:1; def: 103 use: 
     LABEL L103; def: use: 
-    MOVE_BINOP t100:INT <- (+, t104:INT, t103:INT); def: 100 use: 103 104 
+    MOVE_BINOP t100:INT <- (+, t104:INT, t103:INT); def: 100 use: 104 103 
     CJUMP != t100:INT Const:0? L107 : L108; def: use: 100 
     LABEL L107; def: use: 
     MOVE t100:INT <- Const:0; def: 100 use: 
