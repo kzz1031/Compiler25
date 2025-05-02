@@ -7,7 +7,7 @@ Function _^main^_^main() last_label=105 last_temp=104:
     MOVE_BINOP t10300:INT <- (+, t10100:INT, t10200:INT); def: 10300 use: 10100 10200 
     MOVE t10101:INT <- Const:1; def: 10101 use: 
     MOVE t10201:INT <- Const:2; def: 10201 use: 
-    MOVE_BINOP t10301:INT <- (*, t10101:INT, t10201:INT); def: 10301 use: 10201 10101 
+    MOVE_BINOP t10301:INT <- (*, t10101:INT, t10201:INT); def: 10301 use: 10101 10201 
     MOVE t10000:INT <- Const:1; def: 10000 use: 
     MOVE t10001:INT <- Const:0; def: 10001 use: 
     MOVE_BINOP t10002:INT <- (+, Const:0, Const:1); def: 10002 use: 

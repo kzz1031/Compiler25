@@ -51,6 +51,38 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
     map<int, set<int>> defBlocks;
     map<int, set<int>> phiBlocks;
 
+    map<int, Type> typeMap;
+    for (auto block : *func->quadblocklist) {
+        for (auto stmt : *block->quadlist) {
+            // 检查Move语句的dst
+            if (stmt->kind == QuadKind::MOVE) {
+                QuadMove* moveStmt = static_cast<QuadMove*>(stmt);
+                if (moveStmt->dst && moveStmt->dst->temp) {
+                    Temp* dstTemp = moveStmt->dst->temp;
+                    typeMap[dstTemp->num] = moveStmt->dst->type;
+                }
+            }
+            // 检查Load语句的dst
+            else if (stmt->kind == QuadKind::LOAD) {
+                QuadLoad* loadStmt = static_cast<QuadLoad*>(stmt);
+                if (loadStmt->dst && loadStmt->dst->temp) {
+                    Temp* dstTemp = loadStmt->dst->temp;
+                    typeMap[dstTemp->num] = loadStmt->dst->type;
+                }
+            }
+            // 检查Store语句的src
+            else if (stmt->kind == QuadKind::STORE) {
+                QuadStore* storeStmt = static_cast<QuadStore*>(stmt);
+                if (storeStmt->src && storeStmt->src->kind == QuadTermKind::TEMP) {
+                    TempExp* srcTemp = std::get<TempExp*>(storeStmt->src->term);
+                    if (srcTemp && srcTemp->temp) {
+                        typeMap[srcTemp->temp->num] = srcTemp->type;
+                    }
+                }
+            }
+        }
+    }
+
     for (auto block : *func->quadblocklist) {
         if (!block->entry_label || !block->quadlist) continue;
         int blockNum = block->entry_label->num;
@@ -64,13 +96,6 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
                 //DEBUG_PRINT("Adding block " << blockNum << " to defBlocks for temp " << temp->num);
                 defBlocks[temp->num].insert(blockNum);
             }
-        }
-    }
-    set<int> var_set;
-    for (auto& defPair : defBlocks) {
-        int varNum = defPair.first;
-        if (var_set.find(varNum) == var_set.end()) {
-            var_set.insert(varNum);
         }
     }
     for (auto& defPair : defBlocks) {
@@ -124,7 +149,11 @@ static void placePhi(QuadFuncDecl* func, ControlFlowInfo* domInfo) {
                     }
                     
                     // 创建并插入 phi 函数
-                    QuadPhi* phiStm = new QuadPhi(nullptr, new TempExp(Type::INT, var), phiArgs, phiDef, phiUse);
+                    Type type = Type::INT; // 默认为INT
+                    if(typeMap.find(var->num) != typeMap.end()) {
+                        type = typeMap[var->num];
+                    }
+                    QuadPhi* phiStm = new QuadPhi(nullptr, new TempExp(type, var), phiArgs, phiDef, phiUse);
                     insertBlock->quadlist->insert(insertBlock->quadlist->begin() + 1, phiStm);
                     
                     // 如果这是变量的新定值点，加入工作表

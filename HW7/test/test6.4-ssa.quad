@@ -25,7 +25,7 @@ Function _^main^_^main() last_label=102 last_temp=132:
     MOVE_BINOP t12600:PTR <- (+, t10500:PTR, Const:12); def: 12600 use: 10500 
     STORE Const:3 -> Mem(t12600:PTR); def: use: 12600 
     MOVE_BINOP t12700:PTR <- (+, t10100:PTR, Const:4); def: 12700 use: 10100 
-    STORE t10500:PTR -> Mem(t12700:PTR); def: use: 12700 10500 
+    STORE t10500:PTR -> Mem(t12700:PTR); def: use: 10500 12700 
     MOVE_BINOP t12800:PTR <- (+, t10100:PTR, Const:8); def: 12800 use: 10100 
     STORE Name:D^m1 -> Mem(t12800:PTR); def: use: 12800 
     MOVE t10001:PTR <- t10100:PTR; def: 10001 use: 10100 
@@ -44,7 +44,7 @@ Function _^main^_^main() last_label=102 last_temp=132:
     LABEL L101; def: use: 
     MOVE_BINOP t13000:INT <- (+, Const:0, Const:1); def: 13000 use: 
     MOVE_BINOP t13100:INT <- (*, t13000:INT, Const:4); def: 13100 use: 13000 
-    MOVE_BINOP t13200:PTR <- (+, t11600:PTR, t13100:INT); def: 13200 use: 13100 11600 
+    MOVE_BINOP t13200:PTR <- (+, t11600:PTR, t13100:INT); def: 13200 use: 11600 13100 
     LOAD t11700:INT <- Mem(t13200:PTR); def: 11700 use: 13200 
     EXTCALL putint(t11700:INT); def: use: 11700 
     RETURN Const:1; def: use: 

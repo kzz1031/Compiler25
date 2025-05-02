@@ -23,7 +23,7 @@ Function _^main^_^main() last_label=107 last_temp=137:
     MOVE t10200:INT <- Const:3; def: 10200 use: 
     LOAD t10600:INT <- Mem(t10000:PTR); def: 10600 use: 10000 
     LOAD t10700:INT <- Mem(t10100:PTR); def: 10700 use: 10100 
-    CJUMP != t10600:INT t10700:INT? L100 : L101; def: use: 10600 10700 
+    CJUMP != t10600:INT t10700:INT? L100 : L101; def: use: 10700 10600 
   Block: Entry Label: L100
     Exit labels: 
     LABEL L100; def: use: 

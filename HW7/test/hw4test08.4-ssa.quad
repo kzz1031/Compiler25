@@ -44,5 +44,5 @@ Function _^main^_^main() last_label=115 last_temp=102:
   Block: Entry Label: L114
     Exit labels: 
     LABEL L114; def: use: 
-    PHI t10102:INT <- (t10101, L112; t10100, L113); def: 10102 use: 10100 10101 
+    PHI t10102:INT <- (t10101, L112; t10100, L113); def: 10102 use: 10101 10100 
     RETURN t10102:INT; def: use: 10102 

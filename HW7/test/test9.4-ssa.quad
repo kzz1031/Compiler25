@@ -26,7 +26,7 @@ Function c1^m1(t100, t101) last_label=100 last_temp=104:
     Exit labels: 
     LABEL L100; def: use: 
     MOVE_BINOP t10400:PTR <- (+, t100:PTR, Const:0); def: 10400 use: 100 
-    STORE t101:INT -> Mem(t10400:PTR); def: use: 10400 101 
+    STORE t101:INT -> Mem(t10400:PTR); def: use: 101 10400 
     RETURN t100:PTR; def: use: 100 
 Function c2^m2(t100, t101) last_label=100 last_temp=112:
   Block: Entry Label: L100

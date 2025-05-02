@@ -12,6 +12,6 @@ Function _^main^_^main() last_label=105 last_temp=102:
   Block: Entry Label: L103
     Exit labels: 
     LABEL L103; def: use: 
-    PHI t10202:INT <- (t10201, L102; t10200, L105); def: 10202 use: 10200 10201 
+    PHI t10202:INT <- (t10201, L102; t10200, L105); def: 10202 use: 10201 10200 
     MOVE t10000:INT <- t10202:INT; def: 10000 use: 10202 
     RETURN t10000:INT; def: use: 10000 

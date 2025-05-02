@@ -73,7 +73,7 @@ Function _^main^_^main() last_label=116 last_temp=142:
   Block: Entry Label: L108
     Exit labels: L111 L112 
     LABEL L108; def: use: 
-    PHI t10102:INT <- (t10101, L106; t10100, L107); def: 10102 use: 10100 10101 
+    PHI t10102:PTR <- (t10101, L106; t10100, L107); def: 10102 use: 10101 10100 
     MOVE t10800:INT <- Const:0; def: 10800 use: 
     CJUMP > Const:9 Const:10? L111 : L112; def: use: 
   Block: Entry Label: L111

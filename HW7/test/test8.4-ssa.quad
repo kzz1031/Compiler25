@@ -85,7 +85,7 @@ Function _^main^_^main() last_label=115 last_temp=168:
   Block: Entry Label: L109
     Exit labels: L110 L111 
     LABEL L109; def: use: 
-    PHI t11601:INT <- (t11600, L108; t11602, L110); def: 11601 use: 11602 11600 
+    PHI t11601:INT <- (t11600, L108; t11602, L110); def: 11601 use: 11600 11602 
     CJUMP < t11601:INT t11700:INT? L110 : L111; def: use: 11601 11700 
   Block: Entry Label: L110
     Exit labels: L109 
