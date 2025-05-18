@@ -1,0 +1,376 @@
+cd /Users/Zhuanz/Documents/Junior/Compiler/FudanCompilerH2025/HW8/test && \
+	echo "Reading bubblesort.4-ssa-xml.quad"; \
+	/Users/Zhuanz/Documents/Junior/Compiler/FudanCompilerH2025/HW8/build/tools/main/main "bubblesort"; \
+	cd .. > /dev/null 2>&1 
+Reading bubblesort.4-ssa-xml.quad
+Number of colors to use = 9
+Reading Quad from xml: bubblesort.4-ssa-xml.quad
+Writing the prepared Quad Program to: bubblesort.4-prepared.quad
+Coloring: bubblesort.4-prepared.quad
+Interference graph for function: _^main^_^main
+Interference Graph: size=41
+Node 0: 1 2 3 10000 10200 10201 11400 
+Node 1: 0 2 10000 10200 10201 11300 11400 
+Node 2: 0 1 10000 10200 10201 11200 11300 11400 
+Node 3: 0 10000 10200 10201 
+Node 142: 10000 
+Node 143: 10000 12400 
+Node 144: 10000 12500 
+Node 145: 10000 12600 
+Node 146: 10000 12700 
+Node 147: 10000 12800 
+Node 148: 10000 12900 
+Node 149: 10000 13000 
+Node 150: 10000 10100 13200 
+Node 151: 10000 10201 11800 13600 
+Node 10000: 0 1 2 3 142 143 144 145 146 147 148 149 150 151 10100 10200 10201 10202 10600 10700 10800 11100 11300 11400 11600 11900 12400 12500 12600 12700 12800 12900 13000 13200 13300 13600 13700 13800 
+Node 10100: 150 10000 10200 11100 11400 13200 13300 
+Node 10200: 0 1 2 3 10000 10100 10600 11100 11200 11300 11400 13300 
+Node 10201: 0 1 2 3 151 10000 10700 10800 11800 11900 13600 13700 13800 
+Node 10202: 10000 
+Node 10600: 10000 10200 11200 11300 11400 
+Node 10700: 10000 10201 11600 
+Node 10800: 10000 10201 11800 
+Node 11100: 10000 10100 10200 
+Node 11200: 2 10200 10600 11300 11400 
+Node 11300: 1 2 10000 10200 10600 11200 11400 
+Node 11400: 0 1 2 10000 10100 10200 10600 11200 11300 
+Node 11600: 10000 10700 
+Node 11800: 151 10201 10800 13600 13700 
+Node 11900: 10000 10201 
+Node 12400: 143 10000 
+Node 12500: 144 10000 
+Node 12600: 145 10000 
+Node 12700: 146 10000 
+Node 12800: 147 10000 
+Node 12900: 148 10000 
+Node 13000: 149 10000 
+Node 13200: 150 10000 10100 
+Node 13300: 10000 10100 10200 
+Node 13600: 151 10000 10201 11800 
+Node 13700: 10000 10201 11800 
+Node 13800: 10000 10201 
+Move pairs: 
+(0, 10100) (0, 11300) (0, 11900) (1, 11200) (2, 10600) (10000, 11200) (10000, 11800) (10100, 0) (10100, 11300) (10200, 10201) (10201, 10200) (10201, 10202) (10201, 11600) (10202, 10201) (10600, 2) (11100, 11400) (11200, 1) (11200, 10000) (11300, 0) (11300, 10100) (11400, 11100) (11600, 10201) (11800, 10000) (11900, 0) 
+Simplified node 142
+Simplified node 143
+Simplified node 144
+Simplified node 145
+Simplified node 146
+Simplified node 147
+Simplified node 148
+Simplified node 149
+Simplified node 150
+Simplified node 151
+Simplified node 10700
+Simplified node 10800
+Simplified node 12400
+Simplified node 12500
+Simplified node 12600
+Simplified node 12700
+Simplified node 12800
+Simplified node 12900
+Simplified node 13000
+Simplified node 13200
+Simplified node 13300
+Simplified node 13600
+Simplified node 13700
+Simplified node 13800
+Coalescing 10100 and 0
+Coalescing 11300 and 0
+Coalescing 11900 and 0
+Coalescing 11200 and 1
+Coalescing 10600 and 2
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10000 and 11800
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10100 and 0
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10100 and 11300
+Simplified node 10100
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10200 and 10201
+Simplified node 10200
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10201 and 10202
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10201 and 11600
+Simplified node 10201
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 10600 and 2
+Simplified node 10600
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 11100 and 11400
+Simplified node 11100
+Skipping move 10000 -> 11200 because they interfere
+Coalescing 11200 and 1
+Skipping move 10000 -> 11200 because they interfere
+Skipping move 11200 -> 10000 because they interfere
+Coalescing 11300 and 0
+Skipping move 10000 -> 11200 because they interfere
+Skipping move 11200 -> 10000 because they interfere
+Coalescing 11900 and 0
+Simplified node 11900
+Skipping move 10000 -> 11200 because they interfere
+Skipping move 11200 -> 10000 because they interfere
+Frozen move 10000
+Simplified node 10000
+Simplified node 11200
+Spilling...
+Skipping machine register 3
+Colored node 11200 with color 1
+Colored node 10000 with color 4
+Colored node 11900 with color 0
+Colored node 11100 with color 3
+Colored node 10600 with color 2
+Colored node 10200 with color 5
+Colored node 10100 with color 0
+Colored node 13800 with color 0
+Colored node 13700 with color 0
+Colored node 13600 with color 0
+Colored node 13300 with color 1
+Colored node 13200 with color 1
+Colored node 13000 with color 0
+Colored node 12900 with color 0
+Colored node 12800 with color 0
+Colored node 12700 with color 0
+Colored node 12600 with color 0
+Colored node 12500 with color 0
+Colored node 12400 with color 0
+Colored node 10800 with color 0
+Colored node 10700 with color 0
+Colored node 151 with color 1
+Colored node 150 with color 2
+Colored node 149 with color 1
+Colored node 148 with color 1
+Colored node 147 with color 1
+Colored node 146 with color 1
+Colored node 145 with color 1
+Colored node 144 with color 1
+Colored node 143 with color 1
+Colored node 142 with color 0
+Propagating color 4 to coalesced node 11800
+Propagating color 0 to coalesced node 11300
+Propagating color 5 to coalesced node 10201
+Propagating color 5 to coalesced node 10202
+Propagating color 5 to coalesced node 11600
+Propagating color 3 to coalesced node 11400
+Interference graph for function: b1^bubbleSort
+Interference Graph: size=62
+Node 0: 1 2 3 103 104 13200 
+Node 1: 0 2 104 13100 13200 
+Node 2: 0 1 13000 13100 13200 
+Node 3: 0 
+Node 102: 103 104 163 164 165 166 167 168 169 10000 10001 10002 10100 10600 10700 10800 10900 11000 11100 11200 11300 11400 11600 11800 11900 12100 12300 12500 12700 12800 13200 13400 13600 13700 13800 14000 14100 14200 14300 14500 14600 14700 15000 15100 15200 15300 15400 15500 15600 15800 15900 16000 16100 
+Node 103: 0 102 104 163 164 165 166 167 168 169 10000 10001 10002 10100 10600 10700 10800 10900 11000 11100 11200 11300 11400 11900 12800 13100 13200 13400 13600 13700 13800 14000 14100 14200 14300 14500 14600 14700 15000 15100 15200 15300 15400 15500 15600 15800 15900 16000 16100 
+Node 104: 0 1 102 103 163 164 165 166 167 168 169 10000 10001 10002 10100 10600 10700 10800 10900 11000 11100 11200 11300 11400 11600 11800 11900 12100 12300 12500 12700 12800 13000 13100 13200 13400 13600 13700 13800 14000 14100 14200 14300 14500 14600 14700 15000 15100 15200 15300 15400 15500 15600 15800 15900 16000 16100 
+Node 163: 102 103 104 10000 
+Node 164: 102 103 104 10001 11600 13600 
+Node 165: 102 103 104 10001 11800 11900 14000 
+Node 166: 102 103 104 10001 12100 14500 
+Node 167: 102 103 104 10001 10100 11100 12300 12500 15000 
+Node 168: 102 103 104 10001 10100 12500 15200 15300 
+Node 169: 102 103 104 10001 10100 12700 15800 
+Node 10000: 102 103 104 163 
+Node 10001: 102 103 104 164 165 166 167 168 169 10100 10600 10700 10800 10900 11000 11100 11200 11300 11400 11600 11800 11900 12100 12300 12500 12700 13400 13600 13700 13800 14000 14100 14200 14300 14500 14600 14700 15000 15100 15200 15300 15400 15500 15600 15800 15900 16000 
+Node 10002: 102 103 104 
+Node 10100: 102 103 104 167 168 169 10001 11000 11100 11200 11300 11400 12300 12500 12700 15000 15100 15200 15300 15400 15500 15600 15800 15900 16000 
+Node 10600: 102 103 104 10001 11600 
+Node 10700: 102 103 104 10001 10800 11800 11900 
+Node 10800: 102 103 104 10001 10700 11800 11900 
+Node 10900: 102 103 104 10001 12100 
+Node 11000: 102 103 104 10001 10100 12300 
+Node 11100: 102 103 104 167 10001 10100 11200 12300 12500 15000 15100 15200 
+Node 11200: 102 103 104 10001 10100 11100 12300 12500 
+Node 11300: 102 103 104 10001 10100 11400 12700 
+Node 11400: 102 103 104 10001 10100 11300 12700 
+Node 11600: 102 104 164 10001 10600 13600 13700 
+Node 11800: 102 104 165 10001 10700 10800 11900 14000 14100 
+Node 11900: 102 103 104 165 10001 10700 10800 11800 14000 14100 14200 14300 
+Node 12100: 102 104 166 10001 10900 14500 14600 
+Node 12300: 102 104 167 10001 10100 11000 11100 11200 12500 15000 15100 
+Node 12500: 102 104 167 168 10001 10100 11100 11200 12300 15000 15100 15200 15300 15400 
+Node 12700: 102 104 169 10001 10100 11300 11400 15800 15900 
+Node 12800: 102 103 104 
+Node 12900: 13000 13100 13200 
+Node 13000: 2 104 12900 13100 13200 
+Node 13100: 1 2 103 104 12900 13000 13200 
+Node 13200: 0 1 2 102 103 104 12900 13000 13100 
+Node 13300: 
+Node 13400: 102 103 104 10001 
+Node 13600: 102 103 104 164 10001 11600 
+Node 13700: 102 103 104 10001 11600 
+Node 13800: 102 103 104 10001 
+Node 14000: 102 103 104 165 10001 11800 11900 
+Node 14100: 102 103 104 10001 11800 11900 
+Node 14200: 102 103 104 10001 11900 
+Node 14300: 102 103 104 10001 11900 
+Node 14500: 102 103 104 166 10001 12100 
+Node 14600: 102 103 104 10001 12100 
+Node 14700: 102 103 104 10001 
+Node 15000: 102 103 104 167 10001 10100 11100 12300 12500 
+Node 15100: 102 103 104 10001 10100 11100 12300 12500 
+Node 15200: 102 103 104 168 10001 10100 11100 12500 15300 15400 15500 15600 
+Node 15300: 102 103 104 168 10001 10100 12500 15200 
+Node 15400: 102 103 104 10001 10100 12500 15200 
+Node 15500: 102 103 104 10001 10100 15200 
+Node 15600: 102 103 104 10001 10100 15200 
+Node 15800: 102 103 104 169 10001 10100 12700 
+Node 15900: 102 103 104 10001 10100 12700 
+Node 16000: 102 103 104 10001 10100 
+Node 16100: 102 103 104 
+Move pairs: 
+(0, 102) (0, 13100) (0, 13300) (1, 103) (1, 13000) (2, 104) (2, 12900) (102, 0) (102, 13100) (103, 1) (103, 11600) (103, 11800) (103, 12100) (103, 12300) (103, 12500) (103, 12700) (103, 13000) (104, 2) (10000, 10001) (10001, 10000) (10001, 10002) (10002, 10001) (11600, 103) (11800, 103) (12100, 103) (12300, 103) (12500, 103) (12700, 103) (12800, 13200) (12900, 2) (13000, 1) (13000, 103) (13100, 0) (13100, 102) (13200, 12800) (13300, 0) 
+Simplified node 163
+Simplified node 164
+Simplified node 165
+Simplified node 166
+Simplified node 168
+Simplified node 169
+Simplified node 10600
+Simplified node 10700
+Simplified node 10800
+Simplified node 10900
+Simplified node 11000
+Simplified node 11200
+Simplified node 11300
+Simplified node 11400
+Simplified node 13400
+Simplified node 13600
+Simplified node 13700
+Simplified node 13800
+Simplified node 14000
+Simplified node 11900
+Simplified node 14100
+Simplified node 14200
+Simplified node 14300
+Simplified node 14500
+Simplified node 14600
+Simplified node 14700
+Simplified node 15100
+Simplified node 15300
+Simplified node 15400
+Simplified node 15500
+Simplified node 15200
+Simplified node 15600
+Simplified node 15800
+Simplified node 15900
+Simplified node 16000
+Simplified node 16100
+Coalescing 102 and 0
+Coalescing 13100 and 0
+Coalescing 13300 and 0
+Coalescing 103 and 1
+Coalescing 13000 and 1
+Coalescing 104 and 2
+Coalescing 12900 and 2
+Coalescing 102 and 0
+Coalescing 102 and 13100
+Coalescing 103 and 1
+Coalescing 103 and 11600
+Coalescing 103 and 11800
+Coalescing 103 and 12100
+Coalescing 103 and 12300
+Simplified node 167
+Simplified node 10100
+Simplified node 11100
+Simplified node 15000
+Skipping move 103 -> 12500 because they interfere
+Coalescing 103 and 12700
+Skipping move 103 -> 12500 because they interfere
+Coalescing 103 and 13000
+Skipping move 103 -> 12500 because they interfere
+Coalescing 104 and 2
+Simplified node 104
+Skipping move 103 -> 12500 because they interfere
+Coalescing 10000 and 10001
+Simplified node 102
+Simplified node 10000
+Skipping move 103 -> 12500 because they interfere
+Coalescing 10001 and 10002
+Simplified node 10001
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Coalescing 12800 and 13200
+Simplified node 12800
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Coalescing 12900 and 2
+Simplified node 12900
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Coalescing 13000 and 1
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Coalescing 13100 and 0
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Coalescing 13300 and 0
+Simplified node 13300
+Skipping move 103 -> 12500 because they interfere
+Skipping move 12500 -> 103 because they interfere
+Frozen move 103
+Simplified node 103
+Simplified node 12500
+Spilling...
+Skipping machine register 3
+Colored node 12500 with color 0
+Colored node 103 with color 1
+Colored node 13300 with color 0
+Colored node 12900 with color 2
+Colored node 12800 with color 3
+Colored node 10000 with color 2
+Colored node 102 with color 4
+Colored node 104 with color 5
+Colored node 15000 with color 3
+Colored node 11100 with color 6
+Colored node 10100 with color 7
+Colored node 167 with color 8
+Colored node 16100 with color 0
+Colored node 16000 with color 0
+Colored node 15900 with color 0
+Colored node 15800 with color 0
+Colored node 15600 with color 0
+Colored node 15200 with color 3
+Colored node 15500 with color 0
+Colored node 15400 with color 6
+Colored node 15300 with color 6
+Colored node 15100 with color 3
+Colored node 14700 with color 0
+Colored node 14600 with color 0
+Colored node 14500 with color 0
+Colored node 14300 with color 0
+Colored node 14200 with color 0
+Colored node 14100 with color 0
+Colored node 11900 with color 3
+Colored node 14000 with color 0
+Colored node 13800 with color 0
+Colored node 13700 with color 0
+Colored node 13600 with color 0
+Colored node 13400 with color 0
+Colored node 11400 with color 0
+Colored node 11300 with color 3
+Colored node 11200 with color 3
+Colored node 11000 with color 0
+Colored node 10900 with color 0
+Colored node 10800 with color 0
+Colored node 10700 with color 6
+Colored node 10600 with color 0
+Colored node 169 with color 3
+Colored node 168 with color 8
+Colored node 166 with color 3
+Colored node 165 with color 6
+Colored node 164 with color 3
+Colored node 163 with color 0
+Propagating color 4 to coalesced node 13100
+Propagating color 1 to coalesced node 11600
+Propagating color 1 to coalesced node 11800
+Propagating color 1 to coalesced node 12100
+Propagating color 1 to coalesced node 12300
+Propagating color 1 to coalesced node 12700
+Propagating color 1 to coalesced node 13000
+Propagating color 2 to coalesced node 10001
+Propagating color 2 to coalesced node 10002
+Propagating color 3 to coalesced node 13200
+Writing regAlloc'ed (colors XML) to bubblesort.4-xml.clr
+-----Done---

@@ -42,6 +42,7 @@ bool Coloring::simplify() {
 
 //return true if changed anything, false otherwise
 bool Coloring::coalesce() {
+    //DEBUG_OUTPUT("Coalescing...");
     // Brigg's coalescing: merge u,v if the resulting node will have fewer than k neighbors with degree ≥ k
     for (auto it = movePairs.begin(); it != movePairs.end(); ) {
         int u = it->first;
@@ -85,33 +86,23 @@ bool Coloring::coalesce() {
             }
         }
         
-        // 如果高度数邻居少于k个，则合并是安全的
-        bool safe = (highDegreeNeighbors < k);
-        
+        bool safe = (highDegreeNeighbors < k);  
         if (safe) {
-            // Coalesce v into u
-            // Add all of v's neighbors to u
+            DEBUG_OUTPUT("Coalescing " << u << " and " << v);
             for (int n : vNeighbors) {
                 if (n != u) {
                     addEdge(u, n);
                 }
             }
             
-            // Record the coalescing
             if (coalescedMoves.find(u) == coalescedMoves.end()) {
                 coalescedMoves[u] = set<int>();
             }
             coalescedMoves[u].insert(v);
-            
-            // Remove v from the graph
-            eraseNode(v);
-            
-            // Remove this move pair
+            eraseNode(v);    
             auto toRemove = it;
             ++it;
             movePairs.erase(toRemove);
-            
-            // Remove the inverse move pair if it exists
             movePairs.erase(pair<int, int>(v, u));
             
             return true;
@@ -146,7 +137,7 @@ bool Coloring::freeze() {
             for (auto& move : toRemove) {
                 movePairs.erase(move);
             }
-            
+            DEBUG_OUTPUT("Frozen move " << node);
             return true; // Successfully froze a node
         }
     }
@@ -158,15 +149,16 @@ bool Coloring::freeze() {
 //as if nothing happened. The actual spill happens when select&coloring
 bool Coloring::spill() {
     // Find a node with highest degree to spill
-    int maxDegree = -1;
+    int maxDegree = 0;
     int spillNode = -1;
-    
+    DEBUG_OUTPUT("Spilling...");
     for (auto& pair : graph) {
         int node = pair.first;
-        
-        // Skip machine registers
-        if (isMachineReg(node)) continue;
-        
+
+        if (isMachineReg(node)){
+            DEBUG_OUTPUT("Skipping machine register " << node);
+            continue; 
+        } 
         // Find node with highest degree
         if (pair.second.size() > maxDegree) {
             maxDegree = pair.second.size();
@@ -175,15 +167,11 @@ bool Coloring::spill() {
     }
     
     if (spillNode != -1) {
-        // Push to simplified nodes stack
         simplifiedNodes.push(spillNode);
-        
-        // Remove the node from the graph
         eraseNode(spillNode);
-        
+        DEBUG_OUTPUT("Spilled node " << spillNode);
         return true;
     }
-    
     return false;
 }
 
@@ -191,7 +179,7 @@ bool Coloring::spill() {
 //finally check the validity of the coloring
 bool Coloring::select() {
     // Initialize colors for machine registers
-    for (int i = 0; i < k; i++) {
+    for (int i = 0; i < 4; i++) {
         colors[i] = i; // Machine registers are pre-colored
     }
     
@@ -199,6 +187,9 @@ bool Coloring::select() {
     while (!simplifiedNodes.empty()) {
         int node = simplifiedNodes.top();
         simplifiedNodes.pop();
+        
+        // Skip if node is a machine register (already colored)
+        if (isMachineReg(node)) continue;
         
         // Skip if node was coalesced
         bool wasCoalesced = false;
@@ -210,13 +201,41 @@ bool Coloring::select() {
         }
         if (wasCoalesced) continue;
         
-        // Get original neighbors from the original graph
-        set<int> origNeighbors = ig->graph[node];
+        // 获取原始邻居
+        set<int> allNeighbors;
+        if (ig->graph.find(node) != ig->graph.end()) {
+            allNeighbors = ig->graph[node];
+        }
+        else {
+            DEBUG_OUTPUT("Node " << node << " not found in graph");
+        }
         
-        // Find available colors
+        for (auto& pair : coalescedMoves) {
+            int mainNode = pair.first;
+            // 如果当前节点是合并的主节点，需要考虑所有被合并节点的邻居
+            if (mainNode == node) {
+                for (int coalescedNode : pair.second) {
+                    if (ig->graph.find(coalescedNode) != ig->graph.end()) {
+                        for (int neighbor : ig->graph[coalescedNode]) {
+                            if (neighbor != node) {
+                                allNeighbors.insert(neighbor);
+                            }
+                        }
+                    }
+                }
+            }
+            for (int coalescedNode : pair.second) {
+                if (ig->graph.find(coalescedNode) != ig->graph.end() && 
+                    ig->graph[coalescedNode].find(node) != ig->graph[coalescedNode].end()) {
+                    allNeighbors.insert(mainNode);
+                }
+            }
+        }
+        
+        // 找出已使用的颜色
         set<int> usedColors;
-        for (int neighbor : origNeighbors) {
-            // If neighbor has been colored, mark its color as used
+        for (int neighbor : allNeighbors) {
+            // 如果邻居已着色，标记其颜色为已使用
             if (colors.find(neighbor) != colors.end()) {
                 usedColors.insert(colors[neighbor]);
             }
@@ -236,6 +255,7 @@ bool Coloring::select() {
         for (int c = 0; c < k; c++) {
             if (usedColors.find(c) == usedColors.end()) {
                 colors[node] = c;
+                DEBUG_OUTPUT("Colored node " << node << " with color " << c);
                 colorFound = true;
                 break;
             }
@@ -252,11 +272,16 @@ bool Coloring::select() {
         int mainNode = pair.first;
         if (colors.find(mainNode) != colors.end()) {
             for (int coalescedNode : pair.second) {
-                colors[coalescedNode] = colors[mainNode];
+                if (!isMachineReg(coalescedNode)) {
+                    DEBUG_OUTPUT("Propagating color " << colors[mainNode] << " to coalesced node " << coalescedNode);
+                    colors[coalescedNode] = colors[mainNode];
+                }
             }
         } else if (spilled.find(mainNode) != spilled.end()) {
             for (int coalescedNode : pair.second) {
-                spilled.insert(coalescedNode);
+                if (!isMachineReg(coalescedNode)) {
+                    spilled.insert(coalescedNode);
+                }
             }
         }
     }

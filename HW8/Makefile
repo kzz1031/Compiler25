@@ -69,7 +69,7 @@ run-5: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=hw8test03
+FILE=bubblesort
 
 run-one-5: $(MAIN)
 	cd $(CURDIR)/test && \
