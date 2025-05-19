@@ -1,5 +1,5 @@
 #define DEBUG
-//#undef DEBUG
+#undef DEBUG
 
 #include <iostream>
 #include <string>
@@ -12,6 +12,8 @@
 
 #ifdef DEBUG
 #define DEBUG_OUTPUT(x) std::cout << x << std::endl;
+#else
+#define DEBUG_OUTPUT(x)
 #endif
 bool isAnEdge(map<int, set<int>>& graph, int src, int dst) {
     if (graph.find(src) == graph.end()) return false; //src not in the graph

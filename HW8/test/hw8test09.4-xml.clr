@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <COLORING>
-    <Coloring func="_^main^_^main" k="9">
+    <Coloring func="_^main^_^main" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>
@@ -8,7 +8,6 @@
             <Color node="3" color="3"/>
             <Color node="132" color="1"/>
             <Color node="133" color="1"/>
-            <Color node="10000" color="5"/>
             <Color node="10300" color="2"/>
             <Color node="10400" color="0"/>
             <Color node="10500" color="4"/>
@@ -30,9 +29,11 @@
             <Color node="12800" color="0"/>
             <Color node="12900" color="0"/>
         </Colors>
-        <Spills/>
+        <Spills>
+            <Spill node="10000"/>
+        </Spills>
     </Coloring>
-    <Coloring func="C^m" k="9">
+    <Coloring func="C^m" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>
@@ -42,29 +43,30 @@
         </Colors>
         <Spills/>
     </Coloring>
-    <Coloring func="C^f" k="9">
+    <Coloring func="C^f" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>
             <Color node="2" color="2"/>
             <Color node="3" color="3"/>
             <Color node="102" color="0"/>
-            <Color node="103" color="4"/>
             <Color node="113" color="1"/>
             <Color node="114" color="1"/>
             <Color node="115" color="2"/>
             <Color node="116" color="2"/>
             <Color node="117" color="1"/>
-            <Color node="10000" color="5"/>
+            <Color node="10000" color="4"/>
             <Color node="10100" color="0"/>
             <Color node="10800" color="0"/>
             <Color node="10900" color="0"/>
             <Color node="11100" color="1"/>
             <Color node="11200" color="1"/>
         </Colors>
-        <Spills/>
+        <Spills>
+            <Spill node="103"/>
+        </Spills>
     </Coloring>
-    <Coloring func="C1^m" k="9">
+    <Coloring func="C1^m" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>

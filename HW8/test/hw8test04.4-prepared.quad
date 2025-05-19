@@ -6,48 +6,48 @@ Function _^main^_^main() last_label=109 last_temp=181:
     MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
     MOVE t10000:PTR <- t0:PTR; def: 10000 use: 0 
     MOVE t160:INT <- Const:6; def: 160 use: 
-    STORE t160:INT -> Mem(t10000:PTR); def: use: 160 10000 
+    STORE t160:INT -> Mem(t10000:PTR); def: use: 10000 160 
     MOVE_BINOP t12600:PTR <- (+, t10000:PTR, Const:4); def: 12600 use: 10000 
     MOVE t161:INT <- Const:1; def: 161 use: 
-    STORE t161:INT -> Mem(t12600:PTR); def: use: 161 12600 
+    STORE t161:INT -> Mem(t12600:PTR); def: use: 12600 161 
     MOVE_BINOP t12700:PTR <- (+, t10000:PTR, Const:8); def: 12700 use: 10000 
     MOVE t162:INT <- Const:2; def: 162 use: 
-    STORE t162:INT -> Mem(t12700:PTR); def: use: 162 12700 
+    STORE t162:INT -> Mem(t12700:PTR); def: use: 12700 162 
     MOVE_BINOP t12800:PTR <- (+, t10000:PTR, Const:12); def: 12800 use: 10000 
     MOVE t163:INT <- Const:3; def: 163 use: 
-    STORE t163:INT -> Mem(t12800:PTR); def: use: 163 12800 
+    STORE t163:INT -> Mem(t12800:PTR); def: use: 12800 163 
     MOVE_BINOP t12900:PTR <- (+, t10000:PTR, Const:16); def: 12900 use: 10000 
     MOVE t164:INT <- Const:4; def: 164 use: 
-    STORE t164:INT -> Mem(t12900:PTR); def: use: 164 12900 
+    STORE t164:INT -> Mem(t12900:PTR); def: use: 12900 164 
     MOVE_BINOP t13000:PTR <- (+, t10000:PTR, Const:20); def: 13000 use: 10000 
     MOVE t165:INT <- Const:5; def: 165 use: 
-    STORE t165:INT -> Mem(t13000:PTR); def: use: 165 13000 
+    STORE t165:INT -> Mem(t13000:PTR); def: use: 13000 165 
     MOVE_BINOP t13100:PTR <- (+, t10000:PTR, Const:24); def: 13100 use: 10000 
     MOVE t166:INT <- Const:6; def: 166 use: 
-    STORE t166:INT -> Mem(t13100:PTR); def: use: 166 13100 
+    STORE t166:INT -> Mem(t13100:PTR); def: use: 13100 166 
     MOVE t0:INT <- Const:28; def: 0 use: 
     MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
     MOVE t10100:PTR <- t0:PTR; def: 10100 use: 0 
     MOVE t167:INT <- Const:6; def: 167 use: 
-    STORE t167:INT -> Mem(t10100:PTR); def: use: 167 10100 
+    STORE t167:INT -> Mem(t10100:PTR); def: use: 10100 167 
     MOVE_BINOP t13300:PTR <- (+, t10100:PTR, Const:4); def: 13300 use: 10100 
     MOVE t168:INT <- Const:1; def: 168 use: 
-    STORE t168:INT -> Mem(t13300:PTR); def: use: 168 13300 
+    STORE t168:INT -> Mem(t13300:PTR); def: use: 13300 168 
     MOVE_BINOP t13400:PTR <- (+, t10100:PTR, Const:8); def: 13400 use: 10100 
     MOVE t169:INT <- Const:2; def: 169 use: 
-    STORE t169:INT -> Mem(t13400:PTR); def: use: 169 13400 
+    STORE t169:INT -> Mem(t13400:PTR); def: use: 13400 169 
     MOVE_BINOP t13500:PTR <- (+, t10100:PTR, Const:12); def: 13500 use: 10100 
     MOVE t170:INT <- Const:3; def: 170 use: 
-    STORE t170:INT -> Mem(t13500:PTR); def: use: 170 13500 
+    STORE t170:INT -> Mem(t13500:PTR); def: use: 13500 170 
     MOVE_BINOP t13600:PTR <- (+, t10100:PTR, Const:16); def: 13600 use: 10100 
     MOVE t171:INT <- Const:4; def: 171 use: 
-    STORE t171:INT -> Mem(t13600:PTR); def: use: 171 13600 
+    STORE t171:INT -> Mem(t13600:PTR); def: use: 13600 171 
     MOVE_BINOP t13700:PTR <- (+, t10100:PTR, Const:20); def: 13700 use: 10100 
     MOVE t172:INT <- Const:5; def: 172 use: 
-    STORE t172:INT -> Mem(t13700:PTR); def: use: 172 13700 
+    STORE t172:INT -> Mem(t13700:PTR); def: use: 13700 172 
     MOVE_BINOP t13800:PTR <- (+, t10100:PTR, Const:24); def: 13800 use: 10100 
     MOVE t173:INT <- Const:6; def: 173 use: 
-    STORE t173:INT -> Mem(t13800:PTR); def: use: 173 13800 
+    STORE t173:INT -> Mem(t13800:PTR); def: use: 13800 173 
     LOAD t10500:INT <- Mem(t10000:PTR); def: 10500 use: 10000 
     LOAD t10600:INT <- Mem(t10100:PTR); def: 10600 use: 10100 
     CJUMP != t10500:INT t10600:INT? L100 : L101; def: use: 10500 10600 
