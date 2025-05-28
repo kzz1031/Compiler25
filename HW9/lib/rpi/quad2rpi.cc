@@ -264,6 +264,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         break;
                     }
                     case QuadKind::MOVE_CALL: {
+                       //DEBUG_PRINT("In MOVE_CALL"<<" "<<block->entry_label);
                         QuadMoveCall *movecall = static_cast<QuadMoveCall*>(stm);
                         // 处理参数
                         for (int i = 0; i < movecall->call->args->size(); i++) {
@@ -275,15 +276,10 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                             result += string(indent, ' ') + "mov r" + to_string(i) + ", " + arg_reg + "\n";
                         }
                         
+
                         string obj_ptr = term2str(movecall->call->obj_term, color);
-                        // 检查是否是对象方法调用
-                        if (movecall->call->name.find("^") != string::npos) {
-                            // 直接使用ldr指令加载函数指针
-                            result += string(indent, ' ') + "ldr r9, [" + obj_ptr + "]\n";
-                            result += string(indent, ' ') + "blx r9\n";
-                        } else {
-                            result += string(indent, ' ') + "bl " + movecall->call->name + "\n";
-                        }
+                        result += string(indent, ' ') + "blx" + " " + obj_ptr + "\n";
+                  
                         
                         // 保存返回值
                         QuadTerm *dst_term = new QuadTerm(movecall->dst);
