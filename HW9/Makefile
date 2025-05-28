@@ -58,7 +58,7 @@ run-assem: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=hw8test01
+FILE=hw8test10
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

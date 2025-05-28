@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLORING>
+    <Coloring func="_^main^_^main" k="5">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="142" color="0"/>
+            <Color node="143" color="1"/>
+            <Color node="144" color="1"/>
+            <Color node="145" color="1"/>
+            <Color node="146" color="1"/>
+            <Color node="147" color="1"/>
+            <Color node="148" color="1"/>
+            <Color node="149" color="1"/>
+            <Color node="150" color="2"/>
+            <Color node="151" color="1"/>
+            <Color node="10000" color="0"/>
+            <Color node="10100" color="0"/>
+            <Color node="10200" color="4"/>
+            <Color node="10201" color="4"/>
+            <Color node="10202" color="4"/>
+            <Color node="10600" color="2"/>
+            <Color node="10700" color="0"/>
+            <Color node="10800" color="0"/>
+            <Color node="11100" color="3"/>
+            <Color node="11200" color="1"/>
+            <Color node="11300" color="0"/>
+            <Color node="11400" color="3"/>
+            <Color node="11600" color="4"/>
+            <Color node="11800" color="0"/>
+            <Color node="11900" color="0"/>
+            <Color node="12400" color="0"/>
+            <Color node="12500" color="0"/>
+            <Color node="12600" color="0"/>
+            <Color node="12700" color="0"/>
+            <Color node="12800" color="0"/>
+            <Color node="12900" color="0"/>
+            <Color node="13000" color="0"/>
+            <Color node="13200" color="1"/>
+            <Color node="13300" color="1"/>
+            <Color node="13600" color="0"/>
+            <Color node="13700" color="0"/>
+            <Color node="13800" color="0"/>
+        </Colors>
+        <Spills>
+            <Spill node="10000"/>
+            <Spill node="11800"/>
+        </Spills>
+    </Coloring>
+    <Coloring func="b1^bubbleSort" k="5">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="102" color="0"/>
+            <Color node="103" color="1"/>
+            <Color node="104" color="2"/>
+            <Color node="163" color="3"/>
+            <Color node="164" color="4"/>
+            <Color node="165" color="4"/>
+            <Color node="166" color="4"/>
+            <Color node="167" color="4"/>
+            <Color node="168" color="0"/>
+            <Color node="169" color="4"/>
+            <Color node="10000" color="0"/>
+            <Color node="10001" color="0"/>
+            <Color node="10002" color="0"/>
+            <Color node="10100" color="0"/>
+            <Color node="10600" color="3"/>
+            <Color node="10700" color="4"/>
+            <Color node="10800" color="3"/>
+            <Color node="10900" color="3"/>
+            <Color node="11000" color="3"/>
+            <Color node="11100" color="0"/>
+            <Color node="11200" color="3"/>
+            <Color node="11300" color="4"/>
+            <Color node="11400" color="3"/>
+            <Color node="11600" color="1"/>
+            <Color node="11800" color="1"/>
+            <Color node="11900" color="0"/>
+            <Color node="12100" color="1"/>
+            <Color node="12300" color="1"/>
+            <Color node="12500" color="0"/>
+            <Color node="12700" color="1"/>
+            <Color node="12800" color="3"/>
+            <Color node="12900" color="2"/>
+            <Color node="13000" color="1"/>
+            <Color node="13100" color="0"/>
+            <Color node="13200" color="3"/>
+            <Color node="13300" color="0"/>
+            <Color node="13400" color="3"/>
+            <Color node="13600" color="3"/>
+            <Color node="13700" color="3"/>
+            <Color node="13800" color="3"/>
+            <Color node="14000" color="3"/>
+            <Color node="14100" color="3"/>
+            <Color node="14200" color="3"/>
+            <Color node="14300" color="3"/>
+            <Color node="14500" color="3"/>
+            <Color node="14600" color="3"/>
+            <Color node="14700" color="3"/>
+            <Color node="15000" color="3"/>
+            <Color node="15100" color="3"/>
+            <Color node="15200" color="4"/>
+            <Color node="15300" color="3"/>
+            <Color node="15400" color="3"/>
+            <Color node="15500" color="3"/>
+            <Color node="15600" color="3"/>
+            <Color node="15800" color="3"/>
+            <Color node="15900" color="3"/>
+            <Color node="16000" color="3"/>
+            <Color node="16100" color="3"/>
+        </Colors>
+        <Spills>
+            <Spill node="168"/>
+            <Spill node="10000"/>
+            <Spill node="10001"/>
+            <Spill node="10002"/>
+            <Spill node="10100"/>
+            <Spill node="11100"/>
+            <Spill node="11900"/>
+            <Spill node="12500"/>
+        </Spills>
+    </Coloring>
+</COLORING>

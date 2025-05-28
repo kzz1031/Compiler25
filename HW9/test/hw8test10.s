@@ -12,28 +12,12 @@ main:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 main$L100: 
-         mov r0, #4
-         bl malloc
-         add r1, r0, #0
-         ldr r2, =D$m
-         str r2, [r1]
-         add r1, r0, #0
-         ldr r1, [r1]
-         blx r1
-         sub sp, fp, #32
-         pop {r4-r10, fp, pc}
-
-@ Here's function: D^m
-
-.balign 4
-.global D$m
-.section .text
-
-D$m:
-         push {r4-r10, fp, lr}
-         add fp, sp, #32
-D$m$L100: 
-         mov r0, #9
+         mov r4, #1
+         mov r0, r4
+         bl putint
+         mov r0, #10
+         bl putch
+         mov r0, r4
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

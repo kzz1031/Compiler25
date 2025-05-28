@@ -54,7 +54,8 @@ main$L107:
          ldr r2, =b1$bubbleSort
          str r2, [r1]
          mov r4, #0
-         ldr r3, [r0, #4]
+         add r1, r0, #4
+         ldr r3, [r1]
          ldr r9, [fp, #-36]
          mov r1, r9
          ldr r9, [fp, #-36]
@@ -122,7 +123,8 @@ b1$bubbleSort$L107:
          cmp r9, r3
          blt b1$bubbleSort$L108
 b1$bubbleSort$L109: 
-         ldr r3, [r0, #4]
+         add r3, r0, #4
+         ldr r3, [r3]
          sub r2, r2, #1
          blx r3
          sub sp, fp, #32
@@ -142,8 +144,8 @@ b1$bubbleSort$L111:
          mov r4, #4
          mul r3, r3, r4
          add r3, r1, r3
-         ldr r10, [r3]
-         str r10, [fp, #-60]
+         ldr r0, [r3]
+         str r9, [fp, #-60]
          ldr r9, [fp, #-44]
          add r4, r9, #1
          ldr r3, [r1]
@@ -182,8 +184,8 @@ b1$bubbleSort$L117:
          mov r4, #4
          mul r3, r3, r4
          add r3, r1, r3
-         ldr r10, [r3]
-         str r10, [fp, #-52]
+         ldr r0, [r3]
+         str r9, [fp, #-52]
          ldr r3, [r1]
          ldr r9, [fp, #-44]
          cmp r9, r3
@@ -242,6 +244,7 @@ b1$bubbleSort$L124:
          cmp r9, r3
          bge b1$bubbleSort$L116
          b b1$bubbleSort$L117
+
 .global malloc
 .global getint
 .global putint

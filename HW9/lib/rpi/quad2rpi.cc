@@ -138,7 +138,9 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                             result += string(indent, ' ') + "str r10" + ", [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
                         } else {
+                            //DEBUG_PRINT(" dst: "<< dst<<" src: " << src);
                             if(dst == src) {
+                                //DEBUG_PRINT("Skipping redundant move: " << dst);
                                 break;
                             }
                             result += string(indent, ' ') + "mov " + dst + ", " + src + "\n";
@@ -165,7 +167,10 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                     to_string(color->get_spill_offset(binop->right->get_temp()->temp->num)) + "]\n";
                             src2 = "r10";
                         }
-                        
+                        if (dst_term->kind == QuadTermKind::TEMP && 
+                            color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
+                                dst = "r10";
+                        }
                         // 生成对应的操作指令
                         if (binop->binop == "+") {
                             result += string(indent, ' ') + "add " + dst + ", " + src1 + ", " + src2 + "\n";
@@ -249,26 +254,37 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 保存参数寄存器
                         for (int i = 0; i < call->args->size() && i < 4; i++) {
                             string arg = term2str(call->args->at(i), color);
-                            if (i == 0) result += string(indent, ' ') + "mov r0, " + arg + "\n";
-                            else if (i == 1) result += string(indent, ' ') + "mov r1, " + arg + "\n";
-                            else if (i == 2) result += string(indent, ' ') + "mov r2, " + arg + "\n";
-                            else if (i == 3) result += string(indent, ' ') + "mov r3, " + arg + "\n";
+                            if (arg == "r" + to_string(i)) {
+                                continue; 
+                            }
+                            result += string(indent, ' ') + "mov r" + to_string(i) + ", " + arg + "\n";
                         }
-                        
-                        result += string(indent, ' ') + "bl " + normalizeName(call->name) + "\n";
+                        string obj_ptr = term2str(call->obj_term, color);
+                        result += string(indent, ' ') + "blx " + obj_ptr + "\n";
                         break;
                     }
                     case QuadKind::MOVE_CALL: {
-                        DEBUG_PRINT("In MOVE_CALL"<<" "<<block->entry_label);
                         QuadMoveCall *movecall = static_cast<QuadMoveCall*>(stm);
                         // 处理参数
                         for (int i = 0; i < movecall->call->args->size(); i++) {
                             QuadTerm *arg = (*movecall->call->args)[i];
                             string arg_reg = term2str(arg, color);
+                            if(arg_reg == "r" + to_string(i)) {
+                                continue;
+                            }
                             result += string(indent, ' ') + "mov r" + to_string(i) + ", " + arg_reg + "\n";
                         }
-                        // 调用函数
-                        result += string(indent, ' ') + "bl " + movecall->call->name + "\n";
+                        
+                        string obj_ptr = term2str(movecall->call->obj_term, color);
+                        // 检查是否是对象方法调用
+                        if (movecall->call->name.find("^") != string::npos) {
+                            // 直接使用ldr指令加载函数指针
+                            result += string(indent, ' ') + "ldr r9, [" + obj_ptr + "]\n";
+                            result += string(indent, ' ') + "blx r9\n";
+                        } else {
+                            result += string(indent, ' ') + "bl " + movecall->call->name + "\n";
+                        }
+                        
                         // 保存返回值
                         QuadTerm *dst_term = new QuadTerm(movecall->dst);
                         if (dst_term->kind == QuadTermKind::TEMP) {
@@ -277,6 +293,9 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                 result += string(indent, ' ') + "str r0, [fp, #-" + 
                                         to_string(color->get_spill_offset(dst_temp_exp->temp->num)) + "]\n";
                             } else {
+                                if(term2str(dst_term, color) == "r0") {
+                                    break;
+                                }
                                 result += string(indent, ' ') + "mov " + 
                                         term2str(dst_term, color) + ", r0\n";
                             }
@@ -333,7 +352,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                         term2str(dst_term, color) + ", r0\n";
                             }
                         }
-                        delete dst_term;
                         break;
                     }
                     case QuadKind::LOAD: {
@@ -349,8 +367,12 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                     to_string(color->get_spill_offset(load->src->get_temp()->temp->num)) + "]\n";
                             src = "r9";
                         }
-                        
-                        result += string(indent, ' ') + "ldr " + dst + ", [" + src + "]\n";
+                        if(load->src->kind == QuadTermKind::MAME) {
+                            src = normalizeName(load->src->get_name());
+                            result += string(indent, ' ') + "ldr " + dst + ", =" + src + "\n";
+                        }
+                        else 
+                            result += string(indent, ' ') + "ldr " + dst + ", [" + src + "]\n";
                         
                         // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
@@ -433,7 +455,7 @@ string quad2rpi(QuadProgram* quadProgram, ColorMap *cm) {// Convert a QuadProgra
         current_funcname = func->funcname; //set the global variable
         //get the color for the function
         Color *c = cm->color_map[func->funcname]; 
-        int indent = 8;
+        int indent = 9;
         result += convert(func, dfi, c, indent) + "\n";
     }
     //put the global functions at the end
