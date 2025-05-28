@@ -100,6 +100,17 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                 // 处理标签
                 if (stm->kind == QuadKind::LABEL) {
                     QuadLabel* label = static_cast<QuadLabel*>(stm);
+                    // 检查结果字符串中的最后一条非空指令
+                    size_t lastInstrPos = result.find_last_of('\n', result.length() - 2);
+                    if (lastInstrPos != string::npos) {
+                        string lastInstr = result.substr(lastInstrPos + 1);
+                        string expectedJump = string(indent, ' ') + "b " + current_funcname + "$" + 
+                                           label->label->str() + "\n";
+                        if (lastInstr == expectedJump) {
+                            // 删除多余的跳转指令
+                            result = result.substr(0, lastInstrPos + 1);
+                        }
+                    }
                     result += convert(label, color, indent);
                     continue;
                 }
@@ -107,7 +118,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                 // 处理其他指令
                 switch (stm->kind) {
                     case QuadKind::MOVE: {
-                        //DEBUG_PRINT("In MOVE"<<" "<<block->entry_label);
                         QuadMove* move = static_cast<QuadMove*>(stm);
                         string src = term2str(move->src, color);
                         QuadTerm* dst_term = new QuadTerm(move->dst);
@@ -115,19 +125,23 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         
                         if (move->src->kind == QuadTermKind::TEMP && 
                             color->spills.find(move->src->get_temp()->temp->num) != color->spills.end()) {
-                            // 从栈加载到r9
-                            result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                            DEBUG_PRINT("Spill detected for source temp: " << move->src->get_temp()->temp->num);
+                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(move->src->get_temp()->temp->num)) + "]\n";
                             src = "r9";
                         }
                         
-                        result += string(indent, ' ') + "mov " + dst + ", " + src + "\n";
-                        
-                        // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "str r9, [fp, #" + 
+                            DEBUG_PRINT("Spill detected for destination temp: " << dst_term->get_temp()->temp->num);
+                            result += string(indent, ' ') + "mov r10, " + src + "\n";
+                            result += string(indent, ' ') + "str r10" + ", [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
+                        } else {
+                            if(dst == src) {
+                                break;
+                            }
+                            result += string(indent, ' ') + "mov " + dst + ", " + src + "\n";
                         }
                         break;
                     }
@@ -141,13 +155,13 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 处理spills
                         if (binop->left->kind == QuadTermKind::TEMP && 
                             color->spills.find(binop->left->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(binop->left->get_temp()->temp->num)) + "]\n";
                             src1 = "r9";
                         }
                         if (binop->right->kind == QuadTermKind::TEMP && 
                             color->spills.find(binop->right->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r10, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r10, [fp, #-" + 
                                     to_string(color->get_spill_offset(binop->right->get_temp()->temp->num)) + "]\n";
                             src2 = "r10";
                         }
@@ -166,7 +180,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "str " + dst + ", [fp, #" + 
+                            result += string(indent, ' ') + "str " + dst + ", [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
                         }
                         break;
@@ -185,13 +199,13 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 处理spills
                         if (cjump->left->kind == QuadTermKind::TEMP && 
                             color->spills.find(cjump->left->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(cjump->left->get_temp()->temp->num)) + "]\n";
                             src1 = "r9";
                         }
                         if (cjump->right->kind == QuadTermKind::TEMP && 
                             color->spills.find(cjump->right->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r10, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r10, [fp, #-" + 
                                     to_string(color->get_spill_offset(cjump->right->get_temp()->temp->num)) + "]\n";
                             src2 = "r10";
                         }
@@ -260,7 +274,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         if (dst_term->kind == QuadTermKind::TEMP) {
                             TempExp *dst_temp_exp = dst_term->get_temp();
                             if (color->spills.find(dst_temp_exp->temp->num) != color->spills.end()) {
-                                result += string(indent, ' ') + "str r0, [fp, #" + 
+                                result += string(indent, ' ') + "str r0, [fp, #-" + 
                                         to_string(color->get_spill_offset(dst_temp_exp->temp->num)) + "]\n";
                             } else {
                                 result += string(indent, ' ') + "mov " + 
@@ -272,8 +286,10 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                     case QuadKind::RETURN: {
                         QuadReturn *ret = static_cast<QuadReturn*>(stm);
                         string ret_reg = term2str(ret->value, color);
-                        result += string(indent, ' ') + "mov r0, " + ret_reg + "\n";
-                        // 恢复栈帧
+                        if(ret_reg != "r0") {
+                            result += string(indent, ' ') + "mov r0, " + ret_reg + "\n";
+                        }
+                        
                         result += string(indent, ' ') + "sub sp, fp, #32\n";
                         result += string(indent, ' ') + "pop {r4-r10, fp, pc}\n";
                         break;
@@ -307,9 +323,12 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         if (dst_term->kind == QuadTermKind::TEMP) {
                             TempExp* dst_temp_exp = dst_term->get_temp();
                             if (color->spills.find(dst_temp_exp->temp->num) != color->spills.end()) {
-                                result += string(indent, ' ') + "str r0, [fp, #" + 
+                                result += string(indent, ' ') + "str r0, [fp, #-" + 
                                         to_string(color->get_spill_offset(dst_temp_exp->temp->num)) + "]\n";
                             } else {
+                                if(term2str(dst_term, color) == "r0") {
+                                    break;
+                                }
                                 result += string(indent, ' ') + "mov " + 
                                         term2str(dst_term, color) + ", r0\n";
                             }
@@ -326,7 +345,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 处理spills
                         if (load->src->kind == QuadTermKind::TEMP && 
                             color->spills.find(load->src->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(load->src->get_temp()->temp->num)) + "]\n";
                             src = "r9";
                         }
@@ -336,10 +355,9 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "str r9, [fp, #" + 
+                            result += string(indent, ' ') + "str r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
                         }
-                        delete dst_term;
                         break;
                     }
                     case QuadKind::STORE: {
@@ -350,13 +368,13 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 处理spills
                         if (store->src->kind == QuadTermKind::TEMP && 
                             color->spills.find(store->src->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(store->src->get_temp()->temp->num)) + "]\n";
                             src = "r9";
                         }
                         if (store->dst->kind == QuadTermKind::TEMP && 
                             color->spills.find(store->dst->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r10, [fp, #" + 
+                            result += string(indent, ' ') + "ldr r10, [fp, #-" + 
                                     to_string(color->get_spill_offset(store->dst->get_temp()->temp->num)) + "]\n";
                             dst = "r10";
                         }
@@ -377,7 +395,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                             
                             // 如果源是spill，需要从栈加载
                             if (color->spills.find(temp->num) != color->spills.end()) {
-                                result += string(indent, ' ') + "ldr r9, [fp, #" + 
+                                result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                         to_string(color->get_spill_offset(temp->num)) + "]\n";
                                 src = "r9";
                             }
@@ -388,7 +406,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "str r9, [fp, #" + 
+                            result += string(indent, ' ') + "str r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
                         }
                         delete dst_term;
@@ -408,6 +426,7 @@ string quad2rpi(QuadProgram* quadProgram, ColorMap *cm) {// Convert a QuadProgra
     result = ".section .note.GNU-stack\n\n@ Here is the RPI code\n\n";
     for (QuadFuncDecl* func : *quadProgram->quadFuncDeclList) {
         //get the data flow info for the function
+        result += "@ Here's function: " + func->funcname + "\n";
         DataFlowInfo *dfi = new DataFlowInfo(func);
         dfi->computeLiveness(); //liveness useful in some cases. Has to be done before trace otherwise this func code won't work!
         trace(func); //trace it (merge all blocks into one)
