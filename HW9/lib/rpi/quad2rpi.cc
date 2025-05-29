@@ -361,26 +361,26 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                     }
                     case QuadKind::EXTCALL: {
                         QuadExtCall* extcall = static_cast<QuadExtCall*>(stm);
-                        // for (int i = 0; i < extcall->args->size() && i < 4; i++) {
-                        //     string arg = term2str(extcall->args->at(i), color);
-                        //     if (i == 0) result += string(indent, ' ') + "mov r0, " + arg + "\n";
-                        //     else if (i == 1) result += string(indent, ' ') + "mov r1, " + arg + "\n";
-                        //     else if (i == 2) result += string(indent, ' ') + "mov r2, " + arg + "\n";
-                        //     else if (i == 3) result += string(indent, ' ') + "mov r3, " + arg + "\n";
-                        // }
+                        for (int i = 0; i < extcall->args->size() && i < 4; i++) {
+                            string arg = term2str(extcall->args->at(i), color);
+                            if(arg == "r" + to_string(i)) {
+                                continue; 
+                            }
+                            result += string(indent, ' ') + "mov r" + to_string(i) + ", " + arg + "\n";
+                        }
                         result += string(indent, ' ') + "bl " + extcall->extfun + "\n";
                         break;
                     }
                     case QuadKind::MOVE_EXTCALL: {
                         QuadMoveExtCall* moveextcall = static_cast<QuadMoveExtCall*>(stm);
                         // 处理参数
-                        // for (int i = 0; i < moveextcall->extcall->args->size() && i < 4; i++) {
-                        //     string arg = term2str(moveextcall->extcall->args->at(i), color);
-                        //     if (i == 0) result += string(indent, ' ') + "mov r0, " + arg + "\n";
-                        //     else if (i == 1) result += string(indent, ' ') + "mov r1, " + arg + "\n";
-                        //     else if (i == 2) result += string(indent, ' ') + "mov r2, " + arg + "\n";
-                        //     else if (i == 3) result += string(indent, ' ') + "mov r3, " + arg + "\n";
-                        // }
+                        for (int i = 0; i < moveextcall->extcall->args->size() && i < 4; i++) {
+                            string arg = term2str(moveextcall->extcall->args->at(i), color);
+                            if(arg == "r" + to_string(i)) {
+                                continue; 
+                            }
+                            result += string(indent, ' ') + "mov r" + to_string(i) + ", " + arg + "\n";
+                        }
                         result += string(indent, ' ') + "bl " + moveextcall->extcall->extfun + "\n";
                         // 保存返回值
                         QuadTerm* dst_term = new QuadTerm(moveextcall->dst);
