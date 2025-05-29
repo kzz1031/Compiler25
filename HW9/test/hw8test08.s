@@ -11,11 +11,14 @@
 main:
          push {r4-r10, fp, lr}
          add fp, sp, #32
+         sub sp, sp, #4
 main$L100: 
          mov r0, #4
          bl malloc
-         mov r5, r0
-         add r0, r5, #0
+         mov r10, r0
+         str r10, [fp, #-36]
+         ldr r9, [fp, #-36]
+         add r0, r9, #0
          ldr r1, =C$m
          str r1, [r0]
          mov r0, #4
@@ -24,8 +27,10 @@ main$L100:
          add r0, r4, #0
          ldr r1, =C1$m
          str r1, [r0]
-         ldr r1, [r5, #0]
-         mov r0, r5
+         ldr r9, [fp, #-36]
+         ldr r1, [r9, #0]
+         ldr r9, [fp, #-36]
+         mov r0, r9
          blx r1
          mov r0, r4
          ldr r1, [r0, #0]

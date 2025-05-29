@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <COLORING>
-    <Coloring func="_^main^_^main" k="9">
+    <Coloring func="_^main^_^main" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>
@@ -17,7 +17,7 @@
         </Colors>
         <Spills/>
     </Coloring>
-    <Coloring func="C^m" k="9">
+    <Coloring func="C^m" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="100" color="0"/>

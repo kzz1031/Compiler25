@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <COLORING>
-    <Coloring func="_^main^_^main" k="9">
+    <Coloring func="_^main^_^main" k="5">
         <Colors>
             <Color node="0" color="0"/>
             <Color node="1" color="1"/>
@@ -28,21 +28,21 @@
             <Color node="179" color="2"/>
             <Color node="180" color="0"/>
             <Color node="181" color="2"/>
-            <Color node="10000" color="5"/>
+            <Color node="10000" color="0"/>
             <Color node="10001" color="0"/>
-            <Color node="10100" color="4"/>
-            <Color node="10500" color="6"/>
+            <Color node="10100" color="0"/>
+            <Color node="10500" color="4"/>
             <Color node="10600" color="0"/>
             <Color node="10700" color="0"/>
             <Color node="10800" color="1"/>
-            <Color node="10801" color="1"/>
-            <Color node="10802" color="1"/>
-            <Color node="10900" color="3"/>
+            <Color node="10801" color="0"/>
+            <Color node="10802" color="0"/>
+            <Color node="10900" color="4"/>
             <Color node="11000" color="1"/>
             <Color node="11100" color="0"/>
             <Color node="11500" color="0"/>
             <Color node="11800" color="0"/>
-            <Color node="12000" color="4"/>
+            <Color node="12000" color="0"/>
             <Color node="12100" color="1"/>
             <Color node="12200" color="0"/>
             <Color node="12600" color="0"/>
@@ -59,12 +59,12 @@
             <Color node="13800" color="0"/>
             <Color node="14000" color="0"/>
             <Color node="14200" color="2"/>
-            <Color node="14300" color="6"/>
-            <Color node="14400" color="2"/>
-            <Color node="14500" color="7"/>
-            <Color node="14600" color="2"/>
-            <Color node="14700" color="2"/>
-            <Color node="14800" color="2"/>
+            <Color node="14300" color="3"/>
+            <Color node="14400" color="1"/>
+            <Color node="14500" color="2"/>
+            <Color node="14600" color="1"/>
+            <Color node="14700" color="1"/>
+            <Color node="14800" color="1"/>
             <Color node="15000" color="1"/>
             <Color node="15100" color="1"/>
             <Color node="15200" color="0"/>
@@ -73,6 +73,12 @@
             <Color node="15600" color="0"/>
             <Color node="15700" color="0"/>
         </Colors>
-        <Spills/>
+        <Spills>
+            <Spill node="10000"/>
+            <Spill node="10100"/>
+            <Spill node="10801"/>
+            <Spill node="10802"/>
+            <Spill node="12000"/>
+        </Spills>
     </Coloring>
 </COLORING>
