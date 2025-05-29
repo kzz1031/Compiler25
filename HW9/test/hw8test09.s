@@ -11,52 +11,34 @@
 main:
          push {r4-r10, fp, lr}
          add fp, sp, #32
-         sub sp, sp, #4
 main$L100: 
          mov r0, #8
          bl malloc
-         mov r10, r0
-         str r10, [fp, #-36]
-         ldr r9, [fp, #-36]
-         add r0, r9, #0
+         mov r5, r0
+         add r0, r5, #0
          ldr r1, =C$f
          str r1, [r0]
-         ldr r9, [fp, #-36]
-         add r0, r9, #4
+         add r0, r5, #4
          ldr r1, =C$m
          str r1, [r0]
-         ldr r9, [fp, #-36]
-         add r0, r9, #0
-         ldr r2, [r0]
+         ldr r2, [r5, #0]
          mov r1, #0
-         ldr r9, [fp, #-36]
-         mov r0, r9
+         mov r0, r5
          blx r2
-         add r0, r0, #4
-         ldr r4, [r0]
-         ldr r9, [fp, #-36]
-         add r0, r9, #0
-         ldr r2, [r0]
+         ldr r4, [r0, #4]
+         ldr r2, [r5, #0]
          mov r1, #0
-         ldr r9, [fp, #-36]
-         mov r0, r9
+         mov r0, r5
          blx r2
          blx r4
-         ldr r9, [fp, #-36]
-         add r0, r9, #0
-         ldr r2, [r0]
+         ldr r2, [r5, #0]
          mov r1, #1
-         ldr r9, [fp, #-36]
-         mov r0, r9
+         mov r0, r5
          blx r2
-         add r0, r0, #4
-         ldr r4, [r0]
-         ldr r9, [fp, #-36]
-         add r0, r9, #0
-         ldr r2, [r0]
+         ldr r4, [r0, #4]
+         ldr r2, [r5, #0]
          mov r1, #1
-         ldr r9, [fp, #-36]
-         mov r0, r9
+         mov r0, r5
          blx r2
          blx r4
          mov r0, #0
@@ -90,17 +72,15 @@ C$m$L100:
 C$f:
          push {r4-r10, fp, lr}
          add fp, sp, #32
-         sub sp, sp, #4
 C$f$L105: 
-         mov r10, r1
-         str r10, [fp, #-36]
+         mov r4, r1
          mov r0, #8
          bl malloc
-         mov r4, r0
-         add r0, r4, #0
+         mov r5, r0
+         add r0, r5, #0
          ldr r1, =C$f
          str r1, [r0]
-         add r0, r4, #4
+         add r0, r5, #4
          ldr r1, =C$m
          str r1, [r0]
          mov r0, #8
@@ -112,14 +92,13 @@ C$f$L105:
          ldr r2, =C$f
          str r2, [r1]
          mov r1, #0
-         ldr r9, [fp, #-36]
-         cmp r9, r1
+         cmp r4, r1
          bgt C$f$L102
 C$f$L103: 
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 C$f$L102: 
-         mov r0, r4
+         mov r0, r5
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

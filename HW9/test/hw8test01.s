@@ -17,8 +17,7 @@ main$L100:
          add r1, r0, #0
          ldr r2, =D$m
          str r2, [r1]
-         add r1, r0, #0
-         ldr r1, [r1]
+         ldr r1, [r0, #0]
          blx r1
          sub sp, fp, #32
          pop {r4-r10, fp, pc}

@@ -58,7 +58,7 @@ run-assem: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=hw8test10
+FILE=bubblesort
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

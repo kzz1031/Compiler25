@@ -90,11 +90,17 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
         result += string(indent, ' ') + "sub sp, sp, #" + to_string(spill_size) + "\n";
     }
     
-    // 2. 处理函数体中的指令
+    bool skip = false;
     if (func->quadblocklist != nullptr && !func->quadblocklist->empty()) {
         QuadBlock* block = func->quadblocklist->at(0);  // 由于trace，现在只有一个block
         if (block->quadlist != nullptr) {
-            for (QuadStm* stm : *block->quadlist) {
+            for (auto it = block->quadlist->begin(); it != block->quadlist->end(); ++it) {
+                if(skip) {
+                    skip = false;
+                    continue;
+                }
+                QuadStm* stm = *it;
+                printf("%p\n", it);
                 if (stm == nullptr) continue;
                 
                 // 处理标签
@@ -125,7 +131,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         
                         if (move->src->kind == QuadTermKind::TEMP && 
                             color->spills.find(move->src->get_temp()->temp->num) != color->spills.end()) {
-                            DEBUG_PRINT("Spill detected for source temp: " << move->src->get_temp()->temp->num);
                             result += string(indent, ' ') + "ldr r9, [fp, #-" + 
                                     to_string(color->get_spill_offset(move->src->get_temp()->temp->num)) + "]\n";
                             src = "r9";
@@ -133,7 +138,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            DEBUG_PRINT("Spill detected for destination temp: " << dst_term->get_temp()->temp->num);
                             result += string(indent, ' ') + "mov r10, " + src + "\n";
                             result += string(indent, ' ') + "str r10" + ", [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
@@ -154,7 +158,53 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         QuadTerm* dst_term = new QuadTerm(binop->dst);
                         string dst = term2str(dst_term, color);
                         
-                        // 处理spills
+                        // 检查是否能与下一条指令合并
+                        auto it = find(block->quadlist->begin(), block->quadlist->end(), stm);
+                        if (it != block->quadlist->end() && std::next(it) != block->quadlist->end()) {
+                            QuadStm* nextStm = *std::next(it);
+                            // 检查是否是 add rx, ry, #0 模式
+                            if (binop->binop == "+" && 
+                                binop->right->kind == QuadTermKind::CONST) {
+                                
+                                if (nextStm->kind == QuadKind::LOAD) {
+                                    printf("LOAD\n");
+                                    auto load = static_cast<QuadLoad*>(nextStm);
+                                    if (load->src->kind == QuadTermKind::TEMP &&
+                                        term2str(load->src, color) == dst) {
+                                        if(color->spills.find(binop->left->get_temp()->temp->num) != color->spills.end()) {
+                                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
+                                                    to_string(color->get_spill_offset(binop->left->get_temp()->temp->num)) + "]\n";
+                                            src1 = "r9";
+                                        }
+                                        result += string(indent, ' ') + "ldr " + 
+                                                term2str(new QuadTerm(load->dst), color) + 
+                                                ", [" + src1 + ", #" + to_string(binop->right->get_const()) + "]\n";
+                                        skip = true; 
+                                        printf("Skipping next LOAD\n");
+                                        continue;
+                                    }
+                                }
+                                else if (nextStm->kind == QuadKind::STORE) {
+                                    printf("STORE\n");
+                                    auto store = static_cast<QuadStore*>(nextStm);
+                                    if (store->dst->kind == QuadTermKind::TEMP &&
+                                        term2str(store->dst, color) == dst) {
+                                        if(color->spills.find(binop->left->get_temp()->temp->num) != color->spills.end()) {
+                                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
+                                                    to_string(color->get_spill_offset(binop->left->get_temp()->temp->num)) + "]\n";
+                                            src1 = "r9";
+                                        }
+                                        result += string(indent, ' ') + "str " + 
+                                                term2str(store->src, color) + 
+                                                ", [" + src1 + ", #" + to_string(binop->right->get_const()) + "]\n";
+                                        skip = true; 
+                                        printf("Skipping next STORE\n");
+                                        continue;
+                                    }
+                                }
+                            }
+                        }
+
                         if (binop->left->kind == QuadTermKind::TEMP && 
                             color->spills.find(binop->left->get_temp()->temp->num) != color->spills.end()) {
                             result += string(indent, ' ') + "ldr r9, [fp, #-" + 
@@ -311,7 +361,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                     }
                     case QuadKind::EXTCALL: {
                         QuadExtCall* extcall = static_cast<QuadExtCall*>(stm);
-                        // 处理参数
                         // for (int i = 0; i < extcall->args->size() && i < 4; i++) {
                         //     string arg = term2str(extcall->args->at(i), color);
                         //     if (i == 0) result += string(indent, ' ') + "mov r0, " + arg + "\n";
@@ -357,11 +406,15 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         string dst = term2str(dst_term, color);
                         
                         // 处理spills
+                        if(dst_term->kind == QuadTermKind::TEMP && 
+                           color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()){
+                            dst = "r10";
+                        }
                         if (load->src->kind == QuadTermKind::TEMP && 
                             color->spills.find(load->src->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "ldr r9, [fp, #-" + 
+                            result += string(indent, ' ') + "ldr "+ "r9" + ", [fp, #-" + 
                                     to_string(color->get_spill_offset(load->src->get_temp()->temp->num)) + "]\n";
-                            src = "r9";
+                                    src = "r9";
                         }
                         if(load->src->kind == QuadTermKind::MAME) {
                             src = normalizeName(load->src->get_name());
@@ -373,7 +426,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                         // 如果目标是spill，需要存回栈
                         if (dst_term->kind == QuadTermKind::TEMP && 
                             color->spills.find(dst_term->get_temp()->temp->num) != color->spills.end()) {
-                            result += string(indent, ' ') + "str r9, [fp, #-" + 
+                            result += string(indent, ' ') + "str r10, [fp, #-" + 
                                     to_string(color->get_spill_offset(dst_term->get_temp()->temp->num)) + "]\n";
                         }
                         break;

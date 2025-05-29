@@ -15,13 +15,11 @@ main$L100:
          mov r0, #8
          bl malloc
          mov r2, #2
-         add r1, r0, #0
-         str r2, [r1]
+         str r2, [r0, #0]
          add r1, r0, #4
          ldr r2, =C$m
          str r2, [r1]
-         add r1, r0, #4
-         ldr r1, [r1]
+         ldr r1, [r0, #4]
          blx r1
          bl putint
          mov r0, #20
@@ -40,8 +38,7 @@ C$m:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 C$m$L100: 
-         add r0, r0, #0
-         ldr r0, [r0]
+         ldr r0, [r0, #0]
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 
