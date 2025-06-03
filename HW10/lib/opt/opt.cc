@@ -247,7 +247,6 @@ void Opt::modifyFunc() {
     DEBUG_PRINT("Modifying function");
     vector<QuadBlock*>* new_blocks = new vector<QuadBlock*>();
     
-    // 遍历所有基本块
     for (auto& block : *func->quadblocklist) {
         DEBUG_PRINT("Processing block: " + block->entry_label->str());
         if (!block_executable[block->entry_label->num]) {
@@ -257,21 +256,13 @@ void Opt::modifyFunc() {
         vector<QuadStm*>* new_quads = new vector<QuadStm*>();
         
         for (auto& quad : *block->quadlist) {
+            DEBUG_PRINT("Processing quad");
             if (quad->kind == QuadKind::MOVE) {
+                DEBUG_PRINT("MOVE!!!");
                 auto move = static_cast<QuadMove*>(quad);
                 auto dest = move->dst->temp->num;
-                auto src = move->src->get_temp()->temp->num;
-                
-                RtValue srcValue = getRtValue(src);
-                if (srcValue.getType() == ValueType::ONE_VALUE) {
-                    set<Temp*>* def = new set<Temp*>();
-                    def->insert(move->dst->temp);
-                    set<Temp*>* use = new set<Temp*>();
-                    QuadMove* new_quad = new QuadMove(move->node, 
-                        move->dst, 
-                        new QuadTerm(srcValue.getIntValue()),
-                        def, use);
-                    new_quads->push_back(new_quad);
+                if (temp_value[dest].getType() == ValueType::ONE_VALUE) {
+                    DEBUG_PRINT("ONE_VALUE in MOVE");
                 } else {
                     new_quads->push_back(quad);
                 }
@@ -279,15 +270,26 @@ void Opt::modifyFunc() {
             else if (quad->kind == QuadKind::MOVE_BINOP) {
                 auto binop = static_cast<QuadMoveBinop*>(quad);
                 auto dest = binop->dst->temp->num;
-                auto src1 = binop->left->get_temp()->temp->num;
-                auto src2 = binop->right->get_temp()->temp->num;
+                int src1_val, src2_val;
+                bool src1_is_const = binop->left->kind == QuadTermKind::CONST;
+                bool src2_is_const = binop->right->kind == QuadTermKind::CONST;
                 
-                RtValue val1 = getRtValue(src1);
-                RtValue val2 = getRtValue(src2);
+                if (src1_is_const) {
+                    src1_val = binop->left->get_const();
+                } else {
+                    src1_val = binop->left->get_temp()->temp->num;
+                }
+                if (src2_is_const) {
+                    src2_val = binop->right->get_const();
+                } else {
+                    src2_val = binop->right->get_temp()->temp->num;
+                }
+                
+                RtValue val1 = src1_is_const ? RtValue(src1_val) : getRtValue(src1_val);
+                RtValue val2 = src2_is_const ? RtValue(src2_val) : getRtValue(src2_val);
                 
                 if (val1.getType() == ValueType::ONE_VALUE && 
                     val2.getType() == ValueType::ONE_VALUE) {
-                    // 如果两个操作数都是常量，计算结果并创建新的常量赋值指令
                     int result;
                     if (binop->binop == "+") result = val1.getIntValue() + val2.getIntValue();
                     else if (binop->binop == "-") result = val1.getIntValue() - val2.getIntValue();
@@ -310,17 +312,73 @@ void Opt::modifyFunc() {
                     new_quads->push_back(quad);
                 }
             }
-            // 处理条件跳转指令
+            else if (quad->kind == QuadKind::PHI) {
+                auto phi = static_cast<QuadPhi*>(quad);
+                auto dest = phi->temp->temp->num;
+                RtValue destValue = getRtValue(dest);
+                
+                if (destValue.getType() == ValueType::ONE_VALUE) {
+
+                } else {
+                    for (auto& arg : *phi->args) {
+                        auto temp = arg.first;
+                        auto label = arg.second;
+                        if (block_executable[label->num]) {
+                            if(temp_value[temp->num].getType() == ValueType::ONE_VALUE) {
+                                DEBUG_PRINT("ONE_VALUE in PHI");
+                                QuadBlock* target_block = label2block[label->num];
+                                Temp* new_temp = new Temp(++func->last_temp_num);
+                                set<Temp*>* def = new set<Temp*>();
+                                def->insert(new_temp);
+                                set<Temp*>* use = new set<Temp*>();
+                                
+                                TempExp* dst_temp = new TempExp(Type::INT, new_temp);
+                                QuadTerm* src_term = new QuadTerm(temp_value[temp->num].getIntValue());
+                                QuadMove* move_quad = new QuadMove(phi->node, dst_temp, src_term, def, use);
+                                
+                                vector<QuadStm*>* pred_quads = target_block->quadlist;
+                                if (!pred_quads->empty()) {
+                                    // 找到前驱块的最后一条非跳转指令的位置
+                                    int insert_pos = pred_quads->size() - 1;
+                                    while (insert_pos >= 0 && 
+                                           (pred_quads->at(insert_pos)->kind == QuadKind::JUMP || 
+                                            pred_quads->at(insert_pos)->kind == QuadKind::CJUMP)) {
+                                        insert_pos--;
+                                    }
+
+                                    pred_quads->insert(pred_quads->begin() + insert_pos + 1, move_quad);
+                                }
+                                phi->use->erase(temp);
+                                phi->use->insert(new_temp);
+                                arg.first = new_temp;
+                            }
+                        }
+                    }
+                    new_quads->push_back(quad);
+                }
+            }
             else if (quad->kind == QuadKind::JUMP || quad->kind == QuadKind::CJUMP) {
                 if (quad->kind == QuadKind::JUMP) {
                     new_quads->push_back(quad);
                 } else {
                     auto cjump = static_cast<QuadCJump*>(quad);
-                    auto src1 = cjump->left->get_temp()->temp->num;
-                    auto src2 = cjump->right->get_temp()->temp->num;
+                    int src1_val, src2_val;
+                    bool src1_is_const = cjump->left->kind == QuadTermKind::CONST;
+                    bool src2_is_const = cjump->right->kind == QuadTermKind::CONST;
                     
-                    RtValue val1 = getRtValue(src1);
-                    RtValue val2 = getRtValue(src2);
+                    if (src1_is_const) {
+                        src1_val = cjump->left->get_const();
+                    } else {
+                        src1_val = cjump->left->get_temp()->temp->num;
+                    }
+                    if (src2_is_const) {
+                        src2_val = cjump->right->get_const();
+                    } else {
+                        src2_val = cjump->right->get_temp()->temp->num;
+                    }
+                    
+                    RtValue val1 = src1_is_const ? RtValue(src1_val) : getRtValue(src1_val);
+                    RtValue val2 = src2_is_const ? RtValue(src2_val) : getRtValue(src2_val);
                     
                     if (val1.getType() == ValueType::ONE_VALUE && 
                         val2.getType() == ValueType::ONE_VALUE) {
@@ -332,7 +390,6 @@ void Opt::modifyFunc() {
                         else if (cjump->relop == "==") condition = val1.getIntValue() == val2.getIntValue();
                         else if (cjump->relop == "!=") condition = val1.getIntValue() != val2.getIntValue();
                         
-                        // 如果条件可以确定，只保留一个分支
                         set<Temp*>* def = new set<Temp*>();
                         set<Temp*>* use = new set<Temp*>();
                         QuadJump* new_quad = new QuadJump(cjump->node, 
@@ -344,18 +401,15 @@ void Opt::modifyFunc() {
                     }
                 }
             }
-            // 其他指令保持不变
             else {
                 new_quads->push_back(quad);
             }
         }
         
-        // 创建新的基本块
         QuadBlock* new_block = new QuadBlock(block->node, new_quads, block->entry_label, block->exit_labels);
         new_blocks->push_back(new_block);
     }
     
-    // 更新函数的基本块列表
     func->quadblocklist = new_blocks;
 }
 
