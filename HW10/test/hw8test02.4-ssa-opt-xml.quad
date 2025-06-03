@@ -1,0 +1,60 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="110" last_temp_num="112">
+        <block kind="BLOCK" entry="110">
+            <exits>
+                <exit label="102"/>
+            </exits>
+            <label kind="LABEL" name="110"/>
+            <jump kind="JUMP" target="102"/>
+        </block>
+        <block kind="BLOCK" entry="102">
+            <exits>
+                <exit label="104"/>
+            </exits>
+            <label kind="LABEL" name="102"/>
+            <jump kind="JUMP" target="104"/>
+        </block>
+        <block kind="BLOCK" entry="104">
+            <exits>
+                <exit label="107"/>
+            </exits>
+            <label kind="LABEL" name="104"/>
+            <jump kind="JUMP" target="107"/>
+        </block>
+        <block kind="BLOCK" entry="107">
+            <exits>
+                <exit label="108"/>
+                <exit label="109"/>
+            </exits>
+            <label kind="LABEL" name="107"/>
+            <jump kind="JUMP" target="108"/>
+        </block>
+        <block kind="BLOCK" entry="108">
+            <exits>
+                <exit label="109"/>
+            </exits>
+            <label kind="LABEL" name="108"/>
+            <extcall kind="EXTCALL" name="putint">
+                <args>
+                    <arg index="0">
+                        <value kind="CONST" value="1"/>
+                    </arg>
+                </args>
+            </extcall>
+            <extcall kind="EXTCALL" name="putch">
+                <args>
+                    <arg index="0">
+                        <value kind="CONST" value="10"/>
+                    </arg>
+                </args>
+            </extcall>
+            <jump kind="JUMP" target="109"/>
+        </block>
+        <block kind="BLOCK" entry="109">
+            <label kind="LABEL" name="109"/>
+            <return kind="RETURN">
+                <value kind="CONST" value="9"/>
+            </return>
+        </block>
+    </funcdecl>
+</program>

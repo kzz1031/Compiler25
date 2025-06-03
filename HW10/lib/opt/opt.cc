@@ -252,7 +252,11 @@ void Opt::modifyFunc() {
         if (!block_executable[block->entry_label->num]) {
             continue;
         }
-        
+        for(auto& exit_label : *block->exit_labels) {
+            if (!block_executable[exit_label->num]) {
+                block->exit_labels->erase(std::find(block->exit_labels->begin(), block->exit_labels->end(), exit_label));
+            }
+        }
         vector<QuadStm*>* new_quads = new vector<QuadStm*>();
         
         for (auto& quad : *block->quadlist) {
@@ -270,45 +274,22 @@ void Opt::modifyFunc() {
             else if (quad->kind == QuadKind::MOVE_BINOP) {
                 auto binop = static_cast<QuadMoveBinop*>(quad);
                 auto dest = binop->dst->temp->num;
-                int src1_val, src2_val;
-                bool src1_is_const = binop->left->kind == QuadTermKind::CONST;
-                bool src2_is_const = binop->right->kind == QuadTermKind::CONST;
-                
-                if (src1_is_const) {
-                    src1_val = binop->left->get_const();
+                if (temp_value[dest].getType() == ValueType::ONE_VALUE) {
+                        
                 } else {
-                    src1_val = binop->left->get_temp()->temp->num;
-                }
-                if (src2_is_const) {
-                    src2_val = binop->right->get_const();
-                } else {
-                    src2_val = binop->right->get_temp()->temp->num;
-                }
-                
-                RtValue val1 = src1_is_const ? RtValue(src1_val) : getRtValue(src1_val);
-                RtValue val2 = src2_is_const ? RtValue(src2_val) : getRtValue(src2_val);
-                
-                if (val1.getType() == ValueType::ONE_VALUE && 
-                    val2.getType() == ValueType::ONE_VALUE) {
-                    int result;
-                    if (binop->binop == "+") result = val1.getIntValue() + val2.getIntValue();
-                    else if (binop->binop == "-") result = val1.getIntValue() - val2.getIntValue();
-                    else if (binop->binop == "*") result = val1.getIntValue() * val2.getIntValue();
-                    else if (binop->binop == "/") result = val1.getIntValue() / val2.getIntValue();
-                    else {
-                        new_quads->push_back(quad);
-                        continue;
+                    if(binop->left->get_temp()){
+                        if(temp_value[binop->left->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                            binop->left = new QuadTerm(temp_value[binop->left->get_temp()->temp->num].getIntValue());
+                            binop->use->erase(binop->left->get_temp()->temp);
+                        }
+                        
                     }
-
-                    set<Temp*>* def = new set<Temp*>();
-                    def->insert(binop->dst->temp);
-                    set<Temp*>* use = new set<Temp*>();
-                    QuadMove* new_quad = new QuadMove(binop->node, 
-                        binop->dst, 
-                        new QuadTerm(result),
-                        def, use);
-                    new_quads->push_back(new_quad);
-                } else {
+                    if(binop->right->get_temp()){
+                        if(temp_value[binop->right->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                            binop->use->erase(binop->right->get_temp()->temp);
+                            binop->right = new QuadTerm(temp_value[binop->right->get_temp()->temp->num].getIntValue());
+                        }
+                    }
                     new_quads->push_back(quad);
                 }
             }
@@ -401,12 +382,23 @@ void Opt::modifyFunc() {
                     }
                 }
             }
+            else if(quad->kind == QuadKind::EXTCALL){
+                auto extcall = static_cast<QuadExtCall*>(quad);
+                for(auto& arg : *extcall->args){
+                    if(arg->get_temp() && temp_value[arg->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                        extcall->use->erase(arg->get_temp()->temp);
+                        arg = new QuadTerm(temp_value[arg->get_temp()->temp->num].getIntValue());
+                    }
+                }
+                new_quads->push_back(quad);
+            }
             else {
                 new_quads->push_back(quad);
             }
         }
         
         QuadBlock* new_block = new QuadBlock(block->node, new_quads, block->entry_label, block->exit_labels);
+        label2block[block->entry_label->num] = new_block;
         new_blocks->push_back(new_block);
     }
     
