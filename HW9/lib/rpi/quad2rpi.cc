@@ -166,7 +166,7 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                             if (binop->binop == "+" && 
                                 binop->right->kind == QuadTermKind::CONST) {
                                 
-                                if (nextStm->kind == QuadKind::LOAD) {
+                                if (nextStm->kind == QuadKind::LOAD) { //TODO: might have a bug here
                                     printf("LOAD\n");
                                     auto load = static_cast<QuadLoad*>(nextStm);
                                     if (load->src->kind == QuadTermKind::TEMP &&
