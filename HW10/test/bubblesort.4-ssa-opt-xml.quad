@@ -493,8 +493,8 @@
                     <temp id="10001"/>
                 </def>
                 <use>
-                    <temp id="163"/>
                     <temp id="10002"/>
+                    <temp id="163"/>
                 </use>
             </phi>
             <movebinop kind="MOVE_BINOP" dst="13400" temp_type="INT" op="-">

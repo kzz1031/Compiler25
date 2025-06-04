@@ -250,10 +250,7 @@
         <block kind="BLOCK" entry="105">
             <label kind="LABEL" name="105"/>
             <return kind="RETURN">
-                <value kind="TEMP" id="16400" type="INT"/>
-                <use>
-                    <temp id="16400"/>
-                </use>
+                <value kind="CONST" value="-1"/>
             </return>
         </block>
         <block kind="BLOCK" entry="106">

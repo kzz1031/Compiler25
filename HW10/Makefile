@@ -53,7 +53,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=fibonacci
+FILE=hw10test07
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

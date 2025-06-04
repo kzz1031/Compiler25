@@ -1,0 +1,59 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="105">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <move kind="MOVE" dst="10000" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="10000"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="10100" temp_type="INT" op="+">
+                <left kind="TEMP" id="10000" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="10100"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </movebinop>
+            <movebinop kind="MOVE_BINOP" dst="10200" temp_type="INT" op="+">
+                <left kind="TEMP" id="10100" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="10200"/>
+                </def>
+                <use>
+                    <temp id="10100"/>
+                </use>
+            </movebinop>
+            <movebinop kind="MOVE_BINOP" dst="10300" temp_type="INT" op="+">
+                <left kind="TEMP" id="10200" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="10300"/>
+                </def>
+                <use>
+                    <temp id="10200"/>
+                </use>
+            </movebinop>
+            <movebinop kind="MOVE_BINOP" dst="10400" temp_type="INT" op="+">
+                <left kind="TEMP" id="10300" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="10400"/>
+                </def>
+                <use>
+                    <temp id="10300"/>
+                </use>
+            </movebinop>
+            <return kind="RETURN">
+                <value kind="TEMP" id="10400" type="INT"/>
+                <use>
+                    <temp id="10400"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

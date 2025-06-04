@@ -223,7 +223,6 @@ void Opt::calculateBT() {
                                 changed = true;
                             }
                         } else {
-                            // 如果条件不确定，两个分支都可能执行
                             int target1 = cjump->t->num;
                             int target2 = cjump->f->num;
                             if (!block_executable[target1]) {
@@ -272,6 +271,7 @@ void Opt::modifyFunc() {
                 }
             }
             else if (quad->kind == QuadKind::MOVE_BINOP) {
+                DEBUG_PRINT("MOVE_BINOP!!!");
                 auto binop = static_cast<QuadMoveBinop*>(quad);
                 auto dest = binop->dst->temp->num;
                 if (temp_value[dest].getType() == ValueType::ONE_VALUE) {
@@ -279,8 +279,8 @@ void Opt::modifyFunc() {
                 } else {
                     if(binop->left->get_temp()){
                         if(temp_value[binop->left->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
-                            binop->left = new QuadTerm(temp_value[binop->left->get_temp()->temp->num].getIntValue());
                             binop->use->erase(binop->left->get_temp()->temp);
+                            binop->left = new QuadTerm(temp_value[binop->left->get_temp()->temp->num].getIntValue());
                         }
                         
                     }
@@ -292,6 +292,7 @@ void Opt::modifyFunc() {
                     }
                     new_quads->push_back(quad);
                 }
+                //DEBUG_PRINT("Finish MOVE_BINOP!!!");
             }
             else if (quad->kind == QuadKind::PHI) {
                 auto phi = static_cast<QuadPhi*>(quad);
@@ -376,6 +377,7 @@ void Opt::modifyFunc() {
                         QuadJump* new_quad = new QuadJump(cjump->node, 
                             condition ? cjump->t : cjump->f,
                             def, use);
+                        block->exit_labels->erase(std::find(block->exit_labels->begin(), block->exit_labels->end(), condition ? cjump->t : cjump->f));
                         new_quads->push_back(new_quad);
                     } else {
                         new_quads->push_back(quad);
@@ -390,6 +392,30 @@ void Opt::modifyFunc() {
                         arg = new QuadTerm(temp_value[arg->get_temp()->temp->num].getIntValue());
                     }
                 }
+                new_quads->push_back(quad);
+            }
+            else if(quad->kind == QuadKind::LOAD){
+                auto load = static_cast<QuadLoad*>(quad);
+                if(load->src->get_temp() && temp_value[load->src->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                    load->use->erase(load->src->get_temp()->temp);
+                    load->src = new QuadTerm(temp_value[load->src->get_temp()->temp->num].getIntValue());
+                }
+                new_quads->push_back(quad);
+            }
+            else if(quad->kind == QuadKind::STORE){
+                auto store = static_cast<QuadStore*>(quad);
+                if(store->src->get_temp() && temp_value[store->src->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                    store->use->erase(store->src->get_temp()->temp);    
+                    store->src = new QuadTerm(temp_value[store->src->get_temp()->temp->num].getIntValue());
+                }
+                new_quads->push_back(quad);
+            }
+            else if(quad->kind == QuadKind::RETURN){
+                auto ret = static_cast<QuadReturn*>(quad);
+                if(ret->value && ret->value->get_temp() && temp_value[ret->value->get_temp()->temp->num].getType() == ValueType::ONE_VALUE){
+                    ret->use->erase(ret->value->get_temp()->temp);
+                    ret->value = new QuadTerm(temp_value[ret->value->get_temp()->temp->num].getIntValue());
+                }  
                 new_quads->push_back(quad);
             }
             else {

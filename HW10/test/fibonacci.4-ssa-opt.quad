@@ -40,7 +40,7 @@ Function _^main^_^main() last_label=113 last_temp=170:
   Block: Entry Label: L105
     Exit labels: 
     LABEL L105; def: use: 
-    RETURN t16400:INT; def: use: 16400 
+    RETURN Const:-1; def: use: 
   Block: Entry Label: L106
     Exit labels: L107 
     LABEL L106; def: use: 

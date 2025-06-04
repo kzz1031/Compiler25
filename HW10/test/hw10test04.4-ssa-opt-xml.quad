@@ -1,0 +1,32 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="110" last_temp_num="102">
+        <block kind="BLOCK" entry="110">
+            <label kind="LABEL" name="110"/>
+            <jump kind="JUMP" target="108"/>
+        </block>
+        <block kind="BLOCK" entry="108">
+            <label kind="LABEL" name="108"/>
+            <jump kind="JUMP" target="105"/>
+        </block>
+        <block kind="BLOCK" entry="105">
+            <exits>
+                <exit label="106"/>
+            </exits>
+            <label kind="LABEL" name="105"/>
+            <jump kind="JUMP" target="106"/>
+        </block>
+        <block kind="BLOCK" entry="106">
+            <exits>
+                <exit label="109"/>
+            </exits>
+            <label kind="LABEL" name="106"/>
+            <jump kind="JUMP" target="109"/>
+        </block>
+        <block kind="BLOCK" entry="109">
+            <label kind="LABEL" name="109"/>
+            <return kind="RETURN">
+                <value kind="CONST" value="9"/>
+            </return>
+        </block>
+    </funcdecl>
+</program>

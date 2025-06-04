@@ -84,7 +84,7 @@ Function b1^bubbleSort(t102, t103, t104) last_label=127 last_temp=163:
   Block: Entry Label: L107
     Exit labels: L108 L109 
     LABEL L107; def: use: 
-    PHI t10001:INT <- (t163, L104; t10002, L126); def: 10001 use: 163 10002 
+    PHI t10001:INT <- (t163, L104; t10002, L126); def: 10001 use: 10002 163 
     MOVE_BINOP t13400:INT <- (-, t104:INT, Const:1); def: 13400 use: 104 
     CJUMP < t10001:INT t13400:INT? L108 : L109; def: use: 13400 10001 
   Block: Entry Label: L108
