@@ -43,9 +43,8 @@ void Opt::calculateBT() {
                 continue;
             }
 
-            DEBUG_PRINT("Processing block: " + block->entry_label->str());
+            DEBUG_PRINT("Processing block in BT: " + block->entry_label->str());
             
-            // 对于只有一个后继的块，标记后继为可执行
             if (block->exit_labels && block->exit_labels->size() == 1) {
                 int next_label = block->exit_labels->front()->num;
                 if (!block_executable[next_label]) {
@@ -81,7 +80,6 @@ void Opt::calculateBT() {
                         changed = true;
                     }
                 }
-                // 处理二元运算指令
                 else if (quad->kind == QuadKind::MOVE_BINOP) {
                     auto binop = static_cast<QuadMoveBinop*>(quad);
                     auto dest = binop->dst->temp->num;
