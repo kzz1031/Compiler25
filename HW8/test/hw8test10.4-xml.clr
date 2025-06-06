@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLORING>
+    <Coloring func="_^main^_^main" k="5">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="10000" color="4"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+</COLORING>

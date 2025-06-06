@@ -1,0 +1,107 @@
+Function _^main^_^main() last_label=100 last_temp=133:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t0:INT <- Const:8; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10000:PTR <- t0:PTR; def: 10000 use: 0 
+    MOVE_BINOP t11800:PTR <- (+, t10000:PTR, Const:0); def: 11800 use: 10000 
+    LOAD t132:INT <- Mem(Name:C^f); def: 132 use: 
+    STORE t132:INT -> Mem(t11800:PTR); def: use: 11800 132 
+    MOVE_BINOP t11900:PTR <- (+, t10000:PTR, Const:4); def: 11900 use: 10000 
+    LOAD t133:INT <- Mem(Name:C^m); def: 133 use: 
+    STORE t133:INT -> Mem(t11900:PTR); def: use: 11900 133 
+    MOVE_BINOP t12000:PTR <- (+, t10000:PTR, Const:0); def: 12000 use: 10000 
+    LOAD t10300:PTR <- Mem(t12000:PTR); def: 10300 use: 12000 
+    MOVE t1:INT <- Const:0; def: 1 use: 
+    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
+    MOVE_CALL t0:PTR <- f[t10300:PTR] (t0:PTR, t1:INT); def: 0 1 2 3 use: 10300 0 1 
+    MOVE t10400:PTR <- t0:PTR; def: 10400 use: 0 
+    MOVE_BINOP t12200:PTR <- (+, t10400:PTR, Const:4); def: 12200 use: 10400 
+    LOAD t10500:PTR <- Mem(t12200:PTR); def: 10500 use: 12200 
+    MOVE t10800:PTR <- t10500:PTR; def: 10800 use: 10500 
+    MOVE_BINOP t12300:PTR <- (+, t10000:PTR, Const:0); def: 12300 use: 10000 
+    LOAD t10600:PTR <- Mem(t12300:PTR); def: 10600 use: 12300 
+    MOVE t1:INT <- Const:0; def: 1 use: 
+    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
+    MOVE_CALL t0:PTR <- f[t10600:PTR] (t0:PTR, t1:INT); def: 0 1 2 3 use: 10600 0 1 
+    MOVE t10700:PTR <- t0:PTR; def: 10700 use: 0 
+    MOVE t0:PTR <- t10700:PTR; def: 0 use: 10700 
+    CALL m[t10800:PTR] (t0:PTR); def: 0 1 2 3 use: 10800 0 
+    MOVE_BINOP t12600:PTR <- (+, t10000:PTR, Const:0); def: 12600 use: 10000 
+    LOAD t11000:PTR <- Mem(t12600:PTR); def: 11000 use: 12600 
+    MOVE t1:INT <- Const:1; def: 1 use: 
+    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
+    MOVE_CALL t0:PTR <- f[t11000:PTR] (t0:PTR, t1:INT); def: 0 1 2 3 use: 11000 0 1 
+    MOVE t11100:PTR <- t0:PTR; def: 11100 use: 0 
+    MOVE_BINOP t12800:PTR <- (+, t11100:PTR, Const:4); def: 12800 use: 11100 
+    LOAD t11200:PTR <- Mem(t12800:PTR); def: 11200 use: 12800 
+    MOVE t11500:PTR <- t11200:PTR; def: 11500 use: 11200 
+    MOVE_BINOP t12900:PTR <- (+, t10000:PTR, Const:0); def: 12900 use: 10000 
+    LOAD t11300:PTR <- Mem(t12900:PTR); def: 11300 use: 12900 
+    MOVE t1:INT <- Const:1; def: 1 use: 
+    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
+    MOVE_CALL t0:PTR <- f[t11300:PTR] (t0:PTR, t1:INT); def: 0 1 2 3 use: 11300 0 1 
+    MOVE t11400:PTR <- t0:PTR; def: 11400 use: 0 
+    MOVE t0:PTR <- t11400:PTR; def: 0 use: 11400 
+    CALL m[t11500:PTR] (t0:PTR); def: 0 1 2 3 use: 11500 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
+Function C^m(t0) last_label=100 last_temp=105:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t100:INT <- t0:INT; def: 100 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:10; def: 0 use: 
+    EXTCALL putch(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
+Function C^f(t0, t1) last_label=105 last_temp=117:
+  Block: Entry Label: L105
+    Exit labels: L102 L103 
+    LABEL L105; def: use: 
+    MOVE t103:INT <- t1:INT; def: 103 use: 1 
+    MOVE t102:INT <- t0:INT; def: 102 use: 0 
+    MOVE t0:INT <- Const:8; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10000:PTR <- t0:PTR; def: 10000 use: 0 
+    MOVE_BINOP t10800:PTR <- (+, t10000:PTR, Const:0); def: 10800 use: 10000 
+    LOAD t113:INT <- Mem(Name:C^f); def: 113 use: 
+    STORE t113:INT -> Mem(t10800:PTR); def: use: 10800 113 
+    MOVE_BINOP t10900:PTR <- (+, t10000:PTR, Const:4); def: 10900 use: 10000 
+    LOAD t114:INT <- Mem(Name:C^m); def: 114 use: 
+    STORE t114:INT -> Mem(t10900:PTR); def: use: 10900 114 
+    MOVE t0:INT <- Const:8; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10100:PTR <- t0:PTR; def: 10100 use: 0 
+    MOVE_BINOP t11100:PTR <- (+, t10100:PTR, Const:4); def: 11100 use: 10100 
+    LOAD t115:INT <- Mem(Name:C1^m); def: 115 use: 
+    STORE t115:INT -> Mem(t11100:PTR); def: use: 11100 115 
+    MOVE_BINOP t11200:PTR <- (+, t10100:PTR, Const:0); def: 11200 use: 10100 
+    LOAD t116:INT <- Mem(Name:C^f); def: 116 use: 
+    STORE t116:INT -> Mem(t11200:PTR); def: use: 11200 116 
+    MOVE t117:INT <- Const:0; def: 117 use: 
+    CJUMP > t103:INT t117:INT? L102 : L103; def: use: 103 117 
+  Block: Entry Label: L102
+    Exit labels: 
+    LABEL L102; def: use: 
+    MOVE t0:INT <- t10000:PTR; def: 0 use: 10000 
+    RETURN t0:INT; def: use: 0 
+  Block: Entry Label: L103
+    Exit labels: 
+    LABEL L103; def: use: 
+    MOVE t0:INT <- t10100:PTR; def: 0 use: 10100 
+    RETURN t0:INT; def: use: 0 
+Function C1^m(t0) last_label=100 last_temp=105:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t100:INT <- t0:INT; def: 100 use: 0 
+    MOVE t0:INT <- Const:1; def: 0 use: 
+    EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:10; def: 0 use: 
+    EXTCALL putch(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
