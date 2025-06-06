@@ -1,0 +1,89 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="108">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <moveextcall kind="MOVE_EXTCALL" dst="10000" temp_type="PTR">
+                <extcall kind="EXTCALL" name="malloc">
+                    <args>
+                        <arg index="0">
+                            <value kind="CONST" value="4"/>
+                        </arg>
+                    </args>
+                </extcall>
+                <def>
+                    <temp id="10000"/>
+                </def>
+            </moveextcall>
+            <movebinop kind="MOVE_BINOP" dst="10600" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10000" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="10600"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </movebinop>
+            <store kind="STORE">
+                <src kind="NAME" name="D^m"/>
+                <dst kind="TEMP" id="10600" type="PTR"/>
+                <use>
+                    <temp id="10600"/>
+                </use>
+            </store>
+            <movebinop kind="MOVE_BINOP" dst="10700" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10000" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="10700"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="10300" temp_type="PTR">
+                <src kind="TEMP" id="10700" type="PTR"/>
+                <def>
+                    <temp id="10300"/>
+                </def>
+                <use>
+                    <temp id="10700"/>
+                </use>
+            </load>
+            <movecall kind="MOVE_CALL" dst="10400" temp_type="INT">
+                <call kind="CALL" name="m">
+                    <object kind="TEMP" id="10300" type="PTR"/>
+                    <args>
+                        <arg index="0">
+                            <value kind="TEMP" id="10000" type="PTR"/>
+                        </arg>
+                    </args>
+                </call>
+                <def>
+                    <temp id="10400"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                    <temp id="10300"/>
+                </use>
+            </movecall>
+            <return kind="RETURN">
+                <value kind="TEMP" id="10400" type="INT"/>
+                <use>
+                    <temp id="10400"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+    <funcdecl kind="FUNCDECL" name="D^m" last_label_num="100" last_temp_num="101">
+        <params>
+            <param temp="100"/>
+        </params>
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <return kind="RETURN">
+                <value kind="CONST" value="9"/>
+            </return>
+        </block>
+    </funcdecl>
+</program>

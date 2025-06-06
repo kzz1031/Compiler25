@@ -100,7 +100,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                     continue;
                 }
                 QuadStm* stm = *it;
-                printf("%p\n", it);
                 if (stm == nullptr) continue;
                 
                 // 处理标签
@@ -180,7 +179,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                                 term2str(new QuadTerm(load->dst), color) + 
                                                 ", [" + src1 + ", #" + to_string(binop->right->get_const()) + "]\n";
                                         skip = true; 
-                                        printf("Skipping next LOAD\n");
                                         continue;
                                     }
                                 }
@@ -198,7 +196,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                                 term2str(store->src, color) + 
                                                 ", [" + src1 + ", #" + to_string(binop->right->get_const()) + "]\n";
                                         skip = true; 
-                                        printf("Skipping next STORE\n");
                                         continue;
                                     }
                                 }

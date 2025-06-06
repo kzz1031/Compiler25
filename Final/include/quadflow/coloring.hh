@@ -52,6 +52,8 @@ public:
     bool freeze(); // Freeze the graph by removing nodes with degree < k, return true if any nodes were frozen
     bool spill(); // Select nodes with degree >= k, return true if any nodes were spilled (this is potential spilling process)
     bool select(); // Select nodes to color, return true if any nodes were selected. The actual spilling occurs here.
+
+    bool checkColoring(); // Check if the coloring is valid 
 };
 
 Coloring *coloring(InterferenceGraph *ig, int k); // Color the graph with k colors (machine registers)

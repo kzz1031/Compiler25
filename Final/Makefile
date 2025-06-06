@@ -39,7 +39,7 @@ PATCHDEMO = $(BUILD_DIR)/tools/patchdemo/patchdemo
 run: $(MAIN)
 	cd $(CURDIR)/test && \
 	for file in $$(ls .); do \
-		if [ "$${file#*.}" = "4-prepared-xml.quad" ]; then \
+		if [ "$${file#*.}" = "4-ssa-xml.quad" ]; then \
 			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
 			$(MAIN) "$${file%%.*}"; \
 		fi; \
@@ -58,11 +58,11 @@ run-assem: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=bubblesort
+FILE=hw8test00
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
-	echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
+	echo "Reading ${FILE}.4-ssa-xml.quad and ${FILE}.4-xml.clr"; \
 	$(MAIN) "${FILE}"; \
 	cd .. > /dev/null 2>&1 
 
