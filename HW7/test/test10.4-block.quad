@@ -1,0 +1,7 @@
+Function _^main^_^main() last_label=100 last_temp=103:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE_EXTCALL t100:PTR <- malloc(Const:4); def: 100 use: 
+    STORE Const:0 -> Mem(t100:PTR); def: use: 100 
+    RETURN Const:0; def: use: 

@@ -1,0 +1,46 @@
+Function _^main^_^main() last_label=107 last_temp=117:
+  Block: Entry Label: L107
+    Exit labels: L102 
+    LABEL L107; def: use: 
+    MOVE_EXTCALL t100:PTR <- malloc(Const:20); def: 100 use: 
+    STORE Const:4 -> Mem(t100:PTR); def: use: 100 
+    MOVE_BINOP t110:PTR <- (+, t100:PTR, Const:4); def: 110 use: 100 
+    STORE Const:1 -> Mem(t110:PTR); def: use: 110 
+    MOVE_BINOP t111:PTR <- (+, t100:PTR, Const:8); def: 111 use: 100 
+    STORE Const:2 -> Mem(t111:PTR); def: use: 111 
+    MOVE_BINOP t112:PTR <- (+, t100:PTR, Const:12); def: 112 use: 100 
+    STORE Const:3 -> Mem(t112:PTR); def: use: 112 
+    MOVE_BINOP t113:PTR <- (+, t100:PTR, Const:16); def: 113 use: 100 
+    STORE Const:4 -> Mem(t113:PTR); def: use: 113 
+    MOVE t101:INT <- Const:0; def: 101 use: 
+    MOVE t102:INT <- Const:0; def: 102 use: 
+    JUMP L102; def: use: 
+  Block: Entry Label: L102
+    Exit labels: L103 L104 
+    LABEL L102; def: use: 
+    CJUMP < t101:INT Const:4? L103 : L104; def: use: 101 
+  Block: Entry Label: L103
+    Exit labels: L105 L106 
+    LABEL L103; def: use: 
+    MOVE t109:INT <- t102:INT; def: 109 use: 102 
+    MOVE t108:PTR <- t100:PTR; def: 108 use: 100 
+    LOAD t105:INT <- Mem(t100:PTR); def: 105 use: 100 
+    CJUMP >= t101:INT t105:INT? L105 : L106; def: use: 101 105 
+  Block: Entry Label: L105
+    Exit labels: 
+    LABEL L105; def: use: 
+    EXTCALL exit(Const:-1); def: use: 
+  Block: Entry Label: L106
+    Exit labels: L102 
+    LABEL L106; def: use: 
+    MOVE_BINOP t114:INT <- (+, t101:INT, Const:1); def: 114 use: 101 
+    MOVE_BINOP t115:INT <- (*, t114:INT, Const:4); def: 115 use: 114 
+    MOVE_BINOP t116:PTR <- (+, t108:PTR, t115:INT); def: 116 use: 108 115 
+    LOAD t117:INT <- Mem(t116:PTR); def: 117 use: 116 
+    MOVE_BINOP t102:INT <- (+, t109:INT, t117:INT); def: 102 use: 109 117 
+    MOVE_BINOP t101:INT <- (+, t101:INT, Const:1); def: 101 use: 101 
+    JUMP L102; def: use: 
+  Block: Entry Label: L104
+    Exit labels: 
+    LABEL L104; def: use: 
+    RETURN t102:INT; def: use: 102 

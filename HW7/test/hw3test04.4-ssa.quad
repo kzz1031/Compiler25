@@ -1,0 +1,103 @@
+Function _^main^_^main() last_label=116 last_temp=142:
+  Block: Entry Label: L116
+    Exit labels: L100 L101 
+    LABEL L116; def: use: 
+    MOVE_EXTCALL t10000:PTR <- malloc(Const:44); def: 10000 use: 
+    STORE Const:10 -> Mem(t10000:PTR); def: use: 10000 
+    MOVE_BINOP t11900:PTR <- (+, t10000:PTR, Const:4); def: 11900 use: 10000 
+    STORE Const:1 -> Mem(t11900:PTR); def: use: 11900 
+    MOVE_BINOP t12000:PTR <- (+, t10000:PTR, Const:8); def: 12000 use: 10000 
+    STORE Const:2 -> Mem(t12000:PTR); def: use: 12000 
+    MOVE_BINOP t12100:PTR <- (+, t10000:PTR, Const:12); def: 12100 use: 10000 
+    STORE Const:3 -> Mem(t12100:PTR); def: use: 12100 
+    MOVE_BINOP t12200:PTR <- (+, t10000:PTR, Const:16); def: 12200 use: 10000 
+    STORE Const:4 -> Mem(t12200:PTR); def: use: 12200 
+    MOVE_BINOP t12300:PTR <- (+, t10000:PTR, Const:20); def: 12300 use: 10000 
+    STORE Const:5 -> Mem(t12300:PTR); def: use: 12300 
+    MOVE_BINOP t12400:PTR <- (+, t10000:PTR, Const:24); def: 12400 use: 10000 
+    STORE Const:6 -> Mem(t12400:PTR); def: use: 12400 
+    MOVE_BINOP t12500:PTR <- (+, t10000:PTR, Const:28); def: 12500 use: 10000 
+    STORE Const:7 -> Mem(t12500:PTR); def: use: 12500 
+    MOVE_BINOP t12600:PTR <- (+, t10000:PTR, Const:32); def: 12600 use: 10000 
+    STORE Const:8 -> Mem(t12600:PTR); def: use: 12600 
+    MOVE_BINOP t12700:PTR <- (+, t10000:PTR, Const:36); def: 12700 use: 10000 
+    STORE Const:9 -> Mem(t12700:PTR); def: use: 12700 
+    MOVE_BINOP t12800:PTR <- (+, t10000:PTR, Const:40); def: 12800 use: 10000 
+    STORE Const:10 -> Mem(t12800:PTR); def: use: 12800 
+    MOVE_EXTCALL t10100:PTR <- malloc(Const:16); def: 10100 use: 
+    STORE Const:3 -> Mem(t10100:PTR); def: use: 10100 
+    MOVE_BINOP t12900:PTR <- (+, t10100:PTR, Const:4); def: 12900 use: 10100 
+    STORE Const:3 -> Mem(t12900:PTR); def: use: 12900 
+    MOVE_BINOP t13000:PTR <- (+, t10100:PTR, Const:8); def: 13000 use: 10100 
+    STORE Const:4 -> Mem(t13000:PTR); def: use: 13000 
+    MOVE_BINOP t13100:PTR <- (+, t10100:PTR, Const:12); def: 13100 use: 10100 
+    STORE Const:5 -> Mem(t13100:PTR); def: use: 13100 
+    MOVE t11400:PTR <- t10100:PTR; def: 11400 use: 10100 
+    LOAD t10500:INT <- Mem(t10100:PTR); def: 10500 use: 10100 
+    CJUMP >= Const:0 t10500:INT? L100 : L101; def: use: 10500 
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    EXTCALL exit(Const:-1); def: use: 
+  Block: Entry Label: L101
+    Exit labels: L102 L103 
+    LABEL L101; def: use: 
+    MOVE_BINOP t13200:INT <- (+, Const:0, Const:1); def: 13200 use: 
+    MOVE_BINOP t13300:INT <- (*, t13200:INT, Const:4); def: 13300 use: 13200 
+    MOVE_BINOP t13400:PTR <- (+, t11400:PTR, t13300:INT); def: 13400 use: 11400 13300 
+    LOAD t10600:INT <- Mem(t13400:PTR); def: 10600 use: 13400 
+    MOVE t11600:PTR <- t10000:PTR; def: 11600 use: 10000 
+    LOAD t10700:INT <- Mem(t10000:PTR); def: 10700 use: 10000 
+    CJUMP >= t10600:INT t10700:INT? L102 : L103; def: use: 10600 10700 
+  Block: Entry Label: L102
+    Exit labels: 
+    LABEL L102; def: use: 
+    EXTCALL exit(Const:-1); def: use: 
+  Block: Entry Label: L103
+    Exit labels: L106 L107 
+    LABEL L103; def: use: 
+    MOVE_BINOP t13500:INT <- (+, t10600:INT, Const:1); def: 13500 use: 10600 
+    MOVE_BINOP t13600:INT <- (*, t13500:INT, Const:4); def: 13600 use: 13500 
+    MOVE_BINOP t13700:PTR <- (+, t11600:PTR, t13600:INT); def: 13700 use: 11600 13600 
+    LOAD t13800:INT <- Mem(t13700:PTR); def: 13800 use: 13700 
+    CJUMP < t13800:INT Const:1? L106 : L107; def: use: 13800 
+  Block: Entry Label: L106
+    Exit labels: L108 
+    LABEL L106; def: use: 
+    MOVE t10101:PTR <- t10000:PTR; def: 10101 use: 10000 
+    JUMP L108; def: use: 
+  Block: Entry Label: L107
+    Exit labels: L108 
+    LABEL L107; def: use: 
+    JUMP L108; def: use: 
+  Block: Entry Label: L108
+    Exit labels: L111 L112 
+    LABEL L108; def: use: 
+    PHI t10102:PTR <- (t10101, L106; t10100, L107); def: 10102 use: 10101 10100 
+    MOVE t10800:INT <- Const:0; def: 10800 use: 
+    CJUMP > Const:9 Const:10? L111 : L112; def: use: 
+  Block: Entry Label: L111
+    Exit labels: L112 
+    LABEL L111; def: use: 
+    MOVE t10801:INT <- Const:1; def: 10801 use: 
+    JUMP L112; def: use: 
+  Block: Entry Label: L112
+    Exit labels: L114 L115 
+    LABEL L112; def: use: 
+    PHI t10802:INT <- (t10800, L108; t10801, L111); def: 10802 use: 10800 10801 
+    MOVE t10900:INT <- t10802:INT; def: 10900 use: 10802 
+    MOVE t11800:PTR <- t10102:PTR; def: 11800 use: 10102 
+    LOAD t11000:INT <- Mem(t10102:PTR); def: 11000 use: 10102 
+    CJUMP >= t10900:INT t11000:INT? L114 : L115; def: use: 10900 11000 
+  Block: Entry Label: L114
+    Exit labels: 
+    LABEL L114; def: use: 
+    EXTCALL exit(Const:-1); def: use: 
+  Block: Entry Label: L115
+    Exit labels: 
+    LABEL L115; def: use: 
+    MOVE_BINOP t13900:INT <- (+, t10900:INT, Const:1); def: 13900 use: 10900 
+    MOVE_BINOP t14000:INT <- (*, t13900:INT, Const:4); def: 14000 use: 13900 
+    MOVE_BINOP t14100:PTR <- (+, t11800:PTR, t14000:INT); def: 14100 use: 11800 14000 
+    LOAD t14200:INT <- Mem(t14100:PTR); def: 14200 use: 14100 
+    RETURN t14200:INT; def: use: 14200 
