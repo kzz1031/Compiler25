@@ -1,0 +1,380 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="118">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="4"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <moveextcall kind="MOVE_EXTCALL" dst="0" temp_type="PTR">
+                <extcall kind="EXTCALL" name="malloc">
+                    <args>
+                        <arg index="0">
+                            <value kind="TEMP" id="0" type="INT"/>
+                        </arg>
+                    </args>
+                </extcall>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </moveextcall>
+            <move kind="MOVE" dst="10000" temp_type="PTR">
+                <src kind="TEMP" id="0" type="PTR"/>
+                <def>
+                    <temp id="10000"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="11000" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10000" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="11000"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="117" temp_type="INT">
+                <src kind="NAME" name="C^m"/>
+                <def>
+                    <temp id="117"/>
+                </def>
+            </load>
+            <store kind="STORE">
+                <src kind="TEMP" id="117" type="INT"/>
+                <dst kind="TEMP" id="11000" type="PTR"/>
+                <use>
+                    <temp id="11000"/>
+                    <temp id="117"/>
+                </use>
+            </store>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="4"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <moveextcall kind="MOVE_EXTCALL" dst="0" temp_type="PTR">
+                <extcall kind="EXTCALL" name="malloc">
+                    <args>
+                        <arg index="0">
+                            <value kind="TEMP" id="0" type="INT"/>
+                        </arg>
+                    </args>
+                </extcall>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </moveextcall>
+            <move kind="MOVE" dst="10100" temp_type="PTR">
+                <src kind="TEMP" id="0" type="PTR"/>
+                <def>
+                    <temp id="10100"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="11200" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10100" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="11200"/>
+                </def>
+                <use>
+                    <temp id="10100"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="118" temp_type="INT">
+                <src kind="NAME" name="C1^m"/>
+                <def>
+                    <temp id="118"/>
+                </def>
+            </load>
+            <store kind="STORE">
+                <src kind="TEMP" id="118" type="INT"/>
+                <dst kind="TEMP" id="11200" type="PTR"/>
+                <use>
+                    <temp id="11200"/>
+                    <temp id="118"/>
+                </use>
+            </store>
+            <movebinop kind="MOVE_BINOP" dst="11300" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10000" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="11300"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="10500" temp_type="PTR">
+                <src kind="TEMP" id="11300" type="PTR"/>
+                <def>
+                    <temp id="10500"/>
+                </def>
+                <use>
+                    <temp id="11300"/>
+                </use>
+            </load>
+            <move kind="MOVE" dst="0" temp_type="PTR">
+                <src kind="TEMP" id="10000" type="PTR"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+                <use>
+                    <temp id="10000"/>
+                </use>
+            </move>
+            <call kind="CALL" name="m">
+                <object kind="TEMP" id="10500" type="PTR"/>
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="PTR"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="10500"/>
+                    <temp id="0"/>
+                </use>
+            </call>
+            <move kind="MOVE" dst="10001" temp_type="PTR">
+                <src kind="TEMP" id="10100" type="PTR"/>
+                <def>
+                    <temp id="10001"/>
+                </def>
+                <use>
+                    <temp id="10100"/>
+                </use>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="11500" temp_type="PTR" op="+">
+                <left kind="TEMP" id="10001" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="11500"/>
+                </def>
+                <use>
+                    <temp id="10001"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="10700" temp_type="PTR">
+                <src kind="TEMP" id="11500" type="PTR"/>
+                <def>
+                    <temp id="10700"/>
+                </def>
+                <use>
+                    <temp id="11500"/>
+                </use>
+            </load>
+            <move kind="MOVE" dst="0" temp_type="PTR">
+                <src kind="TEMP" id="10001" type="PTR"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+                <use>
+                    <temp id="10001"/>
+                </use>
+            </move>
+            <call kind="CALL" name="m">
+                <object kind="TEMP" id="10700" type="PTR"/>
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="PTR"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="10700"/>
+                    <temp id="0"/>
+                </use>
+            </call>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <return kind="RETURN">
+                <value kind="TEMP" id="0" type="INT"/>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+    <funcdecl kind="FUNCDECL" name="C^m" last_label_num="100" last_temp_num="105">
+        <params>
+            <param temp="0"/>
+        </params>
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="0" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </move>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <extcall kind="EXTCALL" name="putint">
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="INT"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </extcall>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="10"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <extcall kind="EXTCALL" name="putch">
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="INT"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </extcall>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <return kind="RETURN">
+                <value kind="TEMP" id="0" type="INT"/>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+    <funcdecl kind="FUNCDECL" name="C1^m" last_label_num="100" last_temp_num="105">
+        <params>
+            <param temp="0"/>
+        </params>
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="0" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </move>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <extcall kind="EXTCALL" name="putint">
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="INT"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </extcall>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="10"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <extcall kind="EXTCALL" name="putch">
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="0" type="INT"/>
+                    </arg>
+                </args>
+                <def>
+                    <temp id="0"/>
+                    <temp id="1"/>
+                    <temp id="2"/>
+                    <temp id="3"/>
+                </def>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </extcall>
+            <move kind="MOVE" dst="0" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="0"/>
+                </def>
+            </move>
+            <return kind="RETURN">
+                <value kind="TEMP" id="0" type="INT"/>
+                <use>
+                    <temp id="0"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLORING>
+    <Coloring func="_^main^_^main" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="117" color="1"/>
+            <Color node="118" color="1"/>
+            <Color node="10000" color="5"/>
+            <Color node="10001" color="0"/>
+            <Color node="10100" color="4"/>
+            <Color node="10500" color="1"/>
+            <Color node="10700" color="1"/>
+            <Color node="11000" color="0"/>
+            <Color node="11200" color="0"/>
+            <Color node="11300" color="0"/>
+            <Color node="11500" color="1"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="C^m" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="100" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="C1^m" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="100" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+</COLORING>

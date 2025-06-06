@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLORING>
+    <Coloring func="_^main^_^main" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="116" color="2"/>
+            <Color node="10000" color="0"/>
+            <Color node="10100" color="0"/>
+            <Color node="10300" color="2"/>
+            <Color node="10500" color="1"/>
+            <Color node="11000" color="1"/>
+            <Color node="11100" color="1"/>
+            <Color node="11200" color="1"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="C^m" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="100" color="0"/>
+            <Color node="10300" color="0"/>
+            <Color node="10400" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+</COLORING>
