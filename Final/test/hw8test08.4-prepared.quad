@@ -1,0 +1,49 @@
+Function _^main^_^main() last_label=100 last_temp=118:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t0:INT <- Const:4; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10000:PTR <- t0:PTR; def: 10000 use: 0 
+    MOVE_BINOP t11000:PTR <- (+, t10000:PTR, Const:0); def: 11000 use: 10000 
+    LOAD t117:INT <- Mem(Name:C^m); def: 117 use: 
+    STORE t117:INT -> Mem(t11000:PTR); def: use: 11000 117 
+    MOVE t0:INT <- Const:4; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10100:PTR <- t0:PTR; def: 10100 use: 0 
+    MOVE_BINOP t11200:PTR <- (+, t10100:PTR, Const:0); def: 11200 use: 10100 
+    LOAD t118:INT <- Mem(Name:C1^m); def: 118 use: 
+    STORE t118:INT -> Mem(t11200:PTR); def: use: 11200 118 
+    MOVE_BINOP t11300:PTR <- (+, t10000:PTR, Const:0); def: 11300 use: 10000 
+    LOAD t10500:PTR <- Mem(t11300:PTR); def: 10500 use: 11300 
+    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
+    CALL m[t10500:PTR] (t0:PTR); def: 0 1 2 3 use: 10500 0 
+    MOVE t10001:PTR <- t10100:PTR; def: 10001 use: 10100 
+    MOVE_BINOP t11500:PTR <- (+, t10001:PTR, Const:0); def: 11500 use: 10001 
+    LOAD t10700:PTR <- Mem(t11500:PTR); def: 10700 use: 11500 
+    MOVE t0:PTR <- t10001:PTR; def: 0 use: 10001 
+    CALL m[t10700:PTR] (t0:PTR); def: 0 1 2 3 use: 10700 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
+Function C^m(t0) last_label=100 last_temp=105:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t100:INT <- t0:INT; def: 100 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:10; def: 0 use: 
+    EXTCALL putch(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
+Function C1^m(t0) last_label=100 last_temp=105:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t100:INT <- t0:INT; def: 100 use: 0 
+    MOVE t0:INT <- Const:1; def: 0 use: 
+    EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:10; def: 0 use: 
+    EXTCALL putch(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t0:INT <- Const:0; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
