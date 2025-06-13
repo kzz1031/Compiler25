@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FDMJAST>
+    <NameMaps>
+        <Class name="C">
+            <Var id="a">
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="a"/>
+                </VarDecl>
+            </Var>
+            <Var id="x">
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                    <IntInit val="1"/>
+                </VarDecl>
+            </Var>
+            <Var id="y">
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="D"/>
+                    </Type>
+                    <IdExp id="y"/>
+                </VarDecl>
+            </Var>
+        </Class>
+        <Class name="D" ancestor="C">
+            <Var id="z">
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="z"/>
+                    <IntInitList>
+                        <IntExp val="1"/>
+                        <IntExp val="2"/>
+                        <IntExp val="3"/>
+                    </IntInitList>
+                </VarDecl>
+            </Var>
+        </Class>
+        <Class name="_^main^_">
+            <Method name="main">
+                <Formal id="_^return^_main">
+                    <Formal>
+                        <Type typeKind="INT"/>
+                        <IdExp id="_^return^_main"/>
+                    </Formal>
+                </Formal>
+                <Var id="d">
+                    <VarDecl>
+                        <Type typeKind="CLASS">
+                            <IdExp id="D"/>
+                        </Type>
+                        <IdExp id="d"/>
+                    </VarDecl>
+                </Var>
+                <Var id="w">
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="0"/>
+                        </Type>
+                        <IdExp id="w"/>
+                    </VarDecl>
+                </Var>
+            </Method>
+        </Class>
+    </NameMaps>
+    <Program>
+        <MainMethod>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INTARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="w"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="D"/>
+                    </Type>
+                    <IdExp id="d"/>
+                </VarDecl>
+            </VarDeclList>
+            <StmList>
+                <Return>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                </Return>
+            </StmList>
+        </MainMethod>
+        <ClassDeclList>
+            <ClassDecl>
+                <IdExp id="C"/>
+                <VarDeclList>
+                    <VarDecl>
+                        <Type typeKind="INT"/>
+                        <IdExp id="x"/>
+                        <IntInit val="1"/>
+                    </VarDecl>
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="0"/>
+                        </Type>
+                        <IdExp id="a"/>
+                    </VarDecl>
+                    <VarDecl>
+                        <Type typeKind="CLASS">
+                            <IdExp id="D"/>
+                        </Type>
+                        <IdExp id="y"/>
+                    </VarDecl>
+                </VarDeclList>
+                <MethodDeclList/>
+            </ClassDecl>
+            <ClassDecl>
+                <IdExp id="D"/>
+                <ExtendsId eid="C"/>
+                <VarDeclList>
+                    <VarDecl>
+                        <Type typeKind="INTARRAY">
+                            <Arity val="0"/>
+                        </Type>
+                        <IdExp id="z"/>
+                        <IntInitList>
+                            <IntExp val="1"/>
+                            <IntExp val="2"/>
+                            <IntExp val="3"/>
+                        </IntInitList>
+                    </VarDecl>
+                </VarDeclList>
+                <MethodDeclList/>
+            </ClassDecl>
+        </ClassDeclList>
+    </Program>
+</FDMJAST>
