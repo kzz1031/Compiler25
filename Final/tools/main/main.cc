@@ -15,6 +15,10 @@
 #include "blocking.hh"
 #include "quadssa.hh"
 
+#include "tree2xml.hh"
+#include "tree2quad.hh"
+#include "canon.hh"
+#include "xml2tree.hh"
 
 using namespace std;
 using namespace tree;
@@ -32,6 +36,8 @@ int main(int argc, const char *argv[]) {
         return EXIT_FAILURE;
     }
     file = argv[argc - 1];
+    //frome HW6 onwards, we use the following naming convention for input files:
+    string file_irp = file + ".3.irp";
     //from HW7 onwards, we use the following naming convention for output files:
     string file_quad_xml = file + ".4-xml.quad";
     string file_quad_ssa = file + ".4-ssa.quad";
@@ -41,8 +47,11 @@ int main(int argc, const char *argv[]) {
     string file_quad_color_xml = file + ".4-xml.clr";
     string file_rpi = file + ".s";
 
-    cout << "Reading Quad from xml: " << file_quad_xml << endl;
-    quad::QuadProgram *x_quad = xml2quad(file_quad_xml.c_str());
+    cout << "Reading IR (XML) from: " << file_irp << endl;
+    tree::Program *ir = xml2tree(file_irp);
+    tree::Program *ir_canon = canon(ir);
+    quad::QuadProgram *x_quad = tree2quad(ir_canon);
+    cout << "Done converting IR to Quad" << endl;
     QuadProgram *x_quad_blocked = blocking(x_quad);
     QuadProgram *x_ssa = quad2ssa(x_quad_blocked);
     cout << "Done converting Quad to Quad-SSA" << endl;

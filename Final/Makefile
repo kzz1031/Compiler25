@@ -39,7 +39,7 @@ PATCHDEMO = $(BUILD_DIR)/tools/patchdemo/patchdemo
 run: $(MAIN)
 	cd $(CURDIR)/test && \
 	for file in $$(ls .); do \
-		if [ "$${file#*.}" = "4-xml.quad" ]; then \
+		if [ "$${file#*.}" = "3.irp" ]; then \
 			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
 			$(MAIN) "$${file%%.*}"; \
 		fi; \
