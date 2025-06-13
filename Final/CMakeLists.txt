@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 project(FDMJ2025 VERSION 0.1)
 
 # 添加包含路径
+include_directories(include/ast)
 include_directories(include/ir)
 include_directories(include/quad)
 include_directories(include/quadflow)

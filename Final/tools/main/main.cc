@@ -20,6 +20,14 @@
 #include "canon.hh"
 #include "xml2tree.hh"
 
+#include "ASTheader.hh"
+#include "FDMJAST.hh"
+#include "xml2ast.hh"
+#include "temp.hh"
+#include "namemaps.hh"
+#include "semant.hh"
+#include "ast2tree.hh"
+
 using namespace std;
 using namespace tree;
 using namespace quad;
@@ -36,6 +44,8 @@ int main(int argc, const char *argv[]) {
         return EXIT_FAILURE;
     }
     file = argv[argc - 1];
+    //from HW5 onwards, we use the following naming convention for input files:
+    string file_ast = file + ".2-semant.ast"; // ast in xml
     //frome HW6 onwards, we use the following naming convention for input files:
     string file_irp = file + ".3.irp";
     //from HW7 onwards, we use the following naming convention for output files:
@@ -46,9 +56,15 @@ int main(int argc, const char *argv[]) {
     string file_quad_prepared = file + ".4-prepared.quad";
     string file_quad_color_xml = file + ".4-xml.clr";
     string file_rpi = file + ".s";
+    AST_Semant_Map *semant_map = new AST_Semant_Map();
+    cout << "------Reading AST from : " << file_ast << "------------" << endl;
+    fdmj::Program *x_ast = xml2ast(file_ast, &semant_map);
+    tree::Program *ir = ast2tree(x_ast, semant_map);
+    
+    cout << "Saving IR (XML) to: " << file_irp << endl;
+    XMLDocument *x = tree2xml(ir);
+    x->SaveFile(file_irp.c_str());
 
-    cout << "Reading IR (XML) from: " << file_irp << endl;
-    tree::Program *ir = xml2tree(file_irp);
     tree::Program *ir_canon = canon(ir);
     quad::QuadProgram *x_quad = tree2quad(ir_canon);
     cout << "Done converting IR to Quad" << endl;

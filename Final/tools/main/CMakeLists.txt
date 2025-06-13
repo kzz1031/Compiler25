@@ -11,4 +11,5 @@ target_link_libraries(${MAIN} PUBLIC
   ir
   rpi
   vendor_xml
+  ast
 )
