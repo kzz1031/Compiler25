@@ -1,0 +1,59 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="105" last_temp_num="105">
+        <block kind="BLOCK" entry="105">
+            <label kind="LABEL" name="105"/>
+            <move kind="MOVE" dst="101" temp_type="INT">
+                <src kind="CONST" value="19"/>
+                <def>
+                    <temp id="101"/>
+                </def>
+            </move>
+            <move kind="MOVE" dst="103" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+            </move>
+            <cjump kind="CJUMP" relop="&gt;" true="102" false="103">
+                <left kind="TEMP" id="101" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <use>
+                    <temp id="101"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="102"/>
+            <move kind="MOVE" dst="103" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+            </move>
+            <label kind="LABEL" name="103"/>
+            <move kind="MOVE" dst="104" temp_type="INT">
+                <src kind="TEMP" id="103" type="INT"/>
+                <def>
+                    <temp id="104"/>
+                </def>
+                <use>
+                    <temp id="103"/>
+                </use>
+            </move>
+            <extcall kind="EXTCALL" name="putch">
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="104" type="INT"/>
+                    </arg>
+                </args>
+                <use>
+                    <temp id="104"/>
+                </use>
+            </extcall>
+            <return kind="RETURN">
+                <value kind="TEMP" id="101" type="INT"/>
+                <use>
+                    <temp id="101"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

@@ -1,0 +1,86 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="111" last_temp_num="104">
+        <block kind="BLOCK" entry="111">
+            <label kind="LABEL" name="111"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </move>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="103" temp_type="INT" op="*">
+                <left kind="CONST" value="2"/>
+                <right kind="CONST" value="3"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+            </movebinop>
+            <movebinop kind="MOVE_BINOP" dst="104" temp_type="INT" op="+">
+                <left kind="CONST" value="1"/>
+                <right kind="TEMP" id="103" type="INT"/>
+                <def>
+                    <temp id="104"/>
+                </def>
+                <use>
+                    <temp id="103"/>
+                </use>
+            </movebinop>
+            <cjump kind="CJUMP" relop="&gt;" true="108" false="107">
+                <left kind="TEMP" id="104" type="INT"/>
+                <right kind="CONST" value="3"/>
+                <use>
+                    <temp id="104"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="107"/>
+            <cjump kind="CJUMP" relop="!=" true="104" false="109">
+                <left kind="CONST" value="4"/>
+                <right kind="CONST" value="0"/>
+            </cjump>
+            <label kind="LABEL" name="104"/>
+            <cjump kind="CJUMP" relop="==" true="108" false="109">
+                <left kind="CONST" value="5"/>
+                <right kind="CONST" value="0"/>
+            </cjump>
+            <label kind="LABEL" name="108"/>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <label kind="LABEL" name="109"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="102" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="102"/>
+                </use>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="100" temp_type="INT" op="+">
+                <left kind="TEMP" id="100" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </movebinop>
+            <return kind="RETURN">
+                <value kind="TEMP" id="100" type="INT"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

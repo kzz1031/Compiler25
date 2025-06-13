@@ -1,0 +1,84 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="106">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <moveextcall kind="MOVE_EXTCALL" dst="100" temp_type="PTR">
+                <extcall kind="EXTCALL" name="malloc">
+                    <args>
+                        <arg index="0">
+                            <value kind="CONST" value="8"/>
+                        </arg>
+                    </args>
+                    <def>
+                        <temp id="100"/>
+                    </def>
+                </extcall>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </moveextcall>
+            <movebinop kind="MOVE_BINOP" dst="105" temp_type="PTR" op="+">
+                <left kind="TEMP" id="100" type="PTR"/>
+                <right kind="CONST" value="4"/>
+                <def>
+                    <temp id="105"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </movebinop>
+            <store kind="STORE">
+                <src kind="NAME" name="D^m"/>
+                <dst kind="TEMP" id="105" type="PTR"/>
+                <use>
+                    <temp id="105"/>
+                </use>
+            </store>
+            <movebinop kind="MOVE_BINOP" dst="106" temp_type="PTR" op="+">
+                <left kind="TEMP" id="100" type="PTR"/>
+                <right kind="CONST" value="4"/>
+                <def>
+                    <temp id="106"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="103" temp_type="PTR">
+                <src kind="TEMP" id="106" type="PTR"/>
+                <def>
+                    <temp id="103"/>
+                </def>
+                <use>
+                    <temp id="106"/>
+                </use>
+            </load>
+            <call kind="CALL" name="m">
+                <object kind="TEMP" id="103" type="PTR"/>
+                <args>
+                    <arg index="0">
+                        <value kind="TEMP" id="100" type="PTR"/>
+                    </arg>
+                </args>
+                <use>
+                    <temp id="103"/>
+                    <temp id="100"/>
+                </use>
+            </call>
+            <return kind="RETURN">
+                <value kind="CONST" value="0"/>
+            </return>
+        </block>
+    </funcdecl>
+    <funcdecl kind="FUNCDECL" name="D^m" last_label_num="100" last_temp_num="101">
+        <params>
+            <param temp="100"/>
+        </params>
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <return kind="RETURN">
+                <value kind="CONST" value="0"/>
+            </return>
+        </block>
+    </funcdecl>
+</program>

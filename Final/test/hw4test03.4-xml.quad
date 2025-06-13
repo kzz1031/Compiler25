@@ -1,0 +1,43 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="105" last_temp_num="102">
+        <block kind="BLOCK" entry="105">
+            <label kind="LABEL" name="105"/>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="0"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <cjump kind="CJUMP" relop="&gt;" true="102" false="103">
+                <left kind="TEMP" id="100" type="INT"/>
+                <right kind="CONST" value="1"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="102"/>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="1"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <label kind="LABEL" name="103"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="102" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="102"/>
+                </use>
+            </move>
+            <return kind="RETURN">
+                <value kind="TEMP" id="100" type="INT"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

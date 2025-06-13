@@ -1,0 +1,76 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="115" last_temp_num="102">
+        <block kind="BLOCK" entry="115">
+            <label kind="LABEL" name="115"/>
+            <move kind="MOVE" dst="101" temp_type="INT">
+                <src kind="CONST" value="19"/>
+                <def>
+                    <temp id="101"/>
+                </def>
+            </move>
+            <cjump kind="CJUMP" relop="!=" true="102" false="103">
+                <left kind="TEMP" id="100" type="INT"/>
+                <right kind="CONST" value="0"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="102"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="100" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </move>
+            <jump kind="JUMP" target="104"/>
+            <label kind="LABEL" name="103"/>
+            <label kind="LABEL" name="104"/>
+            <cjump kind="CJUMP" relop="!=" true="107" false="108">
+                <left kind="TEMP" id="100" type="INT"/>
+                <right kind="CONST" value="0"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="107"/>
+            <move kind="MOVE" dst="100" temp_type="INT">
+                <src kind="TEMP" id="100" type="INT"/>
+                <def>
+                    <temp id="100"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </move>
+            <jump kind="JUMP" target="109"/>
+            <label kind="LABEL" name="108"/>
+            <label kind="LABEL" name="109"/>
+            <cjump kind="CJUMP" relop="!=" true="112" false="113">
+                <left kind="TEMP" id="100" type="INT"/>
+                <right kind="CONST" value="0"/>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </cjump>
+            <label kind="LABEL" name="112"/>
+            <move kind="MOVE" dst="101" temp_type="INT">
+                <src kind="CONST" value="20"/>
+                <def>
+                    <temp id="101"/>
+                </def>
+            </move>
+            <jump kind="JUMP" target="114"/>
+            <label kind="LABEL" name="113"/>
+            <label kind="LABEL" name="114"/>
+            <return kind="RETURN">
+                <value kind="TEMP" id="101" type="INT"/>
+                <use>
+                    <temp id="101"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>

@@ -1,0 +1,71 @@
+<program kind="PROGRAM">
+    <funcdecl kind="FUNCDECL" name="_^main^_^main" last_label_num="100" last_temp_num="107">
+        <block kind="BLOCK" entry="100">
+            <label kind="LABEL" name="100"/>
+            <moveextcall kind="MOVE_EXTCALL" dst="100" temp_type="PTR">
+                <extcall kind="EXTCALL" name="malloc">
+                    <args>
+                        <arg index="0">
+                            <value kind="CONST" value="4"/>
+                        </arg>
+                    </args>
+                    <def>
+                        <temp id="100"/>
+                    </def>
+                </extcall>
+                <def>
+                    <temp id="100"/>
+                </def>
+            </moveextcall>
+            <move kind="MOVE" dst="102" temp_type="INT">
+                <src kind="CONST" value="2"/>
+                <def>
+                    <temp id="102"/>
+                </def>
+            </move>
+            <movebinop kind="MOVE_BINOP" dst="105" temp_type="PTR" op="+">
+                <left kind="TEMP" id="100" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="105"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </movebinop>
+            <store kind="STORE">
+                <src kind="TEMP" id="102" type="INT"/>
+                <dst kind="TEMP" id="105" type="PTR"/>
+                <use>
+                    <temp id="102"/>
+                    <temp id="105"/>
+                </use>
+            </store>
+            <movebinop kind="MOVE_BINOP" dst="106" temp_type="PTR" op="+">
+                <left kind="TEMP" id="100" type="PTR"/>
+                <right kind="CONST" value="0"/>
+                <def>
+                    <temp id="106"/>
+                </def>
+                <use>
+                    <temp id="100"/>
+                </use>
+            </movebinop>
+            <load kind="LOAD" dst="107" temp_type="INT">
+                <src kind="TEMP" id="106" type="PTR"/>
+                <def>
+                    <temp id="107"/>
+                </def>
+                <use>
+                    <temp id="106"/>
+                </use>
+            </load>
+            <return kind="RETURN">
+                <value kind="TEMP" id="107" type="INT"/>
+                <use>
+                    <temp id="107"/>
+                </use>
+            </return>
+        </block>
+    </funcdecl>
+</program>
