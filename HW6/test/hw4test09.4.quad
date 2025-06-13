@@ -1,0 +1,12 @@
+Function _^main^_^main() last_label=105 last_temp=104:
+  Block: Entry Label: L105
+    Exit labels: 
+    LABEL L105; def: use: 
+    MOVE t101:INT <- Const:19; def: 101 use: 
+    MOVE t103:INT <- Const:0; def: 103 use: 
+    CJUMP > t101:INT Const:1? L102 : L103; def: use: 101 
+    LABEL L102; def: use: 
+    MOVE t103:INT <- Const:1; def: 103 use: 
+    LABEL L103; def: use: 
+    EXTCALL putch(t103:INT); def: use: 103 
+    RETURN t101:INT; def: use: 101 

@@ -1,0 +1,39 @@
+Function _^main^_^main() last_label=105 last_temp=125:
+  Block: Entry Label: L105
+    Exit labels: 
+    LABEL L105; def: use: 
+    MOVE_EXTCALL t100:PTR <- malloc(Const:20); def: 100 use: 
+    STORE Const:4 -> Mem(t100:PTR); def: use: 100 
+    MOVE_EXTCALL t101:INT <- getarray(t100:PTR); def: 101 use: 100 
+    LOAD t104:INT <- Mem(t100:PTR); def: 104 use: 100 
+    MOVE_BINOP t116:INT <- (+, t104:INT, Const:1); def: 116 use: 104 
+    MOVE_BINOP t111:INT <- (*, t116:INT, Const:4); def: 111 use: 116 
+    MOVE_EXTCALL t105:PTR <- malloc(t111:INT); def: 105 use: 111 
+    STORE t104:INT -> Mem(t105:PTR); def: use: 105 104 
+    MOVE t106:INT <- Const:4; def: 106 use: 
+    MOVE_BINOP t117:INT <- (+, t104:INT, Const:1); def: 117 use: 104 
+    MOVE_BINOP t107:INT <- (*, t117:INT, Const:4); def: 107 use: 117 
+    LABEL L100; def: use: 
+    CJUMP < t106:INT t107:INT? L101 : L102; def: use: 106 107 
+    LABEL L101; def: use: 
+    MOVE_BINOP t118:PTR <- (+, t105:PTR, t106:INT); def: 118 use: 105 106 
+    MOVE_BINOP t119:PTR <- (+, t100:PTR, t106:INT); def: 119 use: 100 106 
+    LOAD t120:INT <- Mem(t119:PTR); def: 120 use: 119 
+    MOVE_BINOP t121:INT <- (-, Const:0, t120:INT); def: 121 use: 120 
+    STORE t121:INT -> Mem(t118:PTR); def: use: 118 121 
+    MOVE_BINOP t106:INT <- (+, t106:INT, Const:4); def: 106 use: 106 
+    JUMP L100; def: use: 
+    LABEL L102; def: use: 
+    MOVE t100:PTR <- t105:PTR; def: 100 use: 105 
+    EXTCALL putarray(Const:4, t100:PTR); def: use: 100 
+    MOVE t115:PTR <- t100:PTR; def: 115 use: 100 
+    LOAD t108:INT <- Mem(t100:PTR); def: 108 use: 100 
+    CJUMP >= Const:0 t108:INT? L103 : L104; def: use: 108 
+    LABEL L103; def: use: 
+    EXTCALL exit(Const:-1); def: use: 
+    LABEL L104; def: use: 
+    MOVE_BINOP t122:INT <- (+, Const:0, Const:1); def: 122 use: 
+    MOVE_BINOP t123:INT <- (*, t122:INT, Const:4); def: 123 use: 122 
+    MOVE_BINOP t124:PTR <- (+, t115:PTR, t123:INT); def: 124 use: 115 123 
+    LOAD t125:INT <- Mem(t124:PTR); def: 125 use: 124 
+    RETURN t125:INT; def: use: 125 
