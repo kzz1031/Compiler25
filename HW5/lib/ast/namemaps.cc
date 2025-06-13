@@ -45,11 +45,8 @@ bool Name_Maps::detected_loop(map<string, string> classHierachy) {
 }
 
 bool Name_Maps::add_class_hiearchy(string class_name, string parent_name) {
-    if (!Name_Maps::is_class(class_name)) {
-        add_class(class_name);
-    } 
-    if (!Name_Maps::is_class(parent_name)) {
-        add_class(parent_name);
+    if (!Name_Maps::is_class(class_name) || !Name_Maps::is_class(parent_name)) {
+        return false;
     }
     classHierachy[class_name] = parent_name;
     if (detected_loop(classHierachy)) {

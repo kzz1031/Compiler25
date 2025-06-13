@@ -70,6 +70,7 @@ class Temp_map {
     }
 
     Temp* newtemp() {
+      printf("new temp %d\n", next_temp);
       while (t_map[next_temp]) { //just to make sure the temp is unique (in terms of nnumber/name)
         next_temp++;
       }
@@ -78,6 +79,7 @@ class Temp_map {
     }
 
     Label* newlabel() {
+      printf("new label %d\n", next_label);
       while (l_map[next_label]) { //just to make sure the label is unique (in terms of nnumber/name)
         next_label++;
       }

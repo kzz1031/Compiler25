@@ -57,7 +57,7 @@ run: $(MAIN_EXE)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE ?= demo
+FILE ?= hw3test06
 
 run-one: $(MAIN_EXE)
 	cd $(CURDIR)/test && \

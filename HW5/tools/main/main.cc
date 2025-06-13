@@ -31,7 +31,7 @@ int main(int argc, const char *argv[]) {
 
     // boilerplate output filenames (used throughout the compiler pipeline)
     string file_ast = file + ".2-semant.ast"; // ast in xml
-    string file_irp = file + ".3.irp";
+    string file_irp = file + ".3.myoutput.irp";
 
     cout << "------Reading AST from : " << file_ast << "------------" << endl;
     AST_Semant_Map *semant_map = new AST_Semant_Map();

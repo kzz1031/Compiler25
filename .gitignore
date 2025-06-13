@@ -38,3 +38,11 @@ build/
 
 # vi temp files
 *.swp
+
+*.zip
+
+*.pdf
+
+*.png
+
+*.md

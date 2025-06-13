@@ -78,7 +78,13 @@ public:
      vector<pair<tree::Label*, tree::Label*>> while_labels;
      Name_Maps* name_maps;
      Temp_map* temp_map;
+
      Method_var_table* current_mvt;
+     Class_table* class_table;
+
+     vector<tree::FuncDecl*>* fdl;
+     string current_class_name;
+     string current_method_name;
      
      ~ASTToTreeVisitor() { }
 
