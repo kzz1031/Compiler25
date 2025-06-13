@@ -85,7 +85,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
     result += string(indent, ' ') + "add fp, sp, #32\n";
     
     int spill_size = color->spills.size() * 4;  // 每个spill需要4字节
-    DEBUG_PRINT("spill_size: " << spill_size);
     if (spill_size > 0) {
         result += string(indent, ' ') + "sub sp, sp, #" + to_string(spill_size) + "\n";
     }
@@ -166,7 +165,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                 binop->right->kind == QuadTermKind::CONST) {
                                 
                                 if (nextStm->kind == QuadKind::LOAD) { //TODO: might have a bug here
-                                    printf("LOAD\n");
                                     auto load = static_cast<QuadLoad*>(nextStm);
                                     if (load->src->kind == QuadTermKind::TEMP &&
                                         term2str(load->src, color) == dst) {
@@ -183,7 +181,6 @@ string convert(QuadFuncDecl* func, DataFlowInfo *dfi, Color *color, int indent) 
                                     }
                                 }
                                 else if (nextStm->kind == QuadKind::STORE) {
-                                    printf("STORE\n");
                                     auto store = static_cast<QuadStore*>(nextStm);
                                     if (store->dst->kind == QuadTermKind::TEMP &&
                                         term2str(store->dst, color) == dst) {

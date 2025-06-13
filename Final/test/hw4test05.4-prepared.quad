@@ -1,0 +1,55 @@
+Function _^main^_^main() last_label=115 last_temp=108:
+  Block: Entry Label: L115
+    Exit labels: L102 
+    LABEL L115; def: use: 
+    MOVE t10100:INT <- Const:19; def: 10100 use: 
+    JUMP L102; def: use: 
+  Block: Entry Label: L102
+    Exit labels: L103 L104 
+    LABEL L102; def: use: 
+    MOVE t10001:INT <- t100:INT; def: 10001 use: 100 
+    MOVE t105:INT <- Const:1; def: 105 use: 
+    MOVE t106:INT <- Const:0; def: 106 use: 
+    CJUMP != t105:INT t106:INT? L103 : L104; def: use: 105 106 
+  Block: Entry Label: L103
+    Exit labels: L107 L108 
+    LABEL L103; def: use: 
+    MOVE t10400:INT <- Const:2; def: 10400 use: 
+    MOVE t10300:INT <- Const:0; def: 10300 use: 
+    MOVE t10302:INT <- t10300:INT; def: 10302 use: 10300 
+    MOVE t107:INT <- Const:0; def: 107 use: 
+    CJUMP > t10100:INT t107:INT? L107 : L108; def: use: 10100 107 
+  Block: Entry Label: L107
+    Exit labels: L108 
+    LABEL L107; def: use: 
+    MOVE t10301:INT <- Const:1; def: 10301 use: 
+    MOVE t10302:INT <- t10301:INT; def: 10302 use: 10301 
+    JUMP L108; def: use: 
+  Block: Entry Label: L108
+    Exit labels: L104 
+    LABEL L108; def: use: 
+    MOVE_BINOP t10000:INT <- (+, t10400:INT, t10302:INT); def: 10000 use: 10400 10302 
+    MOVE t10001:INT <- t10000:INT; def: 10001 use: 10000 
+    JUMP L104; def: use: 
+  Block: Entry Label: L104
+    Exit labels: L112 L113 
+    LABEL L104; def: use: 
+    MOVE t108:INT <- Const:0; def: 108 use: 
+    CJUMP != t10001:INT t108:INT? L112 : L113; def: use: 10001 108 
+  Block: Entry Label: L112
+    Exit labels: L114 
+    LABEL L112; def: use: 
+    MOVE t10002:INT <- Const:0; def: 10002 use: 
+    MOVE t10004:INT <- t10002:INT; def: 10004 use: 10002 
+    JUMP L114; def: use: 
+  Block: Entry Label: L113
+    Exit labels: L114 
+    LABEL L113; def: use: 
+    MOVE t10003:INT <- Const:1; def: 10003 use: 
+    MOVE t10004:INT <- t10003:INT; def: 10004 use: 10003 
+    JUMP L114; def: use: 
+  Block: Entry Label: L114
+    Exit labels: 
+    LABEL L114; def: use: 
+    MOVE t0:INT <- t10004:INT; def: 0 use: 10004 
+    RETURN t0:INT; def: use: 0 
