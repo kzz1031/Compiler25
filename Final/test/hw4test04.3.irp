@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="103" last_label="110">
+        <Blocks>
+            <Block entry_label="110">
+                <Sequence>
+                    <Label label="110"/>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="19"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <BinOp op="+" type="INT">
+                            <Const value="2"/>
+                            <ESeq>
+                                <Sequence>
+                                    <Move>
+                                        <Temp type="INT" temp="103"/>
+                                        <Const value="0"/>
+                                    </Move>
+                                    <CJump relop="&gt;" true="102" false="103">
+                                        <Temp type="INT" temp="101"/>
+                                        <Const value="0"/>
+                                    </CJump>
+                                    <Label label="102"/>
+                                    <Move>
+                                        <Temp type="INT" temp="103"/>
+                                        <Const value="1"/>
+                                    </Move>
+                                    <Label label="103"/>
+                                </Sequence>
+                                <Temp type="INT" temp="103"/>
+                            </ESeq>
+                        </BinOp>
+                    </Move>
+                    <Return>
+                        <ESeq>
+                            <Sequence>
+                                <Sequence>
+                                    <CJump relop="!=" true="107" false="108">
+                                        <Temp type="INT" temp="100"/>
+                                        <Const value="0"/>
+                                    </CJump>
+                                    <Label label="107"/>
+                                    <Move>
+                                        <Temp type="INT" temp="100"/>
+                                        <Const value="0"/>
+                                    </Move>
+                                    <Jump label="109"/>
+                                    <Label label="108"/>
+                                    <Move>
+                                        <Temp type="INT" temp="100"/>
+                                        <Const value="1"/>
+                                    </Move>
+                                    <Label label="109"/>
+                                </Sequence>
+                            </Sequence>
+                            <Temp type="INT" temp="100"/>
+                        </ESeq>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

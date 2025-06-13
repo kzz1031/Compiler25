@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="110" last_label="116">
+        <Blocks>
+            <Block entry_label="116">
+                <Sequence>
+                    <Label label="116"/>
+                    <Move>
+                        <Temp type="PTR" temp="100"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="44"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <Temp type="PTR" temp="100"/>
+                        </Memory>
+                        <Const value="10"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="1"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="8"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="2"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="12"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="3"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="16"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="4"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="20"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="5"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="24"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="6"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="28"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="7"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="32"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="8"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="36"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="9"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="40"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="10"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="16"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <Temp type="PTR" temp="101"/>
+                        </Memory>
+                        <Const value="3"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="101"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="3"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="101"/>
+                                <Const value="8"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="4"/>
+                    </Move>
+                    <Move>
+                        <Memory type="INT">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="101"/>
+                                <Const value="12"/>
+                            </BinOp>
+                        </Memory>
+                        <Const value="5"/>
+                    </Move>
+                    <Sequence>
+                        <CJump relop="&lt;" true="106" false="107">
+                            <ESeq>
+                                <Sequence>
+                                    <Move>
+                                        <Temp type="INT" temp="106"/>
+                                        <Memory type="INT">
+                                            <BinOp op="+" type="PTR">
+                                                <Temp type="PTR" temp="101"/>
+                                                <BinOp op="*" type="INT">
+                                                    <BinOp op="+" type="INT">
+                                                        <ESeq>
+                                                            <Sequence>
+                                                                <Move>
+                                                                    <Temp type="INT" temp="105"/>
+                                                                    <Memory type="INT">
+                                                                        <Temp type="PTR" temp="101"/>
+                                                                    </Memory>
+                                                                </Move>
+                                                                <CJump relop="&gt;=" true="100" false="101">
+                                                                    <Const value="0"/>
+                                                                    <Temp type="INT" temp="105"/>
+                                                                </CJump>
+                                                                <Label label="100"/>
+                                                                <ExpressionStatement>
+                                                                    <ExtCall extfun="exit" type="INT">
+                                                                        <Arguments>
+                                                                            <Const value="-1"/>
+                                                                        </Arguments>
+                                                                    </ExtCall>
+                                                                </ExpressionStatement>
+                                                                <Label label="101"/>
+                                                            </Sequence>
+                                                            <Const value="0"/>
+                                                        </ESeq>
+                                                        <Const value="1"/>
+                                                    </BinOp>
+                                                    <Const value="4"/>
+                                                </BinOp>
+                                            </BinOp>
+                                        </Memory>
+                                    </Move>
+                                </Sequence>
+                                <Memory type="INT">
+                                    <BinOp op="+" type="PTR">
+                                        <Temp type="PTR" temp="100"/>
+                                        <BinOp op="*" type="INT">
+                                            <BinOp op="+" type="INT">
+                                                <ESeq>
+                                                    <Sequence>
+                                                        <Move>
+                                                            <Temp type="INT" temp="107"/>
+                                                            <Memory type="INT">
+                                                                <Temp type="PTR" temp="100"/>
+                                                            </Memory>
+                                                        </Move>
+                                                        <CJump relop="&gt;=" true="102" false="103">
+                                                            <Temp type="INT" temp="106"/>
+                                                            <Temp type="INT" temp="107"/>
+                                                        </CJump>
+                                                        <Label label="102"/>
+                                                        <ExpressionStatement>
+                                                            <ExtCall extfun="exit" type="INT">
+                                                                <Arguments>
+                                                                    <Const value="-1"/>
+                                                                </Arguments>
+                                                            </ExtCall>
+                                                        </ExpressionStatement>
+                                                        <Label label="103"/>
+                                                    </Sequence>
+                                                    <Temp type="INT" temp="106"/>
+                                                </ESeq>
+                                                <Const value="1"/>
+                                            </BinOp>
+                                            <Const value="4"/>
+                                        </BinOp>
+                                    </BinOp>
+                                </Memory>
+                            </ESeq>
+                            <Const value="1"/>
+                        </CJump>
+                        <Label label="106"/>
+                        <Move>
+                            <Temp type="PTR" temp="101"/>
+                            <Temp type="PTR" temp="100"/>
+                        </Move>
+                        <Jump label="108"/>
+                        <Label label="107"/>
+                        <Label label="108"/>
+                    </Sequence>
+                    <Return>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="INT" temp="109"/>
+                                    <ESeq>
+                                        <Sequence>
+                                            <Move>
+                                                <Temp type="INT" temp="108"/>
+                                                <Const value="0"/>
+                                            </Move>
+                                            <CJump relop="&gt;" true="111" false="112">
+                                                <Const value="9"/>
+                                                <Const value="10"/>
+                                            </CJump>
+                                            <Label label="111"/>
+                                            <Move>
+                                                <Temp type="INT" temp="108"/>
+                                                <Const value="1"/>
+                                            </Move>
+                                            <Label label="112"/>
+                                        </Sequence>
+                                        <Temp type="INT" temp="108"/>
+                                    </ESeq>
+                                </Move>
+                            </Sequence>
+                            <Memory type="INT">
+                                <BinOp op="+" type="PTR">
+                                    <Temp type="PTR" temp="101"/>
+                                    <BinOp op="*" type="INT">
+                                        <BinOp op="+" type="INT">
+                                            <ESeq>
+                                                <Sequence>
+                                                    <Move>
+                                                        <Temp type="INT" temp="110"/>
+                                                        <Memory type="INT">
+                                                            <Temp type="PTR" temp="101"/>
+                                                        </Memory>
+                                                    </Move>
+                                                    <CJump relop="&gt;=" true="114" false="115">
+                                                        <Temp type="INT" temp="109"/>
+                                                        <Temp type="INT" temp="110"/>
+                                                    </CJump>
+                                                    <Label label="114"/>
+                                                    <ExpressionStatement>
+                                                        <ExtCall extfun="exit" type="INT">
+                                                            <Arguments>
+                                                                <Const value="-1"/>
+                                                            </Arguments>
+                                                        </ExtCall>
+                                                    </ExpressionStatement>
+                                                    <Label label="115"/>
+                                                </Sequence>
+                                                <Temp type="INT" temp="109"/>
+                                            </ESeq>
+                                            <Const value="1"/>
+                                        </BinOp>
+                                        <Const value="4"/>
+                                    </BinOp>
+                                </BinOp>
+                            </Memory>
+                        </ESeq>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

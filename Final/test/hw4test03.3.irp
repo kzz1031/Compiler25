@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="105">
+        <Blocks>
+            <Block entry_label="105">
+                <Sequence>
+                    <Label label="105"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <ESeq>
+                            <Sequence>
+                                <Move>
+                                    <Temp type="INT" temp="102"/>
+                                    <Const value="0"/>
+                                </Move>
+                                <CJump relop="&gt;" true="102" false="103">
+                                    <Temp type="INT" temp="100"/>
+                                    <Const value="1"/>
+                                </CJump>
+                                <Label label="102"/>
+                                <Move>
+                                    <Temp type="INT" temp="102"/>
+                                    <Const value="1"/>
+                                </Move>
+                                <Label label="103"/>
+                            </Sequence>
+                            <Temp type="INT" temp="102"/>
+                        </ESeq>
+                    </Move>
+                    <Return>
+                        <Temp type="INT" temp="100"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>
