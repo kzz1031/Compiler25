@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="6"/>
+                    <IntExp val="3"/>
+                    <IntExp val="0"/>
+                    <IntExp val="5"/>
+                    <IntExp val="9"/>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="b1"/>
+                </Type>
+                <IdExp id="bo"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <CallStm>
+                <IdExp s_kind="Value" typeKind="Class" lvalue="true" cid="b1" id="bo"/>
+                <IdExp id="bubbleSort" s_kind="MethodName"/>
+                <ParList>
+                    <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                    <Length s_kind="Value" typeKind="Int" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                    </Length>
+                </ParList>
+            </CallStm>
+            <While>
+                <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                    <OpExp op="&lt;"/>
+                    <Length s_kind="Value" typeKind="Int" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                    </Length>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <PutInt>
+                            <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="a"/>
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                            </ArrayExp>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="32"/>
+                        </PutCh>
+                        <Assign>
+                            <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                            <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                <OpExp op="+"/>
+                                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <PutCh>
+                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="10"/>
+            </PutCh>
+            <Return s_kind="Value" typeKind="Int" lvalue="false">
+                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="b1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="temp"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="bubbleSort"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="ARRAY">
+                                <Arity val="0"/>
+                            </Type>
+                            <IdExp id="array"/>
+                        </Formal>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="size"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList>
+                        <VarDecl>
+                            <Type typeKind="INT"/>
+                            <IdExp id="i"/>
+                            <IntInit val="0"/>
+                        </VarDecl>
+                    </VarDeclList>
+                    <StmList>
+                        <If>
+                            <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="size"/>
+                                <OpExp op="&lt;="/>
+                                <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                            </BinaryOp>
+                            <Nested>
+                                <StmList>
+                                    <Return s_kind="Value" typeKind="Int" lvalue="false">
+                                        <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="0"/>
+                                    </Return>
+                                </StmList>
+                            </Nested>
+                        </If>
+                        <While>
+                            <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                <OpExp op="&lt;"/>
+                                <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="size"/>
+                                    <OpExp op="-"/>
+                                    <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                </BinaryOp>
+                            </BinaryOp>
+                            <Nested>
+                                <StmList>
+                                    <If>
+                                        <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                            <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                            </ArrayExp>
+                                            <OpExp op="&gt;"/>
+                                            <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                    <OpExp op="+"/>
+                                                    <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                                </BinaryOp>
+                                            </ArrayExp>
+                                        </BinaryOp>
+                                        <Nested>
+                                            <StmList>
+                                                <Assign>
+                                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="temp"/>
+                                                    <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                        <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                    </ArrayExp>
+                                                </Assign>
+                                                <Assign>
+                                                    <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                        <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                    </ArrayExp>
+                                                    <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                        <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                                            <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                            <OpExp op="+"/>
+                                                            <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                                        </BinaryOp>
+                                                    </ArrayExp>
+                                                </Assign>
+                                                <Assign>
+                                                    <ArrayExp s_kind="Value" typeKind="Int" lvalue="true">
+                                                        <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                                        <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                                            <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                                            <OpExp op="+"/>
+                                                            <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                                        </BinaryOp>
+                                                    </ArrayExp>
+                                                    <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="temp"/>
+                                                </Assign>
+                                            </StmList>
+                                        </Nested>
+                                    </If>
+                                    <Assign>
+                                        <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                        <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                            <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="i"/>
+                                            <OpExp op="+"/>
+                                            <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                        </BinaryOp>
+                                    </Assign>
+                                </StmList>
+                            </Nested>
+                        </While>
+                        <Return s_kind="Value" typeKind="Int" lvalue="false">
+                            <CallExp s_kind="Value" typeKind="Int" lvalue="false">
+                                <This s_kind="Value" typeKind="Class" lvalue="false" cid="b1"/>
+                                <IdExp id="bubbleSort" s_kind="MethodName"/>
+                                <ParList>
+                                    <IdExp s_kind="Value" typeKind="IntArray" lvalue="true" arity="0" id="array"/>
+                                    <BinaryOp s_kind="Value" typeKind="Int" lvalue="false">
+                                        <IdExp s_kind="Value" typeKind="Int" lvalue="true" id="size"/>
+                                        <OpExp op="-"/>
+                                        <IntExp s_kind="Value" typeKind="Int" lvalue="false" val="1"/>
+                                    </BinaryOp>
+                                </ParList>
+                            </CallExp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

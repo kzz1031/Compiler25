@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c1"/>
+                </Type>
+                <IdExp id="x1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c2"/>
+                </Type>
+                <IdExp id="x"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="x"/>
+                <IdExp id="x1"/>
+            </Assign>
+            <Assign>
+                <ClassVar>
+                    <IdExp id="x"/>
+                    <IdExp id="i2"/>
+                </ClassVar>
+                <IntExp val="100"/>
+            </Assign>
+            <Return>
+                <CallExp>
+                    <CallExp>
+                        <IdExp id="x"/>
+                        <IdExp id="m1"/>
+                        <ParList>
+                            <IntExp val="10"/>
+                        </ParList>
+                    </CallExp>
+                    <IdExp id="m2"/>
+                    <ParList>
+                        <IntExp val="0"/>
+                    </ParList>
+                </CallExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="c1m1"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="c1"/>
+                    </Type>
+                    <IdExp id="m1"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Assign>
+                            <ClassVar>
+                                <This/>
+                                <IdExp id="c1m1"/>
+                            </ClassVar>
+                            <IdExp id="x"/>
+                        </Assign>
+                        <Return>
+                            <This/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c2"/>
+            <ExtendsId eid="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="i2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m2"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return>
+                            <BinaryOp>
+                                <ClassVar>
+                                    <CallExp>
+                                        <This/>
+                                        <IdExp id="m1"/>
+                                        <ParList>
+                                            <IdExp id="x"/>
+                                        </ParList>
+                                    </CallExp>
+                                    <IdExp id="c1m1"/>
+                                </ClassVar>
+                                <OpExp op="+"/>
+                                <ClassVar>
+                                    <This/>
+                                    <IdExp id="i2"/>
+                                </ClassVar>
+                            </BinaryOp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

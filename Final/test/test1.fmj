@@ -1,0 +1,30 @@
+public int main() {
+	int x = 0;
+	int [] x = {1, 2, 3, 4, 100} ;
+	int y = 19;
+	class A b;
+	x = 1;
+	return x;
+}
+
+public class B {
+	int c;
+	public int m() {
+	  int c;
+	  c = 100;
+          starttime();
+          return c&&c;
+	}
+	public int[] m1(int x, int[] y, class b x) {}
+}
+
+
+public class A extends B {
+	int z;
+	public int m() {
+	  int c;
+	  c = 100;
+          starttime();
+          return c&&c;
+	}
+}
