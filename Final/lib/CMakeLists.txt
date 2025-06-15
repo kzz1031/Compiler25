@@ -1,4 +1,4 @@
-
+add_subdirectory(frontend)
 add_subdirectory(ir)
 add_subdirectory(util)
 add_subdirectory(quad)

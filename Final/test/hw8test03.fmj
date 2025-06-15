@@ -1,0 +1,13 @@
+public int main() {
+	int[] a = {1, 2, 3, 4, 5, 6};
+	int[] b = {1, 2, 3, 4, 5, 6};
+	int i=0;
+	a = a + b;
+	while (i<length(a)) {
+	  putint(a[i]+b[i]);
+          putch(32);
+          i=i+1;
+        }
+	putch(10);
+	return i;
+}

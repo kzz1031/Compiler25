@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="10"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <While>
+                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                    <OpExp op="&gt;"/>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                </BinaryOp>
+                <Assign>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                        <OpExp op="-"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                    </BinaryOp>
+                </Assign>
+            </While>
+            <PutInt>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+            </PutInt>
+            <PutCh>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+            </PutCh>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                    <OpExp op="+"/>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                </BinaryOp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

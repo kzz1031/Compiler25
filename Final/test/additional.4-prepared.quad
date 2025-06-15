@@ -1,0 +1,14 @@
+Function _^main^_^main() last_label=100 last_temp=100:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t0:INT <- Const:1; def: 0 use: 
+    RETURN t0:INT; def: use: 0 
+Function c3^m1(t0, t1) last_label=100 last_temp=104:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE t102:INT <- t1:INT; def: 102 use: 1 
+    MOVE t100:INT <- t0:INT; def: 100 use: 0 
+    MOVE t0:INT <- t101:PTR; def: 0 use: 101 
+    RETURN t0:INT; def: use: 0 

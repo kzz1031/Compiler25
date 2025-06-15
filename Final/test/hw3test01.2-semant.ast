@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="6"/>
+                    <IntExp val="3"/>
+                    <IntExp val="0"/>
+                    <IntExp val="5"/>
+                    <IntExp val="9"/>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="j"/>
+                <IntInit val="3"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="a"/>
+                <BinaryOp s_kind="Value" typeKind="INTARRAY" lvalue="false" arity="0">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="b"/>
+                </BinaryOp>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="b"/>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="j"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

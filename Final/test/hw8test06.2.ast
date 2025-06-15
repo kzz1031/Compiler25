@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="c"/>
+                <CallExp>
+                    <IdExp id="c"/>
+                    <IdExp id="next"/>
+                    <ParList>
+                        <IntExp val="0"/>
+                    </ParList>
+                </CallExp>
+            </Assign>
+            <While>
+                <BinaryOp>
+                    <ClassVar>
+                        <IdExp id="c"/>
+                        <IdExp id="head"/>
+                    </ClassVar>
+                    <OpExp op="&gt;="/>
+                    <IntExp val="0"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <PutInt>
+                            <ClassVar>
+                                <IdExp id="c"/>
+                                <IdExp id="head"/>
+                            </ClassVar>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
+                        <Assign>
+                            <IdExp id="c"/>
+                            <ClassVar>
+                                <IdExp id="c"/>
+                                <IdExp id="tail"/>
+                            </ClassVar>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <Return>
+                <IntExp val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="head"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="C"/>
+                    </Type>
+                    <IdExp id="tail"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="C"/>
+                    </Type>
+                    <IdExp id="next"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="i"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList>
+                        <VarDecl>
+                            <Type typeKind="CLASS">
+                                <IdExp id="C"/>
+                            </Type>
+                            <IdExp id="next"/>
+                        </VarDecl>
+                    </VarDeclList>
+                    <StmList>
+                        <Assign>
+                            <ClassVar>
+                                <IdExp id="next"/>
+                                <IdExp id="head"/>
+                            </ClassVar>
+                            <IdExp id="i"/>
+                        </Assign>
+                        <If>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="&lt;"/>
+                                <IntExp val="100"/>
+                            </BinaryOp>
+                            <Assign>
+                                <ClassVar>
+                                    <IdExp id="next"/>
+                                    <IdExp id="tail"/>
+                                </ClassVar>
+                                <CallExp>
+                                    <IdExp id="next"/>
+                                    <IdExp id="next"/>
+                                    <ParList>
+                                        <BinaryOp>
+                                            <IdExp id="i"/>
+                                            <OpExp op="+"/>
+                                            <IntExp val="1"/>
+                                        </BinaryOp>
+                                    </ParList>
+                                </CallExp>
+                            </Assign>
+                            <Assign>
+                                <ClassVar>
+                                    <IdExp id="next"/>
+                                    <IdExp id="head"/>
+                                </ClassVar>
+                                <UnaryOp>
+                                    <OpExp op="-"/>
+                                    <IntExp val="1"/>
+                                </UnaryOp>
+                            </Assign>
+                        </If>
+                        <Return>
+                            <IdExp id="next"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

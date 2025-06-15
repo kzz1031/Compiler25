@@ -65,17 +65,15 @@ bool check_compatible_types(TypeKind t1, variant<monostate,string,int> p1,
 }
 
 AST_Semant_Map* semant_analyze(Program* node) {
-    printf("semant_analyze\n");
+    printf("semant_analyzeee\n");
     if (node == nullptr) {
+        printf("node is null\n");
         return nullptr;
     }
     Name_Maps* name_maps = makeNameMaps(node);
-    // if(name_maps->is_method("^_main", "main")) {
-    //     printf("main method found\n");
-    // }
     AST_Semant_Visitor semant_visitor(name_maps);
     semant_visitor.visit(node);
-    std::cerr << "Semantic Analysis Done" << std::endl << std::endl;
+    std::cerr << "Semantic Analysis Doneeee" << std::endl << std::endl;
     return semant_visitor.getSemantMap();
 }
 
@@ -100,7 +98,7 @@ void AST_Semant_Visitor::visit(Program* node) {
 void AST_Semant_Visitor::visit(MainMethod* node) {
     DEBUG_PRINT("\n=== Visiting MainMethod ===");
     if (node == nullptr) return;
-    current_class = "^_main";
+    current_class = "_^main^_";
     current_method = "main";
     current_return_type = TypeKind::INT;
     
@@ -718,17 +716,17 @@ void AST_Semant_Visitor::visit(UnaryOp* node) {
     
     if (node->op->op == "-") {
         // Negation requires integer operand
-        if (exp_sem->get_type() != TypeKind::INT) {
+        if (exp_sem->get_type() != TypeKind::INT && exp_sem->get_type() != TypeKind::ARRAY) {
             cerr << "Error at " << node->getPos()->print() << ": Negation requires integer operand" << endl;
         }
-        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, TypeKind::INT, monostate(), false));
+        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), monostate(), false));
     }
     else if (node->op->op == "!") {
         // Logical not requires boolean operand
-        if (exp_sem->get_type() != TypeKind::INT) {
+        if (exp_sem->get_type() != TypeKind::INT && exp_sem->get_type() != TypeKind::ARRAY) {
             cerr << "Error at " << node->getPos()->print() << ": Logical not requires boolean operand" << endl;
         }
-        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, TypeKind::INT, monostate(), false));
+        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), monostate(), false));
     }
 }
 
@@ -974,13 +972,14 @@ void AST_Semant_Visitor::visit(GetArray* node) {
     if (node->exp != nullptr) {
         node->exp->accept(*this);
         auto exp_sem = semant_map->getSemant(node->exp);
-        
-        if (exp_sem->get_type() != TypeKind::INT) {
+        // if(exp_sem->get_type() == TypeKind::ARRAY)
+        //     cerr << "exp_sem->get_type() == TypeKind::ARRAY" << endl;
+        if (exp_sem->get_type() != TypeKind::ARRAY) {
             cerr << "Error at " << node->getPos()->print() << ": GetArray size must be integer" << endl;
         }
     }
     
-    semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, TypeKind::ARRAY, 0, false));
+    semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, TypeKind::INT, 0, false));
 }
 
 void AST_Semant_Visitor::visit(IdExp* node) {

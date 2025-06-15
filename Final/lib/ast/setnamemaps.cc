@@ -24,6 +24,7 @@ static string current_class = "";
 static string current_method = "";
 
 void AST_Name_Map_Visitor::visit(Program* node) {
+    DEBUG_PRINT("visit program");
     if (node == nullptr) return;
     
     if (node->main != nullptr) {
@@ -38,6 +39,7 @@ void AST_Name_Map_Visitor::visit(Program* node) {
 }
 
 void AST_Name_Map_Visitor::visit(MainMethod* node) {
+    DEBUG_PRINT("visit main method");
     if (node == nullptr) return;
     
     // 将 main 方法视为特殊类 "^_main" 的一个方法
@@ -45,20 +47,20 @@ void AST_Name_Map_Visitor::visit(MainMethod* node) {
     current_method = "main";
     
     // 添加特殊类和方法
-    name_maps->add_class("^_main");
-    name_maps->add_method("^_main", "main");
+    name_maps->add_class("_^main^_");
+    name_maps->add_method("_^main^_", "main");
     
     // 添加返回类型作为形参
     Formal* return_formal = new Formal(
         node->getPos(),
         new Type(node->getPos(), TypeKind::INT, nullptr, nullptr), // 修复构造函数调用
-        new IdExp(node->getPos(), "^_method_return")
+        new IdExp(node->getPos(), "_^return^_main")
     );
-    name_maps->add_method_formal("^_main", "main", "^_method_return", return_formal);
+    name_maps->add_method_formal("_^main^_", "main", "_^return^_main", return_formal);
     
     // 添加形参列表
-    vector<string> formal_names = {"^_method_return"};
-    name_maps->add_method_formal_list("^_main", "main", formal_names);
+    vector<string> formal_names = {"_^return^_main"};
+    name_maps->add_method_formal_list("_^main^_", "main", formal_names);
     
     // 处理局部变量
     if (node->vdl != nullptr) {
@@ -152,6 +154,7 @@ void AST_Name_Map_Visitor::visit(MethodDecl* node) {
 }
 
 void AST_Name_Map_Visitor::visit(VarDecl* node) {
+    DEBUG_PRINT("Visiting VarDecl");
     if (node == nullptr) return;
     
     if (current_method.empty()) {
@@ -167,7 +170,6 @@ void AST_Name_Map_Visitor::visit(VarDecl* node) {
         }
     } else {
 
-        DEBUG_PRINT("Checking method variable: " << current_class << "->" << current_method << "->" << node->id->id);
         if (name_maps->is_method_var(current_class, current_method, node->id->id) ||
             name_maps->is_method_formal(current_class, current_method, node->id->id)) {
             cerr << "Error: Variable " << node->id->id << " already declared in method " 

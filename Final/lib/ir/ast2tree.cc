@@ -50,6 +50,7 @@ Class_table* generate_class_table(AST_Semant_Map* semant_map) {
 Method_var_table* generate_method_var_table(string class_name, string method_name, Name_Maps* nm, Temp_map* tm) {
     Method_var_table* mvt = new Method_var_table();
     // add this pointer
+    DEBUG_PRINT("generating method var table"<<endl);
     if (class_name != "_^main^_") {
         DEBUG_PRINT("add this pointer");
         tree::Temp* this_temp = tm->newtemp();
@@ -57,9 +58,11 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
         mvt->var_type_map->insert({"this", tree::Type::PTR});
     }
     // add local variables
+    DEBUG_PRINT("generating method table for: " << class_name <<" "<< method_name);
     if (nm->is_method(class_name, method_name)) {
         auto var_list = nm->get_method_var_list(class_name, method_name);
         for (auto& var_name : *var_list) {
+            DEBUG_PRINT("adding var: " << var_name);
             tree::Temp* var_temp = tm->newtemp();
             mvt->var_temp_map->insert({var_name, var_temp});
             auto var = nm->get_method_var(class_name, method_name, var_name);
@@ -70,7 +73,6 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
             }
         }
     }
-
     // add formal parameters
     if (nm->is_method(class_name, method_name)) {
         auto formal_list = nm->get_method_formal_list(class_name, method_name);
@@ -79,13 +81,13 @@ Method_var_table* generate_method_var_table(string class_name, string method_nam
             //     continue;
             // }
             tree::Temp* formal_temp = tm->newtemp();
-            mvt->var_temp_map->insert({formal_name, formal_temp});
+            mvt->var_temp_map->insert({formal_name->id->id, formal_temp});
             
-            auto formal = nm->get_method_formal(class_name, method_name, formal_name);
+            auto formal = nm->get_method_formal(class_name, method_name, formal_name->id->id);
             if (formal->type->typeKind == TypeKind::INT) {
-                mvt->var_type_map->insert({formal_name, tree::Type::INT});
+                mvt->var_type_map->insert({formal_name->id->id, tree::Type::INT});
             } else {
-                mvt->var_type_map->insert({formal_name, tree::Type::PTR});
+                mvt->var_type_map->insert({formal_name->id->id, tree::Type::PTR});
             }
         }
     }
@@ -122,7 +124,6 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
     current_mvt = generate_method_var_table("_^main^_", "main", name_maps, temp_map);
     current_class_name = "_^main^_";
     current_method_name = "main";
-
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
             DEBUG_PRINT("visit fdmj::MainMethod"<<" varDecl id: "<<varDecl->id->id);
@@ -157,7 +158,7 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
             }
         }
     }
-    
+    DEBUG_PRINT("1111111111")
     tree::Label* entry_label = temp_map->newlabel();
     tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
     
@@ -175,9 +176,11 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
         temp_map->next_temp - 1, 
         temp_map->next_label - 1
     );
+    DEBUG_PRINT("finish visiting")
 }
 
 void ASTToTreeVisitor::visit(fdmj::ClassDecl* node) {
+    DEBUG_PRINT("visit fdmj::ClassDecl: " << node->id->id);
     current_class_name = node->id->id;
     if (node->mdl != nullptr) {
         for (auto methodDecl : *(node->mdl)) {
@@ -196,7 +199,7 @@ void ASTToTreeVisitor::visit(fdmj::Type* node) {
 
 void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
     DEBUG_PRINT("visit fdmj::VarDecl");
-    
+    DEBUG_PRINT("var name: " << node->id->id);
     Temp* var_temp = current_mvt->var_temp_map->at(node->id->id);
     DEBUG_PRINT("var name: "<<node->id->id<<" var_temp: "<<var_temp->name());
     if(node->type->typeKind == TypeKind::ARRAY) {
@@ -1321,7 +1324,7 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
         int offset = class_table->get_method_pos(method_name) * 4;
         
         // 根据获取到的class_name查找方法的返回类型
-        auto return_formal = name_maps->get_method_formal(class_name, method_name, "_^return^_" + method_name);
+        auto return_formal = name_maps->get_method_formal(class_name, method_name, "^_method_return");
         tree::Type return_type = return_formal->type->typeKind == TypeKind::INT ? tree::Type::INT : tree::Type::PTR;
         
         // 创建方法调用
@@ -1366,7 +1369,7 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
             }
         }
 
-        auto return_formal = name_maps->get_method_formal(class_name, method_name, "_^return^_" + method_name);
+        auto return_formal = name_maps->get_method_formal(class_name, method_name, "^_method_return");
         tree::Type return_type = return_formal->type->typeKind == TypeKind::INT ? tree::Type::INT : tree::Type::PTR;
         
         tr_exp = new Tr_ex(new tree::Call(
@@ -1408,9 +1411,28 @@ void ASTToTreeVisitor::visit(fdmj::IntExp* node) {
 
 void ASTToTreeVisitor::visit(fdmj::IdExp* node) {
     DEBUG_PRINT("visit fdmj::IdExp"<<" node id: "<<node->id);
-    tree::Temp* temp = current_mvt->var_temp_map->at(node->id);
-    tree::Type type = current_mvt->var_type_map->at(node->id);
-    tr_exp = new Tr_ex(new tree::TempExp(type, temp));
+    
+    if (current_mvt->var_temp_map->find(node->id) != current_mvt->var_temp_map->end()) {
+        tree::Temp* temp = current_mvt->var_temp_map->at(node->id);
+        tree::Type type = current_mvt->var_type_map->at(node->id);
+        tr_exp = new Tr_ex(new tree::TempExp(type, temp));
+    } 
+    else if (class_table->var_pos_map.find(node->id) != class_table->var_pos_map.end() && 
+             current_class_name != "_^main^_") {
+        // 是类变量，通过this指针加偏移量访问
+        tree::Temp* this_temp = current_mvt->get_var_temp("this");
+        int offset = class_table->get_var_pos(node->id) * 4;
+        
+        tree::Exp* addr = new tree::Binop(tree::Type::PTR, "+", 
+                                       new tree::TempExp(tree::Type::PTR, this_temp),
+                                       new tree::Const(offset));
+        
+        tr_exp = new Tr_ex(new tree::Mem(tree::Type::INT, addr));
+    }
+    else {
+        DEBUG_PRINT("Error: Variable " << node->id << " not found in current scope");
+        tr_exp = new Tr_ex(new tree::Const(0));
+    }
 }
 
 void ASTToTreeVisitor::visit(fdmj::Length* node) {

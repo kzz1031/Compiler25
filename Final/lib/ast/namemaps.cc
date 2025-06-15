@@ -11,6 +11,15 @@
 using namespace std;
 using namespace fdmj;
 
+Name_Maps* makeNameMaps(Program* node) {
+    //std::cout << "TODO" << std::endl;
+    //return nullptr;
+    printf("makeNameMaps\n");
+    AST_Name_Map_Visitor name_visitor;
+    node->accept(name_visitor);
+    return name_visitor.getNameMaps();
+}
+
 bool Name_Maps::is_class(string class_name) {
     return classes.find(class_name) != classes.end();
 }
@@ -196,17 +205,23 @@ bool Name_Maps::add_method_formal_list(string class_name, string method_name, ve
     return true;
 }
 
-vector<string>* Name_Maps::get_method_formal_list(string class_name, string method_name) {
-    vector<string>* var_list = new vector<string>();
+vector<Formal*>* Name_Maps::get_method_formal_list(string class_name, string method_name) {
+    vector<Formal*>* fl = new vector<Formal*>();
     pair<string, string> p(class_name, method_name);
     if (methodFormalList.find(p) == methodFormalList.end()) {
-        return var_list;
+        return nullptr;
     }
     vector<string> vl = methodFormalList[pair<string, string>(class_name, method_name)];
     for (auto v : vl) {
-        var_list->push_back(v);
+        if (Name_Maps::is_method_formal(class_name, method_name, v)) {
+            fl->push_back(Name_Maps::get_method_formal(class_name, method_name, v));
+        }
+        else {
+            cerr << "Error: Method Formal: " << class_name << "->" << method_name << "->" << v << " not found" << endl;
+            return nullptr;
+        }
     }
-    return var_list;
+    return fl;
 }
 
 vector<string>* Name_Maps::get_all_classes() {
@@ -250,9 +265,9 @@ void Name_Maps::print() {
     cout << "Method Formals: ";
     for (string c: *get_class_list()) {
         for (string m: *get_method_list(c)) {
-            vector<string>* fl = get_method_formal_list(c, m);
-            for (string fv : *fl) {
-                Type *t = get_method_formal(c, m, fv)->type;
+            vector<Formal*>* fl = get_method_formal_list(c, m);
+            for (auto fv : *fl) {
+                Type *t = get_method_formal(c, m, fv->id->id)->type;
                 cout << c << "->" << m << "->" << fv << " with type=" << type_kind_string(t->typeKind) << " ; ";
             }
         }

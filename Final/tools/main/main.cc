@@ -23,6 +23,7 @@
 #include "ASTheader.hh"
 #include "FDMJAST.hh"
 #include "xml2ast.hh"
+#include "ast2xml.hh"
 #include "temp.hh"
 #include "namemaps.hh"
 #include "semant.hh"
@@ -32,6 +33,9 @@ using namespace std;
 using namespace tree;
 using namespace quad;
 using namespace tinyxml2;
+
+# define with_location_info false
+// false means no location info in the AST XML files
 
 int main(int argc, const char *argv[]) {
     string file;
@@ -44,8 +48,11 @@ int main(int argc, const char *argv[]) {
         return EXIT_FAILURE;
     }
     file = argv[argc - 1];
-    //from HW5 onwards, we use the following naming convention for input files:
-    string file_ast = file + ".2-semant.ast"; // ast in xml
+    //from HW3 onwards, we use the following naming convention for input files:
+    string file_fmj = file + ".fmj"; // input source file
+    //from HW5&HW4 onwards, we use the following naming convention for input files:
+    string file_ast = file + ".2.ast"; // ast in xml
+    string file_ast_semant = file + ".2-semant.ast"; // ast with semantic info in xml
     //frome HW6 onwards, we use the following naming convention for input files:
     string file_irp = file + ".3.irp";
     //from HW7 onwards, we use the following naming convention for output files:
@@ -56,13 +63,48 @@ int main(int argc, const char *argv[]) {
     string file_quad_prepared = file + ".4-prepared.quad";
     string file_quad_color_xml = file + ".4-xml.clr";
     string file_rpi = file + ".s";
-    AST_Semant_Map *semant_map = new AST_Semant_Map();
-    cout << "------Reading AST from : " << file_ast << "------------" << endl;
-    fdmj::Program *x_ast = xml2ast(file_ast, &semant_map);
+
+    cout << "------Parsing fmj source file: " << file_fmj << "------------" << endl;
+    std::ifstream fmjfile(file_fmj);
+
+    fdmj::Program *x_ast = fdmjParser(fmjfile, false); // false means no debug info from parser
+    cout << "Convert AST to XML..." << endl;
+    XMLDocument *x = ast2xml(x_ast, nullptr, with_location_info, false); // no semant info yet
+    x->SaveFile(file_ast.c_str());
+    std::cout << "Writing AST to file: " << file_ast << std::endl;
+    delete x_ast; // free the original AST
+
+    std::cout << "Read AST from file: " << file_ast << std::endl;
+    x->LoadFile(file_ast.c_str());
+    std::cout << "Converting XML to AST..." << std::endl;
+    x_ast = xml2ast(x->FirstChildElement());
+
+    if (x_ast == nullptr) {
+        std::cout << "AST from file is not valid!" << endl;
+        return EXIT_FAILURE;
+    }
+    std::cout << "Semantic analyzing AST..." << std::endl;
+    std::cout << "--Making Name Maps..." << endl;
+    Name_Maps *name_maps = makeNameMaps(x_ast); 
+    std::cout << "--Analyzing Semantics..." << endl;
+    AST_Semant_Map *semant_map = semant_analyze(x_ast); 
+    semant_map->setNameMaps(name_maps);
+    if(semant_map->getNameMaps() == nullptr)
+        printf("semant_map->getNameMaps() == nullptr\n");
+    semant_map->getNameMaps()->print();
+    cout << "Convert AST to XML with Semantic Info..." << endl;
+    x = ast2xml(x_ast, semant_map, with_location_info, true); 
+
+    if (x->Error()) {
+        std::cout << "AST is not valid when converting from AST with Semant Info!" << endl;
+        return EXIT_FAILURE;  
+    }
+
+    x->SaveFile(file_ast_semant.c_str());
     tree::Program *ir = ast2tree(x_ast, semant_map);
-    
+
     cout << "Saving IR (XML) to: " << file_irp << endl;
-    XMLDocument *x = tree2xml(ir);
+    x = tree2xml(ir);
     x->SaveFile(file_irp.c_str());
 
     tree::Program *ir_canon = canon(ir);

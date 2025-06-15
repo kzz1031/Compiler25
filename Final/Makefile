@@ -39,7 +39,7 @@ PATCHDEMO = $(BUILD_DIR)/tools/patchdemo/patchdemo
 run: $(MAIN)
 	cd $(CURDIR)/test && \
 	for file in $$(ls .); do \
-		if [ "$${file#*.}" = "2-semant.ast" ]; then \
+		if [ "$${file#*.}" = "fmj" ]; then \
 			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
 			$(MAIN) "$${file%%.*}"; \
 		fi; \
@@ -58,7 +58,7 @@ run-assem: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=test0
+FILE=hw8test00
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \

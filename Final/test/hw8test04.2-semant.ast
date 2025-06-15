@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="10"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="10"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="a"/>
+                <BinaryOp s_kind="Value" typeKind="INTARRAY" lvalue="false" arity="10">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="b"/>
+                </BinaryOp>
+            </Assign>
+            <PutInt>
+                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                    <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="a"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                    </ArrayExp>
+                    <OpExp op="+"/>
+                    <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                        <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="b"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                    </ArrayExp>
+                </BinaryOp>
+            </PutInt>
+            <PutCh>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+            </PutCh>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

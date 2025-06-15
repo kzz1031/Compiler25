@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <PutInt>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+            </PutInt>
+            <PutCh>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+            </PutCh>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

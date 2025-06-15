@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="y"/>
+                <IntInit val="2"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="w"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="z"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="z"/>
+                <BinaryOp>
+                    <IdExp id="x"/>
+                    <OpExp op="+"/>
+                    <IdExp id="y"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="z"/>
+                <Esc>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="x"/>
+                            <IntExp val="1"/>
+                        </Assign>
+                        <Assign>
+                            <IdExp id="y"/>
+                            <IntExp val="2"/>
+                        </Assign>
+                    </StmList>
+                    <BinaryOp>
+                        <IdExp id="x"/>
+                        <OpExp op="*"/>
+                        <IdExp id="y"/>
+                    </BinaryOp>
+                </Esc>
+            </Assign>
+            <Assign>
+                <IdExp id="w"/>
+                <BoolExp val="1"/>
+            </Assign>
+            <Assign>
+                <IdExp id="w"/>
+                <BoolExp val="0"/>
+            </Assign>
+            <Assign>
+                <IdExp id="w"/>
+                <BinaryOp>
+                    <BoolExp val="0"/>
+                    <OpExp op="+"/>
+                    <BoolExp val="1"/>
+                </BinaryOp>
+            </Assign>
+            <If>
+                <BinaryOp>
+                    <BoolExp val="0"/>
+                    <OpExp op="!="/>
+                    <BoolExp val="1"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList/>
+                </Nested>
+            </If>
+            <While>
+                <BinaryOp>
+                    <IntExp val="1"/>
+                    <OpExp op="+"/>
+                    <BinaryOp>
+                        <IdExp id="x"/>
+                        <OpExp op="*"/>
+                        <Esc>
+                            <StmList>
+                                <Assign>
+                                    <IdExp id="w"/>
+                                    <IntExp val="3"/>
+                                </Assign>
+                            </StmList>
+                            <IdExp id="x"/>
+                        </Esc>
+                    </BinaryOp>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <PutInt>
+                            <IdExp id="x"/>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
+                        <Break/>
+                    </StmList>
+                </Nested>
+            </While>
+            <Return>
+                <IntExp val="9"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

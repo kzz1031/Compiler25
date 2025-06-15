@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="x"/>
+                <CallExp>
+                    <IdExp id="c"/>
+                    <IdExp id="m"/>
+                    <ParList/>
+                </CallExp>
+            </Assign>
+            <PutInt>
+                <IdExp id="x"/>
+            </PutInt>
+            <PutCh>
+                <IntExp val="20"/>
+            </PutCh>
+            <Return>
+                <IntExp val="9"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                    <IntInit val="2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return>
+                            <ClassVar>
+                                <This/>
+                                <IdExp id="x"/>
+                            </ClassVar>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

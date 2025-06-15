@@ -1,0 +1,10 @@
+public int main() {
+   int[4] a;
+   int n;
+   
+   n=getarray(a);
+   a=-a;
+   putarray(n, a);
+
+   return a[0];
+}

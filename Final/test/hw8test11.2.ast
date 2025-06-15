@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="-2"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <If>
+                <BinaryOp>
+                    <IdExp id="x"/>
+                    <OpExp op="&gt;"/>
+                    <IntExp val="0"/>
+                </BinaryOp>
+                <PutInt>
+                    <IdExp id="x"/>
+                </PutInt>
+                <PutInt>
+                    <UnaryOp>
+                        <OpExp op="-"/>
+                        <IdExp id="x"/>
+                    </UnaryOp>
+                </PutInt>
+            </If>
+            <PutCh>
+                <IntExp val="10"/>
+            </PutCh>
+            <Return>
+                <IdExp id="x"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

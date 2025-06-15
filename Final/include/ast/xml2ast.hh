@@ -3,7 +3,6 @@
 
 #include "ASTheader.hh"
 #include "FDMJAST.hh"
-#include "semant.hh"
 #include "tinyxml2.hh"
 
 using namespace std;
@@ -12,8 +11,8 @@ using namespace tinyxml2;
 
 //create a node from an XML node, which must match the given node type
 //The initial call should be with the root non-terminal (usually Program) and the root of the XML tree (usually tag: "Program")
-fdmj::Program* xml2ast(string xmlfilename, AST_Semant_Map **sm);
-fdmj::Program* xml2ast(XMLElement* element, AST_Semant_Map **sm);
+fdmj::Program* xml2ast(string xmlfilename);
+fdmj::Program* xml2ast(XMLElement* element);
 
 //forward declarations
 fdmj::Program* create_program(XMLElement*);

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                <CallExp s_kind="Value" typeKind="INT" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="C" id="c"/>
+                    <IdExp id="m"/>
+                    <ParList/>
+                </CallExp>
+            </Assign>
+            <PutInt>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+            </PutInt>
+            <PutCh>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="20"/>
+            </PutCh>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="9"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                    <IntInit val="2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return s_kind="Value" typeKind="INT" lvalue="false">
+                            <ClassVar s_kind="Value" typeKind="INT" lvalue="true">
+                                <This s_kind="Value" typeKind="CLASS" lvalue="false" cid="C"/>
+                                <IdExp id="x"/>
+                            </ClassVar>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>
