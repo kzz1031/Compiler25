@@ -100,7 +100,7 @@ Function _^main^_^main() last_label=118 last_temp=172:
     Exit labels: L106 L107 
     LABEL L105; def: use: 
     LOAD t14700:INT <- Mem(t10001:PTR); def: 14700 use: 10001 
-    CJUMP < t10201:INT t14700:INT? L106 : L107; def: use: 10201 14700 
+    CJUMP < t10201:INT t14700:INT? L106 : L107; def: use: 14700 10201 
   Block: Entry Label: L106
     Exit labels: L114 L115 
     LABEL L106; def: use: 
@@ -134,9 +134,9 @@ Function _^main^_^main() last_label=118 last_temp=172:
     MOVE_BINOP t15100:INT <- (+, t10201:INT, Const:1); def: 15100 use: 10201 
     MOVE t172:INT <- Const:4; def: 172 use: 
     MOVE_BINOP t15200:INT <- (*, t15100:INT, t172:INT); def: 15200 use: 15100 172 
-    MOVE_BINOP t15300:PTR <- (+, t12100:PTR, t15200:INT); def: 15300 use: 12100 15200 
+    MOVE_BINOP t15300:PTR <- (+, t12100:PTR, t15200:INT); def: 15300 use: 15200 12100 
     LOAD t15400:INT <- Mem(t15300:PTR); def: 15400 use: 15300 
-    MOVE_BINOP t12300:INT <- (+, t12200:INT, t15400:INT); def: 12300 use: 12200 15400 
+    MOVE_BINOP t12300:INT <- (+, t12200:INT, t15400:INT); def: 12300 use: 15400 12200 
     MOVE t0:INT <- t12300:INT; def: 0 use: 12300 
     EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
     MOVE t0:INT <- Const:32; def: 0 use: 

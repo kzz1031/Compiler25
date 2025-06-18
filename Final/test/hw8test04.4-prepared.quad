@@ -109,7 +109,7 @@ Function _^main^_^main() last_label=113 last_temp=173:
     MOVE_BINOP t14500:INT <- (+, t169:INT, Const:1); def: 14500 use: 169 
     MOVE t170:INT <- Const:4; def: 170 use: 
     MOVE_BINOP t14600:INT <- (*, t14500:INT, t170:INT); def: 14600 use: 14500 170 
-    MOVE_BINOP t14700:PTR <- (+, t11800:PTR, t14600:INT); def: 14700 use: 14600 11800 
+    MOVE_BINOP t14700:PTR <- (+, t11800:PTR, t14600:INT); def: 14700 use: 11800 14600 
     LOAD t12100:INT <- Mem(t14700:PTR); def: 12100 use: 14700 
     MOVE t12000:PTR <- t10100:PTR; def: 12000 use: 10100 
     LOAD t11100:INT <- Mem(t10100:PTR); def: 11100 use: 10100 
@@ -127,9 +127,9 @@ Function _^main^_^main() last_label=113 last_temp=173:
     MOVE_BINOP t14800:INT <- (+, t172:INT, Const:1); def: 14800 use: 172 
     MOVE t173:INT <- Const:4; def: 173 use: 
     MOVE_BINOP t14900:INT <- (*, t14800:INT, t173:INT); def: 14900 use: 14800 173 
-    MOVE_BINOP t15000:PTR <- (+, t12000:PTR, t14900:INT); def: 15000 use: 14900 12000 
+    MOVE_BINOP t15000:PTR <- (+, t12000:PTR, t14900:INT); def: 15000 use: 12000 14900 
     LOAD t15100:INT <- Mem(t15000:PTR); def: 15100 use: 15000 
-    MOVE_BINOP t12200:INT <- (+, t12100:INT, t15100:INT); def: 12200 use: 15100 12100 
+    MOVE_BINOP t12200:INT <- (+, t12100:INT, t15100:INT); def: 12200 use: 12100 15100 
     MOVE t0:INT <- t12200:INT; def: 0 use: 12200 
     EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
     MOVE t0:INT <- Const:10; def: 0 use: 

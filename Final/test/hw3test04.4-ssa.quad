@@ -84,7 +84,7 @@ Function _^main^_^main last_label=120 last_temp=143:
   Block: Entry Label: L116
     Exit labels: L118 L119 
     LABEL L116; def: use: 
-    PHI t10902:INT <- (t10900, L112; t10901, L115); def: 10902 use: 10901 10900 
+    PHI t10902:INT <- (t10900, L112; t10901, L115); def: 10902 use: 10900 10901 
     MOVE t11100:INT <- t10902:INT; def: 11100 use: 10902 
     MOVE t11900:PTR <- t10102:PTR; def: 11900 use: 10102 
     LOAD t11000:INT <- Mem(t10102:PTR); def: 11000 use: 10102 

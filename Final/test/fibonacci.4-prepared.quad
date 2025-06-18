@@ -88,7 +88,7 @@ Function _^main^_^main() last_label=117 last_temp=142:
   Block: Entry Label: L112
     Exit labels: L113 L114 
     LABEL L112; def: use: 
-    CJUMP < t10001:INT t10100:INT? L113 : L114; def: use: 10100 10001 
+    CJUMP < t10001:INT t10100:INT? L113 : L114; def: use: 10001 10100 
   Block: Entry Label: L113
     Exit labels: L112 
     LABEL L113; def: use: 

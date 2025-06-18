@@ -1,6 +1,6 @@
 // This visitor is used to convert AST to XML
 #define DEBUG
-#undef DEBUG
+// #undef DEBUG
 
 #include <iostream>
 #include <string>

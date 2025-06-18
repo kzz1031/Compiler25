@@ -719,14 +719,14 @@ void AST_Semant_Visitor::visit(UnaryOp* node) {
         if (exp_sem->get_type() != TypeKind::INT && exp_sem->get_type() != TypeKind::ARRAY) {
             cerr << "Error at " << node->getPos()->print() << ": Negation requires integer operand" << endl;
         }
-        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), monostate(), false));
+        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), exp_sem->get_type_par(), false));
     }
     else if (node->op->op == "!") {
         // Logical not requires boolean operand
         if (exp_sem->get_type() != TypeKind::INT && exp_sem->get_type() != TypeKind::ARRAY) {
             cerr << "Error at " << node->getPos()->print() << ": Logical not requires boolean operand" << endl;
         }
-        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), monostate(), false));
+        semant_map->setSemant(node, new AST_Semant(AST_Semant::Kind::Value, exp_sem->get_type(), exp_sem->get_type_par(), false));
     }
 }
 

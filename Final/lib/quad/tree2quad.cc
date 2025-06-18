@@ -201,22 +201,71 @@ void Tree2Quad::visit(tree::Move *move) {
             result->insert(result->end(), visit_result->begin(), visit_result->end());
             visit_result = nullptr;
         }
-        src->accept(*this);
-        QuadTerm *src_term = output_term;
+        QuadTerm *src_term;
+        if(src->getTreeKind() == Kind::CALL){
+            tree::Call *node = static_cast<tree::Call*>(src);
+
+            vector<QuadTerm*>* args = new vector<QuadTerm*>();
+            for (auto arg : *(node->args)) {
+                arg->accept(*this);
+                args->push_back(output_term);
+            }
+            node->obj->accept(*this);
+            QuadTerm* obj_term = output_term;
+
+            TempExp* dst = nullptr;
+            Temp* temp = temp_map->newtemp();
+            dst = new TempExp(node->type, temp);
+            
+            set<Temp*>* def = new set<Temp*>();
+            def->insert(dst->temp);
+
+            set<Temp*>* use = new set<Temp*>();
+            
+            if (obj_term->get_temp()) {
+                use->insert(obj_term->get_temp()->temp);
+            }
+            
+            for (auto arg : *args) {
+                if (auto temp = arg->get_temp()) {
+                    use->insert(temp->temp);
+                }
+            }
+            QuadCall* call = new QuadCall(node, node->id, obj_term, args, def, use);
+    
+            QuadMoveCall* move_call = new QuadMoveCall(node, dst, call, def, use);
+            visit_result = new vector<QuadStm*>{move_call};
+            output_term = new QuadTerm(dst);
+            src_term = output_term;
+        }
+        else {
+            src->accept(*this);
+            DEBUG_PRINT("finish visit src");
+            src_term = output_term;
+        }
+        if(src_term->kind != QuadTermKind::TEMP) {
+            DEBUG_PRINT("src_term is not TEMP");
+        }
         if(visit_result){
             result->insert(result->end(), visit_result->begin(), visit_result->end());
             visit_result = nullptr;
         }
-        
         auto def = new set<Temp*>();
         auto use = new set<Temp*>();
-
-        if (src_term->kind == QuadTermKind::TEMP)
+        if(src_term == nullptr){
+            // bug
+            DEBUG_PRINT("src_term is nullptr");
+        }
+        if (src_term->kind == QuadTermKind::TEMP){
+            DEBUG_PRINT("src_term is TEMP");
             use->insert(src_term->get_temp()->temp);
+        }
+            
         if (dst_term->kind == QuadTermKind::TEMP)
             use->insert(dst_term->get_temp()->temp);
         result->push_back(new QuadStore(move, src_term, dst_term, def, use));
         visit_result = result;
+        DEBUG_PRINT("finish QuadStore");
         return;
     }
     if(dynamic_cast<TempExp*>(dst) == nullptr) {
@@ -546,7 +595,6 @@ void Tree2Quad::visit(Call* node) {
 
     node->obj->accept(*this);
     QuadTerm* obj_term = output_term;
-
     // 为函数调用创建新的临时变量（如果需要返回值）
     TempExp* dst = nullptr;
     if (node->type != Type::INT && node->type != Type::PTR) {

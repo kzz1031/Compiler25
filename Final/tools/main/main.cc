@@ -55,6 +55,7 @@ int main(int argc, const char *argv[]) {
     string file_ast_semant = file + ".2-semant.ast"; // ast with semantic info in xml
     //frome HW6 onwards, we use the following naming convention for input files:
     string file_irp = file + ".3.irp";
+    string file_irp_canon = file + ".3-canon.irp";
     //from HW7 onwards, we use the following naming convention for output files:
     string file_quad_xml = file + ".4-xml.quad";
     string file_quad_ssa = file + ".4-ssa.quad";
@@ -94,7 +95,7 @@ int main(int argc, const char *argv[]) {
     semant_map->getNameMaps()->print();
     cout << "Convert AST to XML with Semantic Info..." << endl;
     x = ast2xml(x_ast, semant_map, with_location_info, true); 
-
+    cout << "Finish converting AST to XML with Semantic Info..." << endl;
     if (x->Error()) {
         std::cout << "AST is not valid when converting from AST with Semant Info!" << endl;
         return EXIT_FAILURE;  
@@ -108,6 +109,12 @@ int main(int argc, const char *argv[]) {
     x->SaveFile(file_irp.c_str());
 
     tree::Program *ir_canon = canon(ir);
+    
+    cout << "Writing Canonicalized IR to " << file_irp_canon << endl;
+    XMLDocument *doc = tree2xml(ir_canon);
+    cout << "Writing IR to: " << file_irp_canon << endl;
+    doc->SaveFile(file_irp_canon.c_str()); 
+
     quad::QuadProgram *x_quad = tree2quad(ir_canon);
     cout << "Done converting IR to Quad" << endl;
     QuadProgram *x_quad_blocked = blocking(x_quad);

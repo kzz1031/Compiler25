@@ -4,7 +4,7 @@ Function _^main^_^main() last_label=110 last_temp=114:
     LABEL L110; def: use: 
     MOVE t10100:INT <- Const:1; def: 10100 use: 
     MOVE t10200:INT <- Const:2; def: 10200 use: 
-    MOVE_BINOP t10300:INT <- (+, t10100:INT, t10200:INT); def: 10300 use: 10200 10100 
+    MOVE_BINOP t10300:INT <- (+, t10100:INT, t10200:INT); def: 10300 use: 10100 10200 
     MOVE t10101:INT <- Const:1; def: 10101 use: 
     MOVE t10201:INT <- Const:2; def: 10201 use: 
     MOVE_BINOP t10301:INT <- (*, t10101:INT, t10201:INT); def: 10301 use: 10101 10201 

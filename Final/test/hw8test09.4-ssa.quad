@@ -9,23 +9,23 @@ Function _^main^_^main last_label=100 last_temp=124:
     STORE Name:C^m -> Mem(t11800:PTR); def: use: 11800 
     MOVE_BINOP t11900:PTR <- (+, t10000:PTR, Const:0); def: 11900 use: 10000 
     LOAD t10300:PTR <- Mem(t11900:PTR); def: 10300 use: 11900 
-    MOVE_CALL t10400:PTR <- f[t10300:PTR] (t10000:PTR, Const:0); def: 10400 use: 10000 10300 
+    MOVE_CALL t10400:PTR <- f[t10300:PTR] (t10000:PTR, Const:0); def: 10400 use: 10300 10000 
     MOVE_BINOP t12000:PTR <- (+, t10400:PTR, Const:4); def: 12000 use: 10400 
     LOAD t10500:PTR <- Mem(t12000:PTR); def: 10500 use: 12000 
     MOVE t10800:PTR <- t10500:PTR; def: 10800 use: 10500 
     MOVE_BINOP t12100:PTR <- (+, t10000:PTR, Const:0); def: 12100 use: 10000 
     LOAD t10600:PTR <- Mem(t12100:PTR); def: 10600 use: 12100 
-    MOVE_CALL t10700:PTR <- f[t10600:PTR] (t10000:PTR, Const:0); def: 10700 use: 10000 10600 
+    MOVE_CALL t10700:PTR <- f[t10600:PTR] (t10000:PTR, Const:0); def: 10700 use: 10600 10000 
     CALL m[t10800:PTR] (t10700:PTR); def: use: 10700 10800 
     MOVE_BINOP t12200:PTR <- (+, t10000:PTR, Const:0); def: 12200 use: 10000 
     LOAD t11000:PTR <- Mem(t12200:PTR); def: 11000 use: 12200 
-    MOVE_CALL t11100:PTR <- f[t11000:PTR] (t10000:PTR, Const:1); def: 11100 use: 10000 11000 
+    MOVE_CALL t11100:PTR <- f[t11000:PTR] (t10000:PTR, Const:1); def: 11100 use: 11000 10000 
     MOVE_BINOP t12300:PTR <- (+, t11100:PTR, Const:4); def: 12300 use: 11100 
     LOAD t11200:PTR <- Mem(t12300:PTR); def: 11200 use: 12300 
     MOVE t11500:PTR <- t11200:PTR; def: 11500 use: 11200 
     MOVE_BINOP t12400:PTR <- (+, t10000:PTR, Const:0); def: 12400 use: 10000 
     LOAD t11300:PTR <- Mem(t12400:PTR); def: 11300 use: 12400 
-    MOVE_CALL t11400:PTR <- f[t11300:PTR] (t10000:PTR, Const:1); def: 11400 use: 10000 11300 
+    MOVE_CALL t11400:PTR <- f[t11300:PTR] (t10000:PTR, Const:1); def: 11400 use: 11300 10000 
     CALL m[t11500:PTR] (t11400:PTR); def: use: 11400 11500 
     RETURN Const:0; def: use: 
 Function C^m(t100) last_label=100 last_temp=103:

@@ -76,7 +76,7 @@ Function _^main^_^main last_label=118 last_temp=154:
     LABEL L105; def: use: 
     PHI t10201:INT <- (t10200, L104; t10202, L117); def: 10201 use: 10200 10202 
     LOAD t14700:INT <- Mem(t10001:PTR); def: 14700 use: 10001 
-    CJUMP < t10201:INT t14700:INT? L106 : L107; def: use: 10201 14700 
+    CJUMP < t10201:INT t14700:INT? L106 : L107; def: use: 14700 10201 
   Block: Entry Label: L106
     Exit labels: L114 L115 
     LABEL L106; def: use: 
@@ -106,9 +106,9 @@ Function _^main^_^main last_label=118 last_temp=154:
     LABEL L117; def: use: 
     MOVE_BINOP t15100:INT <- (+, t10201:INT, Const:1); def: 15100 use: 10201 
     MOVE_BINOP t15200:INT <- (*, t15100:INT, Const:4); def: 15200 use: 15100 
-    MOVE_BINOP t15300:PTR <- (+, t12100:PTR, t15200:INT); def: 15300 use: 12100 15200 
+    MOVE_BINOP t15300:PTR <- (+, t12100:PTR, t15200:INT); def: 15300 use: 15200 12100 
     LOAD t15400:INT <- Mem(t15300:PTR); def: 15400 use: 15300 
-    MOVE_BINOP t12300:INT <- (+, t12200:INT, t15400:INT); def: 12300 use: 12200 15400 
+    MOVE_BINOP t12300:INT <- (+, t12200:INT, t15400:INT); def: 12300 use: 15400 12200 
     EXTCALL putint(t12300:INT); def: use: 12300 
     EXTCALL putch(Const:32); def: use: 
     MOVE_BINOP t10202:INT <- (+, t10201:INT, Const:1); def: 10202 use: 10201 
