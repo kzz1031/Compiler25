@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="D"/>
+                </Type>
+                <IdExp id="d"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <CallStm>
+                <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="D" id="d"/>
+                <IdExp id="m"/>
+                <ParList/>
+            </CallStm>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="D"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="D"/>
+                    </Type>
+                    <IdExp id="d"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

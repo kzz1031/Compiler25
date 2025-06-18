@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c2"/>
+                </Type>
+                <IdExp id="x"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <ClassVar s_kind="Value" typeKind="INT" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="c2" id="x"/>
+                    <IdExp id="i2"/>
+                </ClassVar>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="100"/>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <CallExp s_kind="Value" typeKind="INT" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="c2" id="x"/>
+                    <IdExp id="m2"/>
+                    <ParList>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                    </ParList>
+                </CallExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="c1m1"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="c1"/>
+                    </Type>
+                    <IdExp id="m1"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Assign>
+                            <ClassVar s_kind="Value" typeKind="INT" lvalue="true">
+                                <This s_kind="Value" typeKind="CLASS" lvalue="false" cid="c1"/>
+                                <IdExp id="c1m1"/>
+                            </ClassVar>
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                        </Assign>
+                        <Return s_kind="Value" typeKind="CLASS" lvalue="false" cid="c1">
+                            <This s_kind="Value" typeKind="CLASS" lvalue="false" cid="c1"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c2"/>
+            <ExtendsId eid="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="i2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m2"/>
+                    <FormalList>
+                        <Formal>
+                            <Type typeKind="INT"/>
+                            <IdExp id="x"/>
+                        </Formal>
+                    </FormalList>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return s_kind="Value" typeKind="INT" lvalue="false">
+                            <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                <ClassVar s_kind="Value" typeKind="INT" lvalue="true">
+                                    <CallExp s_kind="Value" typeKind="CLASS" lvalue="false" cid="c1">
+                                        <This s_kind="Value" typeKind="CLASS" lvalue="false" cid="c2"/>
+                                        <IdExp id="m1"/>
+                                        <ParList>
+                                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                                        </ParList>
+                                    </CallExp>
+                                    <IdExp id="c1m1"/>
+                                </ClassVar>
+                                <OpExp op="+"/>
+                                <ClassVar s_kind="Value" typeKind="INT" lvalue="true">
+                                    <This s_kind="Value" typeKind="CLASS" lvalue="false" cid="c2"/>
+                                    <IdExp id="i2"/>
+                                </ClassVar>
+                            </BinaryOp>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

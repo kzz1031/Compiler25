@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="10"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="a"/>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                </ArrayExp>
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="10" id="a"/>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="w"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="D"/>
+                </Type>
+                <IdExp id="d"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Return>
+                <IntExp val="1"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                    <IntInit val="1"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="ARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="a"/>
+                </VarDecl>
+                <VarDecl>
+                    <Type typeKind="CLASS">
+                        <IdExp id="D"/>
+                    </Type>
+                    <IdExp id="y"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="D"/>
+            <ExtendsId eid="C"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="ARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="z"/>
+                    <IntInitList>
+                        <IntExp val="1"/>
+                        <IntExp val="2"/>
+                        <IntExp val="3"/>
+                    </IntInitList>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList/>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

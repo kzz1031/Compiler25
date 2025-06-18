@@ -1,0 +1,25 @@
+Function _^main^_^main() last_label=105 last_temp=103:
+  Block: Entry Label: L105
+    Exit labels: L102 L103 
+    LABEL L105; def: use: 
+    MOVE t10000:INT <- Const:0; def: 10000 use: 
+    MOVE t103:INT <- Const:0; def: 103 use: 
+    CJUMP > t10000:INT t103:INT? L102 : L103; def: use: 10000 103 
+  Block: Entry Label: L102
+    Exit labels: L104 
+    LABEL L102; def: use: 
+    MOVE t10100:INT <- t10000:INT; def: 10100 use: 10000 
+    MOVE t10102:INT <- t10100:INT; def: 10102 use: 10100 
+    JUMP L104; def: use: 
+  Block: Entry Label: L103
+    Exit labels: L104 
+    LABEL L103; def: use: 
+    MOVE_BINOP t10101:INT <- (+, t10000:INT, Const:2); def: 10101 use: 10000 
+    MOVE t10102:INT <- t10101:INT; def: 10102 use: 10101 
+    JUMP L104; def: use: 
+  Block: Entry Label: L104
+    Exit labels: 
+    LABEL L104; def: use: 
+    MOVE_BINOP t10001:INT <- (*, t10102:INT, t10102:INT); def: 10001 use: 10102 
+    MOVE t0:INT <- t10001:INT; def: 0 use: 10001 
+    RETURN t0:INT; def: use: 0 

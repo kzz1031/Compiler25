@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="102" last_label="110">
+        <Blocks>
+            <Block entry_label="110">
+                <Sequence>
+                    <Label label="110"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="0"/>
+                    </Move>
+                    <Sequence>
+                        <Label label="100"/>
+                        <CJump relop="&gt;" true="101" false="102">
+                            <Temp type="INT" temp="100"/>
+                            <Const value="0"/>
+                        </CJump>
+                        <Label label="101"/>
+                        <Jump label="102"/>
+                        <Jump label="100"/>
+                        <Label label="102"/>
+                    </Sequence>
+                    <Sequence>
+                        <CJump relop="&lt;" true="107" false="108">
+                            <Temp type="INT" temp="100"/>
+                            <Const value="0"/>
+                        </CJump>
+                        <Label label="107"/>
+                        <Move>
+                            <Temp type="INT" temp="101"/>
+                            <BinOp op="+" type="INT">
+                                <Temp type="INT" temp="100"/>
+                                <Const value="2"/>
+                            </BinOp>
+                        </Move>
+                        <Jump label="109"/>
+                        <Label label="108"/>
+                        <Move>
+                            <Temp type="INT" temp="101"/>
+                            <BinOp op="+" type="INT">
+                                <Temp type="INT" temp="100"/>
+                                <Const value="3"/>
+                            </BinOp>
+                        </Move>
+                        <Label label="109"/>
+                    </Sequence>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <BinOp op="*" type="INT">
+                            <Temp type="INT" temp="101"/>
+                            <Temp type="INT" temp="101"/>
+                        </BinOp>
+                    </Move>
+                    <Return>
+                        <Temp type="INT" temp="100"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

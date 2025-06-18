@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="6"/>
+                    <IntExp val="3"/>
+                    <IntExp val="0"/>
+                    <IntExp val="5"/>
+                    <IntExp val="9"/>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="0"/>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <PutArray>
+                <IntExp val="7"/>
+                <IdExp id="a"/>
+            </PutArray>
+            <Assign>
+                <IdExp id="a"/>
+                <BinaryOp>
+                    <IdExp id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp id="b"/>
+                </BinaryOp>
+            </Assign>
+            <PutArray>
+                <IntExp val="7"/>
+                <IdExp id="a"/>
+            </PutArray>
+            <Return>
+                <IntExp val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

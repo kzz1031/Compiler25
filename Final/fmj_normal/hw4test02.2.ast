@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="x"/>
+                <BinaryOp>
+                    <BinaryOp>
+                        <BinaryOp>
+                            <IntExp val="1"/>
+                            <OpExp op="+"/>
+                            <BinaryOp>
+                                <IntExp val="2"/>
+                                <OpExp op="*"/>
+                                <IntExp val="3"/>
+                            </BinaryOp>
+                        </BinaryOp>
+                        <OpExp op="&gt;"/>
+                        <IntExp val="3"/>
+                    </BinaryOp>
+                    <OpExp op="||"/>
+                    <BinaryOp>
+                        <IntExp val="4"/>
+                        <OpExp op="&amp;&amp;"/>
+                        <BinaryOp>
+                            <IntExp val="5"/>
+                            <OpExp op="=="/>
+                            <IntExp val="0"/>
+                        </BinaryOp>
+                    </BinaryOp>
+                </BinaryOp>
+            </Assign>
+            <Return>
+                <Esc>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="x"/>
+                            <BinaryOp>
+                                <IdExp id="x"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                    <IdExp id="x"/>
+                </Esc>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

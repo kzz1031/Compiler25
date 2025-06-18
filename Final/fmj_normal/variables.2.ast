@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="y"/>
+                <IntInit val="1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="z"/>
+                <IntInit val="2"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="a"/>
+                <IntInit val="3"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="b"/>
+                <IntInit val="4"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="c"/>
+                <IntInit val="5"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="d"/>
+                <IntInit val="6"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="e"/>
+                <IntInit val="7"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="f"/>
+                <IntInit val="8"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="g"/>
+                <IntInit val="9"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="h"/>
+                <IntInit val="10"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="11"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="j"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="k"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="l"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="j"/>
+                <BinaryOp>
+                    <BinaryOp>
+                        <BinaryOp>
+                            <BinaryOp>
+                                <BinaryOp>
+                                    <BinaryOp>
+                                        <BinaryOp>
+                                            <BinaryOp>
+                                                <BinaryOp>
+                                                    <BinaryOp>
+                                                        <BinaryOp>
+                                                            <IdExp id="x"/>
+                                                            <OpExp op="+"/>
+                                                            <IdExp id="y"/>
+                                                        </BinaryOp>
+                                                        <OpExp op="+"/>
+                                                        <IdExp id="z"/>
+                                                    </BinaryOp>
+                                                    <OpExp op="+"/>
+                                                    <IdExp id="a"/>
+                                                </BinaryOp>
+                                                <OpExp op="+"/>
+                                                <IdExp id="b"/>
+                                            </BinaryOp>
+                                            <OpExp op="+"/>
+                                            <IdExp id="c"/>
+                                        </BinaryOp>
+                                        <OpExp op="+"/>
+                                        <IdExp id="d"/>
+                                    </BinaryOp>
+                                    <OpExp op="+"/>
+                                    <IdExp id="e"/>
+                                </BinaryOp>
+                                <OpExp op="+"/>
+                                <IdExp id="f"/>
+                            </BinaryOp>
+                            <OpExp op="+"/>
+                            <IdExp id="g"/>
+                        </BinaryOp>
+                        <OpExp op="+"/>
+                        <IdExp id="h"/>
+                    </BinaryOp>
+                    <OpExp op="+"/>
+                    <IdExp id="i"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="k"/>
+                <BinaryOp>
+                    <BinaryOp>
+                        <BinaryOp>
+                            <BinaryOp>
+                                <BinaryOp>
+                                    <BinaryOp>
+                                        <BinaryOp>
+                                            <BinaryOp>
+                                                <BinaryOp>
+                                                    <BinaryOp>
+                                                        <BinaryOp>
+                                                            <BinaryOp>
+                                                                <IdExp id="j"/>
+                                                                <OpExp op="*"/>
+                                                                <IdExp id="x"/>
+                                                            </BinaryOp>
+                                                            <OpExp op="+"/>
+                                                            <BinaryOp>
+                                                                <IdExp id="j"/>
+                                                                <OpExp op="*"/>
+                                                                <IdExp id="y"/>
+                                                            </BinaryOp>
+                                                        </BinaryOp>
+                                                        <OpExp op="+"/>
+                                                        <BinaryOp>
+                                                            <IdExp id="j"/>
+                                                            <OpExp op="*"/>
+                                                            <IdExp id="z"/>
+                                                        </BinaryOp>
+                                                    </BinaryOp>
+                                                    <OpExp op="+"/>
+                                                    <BinaryOp>
+                                                        <IdExp id="j"/>
+                                                        <OpExp op="*"/>
+                                                        <IdExp id="a"/>
+                                                    </BinaryOp>
+                                                </BinaryOp>
+                                                <OpExp op="+"/>
+                                                <BinaryOp>
+                                                    <IdExp id="j"/>
+                                                    <OpExp op="*"/>
+                                                    <IdExp id="b"/>
+                                                </BinaryOp>
+                                            </BinaryOp>
+                                            <OpExp op="+"/>
+                                            <BinaryOp>
+                                                <IdExp id="j"/>
+                                                <OpExp op="*"/>
+                                                <IdExp id="c"/>
+                                            </BinaryOp>
+                                        </BinaryOp>
+                                        <OpExp op="+"/>
+                                        <BinaryOp>
+                                            <IdExp id="j"/>
+                                            <OpExp op="*"/>
+                                            <IdExp id="d"/>
+                                        </BinaryOp>
+                                    </BinaryOp>
+                                    <OpExp op="+"/>
+                                    <BinaryOp>
+                                        <IdExp id="j"/>
+                                        <OpExp op="*"/>
+                                        <IdExp id="e"/>
+                                    </BinaryOp>
+                                </BinaryOp>
+                                <OpExp op="+"/>
+                                <BinaryOp>
+                                    <IdExp id="j"/>
+                                    <OpExp op="*"/>
+                                    <IdExp id="f"/>
+                                </BinaryOp>
+                            </BinaryOp>
+                            <OpExp op="+"/>
+                            <BinaryOp>
+                                <IdExp id="j"/>
+                                <OpExp op="*"/>
+                                <IdExp id="g"/>
+                            </BinaryOp>
+                        </BinaryOp>
+                        <OpExp op="+"/>
+                        <BinaryOp>
+                            <IdExp id="j"/>
+                            <OpExp op="*"/>
+                            <IdExp id="h"/>
+                        </BinaryOp>
+                    </BinaryOp>
+                    <OpExp op="+"/>
+                    <BinaryOp>
+                        <IdExp id="j"/>
+                        <OpExp op="*"/>
+                        <IdExp id="i"/>
+                    </BinaryOp>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="l"/>
+                <Esc>
+                    <StmList>
+                        <PutInt>
+                            <BinaryOp>
+                                <BinaryOp>
+                                    <BinaryOp>
+                                        <IdExp id="x"/>
+                                        <OpExp op="+"/>
+                                        <IdExp id="y"/>
+                                    </BinaryOp>
+                                    <OpExp op="+"/>
+                                    <BinaryOp>
+                                        <IdExp id="z"/>
+                                        <OpExp op="/"/>
+                                        <IdExp id="c"/>
+                                    </BinaryOp>
+                                </BinaryOp>
+                                <OpExp op="+"/>
+                                <BinaryOp>
+                                    <IdExp id="i"/>
+                                    <OpExp op="*"/>
+                                    <IdExp id="h"/>
+                                </BinaryOp>
+                            </BinaryOp>
+                        </PutInt>
+                        <PutInt>
+                            <IdExp id="j"/>
+                        </PutInt>
+                        <PutInt>
+                            <IdExp id="k"/>
+                        </PutInt>
+                    </StmList>
+                    <BinaryOp>
+                        <BinaryOp>
+                            <IdExp id="b"/>
+                            <OpExp op="+"/>
+                            <BinaryOp>
+                                <IdExp id="e"/>
+                                <OpExp op="*"/>
+                                <IdExp id="d"/>
+                            </BinaryOp>
+                        </BinaryOp>
+                        <OpExp op="-"/>
+                        <IdExp id="g"/>
+                    </BinaryOp>
+                </Esc>
+            </Assign>
+            <Return>
+                <IdExp id="l"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

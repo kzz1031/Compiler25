@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="115" last_label="100">
+        <Blocks>
+            <Block entry_label="100">
+                <Sequence>
+                    <Label label="100"/>
+                    <Move>
+                        <Temp type="INT" temp="112"/>
+                        <Const value="0"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="113"/>
+                        <Const value="1"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="114"/>
+                        <Const value="2"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="3"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="4"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="102"/>
+                        <Const value="5"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <Const value="6"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="104"/>
+                        <Const value="7"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="105"/>
+                        <Const value="8"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="106"/>
+                        <Const value="9"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="107"/>
+                        <Const value="10"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="108"/>
+                        <Const value="11"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="109"/>
+                        <BinOp op="+" type="INT">
+                            <BinOp op="+" type="INT">
+                                <BinOp op="+" type="INT">
+                                    <BinOp op="+" type="INT">
+                                        <BinOp op="+" type="INT">
+                                            <BinOp op="+" type="INT">
+                                                <BinOp op="+" type="INT">
+                                                    <BinOp op="+" type="INT">
+                                                        <BinOp op="+" type="INT">
+                                                            <BinOp op="+" type="INT">
+                                                                <BinOp op="+" type="INT">
+                                                                    <Temp type="INT" temp="112"/>
+                                                                    <Temp type="INT" temp="113"/>
+                                                                </BinOp>
+                                                                <Temp type="INT" temp="114"/>
+                                                            </BinOp>
+                                                            <Temp type="INT" temp="100"/>
+                                                        </BinOp>
+                                                        <Temp type="INT" temp="101"/>
+                                                    </BinOp>
+                                                    <Temp type="INT" temp="102"/>
+                                                </BinOp>
+                                                <Temp type="INT" temp="103"/>
+                                            </BinOp>
+                                            <Temp type="INT" temp="104"/>
+                                        </BinOp>
+                                        <Temp type="INT" temp="105"/>
+                                    </BinOp>
+                                    <Temp type="INT" temp="106"/>
+                                </BinOp>
+                                <Temp type="INT" temp="107"/>
+                            </BinOp>
+                            <Temp type="INT" temp="108"/>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="110"/>
+                        <BinOp op="+" type="INT">
+                            <BinOp op="+" type="INT">
+                                <BinOp op="+" type="INT">
+                                    <BinOp op="+" type="INT">
+                                        <BinOp op="+" type="INT">
+                                            <BinOp op="+" type="INT">
+                                                <BinOp op="+" type="INT">
+                                                    <BinOp op="+" type="INT">
+                                                        <BinOp op="+" type="INT">
+                                                            <BinOp op="+" type="INT">
+                                                                <BinOp op="+" type="INT">
+                                                                    <BinOp op="*" type="INT">
+                                                                        <Temp type="INT" temp="109"/>
+                                                                        <Temp type="INT" temp="112"/>
+                                                                    </BinOp>
+                                                                    <BinOp op="*" type="INT">
+                                                                        <Temp type="INT" temp="109"/>
+                                                                        <Temp type="INT" temp="113"/>
+                                                                    </BinOp>
+                                                                </BinOp>
+                                                                <BinOp op="*" type="INT">
+                                                                    <Temp type="INT" temp="109"/>
+                                                                    <Temp type="INT" temp="114"/>
+                                                                </BinOp>
+                                                            </BinOp>
+                                                            <BinOp op="*" type="INT">
+                                                                <Temp type="INT" temp="109"/>
+                                                                <Temp type="INT" temp="100"/>
+                                                            </BinOp>
+                                                        </BinOp>
+                                                        <BinOp op="*" type="INT">
+                                                            <Temp type="INT" temp="109"/>
+                                                            <Temp type="INT" temp="101"/>
+                                                        </BinOp>
+                                                    </BinOp>
+                                                    <BinOp op="*" type="INT">
+                                                        <Temp type="INT" temp="109"/>
+                                                        <Temp type="INT" temp="102"/>
+                                                    </BinOp>
+                                                </BinOp>
+                                                <BinOp op="*" type="INT">
+                                                    <Temp type="INT" temp="109"/>
+                                                    <Temp type="INT" temp="103"/>
+                                                </BinOp>
+                                            </BinOp>
+                                            <BinOp op="*" type="INT">
+                                                <Temp type="INT" temp="109"/>
+                                                <Temp type="INT" temp="104"/>
+                                            </BinOp>
+                                        </BinOp>
+                                        <BinOp op="*" type="INT">
+                                            <Temp type="INT" temp="109"/>
+                                            <Temp type="INT" temp="105"/>
+                                        </BinOp>
+                                    </BinOp>
+                                    <BinOp op="*" type="INT">
+                                        <Temp type="INT" temp="109"/>
+                                        <Temp type="INT" temp="106"/>
+                                    </BinOp>
+                                </BinOp>
+                                <BinOp op="*" type="INT">
+                                    <Temp type="INT" temp="109"/>
+                                    <Temp type="INT" temp="107"/>
+                                </BinOp>
+                            </BinOp>
+                            <BinOp op="*" type="INT">
+                                <Temp type="INT" temp="109"/>
+                                <Temp type="INT" temp="108"/>
+                            </BinOp>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="111"/>
+                        <ESeq>
+                            <Sequence>
+                                <ExpressionStatement>
+                                    <ExtCall extfun="putint" type="INT">
+                                        <Arguments>
+                                            <BinOp op="+" type="INT">
+                                                <BinOp op="+" type="INT">
+                                                    <BinOp op="+" type="INT">
+                                                        <Temp type="INT" temp="112"/>
+                                                        <Temp type="INT" temp="113"/>
+                                                    </BinOp>
+                                                    <BinOp op="/" type="INT">
+                                                        <Temp type="INT" temp="114"/>
+                                                        <Temp type="INT" temp="102"/>
+                                                    </BinOp>
+                                                </BinOp>
+                                                <BinOp op="*" type="INT">
+                                                    <Temp type="INT" temp="108"/>
+                                                    <Temp type="INT" temp="107"/>
+                                                </BinOp>
+                                            </BinOp>
+                                        </Arguments>
+                                    </ExtCall>
+                                </ExpressionStatement>
+                                <ExpressionStatement>
+                                    <ExtCall extfun="putint" type="INT">
+                                        <Arguments>
+                                            <Temp type="INT" temp="109"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </ExpressionStatement>
+                                <ExpressionStatement>
+                                    <ExtCall extfun="putint" type="INT">
+                                        <Arguments>
+                                            <Temp type="INT" temp="110"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </ExpressionStatement>
+                            </Sequence>
+                            <BinOp op="-" type="INT">
+                                <BinOp op="+" type="INT">
+                                    <Temp type="INT" temp="101"/>
+                                    <BinOp op="*" type="INT">
+                                        <Temp type="INT" temp="104"/>
+                                        <Temp type="INT" temp="103"/>
+                                    </BinOp>
+                                </BinOp>
+                                <Temp type="INT" temp="106"/>
+                            </BinOp>
+                        </ESeq>
+                    </Move>
+                    <Return>
+                        <Temp type="INT" temp="111"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

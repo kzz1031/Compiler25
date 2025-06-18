@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="135" last_label="117">
+        <Blocks>
+            <Block entry_label="117">
+                <Sequence>
+                    <Label label="117"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="0"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="102"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="102"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="fib^f"/>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="69"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="110"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="116"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="101"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="114"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="32"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="116"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="104"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="101"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="32"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="110"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="117"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="109"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="98"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="101"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="114"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="32"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="111"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="102"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="32"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="116"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="101"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="114"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="109"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="58"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Move>
+                        <Temp type="INT" temp="130"/>
+                        <ExtCall extfun="getint" type="INT">
+                            <Arguments/>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Temp type="INT" temp="130"/>
+                    </Move>
+                    <CJump relop="&lt;" true="109" false="108">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="0"/>
+                    </CJump>
+                    <Label label="108"/>
+                    <CJump relop="&gt;" true="109" false="110">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="47"/>
+                    </CJump>
+                    <Label label="109"/>
+                    <Return>
+                        <BinOp op="-" type="INT">
+                            <Const value="0"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Return>
+                    <Jump label="111"/>
+                    <Label label="110"/>
+                    <Label label="111"/>
+                    <Label label="112"/>
+                    <CJump relop="&lt;" true="113" false="114">
+                        <Temp type="INT" temp="100"/>
+                        <Temp type="INT" temp="101"/>
+                    </CJump>
+                    <Label label="113"/>
+                    <Move>
+                        <Temp type="PTR" temp="131"/>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="102"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="132"/>
+                        <Call id="f" type="INT">
+                            <Temp type="PTR" temp="131"/>
+                            <Arguments>
+                                <Temp type="PTR" temp="102"/>
+                                <Temp type="INT" temp="100"/>
+                            </Arguments>
+                        </Call>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="132"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <BinOp op="+" type="INT">
+                            <Temp type="INT" temp="100"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="32"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Jump label="112"/>
+                    <Label label="114"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="10"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Const value="0"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+    <FunctionDeclaration name="fib^f" return_type="INT" last_temp="114" last_label="112" arg_temp_0="100" arg_temp_1="101">
+        <Blocks>
+            <Block entry_label="112">
+                <Sequence>
+                    <Label label="112"/>
+                    <CJump relop="==" true="109" false="108">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="0"/>
+                    </CJump>
+                    <Label label="108"/>
+                    <CJump relop="==" true="109" false="110">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="1"/>
+                    </CJump>
+                    <Label label="109"/>
+                    <Return>
+                        <Temp type="INT" temp="101"/>
+                    </Return>
+                    <Jump label="111"/>
+                    <Label label="110"/>
+                    <Move>
+                        <Temp type="PTR" temp="104"/>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="107"/>
+                        <Temp type="PTR" temp="104"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="106"/>
+                        <Temp type="PTR" temp="100"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="105"/>
+                        <BinOp op="-" type="INT">
+                            <Temp type="INT" temp="101"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="108"/>
+                        <Call id="f" type="INT">
+                            <Temp type="PTR" temp="107"/>
+                            <Arguments>
+                                <Temp type="PTR" temp="106"/>
+                                <Temp type="INT" temp="105"/>
+                            </Arguments>
+                        </Call>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="114"/>
+                        <Temp type="INT" temp="108"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="109"/>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="112"/>
+                        <Temp type="PTR" temp="109"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="111"/>
+                        <Temp type="PTR" temp="100"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="110"/>
+                        <BinOp op="-" type="INT">
+                            <Temp type="INT" temp="101"/>
+                            <Const value="2"/>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="113"/>
+                        <Call id="f" type="INT">
+                            <Temp type="PTR" temp="112"/>
+                            <Arguments>
+                                <Temp type="PTR" temp="111"/>
+                                <Temp type="INT" temp="110"/>
+                            </Arguments>
+                        </Call>
+                    </Move>
+                    <Return>
+                        <BinOp op="+" type="INT">
+                            <Temp type="INT" temp="114"/>
+                            <Temp type="INT" temp="113"/>
+                        </BinOp>
+                    </Return>
+                    <Label label="111"/>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

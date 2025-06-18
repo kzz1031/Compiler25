@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C1"/>
+                </Type>
+                <IdExp id="c1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <CallStm>
+                <IdExp id="c"/>
+                <IdExp id="m"/>
+                <ParList/>
+            </CallStm>
+            <Assign>
+                <IdExp id="c"/>
+                <IdExp id="c1"/>
+            </Assign>
+            <CallStm>
+                <IdExp id="c"/>
+                <IdExp id="m"/>
+                <ParList/>
+            </CallStm>
+            <Return>
+                <IntExp val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <PutInt>
+                            <IntExp val="0"/>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
+                        <Return>
+                            <IntExp val="0"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="C1"/>
+            <ExtendsId eid="C"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <PutInt>
+                            <IntExp val="1"/>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
+                        <Return>
+                            <IntExp val="0"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

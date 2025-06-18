@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="7"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="6"/>
+                    <IntExp val="3"/>
+                    <IntExp val="0"/>
+                    <IntExp val="5"/>
+                    <IntExp val="9"/>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="j"/>
+                <IntInit val="3"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="a"/>
+                <BinaryOp>
+                    <IdExp id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp id="b"/>
+                </BinaryOp>
+            </Assign>
+            <Return>
+                <ArrayExp>
+                    <IdExp id="b"/>
+                    <IdExp id="j"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

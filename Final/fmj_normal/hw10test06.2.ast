@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i2"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i3"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i4"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i5"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="i1"/>
+                <IntExp val="1"/>
+            </Assign>
+            <Assign>
+                <IdExp id="i2"/>
+                <BinaryOp>
+                    <IdExp id="i1"/>
+                    <OpExp op="+"/>
+                    <IntExp val="1"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="i3"/>
+                <BinaryOp>
+                    <IdExp id="i2"/>
+                    <OpExp op="+"/>
+                    <IntExp val="1"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="i4"/>
+                <BinaryOp>
+                    <IdExp id="i3"/>
+                    <OpExp op="+"/>
+                    <IntExp val="1"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="i5"/>
+                <BinaryOp>
+                    <IdExp id="i4"/>
+                    <OpExp op="+"/>
+                    <IntExp val="1"/>
+                </BinaryOp>
+            </Assign>
+            <Return>
+                <IdExp id="i5"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

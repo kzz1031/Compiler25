@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                            <OpExp op="+"/>
+                            <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="2"/>
+                                <OpExp op="*"/>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="3"/>
+                            </BinaryOp>
+                        </BinaryOp>
+                        <OpExp op="&gt;"/>
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="3"/>
+                    </BinaryOp>
+                    <OpExp op="||"/>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="4"/>
+                        <OpExp op="&amp;&amp;"/>
+                        <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="5"/>
+                            <OpExp op="=="/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </BinaryOp>
+                    </BinaryOp>
+                </BinaryOp>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <Esc s_kind="Value" typeKind="INT" lvalue="true">
+                    <StmList>
+                        <Assign>
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                            <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                                <OpExp op="+"/>
+                                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                </Esc>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

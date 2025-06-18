@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="y"/>
+                <IntInit val="2"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="z"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="z"/>
+                <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                    <OpExp op="+"/>
+                    <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="y"/>
+                </BinaryOp>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <Esc s_kind="Value" typeKind="INT" lvalue="false">
+                    <StmList>
+                        <Assign>
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                        </Assign>
+                        <Assign>
+                            <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="y"/>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="2"/>
+                        </Assign>
+                    </StmList>
+                    <BinaryOp s_kind="Value" typeKind="INT" lvalue="false">
+                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="x"/>
+                        <OpExp op="*"/>
+                        <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="y"/>
+                    </BinaryOp>
+                </Esc>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

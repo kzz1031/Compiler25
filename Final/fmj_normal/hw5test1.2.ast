@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="10"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <ArrayExp>
+                    <IdExp id="a"/>
+                    <IntExp val="0"/>
+                </ArrayExp>
+                <IntExp val="1"/>
+            </Assign>
+            <Return>
+                <ArrayExp>
+                    <IdExp id="a"/>
+                    <IntExp val="0"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

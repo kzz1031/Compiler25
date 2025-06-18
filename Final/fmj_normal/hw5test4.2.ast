@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="4"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="sum"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <While>
+                <BinaryOp>
+                    <IdExp id="i"/>
+                    <OpExp op="&lt;"/>
+                    <IntExp val="4"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <Assign>
+                            <IdExp id="sum"/>
+                            <BinaryOp>
+                                <IdExp id="sum"/>
+                                <OpExp op="+"/>
+                                <ArrayExp>
+                                    <IdExp id="a"/>
+                                    <IdExp id="i"/>
+                                </ArrayExp>
+                            </BinaryOp>
+                        </Assign>
+                        <Assign>
+                            <IdExp id="i"/>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <Return>
+                <IdExp id="sum"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

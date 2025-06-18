@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="112">
+        <Blocks>
+            <Block entry_label="112">
+                <Sequence>
+                    <Label label="112"/>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="19"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="104"/>
+                        <Const value="2"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <Const value="0"/>
+                    </Move>
+                    <CJump relop="&gt;" true="104" false="105">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="0"/>
+                    </CJump>
+                    <Label label="104"/>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <Const value="1"/>
+                    </Move>
+                    <Label label="105"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <BinOp op="+" type="INT">
+                            <Temp type="INT" temp="104"/>
+                            <Temp type="INT" temp="103"/>
+                        </BinOp>
+                    </Move>
+                    <CJump relop="!=" true="109" false="110">
+                        <Temp type="INT" temp="100"/>
+                        <Const value="0"/>
+                    </CJump>
+                    <Label label="109"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="0"/>
+                    </Move>
+                    <Jump label="111"/>
+                    <Label label="110"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="1"/>
+                    </Move>
+                    <Label label="111"/>
+                    <Return>
+                        <Temp type="INT" temp="100"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="x"/>
+                <IntInit val="1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <PutInt>
+                <IdExp id="x"/>
+            </PutInt>
+            <PutCh>
+                <IntExp val="10"/>
+            </PutCh>
+            <Return>
+                <IdExp id="x"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

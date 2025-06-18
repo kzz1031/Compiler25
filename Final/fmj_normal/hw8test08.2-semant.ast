@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="C1"/>
+                </Type>
+                <IdExp id="c1"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <CallStm>
+                <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="C" id="c"/>
+                <IdExp id="m"/>
+                <ParList/>
+            </CallStm>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="C" id="c"/>
+                <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="C1" id="c1"/>
+            </Assign>
+            <CallStm>
+                <IdExp s_kind="Value" typeKind="CLASS" lvalue="true" cid="C" id="c"/>
+                <IdExp id="m"/>
+                <ParList/>
+            </CallStm>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="C"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <PutInt>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                        </PutCh>
+                        <Return s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="C1"/>
+            <ExtendsId eid="C"/>
+            <VarDeclList/>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <PutInt>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="1"/>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                        </PutCh>
+                        <Return s_kind="Value" typeKind="INT" lvalue="false">
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

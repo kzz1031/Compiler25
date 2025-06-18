@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="5"/>
+                </Type>
+                <IdExp id="b"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="c"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="l"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="D"/>
+                </Type>
+                <IdExp id="d"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="l"/>
+                <GetArray>
+                    <IdExp id="a"/>
+                </GetArray>
+            </Assign>
+            <While>
+                <BinaryOp>
+                    <IdExp id="i"/>
+                    <OpExp op="&lt;"/>
+                    <IdExp id="l"/>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <PutInt>
+                            <ArrayExp>
+                                <IdExp id="a"/>
+                                <IdExp id="i"/>
+                            </ArrayExp>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <Assign>
+                            <IdExp id="i"/>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <Assign>
+                <IdExp id="a"/>
+                <BinaryOp>
+                    <IdExp id="b"/>
+                    <OpExp op="+"/>
+                    <IdExp id="c"/>
+                </BinaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="a"/>
+                <UnaryOp>
+                    <OpExp op="-"/>
+                    <IdExp id="a"/>
+                </UnaryOp>
+            </Assign>
+            <Assign>
+                <IdExp id="a"/>
+                <CallExp>
+                    <IdExp id="d"/>
+                    <IdExp id="m"/>
+                    <ParList/>
+                </CallExp>
+            </Assign>
+            <Return>
+                <IntExp val="0"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="D"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="ARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="z"/>
+                    <IntInitList>
+                        <IntExp val="1"/>
+                        <IntExp val="2"/>
+                        <IntExp val="3"/>
+                    </IntInitList>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList>
+                <MethodDecl>
+                    <Type typeKind="ARRAY">
+                        <Arity val="0"/>
+                    </Type>
+                    <IdExp id="m"/>
+                    <FormalList/>
+                    <VarDeclList/>
+                    <StmList>
+                        <Return>
+                            <ClassVar>
+                                <This/>
+                                <IdExp id="z"/>
+                            </ClassVar>
+                        </Return>
+                    </StmList>
+                </MethodDecl>
+            </MethodDeclList>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

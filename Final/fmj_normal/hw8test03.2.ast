@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                    <IntExp val="5"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="INT"/>
+                <IdExp id="i"/>
+                <IntInit val="0"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp id="a"/>
+                <BinaryOp>
+                    <IdExp id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp id="b"/>
+                </BinaryOp>
+            </Assign>
+            <While>
+                <BinaryOp>
+                    <IdExp id="i"/>
+                    <OpExp op="&lt;"/>
+                    <Length>
+                        <IdExp id="a"/>
+                    </Length>
+                </BinaryOp>
+                <Nested>
+                    <StmList>
+                        <PutInt>
+                            <BinaryOp>
+                                <ArrayExp>
+                                    <IdExp id="a"/>
+                                    <IdExp id="i"/>
+                                </ArrayExp>
+                                <OpExp op="+"/>
+                                <ArrayExp>
+                                    <IdExp id="b"/>
+                                    <IdExp id="i"/>
+                                </ArrayExp>
+                            </BinaryOp>
+                        </PutInt>
+                        <PutCh>
+                            <IntExp val="32"/>
+                        </PutCh>
+                        <Assign>
+                            <IdExp id="i"/>
+                            <BinaryOp>
+                                <IdExp id="i"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
+                        </Assign>
+                    </StmList>
+                </Nested>
+            </While>
+            <PutCh>
+                <IntExp val="10"/>
+            </PutCh>
+            <Return>
+                <IdExp id="i"/>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

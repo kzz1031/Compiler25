@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="CLASS">
+                    <IdExp id="c2"/>
+                </Type>
+                <IdExp id="c2"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Return>
+                <ClassVar>
+                    <IdExp id="c2"/>
+                    <IdExp id="x"/>
+                </ClassVar>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList>
+        <ClassDecl>
+            <IdExp id="c1"/>
+            <VarDeclList>
+                <VarDecl>
+                    <Type typeKind="INT"/>
+                    <IdExp id="x"/>
+                    <IntInit val="2"/>
+                </VarDecl>
+            </VarDeclList>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c3"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c4"/>
+            <ExtendsId eid="c3"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+        <ClassDecl>
+            <IdExp id="c2"/>
+            <ExtendsId eid="c1"/>
+            <VarDeclList/>
+            <MethodDeclList/>
+        </ClassDecl>
+    </ClassDeclList>
+</Program>

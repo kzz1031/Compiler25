@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="105">
+        <Blocks>
+            <Block entry_label="105">
+                <Sequence>
+                    <Label label="105"/>
+                    <Move>
+                        <Temp type="INT" temp="101"/>
+                        <Const value="19"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <Const value="0"/>
+                    </Move>
+                    <CJump relop="&gt;" true="102" false="103">
+                        <Temp type="INT" temp="101"/>
+                        <Const value="1"/>
+                    </CJump>
+                    <Label label="102"/>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <Const value="1"/>
+                    </Move>
+                    <Label label="103"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="103"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Temp type="INT" temp="101"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>
