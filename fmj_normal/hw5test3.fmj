@@ -1,0 +1,9 @@
+public int main() {
+   int[4] a={1,2,3,4};
+   int[4] b={9,8,7,6};
+   int[0] c;
+   
+   c=a+b;
+
+   return c[0];
+}

@@ -1,0 +1,10 @@
+public int main() {
+   class D d;
+   return(d.m());
+}
+
+public class D {
+   public int m() {
+     return(9);
+   }
+}

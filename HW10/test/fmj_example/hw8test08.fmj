@@ -1,0 +1,26 @@
+//try polymorphism
+
+public int main() {
+   class C c;
+   class C1 c1;
+   c.m();
+   c = c1;
+   c.m();
+   return 0;
+}
+
+public class C {
+   public int m() {
+     putint(0);
+     putch(10);
+     return 0;
+   }
+}
+
+public class C1 extends C {
+    public int m() {
+      putint(1);
+      putch(10);
+      return 0;
+    }
+}

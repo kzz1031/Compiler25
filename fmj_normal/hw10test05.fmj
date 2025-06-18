@@ -1,0 +1,13 @@
+public int main() {
+  int i1;
+  int i2;
+  int i3;
+  int i4;
+  int i5;
+  i1 = getint();
+  i2 = i1 + 1;
+  i3 = i2 + 1;
+  i4 = i3 + 1;
+  i5 = i4 + 1;
+  return i5;
+} 

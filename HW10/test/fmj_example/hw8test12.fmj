@@ -1,0 +1,8 @@
+public int main() {
+   int x=10;
+   while (x>0) x=x-1;
+   putint(x);
+   putch(10);
+   return x+1;
+}
+

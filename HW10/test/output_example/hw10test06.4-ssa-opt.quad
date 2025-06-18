@@ -1,0 +1,5 @@
+Function _^main^_^main() last_label=100 last_temp=107:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    RETURN Const:5; def: use: 

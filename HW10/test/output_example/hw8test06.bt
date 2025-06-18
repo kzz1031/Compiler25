@@ -1,0 +1,37 @@
+temp: 10000, type: MANY_VALUES
+temp: 10001, type: MANY_VALUES
+temp: 10002, type: MANY_VALUES
+temp: 10003, type: MANY_VALUES
+temp: 10700, type: MANY_VALUES
+temp: 10900, type: MANY_VALUES
+temp: 11300, type: MANY_VALUES
+temp: 11400, type: MANY_VALUES
+temp: 11600, type: MANY_VALUES
+temp: 11700, type: MANY_VALUES
+temp: 11800, type: MANY_VALUES
+temp: 12100, type: MANY_VALUES
+block: 102, executable: 1
+block: 103, executable: 1
+block: 104, executable: 1
+block: 105, executable: 1
+
+==
+temp: 101, type: MANY_VALUES
+temp: 102, type: MANY_VALUES
+temp: 119, type: MANY_VALUES
+temp: 10000, type: MANY_VALUES
+temp: 10900, type: MANY_VALUES
+temp: 11000, type: MANY_VALUES
+temp: 11100, type: MANY_VALUES
+temp: 11200, type: MANY_VALUES
+temp: 11500, type: MANY_VALUES
+temp: 11600, type: MANY_VALUES
+temp: 11700, type: MANY_VALUES
+temp: 11800, type: MANY_VALUES
+temp: 12000, type: MANY_VALUES
+temp: 12100, type: ONE_VALUE, value: -1
+block: 102, executable: 1
+block: 103, executable: 1
+block: 104, executable: 1
+block: 105, executable: 1
+

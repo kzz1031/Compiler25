@@ -1,0 +1,6 @@
+public int main() {
+   int x; 
+   int y=19;
+   putch(y>1);
+   return(y);
+}

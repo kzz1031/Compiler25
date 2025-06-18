@@ -1,0 +1,15 @@
+public int main() {
+   class C c;
+   int x;
+   x = c.m();
+   putint(x);
+   putch(20);
+   return 9;
+}
+
+public class C {
+   int x=2;
+   public int m() {
+     return this.x;
+   }
+}

@@ -1,0 +1,27 @@
+public int main() {
+   int x=0;
+   int y=1;
+   int z=2;
+   int a=3;
+   int b=4;
+   int c=5;
+   int d=6;
+   int e=7;
+   int f=8;
+   int g=9;
+   int h=10;
+   int i=11;
+   int j;
+   int k;
+   int l;
+   j=x+y+z+a+b+c+d+e+f+g+h+i;
+   k=j*x+j*y+j*z+j*a+j*b+j*c+j*d+j*e+j*f+j*g+j*h+j*i;
+   l=({
+   putint(x+y+z/c+i*h);
+   putint(j);
+   putint(k);
+   } b+e*d-g);
+   return(l);
+}
+
+

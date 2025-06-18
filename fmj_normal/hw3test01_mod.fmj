@@ -1,0 +1,7 @@
+public int main() {
+    int[7] a = {};
+    int[] b = {6, 3, 0, 5, 9, 1, 2};
+    int j = 3;
+    a=a+b;
+    return b[j];
+}

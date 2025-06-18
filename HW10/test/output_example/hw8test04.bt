@@ -1,0 +1,54 @@
+temp: 10000, type: MANY_VALUES
+temp: 10001, type: MANY_VALUES
+temp: 10100, type: MANY_VALUES
+temp: 10500, type: MANY_VALUES
+temp: 10600, type: MANY_VALUES
+temp: 10700, type: MANY_VALUES
+temp: 10800, type: ONE_VALUE, value: 4
+temp: 10801, type: MANY_VALUES
+temp: 10802, type: MANY_VALUES
+temp: 10900, type: MANY_VALUES
+temp: 11000, type: MANY_VALUES
+temp: 11100, type: MANY_VALUES
+temp: 11500, type: MANY_VALUES
+temp: 11800, type: MANY_VALUES
+temp: 12000, type: MANY_VALUES
+temp: 12100, type: MANY_VALUES
+temp: 12200, type: MANY_VALUES
+temp: 12600, type: MANY_VALUES
+temp: 12700, type: MANY_VALUES
+temp: 12800, type: MANY_VALUES
+temp: 12900, type: MANY_VALUES
+temp: 13000, type: MANY_VALUES
+temp: 13100, type: MANY_VALUES
+temp: 13300, type: MANY_VALUES
+temp: 13400, type: MANY_VALUES
+temp: 13500, type: MANY_VALUES
+temp: 13600, type: MANY_VALUES
+temp: 13700, type: MANY_VALUES
+temp: 13800, type: MANY_VALUES
+temp: 14000, type: MANY_VALUES
+temp: 14200, type: MANY_VALUES
+temp: 14300, type: MANY_VALUES
+temp: 14400, type: MANY_VALUES
+temp: 14500, type: MANY_VALUES
+temp: 14600, type: MANY_VALUES
+temp: 14700, type: MANY_VALUES
+temp: 14800, type: MANY_VALUES
+temp: 15000, type: ONE_VALUE, value: 2
+temp: 15100, type: ONE_VALUE, value: 8
+temp: 15200, type: MANY_VALUES
+temp: 15400, type: ONE_VALUE, value: 1
+temp: 15500, type: ONE_VALUE, value: 4
+temp: 15600, type: MANY_VALUES
+temp: 15700, type: MANY_VALUES
+block: 100, executable: 1
+block: 101, executable: 1
+block: 102, executable: 1
+block: 103, executable: 1
+block: 104, executable: 1
+block: 105, executable: 1
+block: 106, executable: 1
+block: 107, executable: 1
+block: 108, executable: 1
+block: 109, executable: 1

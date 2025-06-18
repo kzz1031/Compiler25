@@ -1,0 +1,10 @@
+Function _^main^_^main() last_label=100 last_temp=109:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE_EXTCALL t10000:INT <- getint(); def: 10000 use: 
+    MOVE_BINOP t10100:INT <- (+, t10000:INT, Const:1); def: 10100 use: 10000 
+    MOVE_BINOP t10200:INT <- (+, t10100:INT, Const:1); def: 10200 use: 10100 
+    MOVE_BINOP t10300:INT <- (+, t10200:INT, Const:1); def: 10300 use: 10200 
+    MOVE_BINOP t10400:INT <- (+, t10300:INT, Const:1); def: 10400 use: 10300 
+    RETURN t10400:INT; def: use: 10400 

@@ -1,0 +1,32 @@
+//try polymorphism with return values
+
+public int main() {
+   class C c;
+   c.f(0).m();
+   c.f(1).m();
+   return 0;
+}
+
+public class C {
+   public int m() {
+     putint(0);
+     putch(10);
+     return 0;
+   }
+   public class C f(int i) {
+     class C c;
+     class C1 c1;
+     if (i>0) 
+       return c;
+     else
+       return c1;
+   }
+}
+
+public class C1 extends C {
+    public int m() {
+      putint(1);
+      putch(10);
+      return 0;
+    }
+}

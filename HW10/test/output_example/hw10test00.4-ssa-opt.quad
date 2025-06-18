@@ -1,0 +1,6 @@
+Function _^main^_^main() last_label=100 last_temp=106:
+  Block: Entry Label: L100
+    Exit labels: 
+    LABEL L100; def: use: 
+    MOVE_EXTCALL t10000:INT <- getint(); def: 10000 use: 
+    RETURN Const:100; def: use: 

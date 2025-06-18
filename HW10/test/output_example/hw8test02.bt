@@ -1,0 +1,21 @@
+temp: 10000, type: ONE_VALUE, value: 1
+temp: 10001, type: ONE_VALUE, value: 0
+temp: 10002, type: ONE_VALUE, value: 1
+temp: 10003, type: ONE_VALUE, value: 3
+temp: 10100, type: ONE_VALUE, value: 1
+temp: 10101, type: ONE_VALUE, value: 1
+temp: 10200, type: ONE_VALUE, value: 2
+temp: 10201, type: ONE_VALUE, value: 2
+temp: 10300, type: ONE_VALUE, value: 3
+temp: 10301, type: ONE_VALUE, value: 2
+temp: 10500, type: ONE_VALUE, value: 1
+temp: 10600, type: ONE_VALUE, value: 1
+temp: 10900, type: ONE_VALUE, value: 1
+temp: 11000, type: ONE_VALUE, value: 2
+block: 102, executable: 1
+block: 103, executable: 0
+block: 104, executable: 1
+block: 107, executable: 1
+block: 108, executable: 1
+block: 109, executable: 1
+block: 110, executable: 1

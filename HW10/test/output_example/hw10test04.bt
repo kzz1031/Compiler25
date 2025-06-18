@@ -1,0 +1,14 @@
+temp: 10000, type: ONE_VALUE, value: 0
+temp: 10001, type: ONE_VALUE, value: 9
+temp: 10100, type: NO_VALUE
+temp: 10101, type: NO_VALUE
+temp: 10102, type: ONE_VALUE, value: 3
+temp: 10103, type: ONE_VALUE, value: 3
+temp: 10104, type: ONE_VALUE, value: 3
+block: 104, executable: 0
+block: 105, executable: 1
+block: 106, executable: 1
+block: 107, executable: 0
+block: 108, executable: 1
+block: 109, executable: 1
+block: 110, executable: 1

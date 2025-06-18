@@ -1,0 +1,26 @@
+//linked list simulation using class
+
+public int main() {
+   class C c;
+   c = c.next(0);
+   while (c.head >= 0) {
+     putint(c.head);
+     putch(10);
+     c = c.tail;
+   }
+   return 0;
+}
+
+public class C {
+   int head;
+   class C tail;
+   public class C next(int i) {
+     class C next;
+     next.head = i;
+     if (i<100) 
+       next.tail = next.next(i+1);
+     else
+       next.head = -1;
+     return next;
+   }
+}

@@ -1,0 +1,6 @@
+temp: 10000, type: ONE_VALUE, value: 1
+temp: 10100, type: ONE_VALUE, value: 2
+temp: 10200, type: ONE_VALUE, value: 3
+temp: 10300, type: ONE_VALUE, value: 4
+temp: 10400, type: ONE_VALUE, value: 5
+block: 100, executable: 1

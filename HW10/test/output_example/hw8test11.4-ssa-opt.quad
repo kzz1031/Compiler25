@@ -1,0 +1,15 @@
+Function _^main^_^main() last_label=105 last_temp=110:
+  Block: Entry Label: L105
+    Exit labels: L103 
+    LABEL L105; def: use: 
+    JUMP L103; def: use: 
+  Block: Entry Label: L103
+    Exit labels: L104 
+    LABEL L103; def: use: 
+    EXTCALL putint(Const:2); def: use: 
+    JUMP L104; def: use: 
+  Block: Entry Label: L104
+    Exit labels: 
+    LABEL L104; def: use: 
+    EXTCALL putch(Const:10); def: use: 
+    RETURN Const:-2; def: use: 
