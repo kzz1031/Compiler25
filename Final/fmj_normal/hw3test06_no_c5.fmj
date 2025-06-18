@@ -1,0 +1,9 @@
+public int main() {
+    class c2 c2;
+    return c2.x;
+}
+
+public class c1 {int x=2;}
+public class c3 {}
+public class c4 extends c3 {}
+public class c2 extends c1 {}

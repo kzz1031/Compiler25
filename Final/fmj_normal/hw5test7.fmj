@@ -1,0 +1,15 @@
+public int main() {
+   int[] w;
+   class D d;
+   return(1);
+}
+
+public class C {
+   int x=1;
+   int[] a;
+   class D y;
+}
+
+public class D extends C {
+   int[] z = {1,2,3};
+}

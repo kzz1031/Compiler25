@@ -1,0 +1,26 @@
+public int main() {
+    class c2 x;
+    putint(x.m2(10+1));
+    return x.m2(10+1);
+}
+
+public class c1 {
+    int i1=4;
+    public class c1 m1 (int x, class c2 c2) {
+        this.i1 = c2.m2(x);
+        return this;
+    }
+}
+
+public class c2 extends c1 {
+    int i2=5;
+    public int m2(int x) {
+        this.i2 = this.i1 + x;
+        if (x>256){
+            return this.i1*this.i2;
+        }
+        return (this.m1(x+1, this)).i1;
+    }
+}
+
+

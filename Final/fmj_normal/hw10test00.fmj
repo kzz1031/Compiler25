@@ -1,0 +1,8 @@
+public int main() {
+  int i;
+  int j;
+  i = getint();
+  j = 10;
+  i = j*j;
+  return i;
+} 

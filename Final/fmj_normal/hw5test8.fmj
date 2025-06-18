@@ -1,0 +1,28 @@
+public int main() {
+   int[] a;
+   int[5] b;
+   int[] c = {1,2,3,4,5};
+   int l;
+   int i = 0;
+   class D d; 
+   
+   l=getarray(a);
+   while (i<l) {
+   	putint(a[i]);
+	putch(32);
+        i = i+1 ;
+   }
+   a = b+c;
+   a = -a;
+   a = d.m();
+   return(0);
+}
+
+public class D {
+   int[] z = {1,2,3};
+   public int[] m() {
+     return(this.z);
+   }
+}
+
+

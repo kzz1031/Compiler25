@@ -1,0 +1,14 @@
+public int main() {
+   int x; 
+   int y=19;
+   while (1) {
+     continue;
+     while (2) {
+       break;
+	 while (3) {
+	   continue;
+         }
+     }
+   }
+   return(0);
+}

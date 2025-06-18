@@ -1,0 +1,33 @@
+public int main() {
+    int[] a={1,2,3,4,5,6,7}; 
+    int i=0;
+    int l;
+    class c1 o1;
+    class c1 o2;
+    
+    l=length(a);
+
+    while (i < l) {
+	if ( (i/2)*2 == i )
+            a[i]=o1.m1(i);
+        else
+	    a[i]=o2.m1(l);
+        i=i+1;
+    }
+    putarray(l, a);
+    return l;
+}
+
+public class c1 {
+    int i1=2;
+    public int m1(int x) {
+      return this.i1;
+    }
+}
+
+public class c2 extends c1 {
+    // int i1=3;
+    public int m1(int x) {
+        return this.i1+x;
+    }
+}
