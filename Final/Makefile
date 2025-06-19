@@ -36,7 +36,7 @@ MAIN = $(BUILD_DIR)/tools/main/main
 GENTESTS = $(BUILD_DIR)/tools/generatetests/gentests
 PATCHDEMO = $(BUILD_DIR)/tools/patchdemo/patchdemo
 
-run: $(MAIN)
+compile: $(MAIN)
 	cd $(CURDIR)/test && \
 	for file in $$(ls .); do \
 		if [ "$${file#*.}" = "fmj" ]; then \
@@ -46,7 +46,7 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-run-fmj: $(MAIN)
+compile-fmj: $(MAIN)
 	cd $(CURDIR)/fmj_normal && \
 	for file in $$(ls .); do \
 		if [ "$${file#*.}" = "fmj" ]; then \
@@ -56,17 +56,17 @@ run-fmj: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-run-assem: $(MAIN)
+run: $(MAIN)
 	cd $(CURDIR)/test && \
 	echo "List of files:" && ls . && \
 	for file in *; do \
 		#echo "Checking file: $$file"; \
-		if [ "$${file#*.}" = "4-prepared.quad" ]; then \
-			echo "Reading $$file"; \
+		if [ "$${file#*.}" = "s" ]; then \
+			echo "[Running $$file]"; \
 			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../vendor/libsysy/libsysy32.s -lm; \
-			echo "Running the final assembly program........." ; \
 			qemu-arm -B 0x1000 $${file%%.*}; \
 			echo "Finished running $$file"; \
+			echo "Return value: $$?"; \
 		fi; \
 	done
 
@@ -84,7 +84,7 @@ run-assem-one: $(MAIN)
 		fi; \
 	done
 
-FILE=gobang
+FILE=hw5test0
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
