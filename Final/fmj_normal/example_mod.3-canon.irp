@@ -290,8 +290,8 @@
                     <ExpressionStatement>
                         <ExtCall extfun="putarray" type="INT">
                             <Arguments>
-                                <Temp type="PTR" temp="100"/>
                                 <Temp type="INT" temp="102"/>
+                                <Temp type="PTR" temp="100"/>
                             </Arguments>
                         </ExtCall>
                     </ExpressionStatement>

@@ -65,30 +65,29 @@ main$L105:
          add r0, r4, #28
          mov r1, #6
          str r1, [r0]
-         mov r1, #7
-         mov r0, r5
+         mov r1, r5
+         mov r0, #7
          bl putarray
-         ldr r7, [r5]
+         ldr r6, [r5]
          ldr r0, [r4]
-         cmp r7, r0
+         cmp r6, r0
          bne main$L100
 main$L101: 
-         add r0, r7, #1
+         add r0, r6, #1
          mov r1, #4
          mul r0, r0, r1
          bl malloc
-         mov r6, r0
-         str r7, [r6]
-         mov r0, #4
-         add r1, r7, #1
-         mov r2, #4
-         mul r2, r1, r2
+         str r6, [r0]
+         mov r1, #4
+         add r2, r6, #1
+         mov r3, #4
+         mul r3, r2, r3
 main$L102: 
-         cmp r0, r2
+         cmp r1, r3
          blt main$L103
 main$L104: 
-         mov r1, #7
-         mov r0, r6
+         mov r1, r0
+         mov r0, #7
          bl putarray
          mov r0, #0
          sub sp, fp, #32
@@ -97,14 +96,14 @@ main$L100:
          mov r0, #-1
          bl exit
 main$L103: 
-         add r3, r6, r0
-         add r1, r5, r0
-         ldr r7, [r1]
-         add r1, r4, r0
-         ldr r1, [r1]
-         add r1, r7, r1
-         str r1, [r3]
-         add r0, r0, #4
+         add r6, r0, r1
+         add r2, r5, r1
+         ldr r7, [r2]
+         add r2, r4, r1
+         ldr r2, [r2]
+         add r2, r7, r2
+         str r2, [r6]
+         add r1, r1, #4
          b main$L102
 
 .global malloc

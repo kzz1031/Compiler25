@@ -24,7 +24,10 @@ main$L108:
          add r0, r0, #3
 main$L109: 
 main$L104: 
-         mul r0, r0, r0
+         mul r4, r0, r0
+         mov r0, r4
+         bl putint
+         mov r0, r4
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 main$L102: 

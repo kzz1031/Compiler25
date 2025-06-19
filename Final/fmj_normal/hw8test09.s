@@ -73,14 +73,32 @@ C$f:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 C$f$L106: 
-         mov r2, r0
-         mov r2, #0
-         cmp r1, r2
+         mov r4, r1
+         mov r0, #8
+         bl malloc
+         mov r5, r0
+         add r0, r5, #0
+         ldr r1, =C$f
+         str r1, [r0]
+         add r0, r5, #4
+         ldr r1, =C$m
+         str r1, [r0]
+         mov r0, #8
+         bl malloc
+         add r1, r0, #4
+         ldr r2, =C1$m
+         str r2, [r1]
+         add r1, r0, #0
+         ldr r2, =C$f
+         str r2, [r1]
+         mov r1, #0
+         cmp r4, r1
          bgt C$f$L103
 C$f$L104: 
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 C$f$L103: 
+         mov r0, r5
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

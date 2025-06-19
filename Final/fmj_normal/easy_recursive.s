@@ -14,17 +14,28 @@ main:
 main$L100: 
          mov r0, #16
          bl malloc
-         mov r2, #5
-         str r2, [r0, #8]
-         mov r2, #4
-         str r2, [r0, #0]
-         add r1, r0, #12
-         ldr r2, =c2$m2
-         str r2, [r1]
-         add r0, r0, #4
+         mov r4, r0
+         mov r1, #5
+         str r1, [r4, #8]
+         mov r1, #4
+         str r1, [r4, #0]
+         add r0, r4, #12
+         ldr r1, =c2$m2
+         str r1, [r0]
+         add r0, r4, #4
          ldr r1, =c1$m1
          str r1, [r0]
-         mov r0, #0
+         ldr r2, [r4, #12]
+         mov r0, r4
+         mov r1, #10
+         add r1, r1, #1
+         blx r2
+         bl putint
+         ldr r2, [r4, #12]
+         mov r0, #10
+         add r1, r0, #1
+         mov r0, r4
+         blx r2
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

@@ -247,9 +247,15 @@
                                 </BinaryOp>
                             </BinaryOp>
                         </PutInt>
+                        <PutCh>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                        </PutCh>
                         <PutInt>
                             <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="j"/>
                         </PutInt>
+                        <PutCh>
+                            <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="10"/>
+                        </PutCh>
                         <PutInt>
                             <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="k"/>
                         </PutInt>

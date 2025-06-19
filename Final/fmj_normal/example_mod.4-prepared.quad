@@ -123,9 +123,9 @@ Function _^main^_^main() last_label=114 last_temp=158:
   Block: Entry Label: L102
     Exit labels: 
     LABEL L102; def: use: 
-    MOVE t1:INT <- t10200:INT; def: 1 use: 10200 
-    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
-    EXTCALL putarray(t0:PTR, t1:INT); def: 0 1 2 3 use: 0 1 
+    MOVE t1:PTR <- t10000:PTR; def: 1 use: 10000 
+    MOVE t0:INT <- t10200:INT; def: 0 use: 10200 
+    EXTCALL putarray(t0:INT, t1:PTR); def: 0 1 2 3 use: 0 1 
     MOVE t0:INT <- t10200:INT; def: 0 use: 10200 
     RETURN t0:INT; def: use: 0 
 Function c1^m1(t0, t1) last_label=100 last_temp=105:

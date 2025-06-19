@@ -89,14 +89,17 @@
                             <ExpressionStatement>
                                 <ExtCall extfun="putint" type="INT">
                                     <Arguments>
-                                        <Temp type="INT" temp="101"/>
+                                        <BinOp op="+" type="INT">
+                                            <Temp type="INT" temp="101"/>
+                                            <Const value="1"/>
+                                        </BinOp>
                                     </Arguments>
                                 </ExtCall>
                             </ExpressionStatement>
                             <ExpressionStatement>
                                 <ExtCall extfun="putch" type="INT">
                                     <Arguments>
-                                        <Const value="10"/>
+                                        <Const value="92"/>
                                     </Arguments>
                                 </ExtCall>
                             </ExpressionStatement>

@@ -44,9 +44,9 @@ Function _^main^_^main() last_label=105 last_temp=131:
     Exit labels: L103 L104 
     LABEL L102; def: use: 
     MOVE t10001:PTR <- t10400:PTR; def: 10001 use: 10400 
-    MOVE t1:INT <- Const:4; def: 1 use: 
-    MOVE t0:PTR <- t10001:PTR; def: 0 use: 10001 
-    EXTCALL putarray(t0:PTR, t1:INT); def: 0 1 2 3 use: 0 1 
+    MOVE t1:PTR <- t10001:PTR; def: 1 use: 10001 
+    MOVE t0:INT <- Const:4; def: 0 use: 
+    EXTCALL putarray(t0:INT, t1:PTR); def: 0 1 2 3 use: 0 1 
     MOVE t11400:PTR <- t10001:PTR; def: 11400 use: 10001 
     LOAD t10700:INT <- Mem(t10001:PTR); def: 10700 use: 10001 
     MOVE t129:INT <- Const:0; def: 129 use: 

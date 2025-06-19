@@ -23,18 +23,18 @@
             <Color node="152" color="1"/>
             <Color node="153" color="1"/>
             <Color node="154" color="1"/>
-            <Color node="155" color="2"/>
+            <Color node="155" color="3"/>
             <Color node="10000" color="5"/>
-            <Color node="10001" color="6"/>
+            <Color node="10001" color="1"/>
             <Color node="10100" color="4"/>
             <Color node="10200" color="0"/>
-            <Color node="10400" color="7"/>
+            <Color node="10400" color="6"/>
             <Color node="10500" color="0"/>
-            <Color node="10600" color="6"/>
-            <Color node="10700" color="0"/>
-            <Color node="10701" color="0"/>
-            <Color node="10702" color="0"/>
-            <Color node="10800" color="2"/>
+            <Color node="10600" color="0"/>
+            <Color node="10700" color="1"/>
+            <Color node="10701" color="1"/>
+            <Color node="10702" color="1"/>
+            <Color node="10800" color="3"/>
             <Color node="11300" color="0"/>
             <Color node="11600" color="0"/>
             <Color node="11700" color="0"/>
@@ -51,13 +51,13 @@
             <Color node="12800" color="0"/>
             <Color node="12900" color="0"/>
             <Color node="13000" color="0"/>
-            <Color node="13100" color="1"/>
-            <Color node="13200" color="3"/>
-            <Color node="13300" color="1"/>
+            <Color node="13100" color="2"/>
+            <Color node="13200" color="6"/>
+            <Color node="13300" color="2"/>
             <Color node="13400" color="7"/>
-            <Color node="13500" color="1"/>
-            <Color node="13600" color="1"/>
-            <Color node="13700" color="1"/>
+            <Color node="13500" color="2"/>
+            <Color node="13600" color="2"/>
+            <Color node="13700" color="2"/>
         </Colors>
         <Spills/>
     </Coloring>

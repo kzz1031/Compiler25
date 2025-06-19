@@ -4,5 +4,6 @@ public int main() {
   i = getint();
   j = 10;
   i = j*j;
+  putint(i);
   return i;
 } 

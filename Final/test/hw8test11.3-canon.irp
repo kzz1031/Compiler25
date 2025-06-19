@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="105" last_label="105">
+        <Blocks>
+            <Block entry_label="105">
+                <Sequence>
+                    <Label label="105"/>
+                    <Move>
+                        <Temp type="INT" temp="100"/>
+                        <Const value="-2"/>
+                    </Move>
+                    <CJump relop="&gt;" true="102" false="103">
+                        <Temp type="INT" temp="100"/>
+                        <Const value="0"/>
+                    </CJump>
+                    <Label label="102"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="100"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Jump label="104"/>
+                    <Label label="103"/>
+                    <Move>
+                        <Temp type="INT" temp="103"/>
+                        <BinOp op="-" type="INT">
+                            <Const value="0"/>
+                            <Temp type="INT" temp="100"/>
+                        </BinOp>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="103"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Label label="104"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putch" type="INT">
+                            <Arguments>
+                                <Const value="10"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Return>
+                        <Temp type="INT" temp="100"/>
+                    </Return>
+                </Sequence>
+            </Block>
+        </Blocks>
+    </FunctionDeclaration>
+</Program>

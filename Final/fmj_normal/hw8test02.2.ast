@@ -97,10 +97,14 @@
                 <Nested>
                     <StmList>
                         <PutInt>
-                            <IdExp id="x"/>
+                            <BinaryOp>
+                                <IdExp id="x"/>
+                                <OpExp op="+"/>
+                                <IntExp val="1"/>
+                            </BinaryOp>
                         </PutInt>
                         <PutCh>
-                            <IntExp val="10"/>
+                            <IntExp val="92"/>
                         </PutCh>
                         <Break/>
                     </StmList>

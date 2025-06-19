@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="109" last_label="109">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="110" last_label="109">
         <Blocks>
             <Block entry_label="109">
                 <Sequence>
@@ -123,6 +123,13 @@
                     </Move>
                     <Jump label="100"/>
                     <Label label="102"/>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="102"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
                     <Return>
                         <Temp type="INT" temp="102"/>
                     </Return>

@@ -43,8 +43,9 @@ main$L107:
 main$L102: 
          b main$L104
 main$L106: 
+         add r0, r0, #1
          bl putint
-         mov r0, #10
+         mov r0, #92
          bl putch
          b main$L107
 

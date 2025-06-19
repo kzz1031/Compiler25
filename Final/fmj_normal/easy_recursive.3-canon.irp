@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="104" last_label="100">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="115" last_label="100">
         <Blocks>
             <Block entry_label="100">
                 <Sequence>
@@ -57,8 +57,83 @@
                         </Memory>
                         <Name name="c1^m1"/>
                     </Move>
+                    <Move>
+                        <Temp type="PTR" temp="105"/>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="12"/>
+                            </BinOp>
+                        </Memory>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="108"/>
+                        <Temp type="PTR" temp="105"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="107"/>
+                        <Temp type="PTR" temp="100"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="106"/>
+                        <BinOp op="+" type="INT">
+                            <Const value="10"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="109"/>
+                        <Call id="m2" type="INT">
+                            <Temp type="PTR" temp="108"/>
+                            <Arguments>
+                                <Temp type="PTR" temp="107"/>
+                                <Temp type="INT" temp="106"/>
+                            </Arguments>
+                        </Call>
+                    </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="109"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
+                    <Move>
+                        <Temp type="PTR" temp="111"/>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="100"/>
+                                <Const value="12"/>
+                            </BinOp>
+                        </Memory>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="114"/>
+                        <Temp type="PTR" temp="111"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="113"/>
+                        <Temp type="PTR" temp="100"/>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="112"/>
+                        <BinOp op="+" type="INT">
+                            <Const value="10"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Move>
+                    <Move>
+                        <Temp type="INT" temp="115"/>
+                        <Call id="m2" type="INT">
+                            <Temp type="PTR" temp="114"/>
+                            <Arguments>
+                                <Temp type="PTR" temp="113"/>
+                                <Temp type="INT" temp="112"/>
+                            </Arguments>
+                        </Call>
+                    </Move>
                     <Return>
-                        <Const value="0"/>
+                        <Temp type="INT" temp="115"/>
                     </Return>
                 </Sequence>
             </Block>

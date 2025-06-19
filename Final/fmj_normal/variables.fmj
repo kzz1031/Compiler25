@@ -18,7 +18,9 @@ public int main() {
    k=j*x+j*y+j*z+j*a+j*b+j*c+j*d+j*e+j*f+j*g+j*h+j*i;
    l=({
    putint(x+y+z/c+i*h);
+   putch(10);
    putint(j);
+   putch(10);
    putint(k);
    } b+e*d-g);
    return(l);

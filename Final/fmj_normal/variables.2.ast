@@ -247,9 +247,15 @@
                                 </BinaryOp>
                             </BinaryOp>
                         </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
                         <PutInt>
                             <IdExp id="j"/>
                         </PutInt>
+                        <PutCh>
+                            <IntExp val="10"/>
+                        </PutCh>
                         <PutInt>
                             <IdExp id="k"/>
                         </PutInt>

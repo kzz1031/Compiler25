@@ -190,9 +190,23 @@
                                     </ExtCall>
                                 </ExpressionStatement>
                                 <ExpressionStatement>
+                                    <ExtCall extfun="putch" type="INT">
+                                        <Arguments>
+                                            <Const value="10"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </ExpressionStatement>
+                                <ExpressionStatement>
                                     <ExtCall extfun="putint" type="INT">
                                         <Arguments>
                                             <Temp type="INT" temp="109"/>
+                                        </Arguments>
+                                    </ExtCall>
+                                </ExpressionStatement>
+                                <ExpressionStatement>
+                                    <ExtCall extfun="putch" type="INT">
+                                        <Arguments>
+                                            <Const value="10"/>
                                         </Arguments>
                                     </ExtCall>
                                 </ExpressionStatement>

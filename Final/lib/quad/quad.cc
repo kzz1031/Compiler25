@@ -1,5 +1,5 @@
 #define DEBUG
-// #undef DEBUG
+#undef DEBUG
 
 #include <iostream>
 #include <fstream>
@@ -38,14 +38,11 @@ std::string QuadTerm::print() {
     TempExp *t_tempexp;
     switch (kind) {
         case QuadTermKind::TEMP:
-            printf("TEMP\n");
             t_tempexp = get<TempExp*>(term);
             return "t" + to_string(t_tempexp->temp->num) + ":" + (t_tempexp->type == Type::INT?"INT":"PTR"); 
         case QuadTermKind::CONST:
-            printf("CONST\n");
             return "Const:"+to_string(this->get_const());
         case QuadTermKind::MAME:
-            printf("MAME\n");
             return "Name:"+get<std::string>(term);
     }
     printf("finish QuadTerm::print\n");

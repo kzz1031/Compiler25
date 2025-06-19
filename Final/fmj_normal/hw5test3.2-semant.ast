@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Program>
+    <MainMethod>
+        <VarDeclList>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="4"/>
+                </Type>
+                <IdExp id="a"/>
+                <IntInitList>
+                    <IntExp val="1"/>
+                    <IntExp val="2"/>
+                    <IntExp val="3"/>
+                    <IntExp val="4"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="4"/>
+                </Type>
+                <IdExp id="b"/>
+                <IntInitList>
+                    <IntExp val="9"/>
+                    <IntExp val="8"/>
+                    <IntExp val="7"/>
+                    <IntExp val="6"/>
+                </IntInitList>
+            </VarDecl>
+            <VarDecl>
+                <Type typeKind="ARRAY">
+                    <Arity val="0"/>
+                </Type>
+                <IdExp id="c"/>
+            </VarDecl>
+        </VarDeclList>
+        <StmList>
+            <Assign>
+                <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="c"/>
+                <BinaryOp s_kind="Value" typeKind="INTARRAY" lvalue="false" arity="4">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="4" id="a"/>
+                    <OpExp op="+"/>
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="4" id="b"/>
+                </BinaryOp>
+            </Assign>
+            <Return s_kind="Value" typeKind="INT" lvalue="false">
+                <ArrayExp s_kind="Value" typeKind="INT" lvalue="true">
+                    <IdExp s_kind="Value" typeKind="INTARRAY" lvalue="true" arity="0" id="c"/>
+                    <IntExp s_kind="Value" typeKind="INT" lvalue="false" val="0"/>
+                </ArrayExp>
+            </Return>
+        </StmList>
+    </MainMethod>
+    <ClassDeclList/>
+</Program>

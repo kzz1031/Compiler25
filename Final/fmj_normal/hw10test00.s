@@ -14,7 +14,10 @@ main:
 main$L100: 
          bl getint
          mov r0, #10
-         mul r0, r0, r0
+         mul r4, r0, r0
+         mov r0, r4
+         bl putint
+         mov r0, r4
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

@@ -54,6 +54,13 @@
                             <Temp type="INT" temp="101"/>
                         </BinOp>
                     </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="100"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
                     <Return>
                         <Temp type="INT" temp="100"/>
                     </Return>

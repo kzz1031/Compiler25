@@ -270,7 +270,10 @@ void AST_Semant_Visitor::visit(Assign* node) {
     }
     
     // For non-class types, check exact type match
-    if (!check_compatible_types(left_sem->get_type(), left_sem->get_type_par(),
+    if(left_sem->get_type() == right_sem->get_type() && left_sem->get_type() == TypeKind::ARRAY) {
+        return; // Types match, no error
+    }
+    else if (!check_compatible_types(left_sem->get_type(), left_sem->get_type_par(),
                               right_sem->get_type(), right_sem->get_type_par(),
                               name_maps)) {
         cerr << "Error at " << node->getPos()->print() << ": Type mismatch in assignment" << endl;

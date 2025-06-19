@@ -28,6 +28,9 @@
                     <IdExp id="j"/>
                 </BinaryOp>
             </Assign>
+            <PutInt>
+                <IdExp id="i"/>
+            </PutInt>
             <Return>
                 <IdExp id="i"/>
             </Return>

@@ -7,5 +7,6 @@ public int main() {
      sum = sum + a[i]; 
      i = i+1;
    }
+   putint(sum);
    return sum;
 }

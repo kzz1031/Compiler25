@@ -123,6 +123,13 @@
                         <Jump label="100"/>
                         <Label label="102"/>
                     </Sequence>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Temp type="INT" temp="102"/>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
                     <Return>
                         <Temp type="INT" temp="102"/>
                     </Return>

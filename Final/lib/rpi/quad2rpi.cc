@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm> 
 #include "quad.hh"
 #include "flowinfo.hh"
 #include "color.hh"

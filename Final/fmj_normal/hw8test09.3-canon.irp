@@ -182,11 +182,63 @@
             </Block>
         </Blocks>
     </FunctionDeclaration>
-    <FunctionDeclaration name="C^f" return_type="PTR" last_temp="107" last_label="106" arg_temp_0="102" arg_temp_1="105">
+    <FunctionDeclaration name="C^f" return_type="PTR" last_temp="109" last_label="106" arg_temp_0="102" arg_temp_1="105">
         <Blocks>
             <Block entry_label="106">
                 <Sequence>
                     <Label label="106"/>
+                    <Move>
+                        <Temp type="PTR" temp="103"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="8"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="103"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C^f"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="103"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C^m"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="104"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="8"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="104"/>
+                                <Const value="4"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C1^m"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="104"/>
+                                <Const value="0"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C^f"/>
+                    </Move>
                     <CJump relop="&gt;" true="103" false="104">
                         <Temp type="INT" temp="105"/>
                         <Const value="0"/>

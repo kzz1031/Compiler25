@@ -35,8 +35,8 @@ main$L100:
          blt main$L101
 main$L102: 
          mov r4, r0
-         mov r1, r5
-         mov r0, r4
+         mov r1, r4
+         mov r0, r5
          bl putarray
          ldr r0, [r4]
          mov r1, #0

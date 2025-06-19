@@ -94,7 +94,7 @@ Function _^main^_^main last_label=114 last_temp=144:
   Block: Entry Label: L102
     Exit labels: 
     LABEL L102; def: use: 
-    EXTCALL putarray(t10000:PTR, t10200:INT); def: use: 10000 10200 
+    EXTCALL putarray(t10200:INT, t10000:PTR); def: use: 10000 10200 
     RETURN t10200:INT; def: use: 10200 
 Function c1^m1(t100, t101) last_label=100 last_temp=105:
   Block: Entry Label: L100

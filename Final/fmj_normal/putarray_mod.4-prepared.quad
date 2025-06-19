@@ -55,9 +55,9 @@ Function _^main^_^main() last_label=105 last_temp=155:
     MOVE_BINOP t12900:PTR <- (+, t10100:PTR, Const:28); def: 12900 use: 10100 
     MOVE t153:INT <- Const:6; def: 153 use: 
     STORE t153:INT -> Mem(t12900:PTR); def: use: 12900 153 
-    MOVE t1:INT <- Const:7; def: 1 use: 
-    MOVE t0:PTR <- t10000:PTR; def: 0 use: 10000 
-    EXTCALL putarray(t0:PTR, t1:INT); def: 0 1 2 3 use: 0 1 
+    MOVE t1:PTR <- t10000:PTR; def: 1 use: 10000 
+    MOVE t0:INT <- Const:7; def: 0 use: 
+    EXTCALL putarray(t0:INT, t1:PTR); def: 0 1 2 3 use: 0 1 
     LOAD t10400:INT <- Mem(t10000:PTR); def: 10400 use: 10000 
     LOAD t10500:INT <- Mem(t10100:PTR); def: 10500 use: 10100 
     CJUMP != t10400:INT t10500:INT? L100 : L101; def: use: 10400 10500 
@@ -103,8 +103,8 @@ Function _^main^_^main() last_label=105 last_temp=155:
     Exit labels: 
     LABEL L104; def: use: 
     MOVE t10001:PTR <- t10600:PTR; def: 10001 use: 10600 
-    MOVE t1:INT <- Const:7; def: 1 use: 
-    MOVE t0:PTR <- t10001:PTR; def: 0 use: 10001 
-    EXTCALL putarray(t0:PTR, t1:INT); def: 0 1 2 3 use: 0 1 
+    MOVE t1:PTR <- t10001:PTR; def: 1 use: 10001 
+    MOVE t0:INT <- Const:7; def: 0 use: 
+    EXTCALL putarray(t0:INT, t1:PTR); def: 0 1 2 3 use: 0 1 
     MOVE t0:INT <- Const:0; def: 0 use: 
     RETURN t0:INT; def: use: 0 

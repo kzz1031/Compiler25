@@ -33,7 +33,7 @@ Function _^main^_^main last_label=105 last_temp=124:
     Exit labels: L103 L104 
     LABEL L102; def: use: 
     MOVE t10001:PTR <- t10400:PTR; def: 10001 use: 10400 
-    EXTCALL putarray(t10001:PTR, Const:4); def: use: 10001 
+    EXTCALL putarray(Const:4, t10001:PTR); def: use: 10001 
     MOVE t11400:PTR <- t10001:PTR; def: 11400 use: 10001 
     LOAD t10700:INT <- Mem(t10001:PTR); def: 10700 use: 10001 
     CJUMP >= Const:0 t10700:INT? L103 : L104; def: use: 10700 

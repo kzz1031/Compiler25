@@ -101,6 +101,10 @@
                     <ParList/>
                 </CallExp>
             </Assign>
+            <PutArray>
+                <IntExp val="3"/>
+                <IdExp id="a"/>
+            </PutArray>
             <Return>
                 <IntExp val="0"/>
             </Return>

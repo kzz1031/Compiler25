@@ -64,6 +64,9 @@
                         <Label label="103"/>
                         <Label label="104"/>
                     </Sequence>
+                    <Return>
+                        <Const value="0"/>
+                    </Return>
                 </Sequence>
             </Block>
         </Blocks>

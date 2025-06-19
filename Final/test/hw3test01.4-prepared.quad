@@ -93,7 +93,7 @@ Function _^main^_^main() last_label=107 last_temp=147:
     MOVE_BINOP t13200:INT <- (+, t10200:INT, Const:1); def: 13200 use: 10200 
     MOVE t147:INT <- Const:4; def: 147 use: 
     MOVE_BINOP t13300:INT <- (*, t13200:INT, t147:INT); def: 13300 use: 13200 147 
-    MOVE_BINOP t13400:PTR <- (+, t11600:PTR, t13300:INT); def: 13400 use: 13300 11600 
+    MOVE_BINOP t13400:PTR <- (+, t11600:PTR, t13300:INT); def: 13400 use: 11600 13300 
     LOAD t13500:INT <- Mem(t13400:PTR); def: 13500 use: 13400 
     MOVE t0:INT <- t13500:INT; def: 0 use: 13500 
     RETURN t0:INT; def: use: 0 

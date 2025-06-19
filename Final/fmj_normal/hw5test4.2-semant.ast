@@ -56,6 +56,9 @@
                     </StmList>
                 </Nested>
             </While>
+            <PutInt>
+                <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="sum"/>
+            </PutInt>
             <Return s_kind="Value" typeKind="INT" lvalue="false">
                 <IdExp s_kind="Value" typeKind="INT" lvalue="true" id="sum"/>
             </Return>

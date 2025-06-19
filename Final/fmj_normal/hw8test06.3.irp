@@ -95,6 +95,23 @@
                 <Sequence>
                     <Label label="105"/>
                     <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="12"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="101"/>
+                                <Const value="8"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C^next"/>
+                    </Move>
+                    <Move>
                         <Memory type="INT">
                             <BinOp op="+" type="PTR">
                                 <Temp type="PTR" temp="101"/>

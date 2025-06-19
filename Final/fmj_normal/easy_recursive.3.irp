@@ -65,8 +65,43 @@
                         </Memory>
                         <Name name="c1^m1"/>
                     </Move>
+                    <ExpressionStatement>
+                        <ExtCall extfun="putint" type="INT">
+                            <Arguments>
+                                <Call id="m2" type="INT">
+                                    <Memory type="PTR">
+                                        <BinOp op="+" type="PTR">
+                                            <Temp type="PTR" temp="100"/>
+                                            <Const value="12"/>
+                                        </BinOp>
+                                    </Memory>
+                                    <Arguments>
+                                        <Temp type="PTR" temp="100"/>
+                                        <BinOp op="+" type="INT">
+                                            <Const value="10"/>
+                                            <Const value="1"/>
+                                        </BinOp>
+                                    </Arguments>
+                                </Call>
+                            </Arguments>
+                        </ExtCall>
+                    </ExpressionStatement>
                     <Return>
-                        <Const value="0"/>
+                        <Call id="m2" type="INT">
+                            <Memory type="PTR">
+                                <BinOp op="+" type="PTR">
+                                    <Temp type="PTR" temp="100"/>
+                                    <Const value="12"/>
+                                </BinOp>
+                            </Memory>
+                            <Arguments>
+                                <Temp type="PTR" temp="100"/>
+                                <BinOp op="+" type="INT">
+                                    <Const value="10"/>
+                                    <Const value="1"/>
+                                </BinOp>
+                            </Arguments>
+                        </Call>
                     </Return>
                 </Sequence>
             </Block>

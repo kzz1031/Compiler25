@@ -1,4 +1,4 @@
-Function _^main^_^main last_label=110 last_temp=102:
+Function _^main^_^main last_label=110 last_temp=103:
   Block: Entry Label: L110
     Exit labels: L102 L103 
     LABEL L110; def: use: 
@@ -33,4 +33,5 @@ Function _^main^_^main last_label=110 last_temp=102:
     LABEL L104; def: use: 
     PHI t10104:INT <- (t10100, L102; t10103, L109); def: 10104 use: 10100 10103 
     MOVE_BINOP t10001:INT <- (*, t10104:INT, t10104:INT); def: 10001 use: 10104 
+    EXTCALL putint(t10001:INT); def: use: 10001 
     RETURN t10001:INT; def: use: 10001 

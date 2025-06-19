@@ -10,6 +10,6 @@ public int main() {
    w=false;
    w=false+true;
    if (false != true) {}
-   while (1+x*({w=3;} x)) {putint(x); putch(10); break;}
+   while (1+x*({w=3;} x)) {putint(x+1); putch(92); break;}
    return 9;
 }

@@ -158,12 +158,24 @@ void ASTToTreeVisitor::visit(fdmj::MainMethod* node) {
             }
         }
     }
-    DEBUG_PRINT("1111111111")
     tree::Label* entry_label = temp_map->newlabel();
     tree::LabelStm* label_stm = new tree::LabelStm(entry_label);
     
     sl->insert(sl->begin(), label_stm);
+    bool hasReturn = false;
+
+    if (!sl->empty()) {
+        tree::Stm* lastStm = sl->back();
+        if (dynamic_cast<tree::Return*>(lastStm) != nullptr) {
+            hasReturn = true;
+        }
+    }
     
+    // Add return 0 if there's no return statement
+    if (!hasReturn) {
+        sl->push_back(new tree::Return(new tree::Const(0)));
+    }
+
     vector<tree::Block*>* bl = new vector<tree::Block*>();
     tree::Block* block = new tree::Block(entry_label, nullptr, sl);
     bl->push_back(block);
@@ -253,6 +265,7 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
     }
     // 处理普通整数变量初始化 
     else if(node->type->typeKind == TypeKind::INT) {
+        DEBUG_PRINT("var type: int");
         if(node->init.index() == 1) { // IntExp*    
             auto init_int = std::get<IntExp*>(node->init);
             int value = init_int->val;
@@ -265,8 +278,8 @@ void ASTToTreeVisitor::visit(fdmj::VarDecl* node) {
             tr_exp = nullptr;
         }
     }
-    if(node->type->typeKind == TypeKind::CLASS) {
-
+    else if(node->type->typeKind == TypeKind::CLASS) {
+        DEBUG_PRINT("var type: class");
         string class_name = node->type->cid->id;
         vector<string> class_hierarchy;
         class_hierarchy.push_back(class_name);
@@ -427,9 +440,10 @@ void ASTToTreeVisitor::visit(fdmj::MethodDecl* node) {
     if (node->vdl != nullptr) {
         for (auto varDecl : *(node->vdl)) {
             DEBUG_PRINT("visit fdmj::MethodDecl"<<" varDecl id: "<<varDecl->id->id);
-            if(varDecl->init.index() == 0) {
-                continue;
-            }
+            // if(varDecl->init.index() == 0) {
+            //     DEBUG_PRINT("varDecl init is null, skipping");
+            //     continue;
+            // }
             varDecl->accept(*this);
             if(tr_exp == nullptr) {
                 continue;
@@ -580,10 +594,15 @@ void ASTToTreeVisitor::visit(fdmj::While* node) {
     }
     cond_tr->true_list->patch(body_label);
     cond_tr->false_list->patch(end_label);
-    
-    node->stm->accept(*this);
-    Tr_nx* body_tr = dynamic_cast<Tr_nx*>(tr_exp);
-    
+    Tr_nx* body_tr = nullptr;
+    if(node->stm != nullptr){
+        node->stm->accept(*this);
+        body_tr = dynamic_cast<Tr_nx*>(tr_exp);
+    }
+    else {
+        body_tr = new Tr_nx(new tree::Seq());
+    }
+        
     vector<tree::Stm*>* sl = new vector<tree::Stm*>();
     sl->push_back(new tree::LabelStm(test_label));
     sl->push_back(cond_tr->stm);
@@ -591,25 +610,27 @@ void ASTToTreeVisitor::visit(fdmj::While* node) {
     sl->push_back(body_tr->stm);
     sl->push_back(new tree::Jump(test_label));
     sl->push_back(new tree::LabelStm(end_label));
-    
     while_labels.pop_back();
     
     tr_exp = new Tr_nx(new tree::Seq(sl));
+    DEBUG_PRINT("finish visiting fdmj::While");
 }
 
 void ASTToTreeVisitor::visit(fdmj::Assign* node) {
     DEBUG_PRINT("visit fdmj::Assign");
     node->left->accept(*this);
+    DEBUG_PRINT("finish visiting fdmj::Assign left");
     Tr_ex* left_tr = dynamic_cast<Tr_ex*>(tr_exp);
     if(left_tr == nullptr) {
         left_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
     }
     node->exp->accept(*this);
+    DEBUG_PRINT("finish visiting fdmj::Assign right exp");
     Tr_ex* right_tr = dynamic_cast<Tr_ex*>(tr_exp);
     if(right_tr == nullptr) {
         right_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
     }
-    
+    DEBUG_PRINT("finish visiting fdmj::Assign");
     tr_exp = new Tr_nx(new tree::Move(left_tr->exp, right_tr->exp));
 }
 
@@ -743,8 +764,10 @@ void ASTToTreeVisitor::visit(fdmj::PutArray* node) {
         index_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
     }
     vector<tree::Exp*>* args = new vector<tree::Exp*>();
-    args->push_back(arr_tr->exp);
+    
     args->push_back(index_tr->exp);
+    args->push_back(arr_tr->exp);
+    
    
     tr_exp = new Tr_nx(new tree::ExpStm(
         new tree::ExtCall(tree::Type::INT, "putarray", 
@@ -1129,8 +1152,6 @@ void ASTToTreeVisitor::visit(fdmj::UnaryOp* node) {
 
 void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
     DEBUG_PRINT("visit fdmj::ArrayExp");
-    // 获取数组基地址
-    //DEBUG_PRINT("ArrayExp Type: "<<node->arr->type->typeKind);
     node->arr->accept(*this);
     Tr_ex* array_tr = dynamic_cast<Tr_ex*>(tr_exp);
     if(array_tr == nullptr) {
@@ -1139,6 +1160,7 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
     
     // 获取索引值
     node->index->accept(*this);
+    DEBUG_PRINT("finish visiting fdmj::ArrayExp index");
     Tr_ex* index_tr = dynamic_cast<Tr_ex*>(tr_exp);
     if(index_tr == nullptr) {
         index_tr = dynamic_cast<Tr_cx*>(tr_exp)->unEx(temp_map);
@@ -1158,9 +1180,30 @@ void ASTToTreeVisitor::visit(fdmj::ArrayExp* node) {
             array_tr->exp
         );
     }
-    else {
+    else {//bug here
         string array_id = dynamic_cast<fdmj::IdExp*>(node->arr)->id;
-        array_temp = current_mvt->var_temp_map->at(array_id);
+        if (current_mvt->var_temp_map->find(array_id) != current_mvt->var_temp_map->end()) {
+            // 方法作用域中的变量
+            array_temp = current_mvt->var_temp_map->at(array_id);
+        }
+        else if (class_table->var_pos_map.find(array_id) != class_table->var_pos_map.end() && 
+             current_class_name != "_^main^_") {
+        // 类作用域中的变量
+        tree::Temp* this_temp = current_mvt->get_var_temp("this");
+        int offset = class_table->get_var_pos(array_id) * 4;
+        
+        // 通过this指针访问类成员
+        array_temp = temp_map->newtemp();
+        array_stm = new tree::Move(
+            new tree::TempExp(tree::Type::PTR, array_temp),
+            new tree::Mem(tree::Type::INT, 
+                new tree::Binop(tree::Type::PTR, "+",
+                    new tree::TempExp(tree::Type::PTR, this_temp),
+                    new tree::Const(offset)
+                )
+            )
+        );
+    } 
     }
 
     if(node->index->getASTKind() != ASTKind::IntExp && node->index->getASTKind() != ASTKind::IdExp){ // not constant
@@ -1257,6 +1300,7 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
     
     // 处理对象调用
     if (node->obj != nullptr) {
+        DEBUG_PRINT("===obj is not null===");
         node->obj->accept(*this);
         Tr_ex* obj_tr = dynamic_cast<Tr_ex*>(tr_exp);
         string class_var_name;
@@ -1264,9 +1308,27 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
         
         // 分情况获取类型信息
         if (auto id_exp = dynamic_cast<fdmj::IdExp*>(node->obj)) {
+            DEBUG_PRINT("id_exp");
             class_var_name = id_exp->id;
             VarDecl* class_decl = name_maps->get_method_var(current_class_name, current_method_name, class_var_name);
-            class_name = class_decl->type->cid->id;
+            if (class_decl == nullptr) {
+                class_decl = name_maps->get_class_var(current_class_name, class_var_name);
+            }
+            if (class_decl == nullptr) {
+                if (name_maps->is_method(current_class_name, current_method_name)) {
+                    auto formals = name_maps->get_method_formal_list(current_class_name, current_method_name);
+                    for (auto formal : *formals) {
+                        if (formal->id->id == class_var_name) {
+                            // 创建一个新的 VarDecl 来存储形参信息
+                            class_name = formal->type->cid->id;
+                        }
+                    }
+                }
+            }
+            else {
+                class_name = class_decl->type->cid->id;
+            }
+            
         } else if (auto call_exp = dynamic_cast<fdmj::CallExp*>(node->obj)) {
             // 如果是方法调用
             DEBUG_PRINT("call_exp");
@@ -1303,13 +1365,14 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
                     }
                 }
             }
+            DEBUG_PRINT("this_exp class_name: " << class_name);
         } else {
             DEBUG_PRINT("===obj is not IdExp or CallExp===");
         }
 
         vector<tree::Exp*>* args = new vector<tree::Exp*>();
         args->push_back(obj_tr->exp);  // this指针
-
+        DEBUG_PRINT("Push this pointer");
         if(node->par != nullptr) {
             for (auto arg : *(node->par)) {
                 arg->accept(*this);
@@ -1339,6 +1402,7 @@ void ASTToTreeVisitor::visit(fdmj::CallExp* node) {
             ),
             args
         ));
+        DEBUG_PRINT("Done!");
     }
     // 处理非对象方法调用(如当前类中的方法)
     else {

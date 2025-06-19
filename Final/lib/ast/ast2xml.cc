@@ -1,6 +1,6 @@
 // This visitor is used to convert AST to XML
 #define DEBUG
-// #undef DEBUG
+#undef DEBUG
 
 #include <iostream>
 #include <string>
@@ -60,6 +60,7 @@ static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
   #endif
   el->SetAttribute("s_kind", AST_Semant::s_kind_string(kd).c_str());
   if (kd == AST_Semant::Kind::Value) {
+    printf("set position and semant: Value\n");
       el->SetAttribute("typeKind", fdmj::type_kind_string(tk).c_str());
       el->SetAttribute("lvalue", semant->is_lvalue() ? "true" : "false");
       switch (tk) {
@@ -72,7 +73,9 @@ static void set_position_and_semant(XMLElement *el, const Pos *pos, AST* node) {
         case TypeKind::INT:
           break;
         case TypeKind::ARRAY:
+          printf("set position and semant: ARRAY\n");
           el->SetAttribute("arity", to_string(get<int>(semant->get_type_par())).c_str());
+          printf("set position and semant: ARRAY arity: %d\n", get<int>(semant->get_type_par()));
           break;
         default:
           cerr << "Error: Unknown type kind" << endl;
@@ -635,7 +638,7 @@ cout<<"ArrayExp"<<endl;
 void AST2XML::visit(CallExp *node) {
   if (!node) return;
 #ifdef DEBUG
-cout<<"CallExp"<<endl;
+cout<<"CallExp"<<" "<<node->name->id <<endl;
 #endif
   XMLElement *cn = doc->NewElement("CallExp");
   set_position_and_semant(cn, node->getPos(), node);

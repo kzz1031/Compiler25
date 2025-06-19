@@ -94,9 +94,13 @@ main$L100:
          mul r1, r5, r6
          add r0, r0, r1
          bl putint
+         mov r0, #10
+         bl putch
          ldr r9, [fp, #-56]
          mov r0, r9
          bl putint
+         mov r0, #10
+         bl putch
          mov r0, r7
          bl putint
          ldr r9, [fp, #-48]

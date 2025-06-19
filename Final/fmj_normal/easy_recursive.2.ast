@@ -9,7 +9,34 @@
                 <IdExp id="x"/>
             </VarDecl>
         </VarDeclList>
-        <StmList/>
+        <StmList>
+            <PutInt>
+                <CallExp>
+                    <IdExp id="x"/>
+                    <IdExp id="m2"/>
+                    <ParList>
+                        <BinaryOp>
+                            <IntExp val="10"/>
+                            <OpExp op="+"/>
+                            <IntExp val="1"/>
+                        </BinaryOp>
+                    </ParList>
+                </CallExp>
+            </PutInt>
+            <Return>
+                <CallExp>
+                    <IdExp id="x"/>
+                    <IdExp id="m2"/>
+                    <ParList>
+                        <BinaryOp>
+                            <IntExp val="10"/>
+                            <OpExp op="+"/>
+                            <IntExp val="1"/>
+                        </BinaryOp>
+                    </ParList>
+                </CallExp>
+            </Return>
+        </StmList>
     </MainMethod>
     <ClassDeclList>
         <ClassDecl>

@@ -93,11 +93,28 @@
             </Block>
         </Blocks>
     </FunctionDeclaration>
-    <FunctionDeclaration name="C^next" return_type="PTR" last_temp="109" last_label="105" arg_temp_0="100" arg_temp_1="102">
+    <FunctionDeclaration name="C^next" return_type="PTR" last_temp="110" last_label="105" arg_temp_0="100" arg_temp_1="102">
         <Blocks>
             <Block entry_label="105">
                 <Sequence>
                     <Label label="105"/>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="12"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="101"/>
+                                <Const value="8"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="C^next"/>
+                    </Move>
                     <Move>
                         <Memory type="INT">
                             <BinOp op="+" type="PTR">
@@ -113,7 +130,7 @@
                     </CJump>
                     <Label label="102"/>
                     <Move>
-                        <Temp type="PTR" temp="105"/>
+                        <Temp type="PTR" temp="106"/>
                         <Memory type="PTR">
                             <BinOp op="+" type="PTR">
                                 <Temp type="PTR" temp="101"/>
@@ -122,15 +139,15 @@
                         </Memory>
                     </Move>
                     <Move>
-                        <Temp type="PTR" temp="108"/>
-                        <Temp type="PTR" temp="105"/>
+                        <Temp type="PTR" temp="109"/>
+                        <Temp type="PTR" temp="106"/>
                     </Move>
                     <Move>
-                        <Temp type="PTR" temp="107"/>
+                        <Temp type="PTR" temp="108"/>
                         <Temp type="PTR" temp="101"/>
                     </Move>
                     <Move>
-                        <Temp type="INT" temp="106"/>
+                        <Temp type="INT" temp="107"/>
                         <BinOp op="+" type="INT">
                             <Temp type="INT" temp="102"/>
                             <Const value="1"/>
@@ -144,10 +161,10 @@
                             </BinOp>
                         </Memory>
                         <Call id="next" type="PTR">
-                            <Temp type="PTR" temp="108"/>
+                            <Temp type="PTR" temp="109"/>
                             <Arguments>
-                                <Temp type="PTR" temp="107"/>
-                                <Temp type="INT" temp="106"/>
+                                <Temp type="PTR" temp="108"/>
+                                <Temp type="INT" temp="107"/>
                             </Arguments>
                         </Call>
                     </Move>

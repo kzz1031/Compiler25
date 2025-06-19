@@ -72,9 +72,9 @@ main$L100:
          cmp r8, r7
          blt main$L101
 main$L102: 
-         mov r1, r7
          ldr r9, [fp, #-36]
-         mov r0, r9
+         mov r1, r9
+         mov r0, r7
          bl putarray
          mov r0, r7
          sub sp, fp, #32

@@ -36,11 +36,10 @@ using namespace tinyxml2;
 
 # define with_location_info false
 // false means no location info in the AST XML files
-
+# define NUMBER_OF_COLORS 9
+// number of colors used in the color map, can be changed if needed
 int main(int argc, const char *argv[]) {
     string file;
-
-    int number_of_colors = 9; //default 9: r0-r8
     const bool debug = argc > 1 && std::strcmp(argv[1], "--debug") == 0;
 
     if ((!debug && argc != 2) || (debug && argc != 3)) {
@@ -64,11 +63,11 @@ int main(int argc, const char *argv[]) {
     string file_quad_prepared = file + ".4-prepared.quad";
     string file_quad_color_xml = file + ".4-xml.clr";
     string file_rpi = file + ".s";
-
+    // step 1: parse the source file and generate the AST
     cout << "------Parsing fmj source file: " << file_fmj << "------------" << endl;
     std::ifstream fmjfile(file_fmj);
+    fdmj::Program *x_ast = fdmjParser(fmjfile, false);
 
-    fdmj::Program *x_ast = fdmjParser(fmjfile, false); // false means no debug info from parser
     cout << "Convert AST to XML..." << endl;
     XMLDocument *x = ast2xml(x_ast, nullptr, with_location_info, false); // no semant info yet
     x->SaveFile(file_ast.c_str());
@@ -84,15 +83,13 @@ int main(int argc, const char *argv[]) {
         std::cout << "AST from file is not valid!" << endl;
         return EXIT_FAILURE;
     }
-    std::cout << "Semantic analyzing AST..." << std::endl;
+    // step 2: semantic analysis
+    std::cout << "------Semantic analyzing AST...------" << std::endl;
     std::cout << "--Making Name Maps..." << endl;
     Name_Maps *name_maps = makeNameMaps(x_ast); 
     std::cout << "--Analyzing Semantics..." << endl;
     AST_Semant_Map *semant_map = semant_analyze(x_ast); 
     semant_map->setNameMaps(name_maps);
-    if(semant_map->getNameMaps() == nullptr)
-        printf("semant_map->getNameMaps() == nullptr\n");
-    semant_map->getNameMaps()->print();
     cout << "Convert AST to XML with Semantic Info..." << endl;
     x = ast2xml(x_ast, semant_map, with_location_info, true); 
     cout << "Finish converting AST to XML with Semantic Info..." << endl;
@@ -100,10 +97,10 @@ int main(int argc, const char *argv[]) {
         std::cout << "AST is not valid when converting from AST with Semant Info!" << endl;
         return EXIT_FAILURE;  
     }
-
     x->SaveFile(file_ast_semant.c_str());
-    tree::Program *ir = ast2tree(x_ast, semant_map);
 
+    //step 3: convert AST to IR
+    tree::Program *ir = ast2tree(x_ast, semant_map);
     cout << "Saving IR (XML) to: " << file_irp << endl;
     x = tree2xml(ir);
     x->SaveFile(file_irp.c_str());
@@ -115,9 +112,12 @@ int main(int argc, const char *argv[]) {
     cout << "Writing IR to: " << file_irp_canon << endl;
     doc->SaveFile(file_irp_canon.c_str()); 
 
+    //step 4: convert IR to Quad
     quad::QuadProgram *x_quad = tree2quad(ir_canon);
     cout << "Done converting IR to Quad" << endl;
     QuadProgram *x_quad_blocked = blocking(x_quad);
+
+    //step 5: convert Quad to Quad-SSA
     QuadProgram *x_ssa = quad2ssa(x_quad_blocked);
     cout << "Done converting Quad to Quad-SSA" << endl;
     cout << "Writing Quad-SSA to: " << file_quad_ssa<< endl;
@@ -137,13 +137,13 @@ int main(int argc, const char *argv[]) {
     quad2file(x_reg_alloc, file_quad_prepared.c_str(), true);
     cout << "Coloring: " << file_quad_prepared << endl;
 
-    XMLDocument *x_color = coloring(x_reg_alloc, number_of_colors, true);
+    XMLDocument *x_color = coloring(x_reg_alloc, NUMBER_OF_COLORS, true);
     cout << "Writing regAlloc'ed (colors XML) to " << file_quad_color_xml << endl;
     x_color->SaveFile(file_quad_color_xml.c_str());
     ColorMap *colormap = xml2colormap(file_quad_color_xml);
-    //colormap->print(); //check the color map
+
+    //step 6: convert Quad to RPI code
     cout << "Writing rpi code to: " << file_rpi << endl;
-    
     quad2rpi(x_reg_alloc, colormap, file_rpi);
 
     cout << "-----Done---" << endl;

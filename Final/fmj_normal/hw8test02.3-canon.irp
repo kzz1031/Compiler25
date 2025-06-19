@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Program>
-    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="108" last_label="110">
+    <FunctionDeclaration name="_^main^_^main" return_type="INT" last_temp="109" last_label="110">
         <Blocks>
             <Block entry_label="110">
                 <Sequence>
@@ -82,17 +82,24 @@
                         <Const value="0"/>
                     </CJump>
                     <Label label="106"/>
+                    <Move>
+                        <Temp type="INT" temp="107"/>
+                        <BinOp op="+" type="INT">
+                            <Temp type="INT" temp="101"/>
+                            <Const value="1"/>
+                        </BinOp>
+                    </Move>
                     <ExpressionStatement>
                         <ExtCall extfun="putint" type="INT">
                             <Arguments>
-                                <Temp type="INT" temp="101"/>
+                                <Temp type="INT" temp="107"/>
                             </Arguments>
                         </ExtCall>
                     </ExpressionStatement>
                     <ExpressionStatement>
                         <ExtCall extfun="putch" type="INT">
                             <Arguments>
-                                <Const value="10"/>
+                                <Const value="92"/>
                             </Arguments>
                         </ExtCall>
                     </ExpressionStatement>

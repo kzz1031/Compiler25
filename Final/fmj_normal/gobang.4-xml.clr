@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLORING>
+    <Coloring func="_^main^_^main" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="124" color="1"/>
+            <Color node="125" color="1"/>
+            <Color node="126" color="1"/>
+            <Color node="127" color="1"/>
+            <Color node="128" color="1"/>
+            <Color node="129" color="1"/>
+            <Color node="130" color="1"/>
+            <Color node="131" color="1"/>
+            <Color node="132" color="1"/>
+            <Color node="133" color="1"/>
+            <Color node="134" color="1"/>
+            <Color node="135" color="1"/>
+            <Color node="10000" color="4"/>
+            <Color node="10200" color="0"/>
+            <Color node="10300" color="1"/>
+            <Color node="10400" color="1"/>
+            <Color node="10700" color="1"/>
+            <Color node="10900" color="1"/>
+            <Color node="11000" color="0"/>
+            <Color node="11100" color="0"/>
+            <Color node="11200" color="0"/>
+            <Color node="11300" color="0"/>
+            <Color node="11400" color="0"/>
+            <Color node="11500" color="0"/>
+            <Color node="11600" color="0"/>
+            <Color node="11700" color="0"/>
+            <Color node="11800" color="0"/>
+            <Color node="11900" color="0"/>
+            <Color node="12000" color="0"/>
+            <Color node="12100" color="0"/>
+            <Color node="12200" color="0"/>
+            <Color node="12300" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Math^mod" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="100" color="0"/>
+            <Color node="101" color="1"/>
+            <Color node="102" color="2"/>
+            <Color node="10600" color="0"/>
+            <Color node="10700" color="0"/>
+            <Color node="10800" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Math^wait" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="106" color="0"/>
+            <Color node="109" color="1"/>
+            <Color node="114" color="3"/>
+            <Color node="115" color="2"/>
+            <Color node="116" color="3"/>
+            <Color node="10700" color="1"/>
+            <Color node="10800" color="0"/>
+            <Color node="10801" color="0"/>
+            <Color node="10802" color="0"/>
+            <Color node="11200" color="2"/>
+            <Color node="11300" color="2"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Math^dec2hex" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="112" color="0"/>
+            <Color node="113" color="1"/>
+            <Color node="118" color="0"/>
+            <Color node="119" color="0"/>
+            <Color node="120" color="0"/>
+            <Color node="11600" color="0"/>
+            <Color node="11700" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Math^hex2dec" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="116" color="0"/>
+            <Color node="117" color="1"/>
+            <Color node="123" color="0"/>
+            <Color node="124" color="0"/>
+            <Color node="125" color="0"/>
+            <Color node="126" color="0"/>
+            <Color node="127" color="0"/>
+            <Color node="12000" color="0"/>
+            <Color node="12100" color="0"/>
+            <Color node="12200" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ConsoleOp^putSP" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="120" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ConsoleOp^putLF" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="122" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ConsoleOp^removeLine" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="124" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ConsoleOp^getchar" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="126" color="0"/>
+            <Color node="131" color="1"/>
+            <Color node="132" color="1"/>
+            <Color node="12700" color="0"/>
+            <Color node="12701" color="0"/>
+            <Color node="12702" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Game^init" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="129" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Game^mainLoop" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="131" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Game^clear" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="133" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="Game^run" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="135" color="4"/>
+            <Color node="148" color="1"/>
+            <Color node="13700" color="1"/>
+            <Color node="13900" color="1"/>
+            <Color node="14000" color="0"/>
+            <Color node="14100" color="5"/>
+            <Color node="14200" color="1"/>
+            <Color node="14400" color="0"/>
+            <Color node="14500" color="0"/>
+            <Color node="14600" color="0"/>
+            <Color node="14700" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^mainLoop" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="137" color="5"/>
+            <Color node="192" color="1"/>
+            <Color node="193" color="1"/>
+            <Color node="194" color="1"/>
+            <Color node="195" color="1"/>
+            <Color node="13800" color="4"/>
+            <Color node="13801" color="4"/>
+            <Color node="13900" color="6"/>
+            <Color node="13901" color="6"/>
+            <Color node="14100" color="0"/>
+            <Color node="14101" color="0"/>
+            <Color node="14102" color="0"/>
+            <Color node="14200" color="1"/>
+            <Color node="14400" color="1"/>
+            <Color node="14600" color="1"/>
+            <Color node="14700" color="0"/>
+            <Color node="14800" color="1"/>
+            <Color node="15000" color="1"/>
+            <Color node="15100" color="0"/>
+            <Color node="15200" color="1"/>
+            <Color node="15400" color="2"/>
+            <Color node="15500" color="0"/>
+            <Color node="15600" color="2"/>
+            <Color node="15800" color="2"/>
+            <Color node="15900" color="0"/>
+            <Color node="16000" color="2"/>
+            <Color node="16200" color="2"/>
+            <Color node="16300" color="3"/>
+            <Color node="16500" color="3"/>
+            <Color node="16600" color="0"/>
+            <Color node="16700" color="0"/>
+            <Color node="16800" color="0"/>
+            <Color node="16900" color="0"/>
+            <Color node="17000" color="0"/>
+            <Color node="17100" color="0"/>
+            <Color node="17200" color="0"/>
+            <Color node="17300" color="0"/>
+            <Color node="17400" color="0"/>
+            <Color node="17500" color="0"/>
+            <Color node="17600" color="0"/>
+            <Color node="17700" color="0"/>
+            <Color node="17800" color="0"/>
+            <Color node="17900" color="0"/>
+            <Color node="18000" color="0"/>
+            <Color node="18100" color="0"/>
+            <Color node="18200" color="0"/>
+            <Color node="18300" color="0"/>
+            <Color node="18400" color="0"/>
+            <Color node="18500" color="1"/>
+            <Color node="18600" color="1"/>
+            <Color node="18700" color="1"/>
+            <Color node="18800" color="1"/>
+            <Color node="18900" color="0"/>
+            <Color node="19000" color="0"/>
+            <Color node="19100" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^init" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="142" color="6"/>
+            <Color node="148" color="5"/>
+            <Color node="172" color="1"/>
+            <Color node="173" color="1"/>
+            <Color node="174" color="1"/>
+            <Color node="175" color="1"/>
+            <Color node="176" color="1"/>
+            <Color node="177" color="1"/>
+            <Color node="178" color="1"/>
+            <Color node="179" color="1"/>
+            <Color node="180" color="2"/>
+            <Color node="181" color="2"/>
+            <Color node="182" color="2"/>
+            <Color node="14300" color="4"/>
+            <Color node="14400" color="0"/>
+            <Color node="14401" color="0"/>
+            <Color node="14402" color="0"/>
+            <Color node="14500" color="7"/>
+            <Color node="14700" color="1"/>
+            <Color node="15200" color="5"/>
+            <Color node="15300" color="0"/>
+            <Color node="15400" color="0"/>
+            <Color node="15500" color="0"/>
+            <Color node="15600" color="0"/>
+            <Color node="15700" color="0"/>
+            <Color node="15800" color="0"/>
+            <Color node="15900" color="0"/>
+            <Color node="16000" color="0"/>
+            <Color node="16100" color="1"/>
+            <Color node="16200" color="1"/>
+            <Color node="16300" color="1"/>
+            <Color node="16400" color="1"/>
+            <Color node="16500" color="2"/>
+            <Color node="16600" color="1"/>
+            <Color node="16700" color="1"/>
+            <Color node="16800" color="1"/>
+            <Color node="16900" color="1"/>
+            <Color node="17000" color="1"/>
+            <Color node="17100" color="1"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^clear" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="149" color="4"/>
+            <Color node="161" color="2"/>
+            <Color node="15100" color="1"/>
+            <Color node="15300" color="1"/>
+            <Color node="15500" color="0"/>
+            <Color node="15600" color="1"/>
+            <Color node="15700" color="0"/>
+            <Color node="15800" color="0"/>
+            <Color node="15900" color="0"/>
+            <Color node="16000" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^update" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="151" color="4"/>
+            <Color node="152" color="1"/>
+            <Color node="153" color="2"/>
+            <Color node="193" color="5"/>
+            <Color node="194" color="3"/>
+            <Color node="195" color="3"/>
+            <Color node="196" color="2"/>
+            <Color node="16000" color="5"/>
+            <Color node="16100" color="0"/>
+            <Color node="16200" color="3"/>
+            <Color node="16300" color="1"/>
+            <Color node="16400" color="0"/>
+            <Color node="16500" color="3"/>
+            <Color node="16700" color="0"/>
+            <Color node="16900" color="0"/>
+            <Color node="17000" color="2"/>
+            <Color node="17200" color="0"/>
+            <Color node="17300" color="3"/>
+            <Color node="17400" color="3"/>
+            <Color node="17500" color="3"/>
+            <Color node="17600" color="3"/>
+            <Color node="17700" color="3"/>
+            <Color node="17800" color="0"/>
+            <Color node="17900" color="0"/>
+            <Color node="18000" color="0"/>
+            <Color node="18100" color="3"/>
+            <Color node="18200" color="3"/>
+            <Color node="18300" color="1"/>
+            <Color node="18400" color="1"/>
+            <Color node="18500" color="1"/>
+            <Color node="18600" color="1"/>
+            <Color node="18700" color="5"/>
+            <Color node="18800" color="0"/>
+            <Color node="18900" color="1"/>
+            <Color node="19000" color="0"/>
+            <Color node="19100" color="0"/>
+            <Color node="19200" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^checkwin" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="176" color="6"/>
+            <Color node="345" color="0"/>
+            <Color node="346" color="1"/>
+            <Color node="347" color="1"/>
+            <Color node="348" color="1"/>
+            <Color node="349" color="1"/>
+            <Color node="350" color="1"/>
+            <Color node="351" color="1"/>
+            <Color node="352" color="1"/>
+            <Color node="353" color="1"/>
+            <Color node="354" color="2"/>
+            <Color node="355" color="0"/>
+            <Color node="356" color="0"/>
+            <Color node="357" color="7"/>
+            <Color node="358" color="5"/>
+            <Color node="359" color="7"/>
+            <Color node="360" color="7"/>
+            <Color node="361" color="7"/>
+            <Color node="363" color="0"/>
+            <Color node="364" color="8"/>
+            <Color node="365" color="7"/>
+            <Color node="366" color="8"/>
+            <Color node="367" color="0"/>
+            <Color node="368" color="7"/>
+            <Color node="369" color="5"/>
+            <Color node="370" color="7"/>
+            <Color node="371" color="7"/>
+            <Color node="372" color="7"/>
+            <Color node="374" color="0"/>
+            <Color node="375" color="8"/>
+            <Color node="376" color="7"/>
+            <Color node="377" color="8"/>
+            <Color node="378" color="0"/>
+            <Color node="16700" color="5"/>
+            <Color node="16701" color="2"/>
+            <Color node="16702" color="0"/>
+            <Color node="16800" color="1"/>
+            <Color node="16900" color="3"/>
+            <Color node="16901" color="3"/>
+            <Color node="16902" color="3"/>
+            <Color node="16903" color="3"/>
+            <Color node="16904" color="3"/>
+            <Color node="17000" color="4"/>
+            <Color node="17100" color="0"/>
+            <Color node="17101" color="0"/>
+            <Color node="17102" color="0"/>
+            <Color node="17103" color="0"/>
+            <Color node="17200" color="6"/>
+            <Color node="17201" color="6"/>
+            <Color node="17202" color="5"/>
+            <Color node="17203" color="5"/>
+            <Color node="17300" color="0"/>
+            <Color node="17301" color="0"/>
+            <Color node="17302" color="0"/>
+            <Color node="17303" color="0"/>
+            <Color node="17304" color="0"/>
+            <Color node="17305" color="0"/>
+            <Color node="17400" color="5"/>
+            <Color node="17401" color="5"/>
+            <Color node="17402" color="5"/>
+            <Color node="17403" color="5"/>
+            <Color node="17404" color="5"/>
+            <Color node="17405" color="5"/>
+            <Color node="18000" color="2"/>
+            <Color node="18100" color="0"/>
+            <Color node="18200" color="1"/>
+            <Color node="18500" color="7"/>
+            <Color node="18600" color="0"/>
+            <Color node="18900" color="7"/>
+            <Color node="19000" color="5"/>
+            <Color node="20100" color="8"/>
+            <Color node="20200" color="7"/>
+            <Color node="20500" color="8"/>
+            <Color node="20600" color="0"/>
+            <Color node="20900" color="8"/>
+            <Color node="21000" color="7"/>
+            <Color node="21300" color="7"/>
+            <Color node="21400" color="0"/>
+            <Color node="21700" color="7"/>
+            <Color node="21800" color="5"/>
+            <Color node="22900" color="8"/>
+            <Color node="23000" color="7"/>
+            <Color node="23300" color="8"/>
+            <Color node="23400" color="0"/>
+            <Color node="23700" color="8"/>
+            <Color node="23800" color="7"/>
+            <Color node="24100" color="0"/>
+            <Color node="24300" color="4"/>
+            <Color node="24400" color="5"/>
+            <Color node="24600" color="4"/>
+            <Color node="24700" color="6"/>
+            <Color node="24900" color="8"/>
+            <Color node="25100" color="4"/>
+            <Color node="25200" color="7"/>
+            <Color node="25400" color="4"/>
+            <Color node="25500" color="5"/>
+            <Color node="25700" color="4"/>
+            <Color node="25800" color="5"/>
+            <Color node="26000" color="4"/>
+            <Color node="26100" color="6"/>
+            <Color node="26300" color="8"/>
+            <Color node="26500" color="4"/>
+            <Color node="26600" color="7"/>
+            <Color node="26800" color="4"/>
+            <Color node="26900" color="5"/>
+            <Color node="27000" color="0"/>
+            <Color node="27100" color="0"/>
+            <Color node="27200" color="0"/>
+            <Color node="27300" color="0"/>
+            <Color node="27400" color="0"/>
+            <Color node="27500" color="0"/>
+            <Color node="27600" color="0"/>
+            <Color node="27700" color="0"/>
+            <Color node="27800" color="0"/>
+            <Color node="27900" color="1"/>
+            <Color node="28000" color="1"/>
+            <Color node="28100" color="1"/>
+            <Color node="28200" color="1"/>
+            <Color node="28300" color="1"/>
+            <Color node="28400" color="0"/>
+            <Color node="28500" color="0"/>
+            <Color node="28600" color="0"/>
+            <Color node="28700" color="0"/>
+            <Color node="28800" color="0"/>
+            <Color node="28900" color="5"/>
+            <Color node="29000" color="5"/>
+            <Color node="29100" color="5"/>
+            <Color node="29200" color="5"/>
+            <Color node="29300" color="5"/>
+            <Color node="29400" color="7"/>
+            <Color node="29500" color="7"/>
+            <Color node="29600" color="7"/>
+            <Color node="29700" color="7"/>
+            <Color node="29800" color="7"/>
+            <Color node="29900" color="7"/>
+            <Color node="30000" color="7"/>
+            <Color node="30100" color="7"/>
+            <Color node="30200" color="7"/>
+            <Color node="30300" color="7"/>
+            <Color node="30400" color="7"/>
+            <Color node="30500" color="7"/>
+            <Color node="30600" color="0"/>
+            <Color node="30700" color="0"/>
+            <Color node="30800" color="0"/>
+            <Color node="30900" color="0"/>
+            <Color node="31000" color="7"/>
+            <Color node="31100" color="7"/>
+            <Color node="31200" color="7"/>
+            <Color node="31300" color="7"/>
+            <Color node="31400" color="7"/>
+            <Color node="31500" color="0"/>
+            <Color node="31600" color="0"/>
+            <Color node="31700" color="0"/>
+            <Color node="31800" color="0"/>
+            <Color node="31900" color="5"/>
+            <Color node="32000" color="5"/>
+            <Color node="32100" color="5"/>
+            <Color node="32200" color="5"/>
+            <Color node="32300" color="5"/>
+            <Color node="32400" color="7"/>
+            <Color node="32500" color="7"/>
+            <Color node="32600" color="7"/>
+            <Color node="32700" color="7"/>
+            <Color node="32800" color="7"/>
+            <Color node="32900" color="7"/>
+            <Color node="33000" color="7"/>
+            <Color node="33100" color="7"/>
+            <Color node="33200" color="7"/>
+            <Color node="33300" color="7"/>
+            <Color node="33400" color="7"/>
+            <Color node="33500" color="7"/>
+            <Color node="33600" color="0"/>
+            <Color node="33700" color="0"/>
+            <Color node="33800" color="0"/>
+            <Color node="33900" color="0"/>
+            <Color node="34000" color="7"/>
+            <Color node="34100" color="7"/>
+            <Color node="34200" color="7"/>
+            <Color node="34300" color="7"/>
+            <Color node="34400" color="7"/>
+        </Colors>
+        <Spills>
+            <Spill node="166"/>
+            <Spill node="175"/>
+            <Spill node="176"/>
+            <Spill node="362"/>
+            <Spill node="373"/>
+            <Spill node="20000"/>
+            <Spill node="22800"/>
+        </Spills>
+    </Coloring>
+    <Coloring func="ChessBoard^printDivider" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="239" color="4"/>
+            <Color node="24000" color="5"/>
+            <Color node="24001" color="5"/>
+            <Color node="24002" color="5"/>
+            <Color node="24200" color="1"/>
+            <Color node="24300" color="0"/>
+            <Color node="24400" color="1"/>
+            <Color node="24600" color="1"/>
+            <Color node="24700" color="0"/>
+            <Color node="24800" color="1"/>
+            <Color node="25500" color="1"/>
+            <Color node="25600" color="0"/>
+            <Color node="25700" color="1"/>
+            <Color node="25900" color="0"/>
+            <Color node="26000" color="0"/>
+            <Color node="26100" color="0"/>
+            <Color node="26200" color="0"/>
+            <Color node="26300" color="0"/>
+            <Color node="26400" color="0"/>
+            <Color node="26500" color="0"/>
+            <Color node="26600" color="0"/>
+            <Color node="26700" color="0"/>
+            <Color node="26800" color="0"/>
+            <Color node="26900" color="0"/>
+            <Color node="27000" color="0"/>
+            <Color node="27100" color="0"/>
+            <Color node="27200" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^getCurChess" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="242" color="0"/>
+            <Color node="246" color="1"/>
+            <Color node="24400" color="0"/>
+            <Color node="24500" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^printHint" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="244" color="4"/>
+            <Color node="25100" color="1"/>
+            <Color node="25200" color="0"/>
+            <Color node="26300" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^printBoard" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="246" color="5"/>
+            <Color node="376" color="2"/>
+            <Color node="24700" color="4"/>
+            <Color node="24701" color="4"/>
+            <Color node="24702" color="4"/>
+            <Color node="24703" color="4"/>
+            <Color node="24704" color="4"/>
+            <Color node="24705" color="4"/>
+            <Color node="24800" color="6"/>
+            <Color node="24801" color="6"/>
+            <Color node="24802" color="6"/>
+            <Color node="25000" color="2"/>
+            <Color node="25100" color="0"/>
+            <Color node="25200" color="1"/>
+            <Color node="25300" color="1"/>
+            <Color node="25400" color="0"/>
+            <Color node="25500" color="1"/>
+            <Color node="25700" color="1"/>
+            <Color node="25800" color="0"/>
+            <Color node="25900" color="1"/>
+            <Color node="26100" color="1"/>
+            <Color node="26200" color="0"/>
+            <Color node="26300" color="1"/>
+            <Color node="26500" color="1"/>
+            <Color node="26600" color="0"/>
+            <Color node="26700" color="1"/>
+            <Color node="26900" color="2"/>
+            <Color node="27000" color="0"/>
+            <Color node="27100" color="2"/>
+            <Color node="27200" color="0"/>
+            <Color node="27400" color="1"/>
+            <Color node="27500" color="0"/>
+            <Color node="27600" color="1"/>
+            <Color node="27800" color="1"/>
+            <Color node="27900" color="0"/>
+            <Color node="28000" color="1"/>
+            <Color node="28200" color="1"/>
+            <Color node="28400" color="2"/>
+            <Color node="28500" color="0"/>
+            <Color node="28600" color="2"/>
+            <Color node="28700" color="0"/>
+            <Color node="28900" color="1"/>
+            <Color node="29000" color="0"/>
+            <Color node="29100" color="1"/>
+            <Color node="29400" color="1"/>
+            <Color node="29500" color="0"/>
+            <Color node="29600" color="1"/>
+            <Color node="29900" color="0"/>
+            <Color node="30000" color="0"/>
+            <Color node="30200" color="1"/>
+            <Color node="30300" color="0"/>
+            <Color node="30400" color="1"/>
+            <Color node="30700" color="1"/>
+            <Color node="30800" color="0"/>
+            <Color node="30900" color="1"/>
+            <Color node="31100" color="1"/>
+            <Color node="31300" color="0"/>
+            <Color node="31400" color="0"/>
+            <Color node="31500" color="0"/>
+            <Color node="31600" color="0"/>
+            <Color node="31700" color="0"/>
+            <Color node="31800" color="0"/>
+            <Color node="31900" color="0"/>
+            <Color node="32000" color="0"/>
+            <Color node="32100" color="0"/>
+            <Color node="32200" color="0"/>
+            <Color node="32300" color="0"/>
+            <Color node="32400" color="0"/>
+            <Color node="32500" color="0"/>
+            <Color node="32600" color="0"/>
+            <Color node="32700" color="0"/>
+            <Color node="32800" color="0"/>
+            <Color node="32900" color="0"/>
+            <Color node="33000" color="0"/>
+            <Color node="33100" color="0"/>
+            <Color node="33200" color="0"/>
+            <Color node="33300" color="0"/>
+            <Color node="33400" color="0"/>
+            <Color node="33500" color="0"/>
+            <Color node="33600" color="0"/>
+            <Color node="33700" color="0"/>
+            <Color node="33800" color="0"/>
+            <Color node="33900" color="0"/>
+            <Color node="34000" color="0"/>
+            <Color node="34100" color="0"/>
+            <Color node="34200" color="0"/>
+            <Color node="34300" color="0"/>
+            <Color node="34400" color="0"/>
+            <Color node="34500" color="0"/>
+            <Color node="34600" color="0"/>
+            <Color node="34700" color="0"/>
+            <Color node="34800" color="0"/>
+            <Color node="34900" color="0"/>
+            <Color node="35000" color="0"/>
+            <Color node="35100" color="0"/>
+            <Color node="35200" color="0"/>
+            <Color node="35300" color="0"/>
+            <Color node="35400" color="0"/>
+            <Color node="35500" color="0"/>
+            <Color node="35600" color="0"/>
+            <Color node="35700" color="0"/>
+            <Color node="35800" color="0"/>
+            <Color node="35900" color="0"/>
+            <Color node="36000" color="0"/>
+            <Color node="36100" color="1"/>
+            <Color node="36200" color="1"/>
+            <Color node="36300" color="1"/>
+            <Color node="36400" color="1"/>
+            <Color node="36500" color="1"/>
+            <Color node="36600" color="0"/>
+            <Color node="36700" color="0"/>
+            <Color node="36800" color="0"/>
+            <Color node="36900" color="0"/>
+            <Color node="37000" color="0"/>
+            <Color node="37100" color="0"/>
+            <Color node="37200" color="0"/>
+            <Color node="37300" color="0"/>
+            <Color node="37400" color="0"/>
+            <Color node="37500" color="0"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+    <Coloring func="ChessBoard^printWin" k="9">
+        <Colors>
+            <Color node="0" color="0"/>
+            <Color node="1" color="1"/>
+            <Color node="2" color="2"/>
+            <Color node="3" color="3"/>
+            <Color node="253" color="0"/>
+            <Color node="25500" color="1"/>
+            <Color node="25600" color="0"/>
+            <Color node="27300" color="1"/>
+        </Colors>
+        <Spills/>
+    </Coloring>
+</COLORING>

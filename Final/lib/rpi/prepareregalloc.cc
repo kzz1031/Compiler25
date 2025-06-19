@@ -173,23 +173,29 @@ static void handlePhi(QuadFuncDecl* quadFuncDecl) {
                             if (!found) {
                                 //if not found, it means the label is not in the block
                                 //this should not happen, but just in case
-                                cerr << "Error: phi label not found!" << endl;
-                                exit(EXIT_FAILURE);
+                                //cerr << "Error: phi label not found!" << endl;
+                                //exit(EXIT_FAILURE);
+                                //or we simply ignore it (as it should not happen)
+                                //but if phi allows a constant argument, we need to do a hack to 
+                                //use a move to move the constant to a temp, but this temp is not from 
+                                //any predecessor block... so ignore this case is a better solution
                             }
                         }
                     } else {
                         cerr << "Error: phi temp is null!" << endl;
                         exit(EXIT_FAILURE);
                     }
-                    //finally, remove the phi statement from the current block
-                    auto it = find(block->quadlist->begin(), block->quadlist->end(), stmt);
-                    if (it != block->quadlist->end()) {
-                        block->quadlist->erase(it); //remove the phi statement
-                    } else {
-                        cerr << "Error: phi statement not found!" << endl;
-                        exit(EXIT_FAILURE);
-                    }
                 }
+            }
+            //now got over the statements again to remove the phi statements
+            int i=0;
+            while (true) {
+                if (i >= block->quadlist->size()) break; //end of the list
+                if (block->quadlist->at(i)->kind != QuadKind::PHI) {
+                    i++; //not a phi, continue
+                    continue;
+                }
+                block->quadlist->erase(block->quadlist->begin()+i); //remove the phi node
             }
         }
     }
@@ -364,10 +370,10 @@ static void handleOtherStm(QuadFuncDecl *quadFuncDecl) {
                     case QuadKind::MOVE_BINOP: {//binop left must be a temp, multiplication must be all temps
                             QuadMoveBinop* move_binop = static_cast<QuadMoveBinop*>(block->quadlist->at(i));
 #ifdef DEBUG
-                            cout << "Move binop: " << move_binop->binop << endl;
-                            string sss;
-                            move_binop->print(sss, 0, true);
-                            cout << sss << endl;
+                        cout << "========Move binop" << endl;
+                        string sss;
+                        move_binop->print(sss, 0, true);
+                        cout << sss << endl;
 #endif
                             TempExp *new_t = nullptr, *new_t2 = nullptr;
                             QuadMove *new_move, *new_move2;
@@ -376,6 +382,11 @@ static void handleOtherStm(QuadFuncDecl *quadFuncDecl) {
                                 set<Temp*> *def = new set<Temp*>(); def->insert(new_t->temp);
                                 new_move = new QuadMove(nullptr, new_t, move_binop->left, def, nullptr);
                             } 
+#ifdef DEBUG
+                            cout << "move_binop->op=" << move_binop->binop << "|||" << endl;
+                            cout << "move_binop->left->kind=" << (move_binop->left->kind==QuadTermKind::CONST?"CONST":"TEMP") << endl;
+                            cout << "move_binop->right->kind=" << (move_binop->right->kind==QuadTermKind::CONST?"CONST":"TEMP") << endl;
+#endif
                             if ((move_binop->binop == "*" || move_binop->binop == "/") && move_binop->right->kind == QuadTermKind::CONST) {
                                     new_t2 = new TempExp(Type::INT, temp_map->newtemp());
                                     set<Temp*> *def2 = new set<Temp*>(); def2->insert(new_t2->temp);
@@ -392,6 +403,11 @@ static void handleOtherStm(QuadFuncDecl *quadFuncDecl) {
                                     (new_t2!=nullptr?new QuadTerm(new_t2):move_binop->right),
                                     move_binop->def, move_binop->use);
                             block->quadlist->insert(block->quadlist->begin()+i, new_move_binop);
+#ifdef DEBUG
+                        cout << "new_t=" << (new_t==nullptr?"null":to_string(new_t->temp->num)) << endl;
+                        cout << "new_t2=" << (new_t2==nullptr?"null":to_string(new_t2->temp->num)) << endl;
+                        cout << "========Move binop" << endl;
+#endif
                         }
                         break;
                     case QuadKind::CJUMP: { //both sides must be temps

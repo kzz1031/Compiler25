@@ -46,19 +46,45 @@ run: $(MAIN)
 	done; \
 	cd .. > /dev/null 2>&1 
 
-run-assem: $(MAIN)
-	cd $(CURDIR)/test && \
+run-fmj: $(MAIN)
+	cd $(CURDIR)/fmj_normal && \
 	for file in $$(ls .); do \
-		if [ "$${file#*.}" = "4-prepared-xml.quad" ]; then \
-			echo "Reading ${file}.4-prepared-xml.quad and ${file}.4-xml.clr"; \
-			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../vendor/libsysy/libsysy32.s -lm; \
-			echo "Running the final assembly program........." ; \
-			qemu-arm -B 0x1000 $${file%%.*}; \
+		if [ "$${file#*.}" = "fmj" ]; then \
+			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
+			$(MAIN) "$${file%%.*}"; \
 		fi; \
 	done; \
 	cd .. > /dev/null 2>&1 
 
-FILE=hw8test06
+run-assem: $(MAIN)
+	cd $(CURDIR)/test && \
+	echo "List of files:" && ls . && \
+	for file in *; do \
+		#echo "Checking file: $$file"; \
+		if [ "$${file#*.}" = "4-prepared.quad" ]; then \
+			echo "Reading $$file"; \
+			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../vendor/libsysy/libsysy32.s -lm; \
+			echo "Running the final assembly program........." ; \
+			qemu-arm -B 0x1000 $${file%%.*}; \
+			echo "Finished running $$file"; \
+		fi; \
+	done
+
+run-assem-one: $(MAIN)
+	cd $(CURDIR)/test/assem && \
+	echo "List of files:" && ls . && \
+	for file in *; do \
+		#echo "Checking file: $$file"; \
+		if [ "$${file#*.}" = "4-prepared.quad" ]; then \
+			echo "Reading $$file"; \
+			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../../vendor/libsysy/libsysy32.s -lm; \
+			echo "Running the final assembly program........." ; \
+			qemu-arm -B 0x1000 $${file%%.*}; \
+			echo "Finished running $$file"; \
+		fi; \
+	done
+
+FILE=gobang
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
@@ -66,9 +92,17 @@ run-one: $(MAIN)
 	$(MAIN) "${FILE}"; \
 	cd .. > /dev/null 2>&1 
 
+run-one-fmj: $(MAIN)
+	cd $(CURDIR)/fmj_normal && \
+	echo "Reading ${FILE}.4-ssa-xml.quad and ${FILE}.4-xml.clr"; \
+	$(MAIN) "${FILE}"; \
+	cd .. > /dev/null 2>&1 
+
 run-one-assem: $(MAIN)
-	cd $(CURDIR)/test && \
+	cd $(CURDIR)/fmj_normal && \
     arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "${FILE}" "${FILE}.s" ../vendor/libsysy/libsysy32.s -lm; \
-	echo "Running the final assembly program........." ; \
+	echo "Running the final assembly program: ${FILE}........." ; \
 	qemu-arm -B 0x1000 ${FILE}; \
+    RET=$$?; \
+    echo "Program return value: $$RET"; \
 	cd .. > /dev/null 2>&1 

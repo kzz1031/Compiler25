@@ -15,6 +15,7 @@ public int main() {
    a = b+c;
    a = -a;
    a = d.m();
+   putarray(3, a);
    return(0);
 }
 

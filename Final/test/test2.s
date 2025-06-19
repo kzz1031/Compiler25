@@ -28,6 +28,9 @@ main$L105:
          bne main$L102
 main$L103: 
 main$L104: 
+         mov r0, #0
+         sub sp, fp, #32
+         pop {r4-r10, fp, pc}
 main$L102: 
          b main$L104
 
