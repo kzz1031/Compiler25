@@ -54,7 +54,7 @@ Function C^next(t0, t1) last_label=105 last_temp=120:
     LOAD t118:INT <- Mem(Name:C^next); def: 118 use: 
     STORE t118:INT -> Mem(t11100:PTR); def: use: 11100 118 
     MOVE_BINOP t11200:PTR <- (+, t10100:PTR, Const:0); def: 11200 use: 10100 
-    STORE t102:INT -> Mem(t11200:PTR); def: use: 102 11200 
+    STORE t102:INT -> Mem(t11200:PTR); def: use: 11200 102 
     MOVE t119:INT <- Const:100; def: 119 use: 
     CJUMP < t102:INT t119:INT? L102 : L103; def: use: 102 119 
   Block: Entry Label: L102

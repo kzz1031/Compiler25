@@ -42,7 +42,7 @@ compile: $(MAIN)
 		if [ "$${file#*.}" = "fmj" ]; then \
 			echo "Compiling ${FILE}.fmj"; \
 			$(MAIN) "$${file%%.*}"; \
-			echo "Finish Compiling ${FILE}.fmj"
+			echo "Finish Compiling ${FILE}.fmj";\
 		fi; \
 	done; \
 	cd .. > /dev/null 2>&1 
@@ -66,8 +66,8 @@ run: $(MAIN)
 			echo "[Running $$file]"; \
 			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../vendor/libsysy/libsysy32.s -lm; \
 			qemu-arm -B 0x1000 $${file%%.*}; \
-			echo "Finished running $$file"; \
-			echo "Return value: $$?"; \
+			RET=$$?; \
+    		echo "Program return value: $$RET"; \
 		fi; \
 	done
 
@@ -85,7 +85,7 @@ run-assem: $(MAIN)
 		fi; \
 	done
 
-FILE=additional
+FILE=hw8test00
 
 compile-one: $(MAIN)
 	cd $(CURDIR)/test && \
