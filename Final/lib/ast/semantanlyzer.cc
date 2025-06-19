@@ -837,16 +837,24 @@ void AST_Semant_Visitor::visit(CallExp* node) {
 
     Formal* return_formal = (*formal_list)[formal_list->size() - 1];
     Type* method_type = return_formal->type;
+    //set semantic info for method call with array support
+    variant<monostate,string,int> return_type_par;
+    if (method_type->typeKind == TypeKind::ARRAY) {
+        return_type_par = method_type->arity ? variant<monostate,string,int>(method_type->arity->val) : variant<monostate,string,int>(0);
+    } else if (method_type->typeKind == TypeKind::CLASS) {
+        return_type_par = method_type->cid ? variant<monostate,string,int>(method_type->cid->id) : monostate();
+    } else {
+        return_type_par = monostate();
+    }
     
     auto method_semant = new AST_Semant(
         AST_Semant::Kind::Value,
         method_type->typeKind,
-        method_type->cid ? variant<monostate,string,int>(method_type->cid->id) : monostate(),
+        return_type_par,
         false
     );
     semant_map->setSemant(node, method_semant);
-    
-    // ...existing code...
+
 }
 
 void AST_Semant_Visitor::visit(ClassVar* node) {
