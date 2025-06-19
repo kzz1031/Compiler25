@@ -1,5 +1,0 @@
-public int main() {
-   int x;
-   putch(({x=1;} 19));
-   return 100;
-}

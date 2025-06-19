@@ -1,5 +1,0 @@
-public int main() {
-   int x = 1;
-   x = 1 + 2 * 3 > 3 || 4 && 5==0;
-   return(({x=x+1;} x));
-}

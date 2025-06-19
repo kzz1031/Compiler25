@@ -1,3 +1,0 @@
-This is HW6. Your task is to complete the tree2quad.cc code under lib/quad. This code assumes that the IR is canonicalized (using canon.cc code, see main.cc). If you compile and run the program now, all the *.4.quad files are the "dummy" one hard-coded into the tree2quad.cc file. 
-
-There are some test files under test, and the test/output_example directory contains the example quad output from the test files.

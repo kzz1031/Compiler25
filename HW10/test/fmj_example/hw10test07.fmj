@@ -1,5 +1,0 @@
-public int main() {
-  int i;
-  i = 1+1+1+1+getint();
-  return i;
-} 

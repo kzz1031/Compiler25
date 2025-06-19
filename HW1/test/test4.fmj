@@ -1,4 +1,0 @@
-public int main() {
-	x = ((-(-1))*(-(-(-2))));
-	return x;
-}

@@ -4,6 +4,7 @@ build/
 
 # Prerequisites
 *.d
+*.irp
 *.out
 
 # Compiled Object files
@@ -40,8 +41,6 @@ build/
 *.swp
 
 *.zip
-
-*.pdf
 
 *.png
 
