@@ -71,7 +71,7 @@ Function _^main^_^main() last_label=120 last_temp=166:
     LOAD t10800:INT <- Mem(t13500:PTR); def: 10800 use: 13500 
     MOVE t11700:PTR <- t10000:PTR; def: 11700 use: 10000 
     LOAD t10700:INT <- Mem(t10000:PTR); def: 10700 use: 10000 
-    CJUMP >= t10800:INT t10700:INT? L106 : L107; def: use: 10700 10800 
+    CJUMP >= t10800:INT t10700:INT? L106 : L107; def: use: 10800 10700 
   Block: Entry Label: L106
     Exit labels: 
     LABEL L106; def: use: 

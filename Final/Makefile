@@ -51,8 +51,9 @@ compile-fmj: $(MAIN)
 	cd $(CURDIR)/fmj_normal && \
 	for file in $$(ls .); do \
 		if [ "$${file#*.}" = "fmj" ]; then \
-			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
+			echo "Compiling ${FILE}.fmj"; \
 			$(MAIN) "$${file%%.*}"; \
+			echo "Finish Compiling ${FILE}.fmj";\
 		fi; \
 	done; \
 	cd .. > /dev/null 2>&1 
@@ -71,17 +72,18 @@ run: $(MAIN)
 		fi; \
 	done
 
-run-assem: $(MAIN)
-	cd $(CURDIR)/test/assem && \
+run-fmj: $(MAIN)
+	cd $(CURDIR)/fmj_normal && \
 	echo "List of files:" && ls . && \
 	for file in *; do \
 		#echo "Checking file: $$file"; \
 		if [ "$${file#*.}" = "4-prepared.quad" ]; then \
 			echo "Reading $$file"; \
-			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../../vendor/libsysy/libsysy32.s -lm; \
+			arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "$${file%%.*}" "$${file%%.*}.s" ../vendor/libsysy/libsysy32.s -lm; \
 			echo "Running the final assembly program........." ; \
 			qemu-arm -B 0x1000 $${file%%.*}; \
-			echo "Finished running $$file"; \
+			RET=$$?; \
+    		echo "Program return value: $$RET"; \
 		fi; \
 	done
 

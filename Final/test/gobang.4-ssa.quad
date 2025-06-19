@@ -43,7 +43,7 @@ Function Math^mod(t100, t101, t102) last_label=100 last_temp=108:
   Block: Entry Label: L100
     Exit labels: 
     LABEL L100; def: use: 
-    MOVE_BINOP t10600:INT <- (/, t101:INT, t102:INT); def: 10600 use: 101 102 
+    MOVE_BINOP t10600:INT <- (/, t101:INT, t102:INT); def: 10600 use: 102 101 
     MOVE_BINOP t10700:INT <- (*, t10600:INT, t102:INT); def: 10700 use: 102 10600 
     MOVE_BINOP t10800:INT <- (-, t101:INT, t10700:INT); def: 10800 use: 101 10700 
     RETURN t10800:INT; def: use: 10800 
@@ -59,7 +59,7 @@ Function Math^wait(t106, t109) last_label=106 last_temp=113:
   Block: Entry Label: L101
     Exit labels: L102 L103 
     LABEL L101; def: use: 
-    PHI t10801:INT <- (t10802, L102; t10800, L106); def: 10801 use: 10802 10800 
+    PHI t10801:INT <- (t10802, L102; t10800, L106); def: 10801 use: 10800 10802 
     CJUMP < t10801:INT t10700:INT? L102 : L103; def: use: 10700 10801 
   Block: Entry Label: L102
     Exit labels: L101 
@@ -155,7 +155,7 @@ Function ConsoleOp^getchar(t126) last_label=153 last_temp=130:
   Block: Entry Label: L141
     Exit labels: L142 L152 
     LABEL L141; def: use: 
-    PHI t12701:INT <- (t12702, L142; t12700, L153); def: 12701 use: 12702 12700 
+    PHI t12701:INT <- (t12702, L142; t12700, L153); def: 12701 use: 12700 12702 
     CJUMP == t12701:INT Const:32? L142 : L152; def: use: 12701 
   Block: Entry Label: L152
     Exit labels: L142 L143 
@@ -282,7 +282,7 @@ Function ChessBoard^mainLoop(t137) last_label=227 last_temp=191:
   Block: Entry Label: L215
     Exit labels: L219 L220 
     LABEL L215; def: use: 
-    PHI t14102:INT <- (t14100, L207; t14100, L210; t14100, L213; t14101, L214; t14100, L227); def: 14102 use: 14100 14100 14100 14101 14100 
+    PHI t14102:INT <- (t14100, L207; t14100, L210; t14100, L213; t14101, L214; t14100, L227); def: 14102 use: 14100 14100 14100 14100 14101 
     MOVE_BINOP t18900:INT <- (xor, t16200:INT, t14102:INT); def: 18900 use: 14102 16200 
     CJUMP != t18900:INT Const:0? L219 : L220; def: use: 18900 
   Block: Entry Label: L219
@@ -348,7 +348,7 @@ Function ChessBoard^init(t142) last_label=235 last_temp=171:
   Block: Entry Label: L228
     Exit labels: L229 L230 
     LABEL L228; def: use: 
-    PHI t14401:INT <- (t14402, L234; t14400, L235); def: 14401 use: 14402 14400 
+    PHI t14401:INT <- (t14402, L234; t14400, L235); def: 14401 use: 14400 14402 
     MOVE_BINOP t16400:PTR <- (+, t142:PTR, Const:16); def: 16400 use: 142 
     LOAD t16500:INT <- Mem(t16400:PTR); def: 16500 use: 16400 
     MOVE_BINOP t16600:PTR <- (+, t142:PTR, Const:12); def: 16600 use: 142 
@@ -360,7 +360,7 @@ Function ChessBoard^init(t142) last_label=235 last_temp=171:
     LABEL L229; def: use: 
     MOVE t15200:PTR <- t148:PTR; def: 15200 use: 148 
     LOAD t14700:INT <- Mem(t148:PTR); def: 14700 use: 148 
-    CJUMP >= t14401:INT t14700:INT? L233 : L234; def: use: 14700 14401 
+    CJUMP >= t14401:INT t14700:INT? L233 : L234; def: use: 14401 14700 
   Block: Entry Label: L233
     Exit labels: 
     LABEL L233; def: use: 
@@ -370,7 +370,7 @@ Function ChessBoard^init(t142) last_label=235 last_temp=171:
     LABEL L234; def: use: 
     MOVE_BINOP t16900:INT <- (+, t14401:INT, Const:1); def: 16900 use: 14401 
     MOVE_BINOP t17000:INT <- (*, t16900:INT, Const:4); def: 17000 use: 16900 
-    MOVE_BINOP t17100:PTR <- (+, t15200:PTR, t17000:INT); def: 17100 use: 17000 15200 
+    MOVE_BINOP t17100:PTR <- (+, t15200:PTR, t17000:INT); def: 17100 use: 15200 17000 
     STORE Const:46 -> Mem(t17100:PTR); def: use: 17100 
     MOVE_BINOP t14402:INT <- (+, t14401:INT, Const:1); def: 14402 use: 14401 
     JUMP L228; def: use: 
@@ -442,7 +442,7 @@ Function ChessBoard^update(t151, t152, t153) last_label=248 last_temp=192:
     LOAD t17000:PTR <- Mem(t18400:PTR); def: 17000 use: 18400 
     MOVE_BINOP t18500:INT <- (+, t16500:INT, Const:1); def: 18500 use: 16500 
     MOVE_BINOP t18600:INT <- (*, t18500:INT, Const:4); def: 18600 use: 18500 
-    MOVE_BINOP t18700:PTR <- (+, t16900:PTR, t18600:INT); def: 18700 use: 18600 16900 
+    MOVE_BINOP t18700:PTR <- (+, t16900:PTR, t18600:INT); def: 18700 use: 16900 18600 
     MOVE_CALL t18800:INT <- getCurChess[t17000:PTR] (t151:PTR); def: 18800 use: 151 17000 
     STORE t18800:INT -> Mem(t18700:PTR); def: use: 18700 18800 
     MOVE_BINOP t18900:PTR <- (+, t151:PTR, Const:20); def: 18900 use: 151 
@@ -500,7 +500,7 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L250; def: use: 
     MOVE_BINOP t28200:INT <- (+, t18200:INT, Const:1); def: 28200 use: 18200 
     MOVE_BINOP t28300:INT <- (*, t28200:INT, Const:4); def: 28300 use: 28200 
-    MOVE_BINOP t28400:PTR <- (+, t24100:PTR, t28300:INT); def: 28400 use: 28300 24100 
+    MOVE_BINOP t28400:PTR <- (+, t24100:PTR, t28300:INT); def: 28400 use: 24100 28300 
     LOAD t16800:INT <- Mem(t28400:PTR); def: 16800 use: 28400 
     JUMP L251; def: use: 
   Block: Entry Label: L251
@@ -528,9 +528,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L259; def: use: 
     MOVE_BINOP t28500:INT <- (+, t18600:INT, Const:1); def: 28500 use: 18600 
     MOVE_BINOP t28600:INT <- (*, t28500:INT, Const:4); def: 28600 use: 28500 
-    MOVE_BINOP t28700:PTR <- (+, t24300:PTR, t28600:INT); def: 28700 use: 28600 24300 
+    MOVE_BINOP t28700:PTR <- (+, t24300:PTR, t28600:INT); def: 28700 use: 24300 28600 
     LOAD t28800:INT <- Mem(t28700:PTR); def: 28800 use: 28700 
-    MOVE_BINOP t17300:INT <- (+, t24400:INT, t28800:INT); def: 17300 use: 28800 24400 
+    MOVE_BINOP t17300:INT <- (+, t24400:INT, t28800:INT); def: 17300 use: 24400 28800 
     MOVE t24700:INT <- t17200:INT; def: 24700 use: 17200 
     MOVE_BINOP t28900:INT <- (*, t16701:INT, Const:2); def: 28900 use: 16701 
     MOVE_BINOP t19000:INT <- (+, t28900:INT, Const:1); def: 19000 use: 28900 
@@ -546,9 +546,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L263; def: use: 
     MOVE_BINOP t29000:INT <- (+, t19000:INT, Const:1); def: 29000 use: 19000 
     MOVE_BINOP t29100:INT <- (*, t29000:INT, Const:4); def: 29100 use: 29000 
-    MOVE_BINOP t29200:PTR <- (+, t24600:PTR, t29100:INT); def: 29200 use: 29100 24600 
+    MOVE_BINOP t29200:PTR <- (+, t24600:PTR, t29100:INT); def: 29200 use: 24600 29100 
     LOAD t29300:INT <- Mem(t29200:PTR); def: 29300 use: 29200 
-    MOVE_BINOP t17400:INT <- (+, t24700:INT, t29300:INT); def: 17400 use: 29300 24700 
+    MOVE_BINOP t17400:INT <- (+, t24700:INT, t29300:INT); def: 17400 use: 24700 29300 
     JUMP L264; def: use: 
   Block: Entry Label: L264
     Exit labels: L368 L266 
@@ -594,7 +594,7 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L378; def: use: 
     MOVE_BINOP t30200:INT <- (+, t20200:INT, Const:1); def: 30200 use: 20200 
     MOVE_BINOP t30300:INT <- (*, t30200:INT, Const:4); def: 30300 use: 30200 
-    MOVE_BINOP t30400:PTR <- (+, t24900:PTR, t30300:INT); def: 30400 use: 30300 24900 
+    MOVE_BINOP t30400:PTR <- (+, t24900:PTR, t30300:INT); def: 30400 use: 24900 30300 
     LOAD t30500:INT <- Mem(t30400:PTR); def: 30500 use: 30400 
     CJUMP == t30500:INT t16800:INT? L265 : L266; def: use: 16800 30500 
   Block: Entry Label: L265
@@ -616,9 +616,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L385; def: use: 
     MOVE_BINOP t30600:INT <- (+, t20600:INT, Const:1); def: 30600 use: 20600 
     MOVE_BINOP t30700:INT <- (*, t30600:INT, Const:4); def: 30700 use: 30600 
-    MOVE_BINOP t30800:PTR <- (+, t25100:PTR, t30700:INT); def: 30800 use: 30700 25100 
+    MOVE_BINOP t30800:PTR <- (+, t25100:PTR, t30700:INT); def: 30800 use: 25100 30700 
     LOAD t30900:INT <- Mem(t30800:PTR); def: 30900 use: 30800 
-    MOVE_BINOP t17305:INT <- (+, t25200:INT, t30900:INT); def: 17305 use: 30900 25200 
+    MOVE_BINOP t17305:INT <- (+, t25200:INT, t30900:INT); def: 17305 use: 25200 30900 
     MOVE t25500:INT <- t17203:INT; def: 25500 use: 17203 
     MOVE_BINOP t31000:INT <- (*, t16701:INT, Const:2); def: 31000 use: 16701 
     MOVE_BINOP t21000:INT <- (+, t31000:INT, Const:1); def: 21000 use: 31000 
@@ -634,9 +634,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L389; def: use: 
     MOVE_BINOP t31100:INT <- (+, t21000:INT, Const:1); def: 31100 use: 21000 
     MOVE_BINOP t31200:INT <- (*, t31100:INT, Const:4); def: 31200 use: 31100 
-    MOVE_BINOP t31300:PTR <- (+, t25400:PTR, t31200:INT); def: 31300 use: 31200 25400 
+    MOVE_BINOP t31300:PTR <- (+, t25400:PTR, t31200:INT); def: 31300 use: 25400 31200 
     LOAD t31400:INT <- Mem(t31300:PTR); def: 31400 use: 31300 
-    MOVE_BINOP t17405:INT <- (+, t25500:INT, t31400:INT); def: 17405 use: 31400 25500 
+    MOVE_BINOP t17405:INT <- (+, t25500:INT, t31400:INT); def: 17405 use: 25500 31400 
     MOVE_BINOP t16904:INT <- (+, t16901:INT, Const:1); def: 16904 use: 16901 
     JUMP L264; def: use: 
   Block: Entry Label: L266
@@ -658,9 +658,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L393; def: use: 
     MOVE_BINOP t31500:INT <- (+, t21400:INT, Const:1); def: 31500 use: 21400 
     MOVE_BINOP t31600:INT <- (*, t31500:INT, Const:4); def: 31600 use: 31500 
-    MOVE_BINOP t31700:PTR <- (+, t25700:PTR, t31600:INT); def: 31700 use: 31600 25700 
+    MOVE_BINOP t31700:PTR <- (+, t25700:PTR, t31600:INT); def: 31700 use: 25700 31600 
     LOAD t31800:INT <- Mem(t31700:PTR); def: 31800 use: 31700 
-    MOVE_BINOP t17302:INT <- (-, t25800:INT, t31800:INT); def: 17302 use: 31800 25800 
+    MOVE_BINOP t17302:INT <- (-, t25800:INT, t31800:INT); def: 17302 use: 25800 31800 
     MOVE t26100:INT <- t17201:INT; def: 26100 use: 17201 
     MOVE_BINOP t31900:INT <- (*, t16701:INT, Const:2); def: 31900 use: 16701 
     MOVE_BINOP t21800:INT <- (+, t31900:INT, Const:1); def: 21800 use: 31900 
@@ -676,9 +676,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L397; def: use: 
     MOVE_BINOP t32000:INT <- (+, t21800:INT, Const:1); def: 32000 use: 21800 
     MOVE_BINOP t32100:INT <- (*, t32000:INT, Const:4); def: 32100 use: 32000 
-    MOVE_BINOP t32200:PTR <- (+, t26000:PTR, t32100:INT); def: 32200 use: 32100 26000 
+    MOVE_BINOP t32200:PTR <- (+, t26000:PTR, t32100:INT); def: 32200 use: 26000 32100 
     LOAD t32300:INT <- Mem(t32200:PTR); def: 32300 use: 32200 
-    MOVE_BINOP t17402:INT <- (-, t26100:INT, t32300:INT); def: 17402 use: 32300 26100 
+    MOVE_BINOP t17402:INT <- (-, t26100:INT, t32300:INT); def: 17402 use: 26100 32300 
     JUMP L398; def: use: 
   Block: Entry Label: L398
     Exit labels: L502 L400 
@@ -724,7 +724,7 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L512; def: use: 
     MOVE_BINOP t33200:INT <- (+, t23000:INT, Const:1); def: 33200 use: 23000 
     MOVE_BINOP t33300:INT <- (*, t33200:INT, Const:4); def: 33300 use: 33200 
-    MOVE_BINOP t33400:PTR <- (+, t26300:PTR, t33300:INT); def: 33400 use: 33300 26300 
+    MOVE_BINOP t33400:PTR <- (+, t26300:PTR, t33300:INT); def: 33400 use: 26300 33300 
     LOAD t33500:INT <- Mem(t33400:PTR); def: 33500 use: 33400 
     CJUMP == t33500:INT t16800:INT? L399 : L400; def: use: 16800 33500 
   Block: Entry Label: L399
@@ -746,9 +746,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L519; def: use: 
     MOVE_BINOP t33600:INT <- (+, t23400:INT, Const:1); def: 33600 use: 23400 
     MOVE_BINOP t33700:INT <- (*, t33600:INT, Const:4); def: 33700 use: 33600 
-    MOVE_BINOP t33800:PTR <- (+, t26500:PTR, t33700:INT); def: 33800 use: 33700 26500 
+    MOVE_BINOP t33800:PTR <- (+, t26500:PTR, t33700:INT); def: 33800 use: 26500 33700 
     LOAD t33900:INT <- Mem(t33800:PTR); def: 33900 use: 33800 
-    MOVE_BINOP t17304:INT <- (-, t26600:INT, t33900:INT); def: 17304 use: 33900 26600 
+    MOVE_BINOP t17304:INT <- (-, t26600:INT, t33900:INT); def: 17304 use: 26600 33900 
     MOVE t26900:INT <- t17202:INT; def: 26900 use: 17202 
     MOVE_BINOP t34000:INT <- (*, t16701:INT, Const:2); def: 34000 use: 16701 
     MOVE_BINOP t23800:INT <- (+, t34000:INT, Const:1); def: 23800 use: 34000 
@@ -764,9 +764,9 @@ Function ChessBoard^checkwin(t166, t175, t176) last_label=529 last_temp=344:
     LABEL L523; def: use: 
     MOVE_BINOP t34100:INT <- (+, t23800:INT, Const:1); def: 34100 use: 23800 
     MOVE_BINOP t34200:INT <- (*, t34100:INT, Const:4); def: 34200 use: 34100 
-    MOVE_BINOP t34300:PTR <- (+, t26800:PTR, t34200:INT); def: 34300 use: 34200 26800 
+    MOVE_BINOP t34300:PTR <- (+, t26800:PTR, t34200:INT); def: 34300 use: 26800 34200 
     LOAD t34400:INT <- Mem(t34300:PTR); def: 34400 use: 34300 
-    MOVE_BINOP t17404:INT <- (-, t26900:INT, t34400:INT); def: 17404 use: 34400 26900 
+    MOVE_BINOP t17404:INT <- (-, t26900:INT, t34400:INT); def: 17404 use: 26900 34400 
     MOVE_BINOP t16903:INT <- (+, t16902:INT, Const:1); def: 16903 use: 16902 
     JUMP L398; def: use: 
   Block: Entry Label: L400
@@ -801,7 +801,7 @@ Function ChessBoard^printDivider(t239) last_label=535 last_temp=272:
     MOVE t24400:PTR <- t24200:PTR; def: 24400 use: 24200 
     MOVE_BINOP t26200:PTR <- (+, t239:PTR, Const:4); def: 26200 use: 239 
     LOAD t24300:INT <- Mem(t26200:PTR); def: 24300 use: 26200 
-    CALL putSP[t24400:PTR] (t24300:INT); def: use: 24400 24300 
+    CALL putSP[t24400:PTR] (t24300:INT); def: use: 24300 24400 
     MOVE_BINOP t26300:PTR <- (+, t239:PTR, Const:4); def: 26300 use: 239 
     LOAD t26400:INT <- Mem(t26300:PTR); def: 26400 use: 26300 
     MOVE_BINOP t26500:PTR <- (+, t26400:INT, Const:72); def: 26500 use: 26400 
@@ -816,10 +816,10 @@ Function ChessBoard^printDivider(t239) last_label=535 last_temp=272:
   Block: Entry Label: L530
     Exit labels: L531 L532 
     LABEL L530; def: use: 
-    PHI t24001:INT <- (t24002, L531; t24000, L535); def: 24001 use: 24002 24000 
+    PHI t24001:INT <- (t24002, L531; t24000, L535); def: 24001 use: 24000 24002 
     MOVE_BINOP t26700:PTR <- (+, t239:PTR, Const:12); def: 26700 use: 239 
     LOAD t26800:INT <- Mem(t26700:PTR); def: 26800 use: 26700 
-    CJUMP < t24001:INT t26800:INT? L531 : L532; def: use: 26800 24001 
+    CJUMP < t24001:INT t26800:INT? L531 : L532; def: use: 24001 26800 
   Block: Entry Label: L531
     Exit labels: L530 
     LABEL L531; def: use: 
@@ -923,7 +923,7 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
     PHI t24701:INT <- (t24702, L544; t24700, L560); def: 24701 use: 24700 24702 
     MOVE_BINOP t32900:PTR <- (+, t246:PTR, Const:12); def: 32900 use: 246 
     LOAD t33000:INT <- Mem(t32900:PTR); def: 33000 use: 32900 
-    CJUMP < t24701:INT t33000:INT? L544 : L545; def: use: 33000 24701 
+    CJUMP < t24701:INT t33000:INT? L544 : L545; def: use: 24701 33000 
   Block: Entry Label: L544
     Exit labels: L543 
     LABEL L544; def: use: 
@@ -934,7 +934,7 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
     MOVE t27100:PTR <- t26900:PTR; def: 27100 use: 26900 
     MOVE_BINOP t33400:PTR <- (+, t246:PTR, Const:8); def: 33400 use: 246 
     LOAD t27000:INT <- Mem(t33400:PTR); def: 27000 use: 33400 
-    MOVE_CALL t27200:INT <- dec2hex[t27100:PTR] (t27000:INT, t24701:INT); def: 27200 use: 24701 27000 27100 
+    MOVE_CALL t27200:INT <- dec2hex[t27100:PTR] (t27000:INT, t24701:INT); def: 27200 use: 27100 24701 27000 
     EXTCALL putch(t27200:INT); def: use: 27200 
     MOVE_BINOP t33500:PTR <- (+, t246:PTR, Const:4); def: 33500 use: 246 
     LOAD t33600:INT <- Mem(t33500:PTR); def: 33600 use: 33500 
@@ -943,7 +943,7 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
     MOVE t27600:PTR <- t27400:PTR; def: 27600 use: 27400 
     MOVE_BINOP t33800:PTR <- (+, t246:PTR, Const:4); def: 33800 use: 246 
     LOAD t27500:INT <- Mem(t33800:PTR); def: 27500 use: 33800 
-    CALL putSP[t27600:PTR] (t27500:INT); def: use: 27500 27600 
+    CALL putSP[t27600:PTR] (t27500:INT); def: use: 27600 27500 
     MOVE_BINOP t24702:INT <- (+, t24701:INT, Const:1); def: 24702 use: 24701 
     JUMP L543; def: use: 
   Block: Entry Label: L545
@@ -965,10 +965,10 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
   Block: Entry Label: L548
     Exit labels: L549 L550 
     LABEL L548; def: use: 
-    PHI t24704:INT <- (t24703, L545; t24705, L555); def: 24704 use: 24703 24705 
+    PHI t24704:INT <- (t24703, L545; t24705, L555); def: 24704 use: 24705 24703 
     MOVE_BINOP t34400:PTR <- (+, t246:PTR, Const:16); def: 34400 use: 246 
     LOAD t34500:INT <- Mem(t34400:PTR); def: 34500 use: 34400 
-    CJUMP < t24704:INT t34500:INT? L549 : L550; def: use: 34500 24704 
+    CJUMP < t24704:INT t34500:INT? L549 : L550; def: use: 24704 34500 
   Block: Entry Label: L549
     Exit labels: L553 
     LABEL L549; def: use: 
@@ -1003,10 +1003,10 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
   Block: Entry Label: L553
     Exit labels: L554 L555 
     LABEL L553; def: use: 
-    PHI t24801:INT <- (t24800, L549; t24802, L559); def: 24801 use: 24800 24802 
+    PHI t24801:INT <- (t24800, L549; t24802, L559); def: 24801 use: 24802 24800 
     MOVE_BINOP t35800:PTR <- (+, t246:PTR, Const:12); def: 35800 use: 246 
     LOAD t35900:INT <- Mem(t35800:PTR); def: 35900 use: 35800 
-    CJUMP < t24801:INT t35900:INT? L554 : L555; def: use: 35900 24801 
+    CJUMP < t24801:INT t35900:INT? L554 : L555; def: use: 24801 35900 
   Block: Entry Label: L554
     Exit labels: L558 L559 
     LABEL L554; def: use: 
@@ -1014,8 +1014,8 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
     LOAD t25100:PTR <- Mem(t36000:PTR); def: 25100 use: 36000 
     MOVE_BINOP t36100:PTR <- (+, t246:PTR, Const:12); def: 36100 use: 246 
     LOAD t36200:INT <- Mem(t36100:PTR); def: 36200 use: 36100 
-    MOVE_BINOP t36300:INT <- (*, t24704:INT, t36200:INT); def: 36300 use: 36200 24704 
-    MOVE_BINOP t25200:INT <- (+, t36300:INT, t24801:INT); def: 25200 use: 36300 24801 
+    MOVE_BINOP t36300:INT <- (*, t24704:INT, t36200:INT); def: 36300 use: 24704 36200 
+    MOVE_BINOP t25200:INT <- (+, t36300:INT, t24801:INT); def: 25200 use: 24801 36300 
     MOVE t29900:PTR <- t25100:PTR; def: 29900 use: 25100 
     LOAD t25000:INT <- Mem(t25100:PTR); def: 25000 use: 25100 
     CJUMP >= t25200:INT t25000:INT? L558 : L559; def: use: 25000 25200 
@@ -1028,7 +1028,7 @@ Function ChessBoard^printBoard(t246) last_label=560 last_temp=375:
     LABEL L559; def: use: 
     MOVE_BINOP t36400:INT <- (+, t25200:INT, Const:1); def: 36400 use: 25200 
     MOVE_BINOP t36500:INT <- (*, t36400:INT, Const:4); def: 36500 use: 36400 
-    MOVE_BINOP t36600:PTR <- (+, t29900:PTR, t36500:INT); def: 36600 use: 36500 29900 
+    MOVE_BINOP t36600:PTR <- (+, t29900:PTR, t36500:INT); def: 36600 use: 29900 36500 
     LOAD t30000:INT <- Mem(t36600:PTR); def: 30000 use: 36600 
     EXTCALL putch(t30000:INT); def: use: 30000 
     MOVE_BINOP t36700:PTR <- (+, t246:PTR, Const:4); def: 36700 use: 246 

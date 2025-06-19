@@ -434,34 +434,64 @@ ChessBoard$init:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 ChessBoard$init$L235: 
-         mov r2, r0
+         mov r6, r0
+         mov r0, #100
+         bl malloc
+         mov r7, r0
+         add r0, r7, #84
+         ldr r1, =Math$dec2hex
+         str r1, [r0]
+         add r0, r7, #88
+         ldr r1, =Math$hex2dec
+         str r1, [r0]
+         add r0, r7, #92
+         ldr r1, =Math$mod
+         str r1, [r0]
+         add r0, r7, #96
+         ldr r1, =Math$wait
+         str r1, [r0]
+         mov r0, #100
+         bl malloc
+         mov r4, r0
+         add r0, r4, #64
+         ldr r1, =ConsoleOp$getchar
+         str r1, [r0]
+         add r0, r4, #68
+         ldr r1, =ConsoleOp$putLF
+         str r1, [r0]
+         add r0, r4, #72
+         ldr r1, =ConsoleOp$putSP
+         str r1, [r0]
+         add r0, r4, #76
+         ldr r1, =ConsoleOp$removeLine
+         str r1, [r0]
          mov r0, #0
-         str r1, [r2, #4]
-         str r1, [r2, #8]
-         add r3, r2, #20
-         mov r4, #0
-         str r4, [r3]
+         str r4, [r6, #4]
+         str r7, [r6, #8]
+         add r1, r6, #20
+         mov r2, #0
+         str r2, [r1]
 ChessBoard$init$L228: 
-         ldr r4, [r2, #16]
-         ldr r3, [r2, #12]
-         mul r3, r4, r3
-         cmp r0, r3
+         ldr r2, [r6, #16]
+         ldr r1, [r6, #12]
+         mul r1, r2, r1
+         cmp r0, r1
          blt ChessBoard$init$L229
 ChessBoard$init$L230: 
          mov r0, #0
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 ChessBoard$init$L229: 
-         ldr r3, [r1]
-         cmp r0, r3
+         ldr r1, [r5]
+         cmp r0, r1
          bge ChessBoard$init$L233
 ChessBoard$init$L234: 
-         add r3, r0, #1
-         mov r4, #4
-         mul r3, r3, r4
-         add r3, r1, r3
-         mov r4, #46
-         str r4, [r3]
+         add r1, r0, #1
+         mov r2, #4
+         mul r1, r1, r2
+         add r1, r5, r1
+         mov r2, #46
+         str r2, [r1]
          add r0, r0, #1
          b ChessBoard$init$L228
 ChessBoard$init$L233: 
@@ -565,7 +595,7 @@ ChessBoard$update$L246:
 ChessBoard$checkwin:
          push {r4-r10, fp, lr}
          add fp, sp, #32
-         sub sp, sp, #40
+         sub sp, sp, #28
 ChessBoard$checkwin$L529: 
          mov r10, r2
          str r10, [fp, #-44]
@@ -576,56 +606,54 @@ ChessBoard$checkwin$L529:
          mov r5, #0
          mov r0, #36
          bl malloc
-         mov r1, #8
+         mov r4, r0
+         mov r0, #8
+         str r0, [r4]
+         add r0, r4, #4
+         mov r1, #0
          str r1, [r0]
-         add r1, r0, #4
-         mov r2, #0
-         str r2, [r1]
-         add r1, r0, #8
-         mov r2, #1
-         str r2, [r1]
-         add r1, r0, #12
-         mov r2, #1
-         str r2, [r1]
-         add r1, r0, #16
-         mov r2, #0
-         str r2, [r1]
-         add r1, r0, #20
-         mov r2, #1
-         str r2, [r1]
-         add r1, r0, #24
-         mov r2, #1
-         str r2, [r1]
-         add r1, r0, #28
-         mov r2, #1
-         str r2, [r1]
-         add r1, r0, #32
-         mov r2, #-1
-         str r2, [r1]
+         add r0, r4, #8
+         mov r1, #1
+         str r1, [r0]
+         add r0, r4, #12
+         mov r1, #1
+         str r1, [r0]
+         add r0, r4, #16
+         mov r1, #0
+         str r1, [r0]
+         add r0, r4, #20
+         mov r1, #1
+         str r1, [r0]
+         add r0, r4, #24
+         mov r1, #1
+         str r1, [r0]
+         add r0, r4, #28
+         mov r1, #1
+         str r1, [r0]
+         add r0, r4, #32
+         mov r1, #-1
+         str r1, [r0]
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #0]
+         ldr r0, [r9, #0]
          ldr r9, [fp, #-36]
          ldr r1, [r9, #12]
          ldr r9, [fp, #-40]
          mul r1, r9, r1
          ldr r10, [fp, #-44]
          add r1, r1, r10
-         ldr r3, [r2]
-         cmp r1, r3
+         ldr r2, [r0]
+         cmp r1, r2
          bge ChessBoard$checkwin$L249
 ChessBoard$checkwin$L250: 
          add r1, r1, #1
-         mov r3, #4
-         mul r1, r1, r3
-         add r1, r2, r1
-         ldr r10, [r1]
-         str r10, [fp, #-52]
-         mov r10, r5
-         str r10, [fp, #-48]
+         mov r2, #4
+         mul r1, r1, r2
+         add r0, r0, r1
+         ldr r1, [r0]
+         mov r2, r5
 ChessBoard$checkwin$L251: 
-         mov r1, #4
-         ldr r9, [fp, #-48]
-         cmp r9, r1
+         mov r0, #4
+         cmp r2, r0
          blt ChessBoard$checkwin$L252
 ChessBoard$checkwin$L253: 
          mov r0, #0
@@ -635,107 +663,84 @@ ChessBoard$checkwin$L249:
          mov r0, #-1
          bl exit
 ChessBoard$checkwin$L252: 
-         mov r1, #1
+         mov r3, #1
          ldr r9, [fp, #-40]
-         mov r2, r9
+         mov r0, r9
          ldr r9, [fp, #-44]
-         mov r10, r9
-         str r10, [fp, #-56]
-         mov r3, r2
-         mov r2, #2
-         ldr r9, [fp, #-48]
-         mul r2, r9, r2
-         ldr r5, [r0]
-         cmp r2, r5
+         mov r6, r9
+         mov r5, r0
+         mov r0, #2
+         mul r0, r2, r0
+         ldr r7, [r4]
+         cmp r0, r7
          bge ChessBoard$checkwin$L258
 ChessBoard$checkwin$L259: 
-         add r2, r2, #1
-         mov r5, #4
-         mul r2, r2, r5
-         add r2, r0, r2
-         ldr r2, [r2]
-         add r7, r3, r2
-         ldr r9, [fp, #-56]
-         mov r10, r9
-         str r10, [fp, #-68]
-         mov r2, #2
-         ldr r9, [fp, #-48]
-         mul r2, r9, r2
-         add r2, r2, #1
-         ldr r3, [r0]
-         cmp r2, r3
+         add r0, r0, #1
+         mov r7, #4
+         mul r0, r0, r7
+         add r0, r4, r0
+         ldr r0, [r0]
+         add r0, r5, r0
+         mov r5, #2
+         mul r5, r2, r5
+         add r5, r5, #1
+         ldr r7, [r4]
+         cmp r5, r7
          bge ChessBoard$checkwin$L262
 ChessBoard$checkwin$L263: 
-         add r2, r2, #1
-         mov r3, #4
-         mul r2, r2, r3
-         add r2, r0, r2
-         ldr r2, [r2]
-         ldr r9, [fp, #-68]
-         add r2, r9, r2
-         mov r5, r2
+         add r5, r5, #1
+         mov r7, #4
+         mul r5, r5, r7
+         add r5, r4, r5
+         ldr r5, [r5]
+         add r5, r6, r5
 ChessBoard$checkwin$L264: 
-         mov r6, r7
-         mov r6, r4
-         mov r2, #0
-         cmp r6, r2
+         mov r7, #0
+         cmp r0, r7
          bge ChessBoard$checkwin$L368
 ChessBoard$checkwin$L266: 
          ldr r9, [fp, #-40]
-         mov r2, r9
+         mov r0, r9
          ldr r9, [fp, #-44]
-         mov r10, r9
-         str r10, [fp, #-60]
-         mov r3, r2
-         mov r2, #2
-         ldr r9, [fp, #-48]
-         mul r2, r9, r2
-         ldr r5, [r0]
-         cmp r2, r5
+         mov r6, r9
+         mov r5, r0
+         mov r0, #2
+         mul r0, r2, r0
+         ldr r7, [r4]
+         cmp r0, r7
          bge ChessBoard$checkwin$L392
 ChessBoard$checkwin$L393: 
-         add r2, r2, #1
-         mov r5, #4
-         mul r2, r2, r5
-         add r2, r0, r2
-         ldr r2, [r2]
-         sub r6, r3, r2
-         ldr r9, [fp, #-60]
-         mov r10, r9
-         str r10, [fp, #-72]
-         mov r2, #2
-         ldr r9, [fp, #-48]
-         mul r2, r9, r2
-         add r2, r2, #1
-         ldr r3, [r0]
-         cmp r2, r3
+         add r0, r0, #1
+         mov r7, #4
+         mul r0, r0, r7
+         add r0, r4, r0
+         ldr r0, [r0]
+         sub r0, r5, r0
+         mov r5, #2
+         mul r5, r2, r5
+         add r5, r5, #1
+         ldr r7, [r4]
+         cmp r5, r7
          bge ChessBoard$checkwin$L396
 ChessBoard$checkwin$L397: 
-         add r2, r2, #1
-         mov r3, #4
-         mul r2, r2, r3
-         add r2, r0, r2
-         ldr r2, [r2]
-         ldr r9, [fp, #-72]
-         sub r2, r9, r2
-         mov r5, r2
+         add r5, r5, #1
+         mov r7, #4
+         mul r5, r5, r7
+         add r5, r4, r5
+         ldr r5, [r5]
+         sub r5, r6, r5
 ChessBoard$checkwin$L398: 
-         mov r7, r6
-         ldr r9, [fp, #-64]
-         mov r7, r9
-         mov r2, #0
-         cmp r7, r2
+         mov r7, #0
+         cmp r0, r7
          bge ChessBoard$checkwin$L502
 ChessBoard$checkwin$L400: 
-         mov r2, #5
-         cmp r1, r2
+         mov r0, #5
+         cmp r3, r0
          bge ChessBoard$checkwin$L526
 ChessBoard$checkwin$L527: 
 ChessBoard$checkwin$L528: 
-         ldr r9, [fp, #-48]
-         add r1, r9, #1
-         mov r10, r1
-         str r10, [fp, #-48]
+         add r0, r2, #1
+         mov r2, r0
          b ChessBoard$checkwin$L251
 ChessBoard$checkwin$L258: 
          mov r0, #-1
@@ -744,78 +749,76 @@ ChessBoard$checkwin$L262:
          mov r0, #-1
          bl exit
 ChessBoard$checkwin$L265: 
-         mov r3, r6
-         mov r2, r5
-         mov r4, r3
-         mov r3, #2
-         ldr r9, [fp, #-48]
-         mul r3, r9, r3
-         ldr r5, [r0]
-         cmp r3, r5
+         mov r7, r0
+         mov r0, #2
+         mul r0, r2, r0
+         ldr r8, [r4]
+         cmp r0, r8
          bge ChessBoard$checkwin$L384
 ChessBoard$checkwin$L385: 
-         add r3, r3, #1
-         mov r5, #4
-         mul r3, r3, r5
-         add r3, r0, r3
-         ldr r3, [r3]
-         add r4, r4, r3
-         mov r3, #2
-         ldr r9, [fp, #-48]
-         mul r3, r9, r3
-         add r3, r3, #1
-         ldr r5, [r0]
-         cmp r3, r5
+         add r0, r0, #1
+         mov r8, #4
+         mul r0, r0, r8
+         add r0, r4, r0
+         ldr r0, [r0]
+         add r0, r7, r0
+         mov r7, #2
+         mul r7, r2, r7
+         add r7, r7, #1
+         ldr r8, [r4]
+         cmp r7, r8
          bge ChessBoard$checkwin$L388
 ChessBoard$checkwin$L389: 
+         add r7, r7, #1
+         mov r8, #4
+         mul r7, r7, r8
+         add r7, r4, r7
+         ldr r7, [r7]
+         add r5, r5, r7
          add r3, r3, #1
-         mov r5, #4
-         mul r3, r3, r5
-         add r3, r0, r3
-         ldr r3, [r3]
-         add r2, r2, r3
-         add r1, r1, #1
-         mov r5, r2
          b ChessBoard$checkwin$L264
 ChessBoard$checkwin$L368: 
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #16]
-         cmp r6, r2
+         ldr r7, [r9, #16]
+         cmp r0, r7
          blt ChessBoard$checkwin$L371
          b ChessBoard$checkwin$L266
 ChessBoard$checkwin$L371: 
-         mov r2, #0
-         cmp r5, r2
+         mov r7, #0
+         cmp r5, r7
          bge ChessBoard$checkwin$L374
          b ChessBoard$checkwin$L266
 ChessBoard$checkwin$L374: 
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #12]
-         cmp r5, r2
+         ldr r7, [r9, #12]
+         cmp r5, r7
          blt ChessBoard$checkwin$L381
          b ChessBoard$checkwin$L266
 ChessBoard$checkwin$L377: 
          mov r0, #-1
          bl exit
 ChessBoard$checkwin$L378: 
-         add r2, r2, #1
-         mov r8, #4
-         mul r2, r2, r8
-         add r2, r3, r2
-         ldr r2, [r2]
-         ldr r10, [fp, #-52]
-         cmp r2, r10
+         add r7, r7, #1
+         mov r10, #4
+         str r10, [fp, #-48]
+         ldr r10, [fp, #-48]
+         mul r7, r7, r10
+         add r7, r8, r7
+         ldr r7, [r7]
+         cmp r7, r1
          beq ChessBoard$checkwin$L265
          b ChessBoard$checkwin$L266
 ChessBoard$checkwin$L381: 
          ldr r9, [fp, #-36]
-         ldr r3, [r9, #0]
+         ldr r8, [r9, #0]
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #12]
-         mul r2, r6, r2
-         add r2, r2, r5
-         ldr r8, [r3]
-         cmp r2, r8
+         ldr r7, [r9, #12]
+         mul r7, r0, r7
+         add r7, r7, r5
+         ldr r10, [r8]
+         str r10, [fp, #-56]
+         ldr r10, [fp, #-56]
+         cmp r7, r10
          bge ChessBoard$checkwin$L377
          b ChessBoard$checkwin$L378
 ChessBoard$checkwin$L384: 
@@ -831,79 +834,76 @@ ChessBoard$checkwin$L396:
          mov r0, #-1
          bl exit
 ChessBoard$checkwin$L399: 
-         mov r3, r7
-         mov r2, r5
-         mov r5, r3
-         mov r3, #2
-         ldr r9, [fp, #-48]
-         mul r3, r9, r3
-         ldr r7, [r0]
-         cmp r3, r7
+         mov r7, r0
+         mov r0, #2
+         mul r0, r2, r0
+         ldr r8, [r4]
+         cmp r0, r8
          bge ChessBoard$checkwin$L518
 ChessBoard$checkwin$L519: 
-         add r3, r3, #1
-         mov r7, #4
-         mul r3, r3, r7
-         add r3, r0, r3
-         ldr r3, [r3]
-         sub r10, r5, r3
-         str r10, [fp, #-64]
-         mov r3, #2
-         ldr r9, [fp, #-48]
-         mul r3, r9, r3
-         add r3, r3, #1
-         ldr r5, [r0]
-         cmp r3, r5
+         add r0, r0, #1
+         mov r8, #4
+         mul r0, r0, r8
+         add r0, r4, r0
+         ldr r0, [r0]
+         sub r0, r7, r0
+         mov r7, #2
+         mul r7, r2, r7
+         add r7, r7, #1
+         ldr r8, [r4]
+         cmp r7, r8
          bge ChessBoard$checkwin$L522
 ChessBoard$checkwin$L523: 
+         add r7, r7, #1
+         mov r8, #4
+         mul r7, r7, r8
+         add r7, r4, r7
+         ldr r7, [r7]
+         sub r5, r5, r7
          add r3, r3, #1
-         mov r5, #4
-         mul r3, r3, r5
-         add r3, r0, r3
-         ldr r3, [r3]
-         sub r2, r2, r3
-         add r1, r1, #1
-         mov r5, r2
          b ChessBoard$checkwin$L398
 ChessBoard$checkwin$L502: 
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #16]
-         cmp r7, r2
+         ldr r7, [r9, #16]
+         cmp r0, r7
          blt ChessBoard$checkwin$L505
          b ChessBoard$checkwin$L400
 ChessBoard$checkwin$L505: 
-         mov r2, #0
-         cmp r5, r2
+         mov r7, #0
+         cmp r5, r7
          bge ChessBoard$checkwin$L508
          b ChessBoard$checkwin$L400
 ChessBoard$checkwin$L508: 
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #12]
-         cmp r5, r2
+         ldr r7, [r9, #12]
+         cmp r5, r7
          blt ChessBoard$checkwin$L515
          b ChessBoard$checkwin$L400
 ChessBoard$checkwin$L511: 
          mov r0, #-1
          bl exit
 ChessBoard$checkwin$L512: 
-         add r2, r2, #1
-         mov r8, #4
-         mul r2, r2, r8
-         add r2, r3, r2
-         ldr r2, [r2]
+         add r7, r7, #1
+         mov r10, #4
+         str r10, [fp, #-52]
          ldr r10, [fp, #-52]
-         cmp r2, r10
+         mul r7, r7, r10
+         add r7, r8, r7
+         ldr r7, [r7]
+         cmp r7, r1
          beq ChessBoard$checkwin$L399
          b ChessBoard$checkwin$L400
 ChessBoard$checkwin$L515: 
          ldr r9, [fp, #-36]
-         ldr r3, [r9, #0]
+         ldr r8, [r9, #0]
          ldr r9, [fp, #-36]
-         ldr r2, [r9, #12]
-         mul r2, r7, r2
-         add r2, r2, r5
-         ldr r8, [r3]
-         cmp r2, r8
+         ldr r7, [r9, #12]
+         mul r7, r0, r7
+         add r7, r7, r5
+         ldr r10, [r8]
+         str r10, [fp, #-60]
+         ldr r10, [fp, #-60]
+         cmp r7, r10
          bge ChessBoard$checkwin$L511
          b ChessBoard$checkwin$L512
 ChessBoard$checkwin$L518: 
