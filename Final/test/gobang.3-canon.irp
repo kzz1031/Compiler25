@@ -861,11 +861,99 @@
             </Block>
         </Blocks>
     </FunctionDeclaration>
-    <FunctionDeclaration name="ChessBoard^init" return_type="INT" last_temp="150" last_label="235" arg_temp_0="142">
+    <FunctionDeclaration name="ChessBoard^init" return_type="INT" last_temp="152" last_label="235" arg_temp_0="142">
         <Blocks>
             <Block entry_label="235">
                 <Sequence>
                     <Label label="235"/>
+                    <Move>
+                        <Temp type="PTR" temp="145"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="100"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="145"/>
+                                <Const value="84"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="Math^dec2hex"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="145"/>
+                                <Const value="88"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="Math^hex2dec"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="145"/>
+                                <Const value="92"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="Math^mod"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="145"/>
+                                <Const value="96"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="Math^wait"/>
+                    </Move>
+                    <Move>
+                        <Temp type="PTR" temp="143"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="100"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="143"/>
+                                <Const value="64"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="ConsoleOp^getchar"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="143"/>
+                                <Const value="68"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="ConsoleOp^putLF"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="143"/>
+                                <Const value="72"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="ConsoleOp^putSP"/>
+                    </Move>
+                    <Move>
+                        <Memory type="PTR">
+                            <BinOp op="+" type="PTR">
+                                <Temp type="PTR" temp="143"/>
+                                <Const value="76"/>
+                            </BinOp>
+                        </Memory>
+                        <Name name="ConsoleOp^removeLine"/>
+                    </Move>
                     <Move>
                         <Temp type="INT" temp="144"/>
                         <Const value="0"/>
@@ -917,7 +1005,7 @@
                     </CJump>
                     <Label label="229"/>
                     <Move>
-                        <Temp type="PTR" temp="150"/>
+                        <Temp type="PTR" temp="152"/>
                         <Temp type="PTR" temp="148"/>
                     </Move>
                     <Move>
@@ -942,7 +1030,7 @@
                     <Move>
                         <Memory type="INT">
                             <BinOp op="+" type="PTR">
-                                <Temp type="PTR" temp="150"/>
+                                <Temp type="PTR" temp="152"/>
                                 <BinOp op="*" type="INT">
                                     <BinOp op="+" type="INT">
                                         <Temp type="INT" temp="144"/>

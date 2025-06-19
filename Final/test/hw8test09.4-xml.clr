@@ -48,11 +48,19 @@
             <Color node="1" color="1"/>
             <Color node="2" color="2"/>
             <Color node="3" color="3"/>
-            <Color node="102" color="2"/>
-            <Color node="103" color="0"/>
-            <Color node="104" color="0"/>
-            <Color node="105" color="1"/>
-            <Color node="108" color="2"/>
+            <Color node="102" color="0"/>
+            <Color node="105" color="4"/>
+            <Color node="114" color="1"/>
+            <Color node="115" color="1"/>
+            <Color node="116" color="2"/>
+            <Color node="117" color="2"/>
+            <Color node="118" color="1"/>
+            <Color node="10300" color="5"/>
+            <Color node="10400" color="0"/>
+            <Color node="11000" color="0"/>
+            <Color node="11100" color="0"/>
+            <Color node="11200" color="1"/>
+            <Color node="11300" color="1"/>
         </Colors>
         <Spills/>
     </Coloring>

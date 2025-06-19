@@ -69,7 +69,7 @@ Function _^main^_^main() last_label=107 last_temp=141:
     MOVE_BINOP t12900:INT <- (+, t10201:INT, Const:1); def: 12900 use: 10201 
     MOVE t141:INT <- Const:4; def: 141 use: 
     MOVE_BINOP t13000:INT <- (*, t12900:INT, t141:INT); def: 13000 use: 12900 141 
-    MOVE_BINOP t13100:PTR <- (+, t11400:PTR, t13000:INT); def: 13100 use: 11400 13000 
+    MOVE_BINOP t13100:PTR <- (+, t11400:PTR, t13000:INT); def: 13100 use: 13000 11400 
     LOAD t11500:INT <- Mem(t13100:PTR); def: 11500 use: 13100 
     MOVE t0:INT <- t11500:INT; def: 0 use: 11500 
     EXTCALL putint(t0:INT); def: 0 1 2 3 use: 0 
@@ -113,13 +113,13 @@ Function b1^bubbleSort(t0, t1, t2) last_label=131 last_temp=167:
     Exit labels: L106 L107 
     LABEL L105; def: use: 
     MOVE_BINOP t13900:INT <- (-, t104:INT, Const:1); def: 13900 use: 104 
-    CJUMP < t10101:INT t13900:INT? L106 : L107; def: use: 10101 13900 
+    CJUMP < t10101:INT t13900:INT? L106 : L107; def: use: 13900 10101 
   Block: Entry Label: L106
     Exit labels: L114 L115 
     LABEL L106; def: use: 
     MOVE t12100:PTR <- t103:PTR; def: 12100 use: 103 
     LOAD t11100:INT <- Mem(t103:PTR); def: 11100 use: 103 
-    CJUMP >= t10101:INT t11100:INT? L114 : L115; def: use: 10101 11100 
+    CJUMP >= t10101:INT t11100:INT? L114 : L115; def: use: 11100 10101 
   Block: Entry Label: L114
     Exit labels: 
     LABEL L114; def: use: 
@@ -131,12 +131,12 @@ Function b1^bubbleSort(t0, t1, t2) last_label=131 last_temp=167:
     MOVE_BINOP t14000:INT <- (+, t10101:INT, Const:1); def: 14000 use: 10101 
     MOVE t162:INT <- Const:4; def: 162 use: 
     MOVE_BINOP t14100:INT <- (*, t14000:INT, t162:INT); def: 14100 use: 14000 162 
-    MOVE_BINOP t14200:PTR <- (+, t12100:PTR, t14100:INT); def: 14200 use: 12100 14100 
+    MOVE_BINOP t14200:PTR <- (+, t12100:PTR, t14100:INT); def: 14200 use: 14100 12100 
     LOAD t12400:INT <- Mem(t14200:PTR); def: 12400 use: 14200 
     MOVE_BINOP t11300:INT <- (+, t10101:INT, Const:1); def: 11300 use: 10101 
     MOVE t12300:PTR <- t103:PTR; def: 12300 use: 103 
     LOAD t11200:INT <- Mem(t103:PTR); def: 11200 use: 103 
-    CJUMP >= t11300:INT t11200:INT? L116 : L117; def: use: 11200 11300 
+    CJUMP >= t11300:INT t11200:INT? L116 : L117; def: use: 11300 11200 
   Block: Entry Label: L116
     Exit labels: 
     LABEL L116; def: use: 

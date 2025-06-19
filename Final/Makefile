@@ -40,8 +40,9 @@ compile: $(MAIN)
 	cd $(CURDIR)/test && \
 	for file in $$(ls .); do \
 		if [ "$${file#*.}" = "fmj" ]; then \
-			echo "Reading ${FILE}.4-prepared-xml.quad and ${FILE}.4-xml.clr"; \
+			echo "Compiling ${FILE}.fmj"; \
 			$(MAIN) "$${file%%.*}"; \
+			echo "Finish Compiling ${FILE}.fmj"
 		fi; \
 	done; \
 	cd .. > /dev/null 2>&1 
@@ -70,7 +71,7 @@ run: $(MAIN)
 		fi; \
 	done
 
-run-assem-one: $(MAIN)
+run-assem: $(MAIN)
 	cd $(CURDIR)/test/assem && \
 	echo "List of files:" && ls . && \
 	for file in *; do \
@@ -84,22 +85,23 @@ run-assem-one: $(MAIN)
 		fi; \
 	done
 
-FILE=hw5test0
+FILE=additional
+
+compile-one: $(MAIN)
+	cd $(CURDIR)/test && \
+	echo "Compiling ${FILE}.fmj"; \
+	$(MAIN) "${FILE}"; \
+	echo "Finish Compiling ${FILE}.fmj"; \
+	cd .. > /dev/null 2>&1 
+
+compile-one-fmj: $(MAIN)
+	cd $(CURDIR)/fmj_normal && \
+	echo "Reading ${FILE}.4-ssa-xml.quad and ${FILE}.4-xml.clr"; \
+	$(MAIN) "${FILE}"; \
+	cd .. > /dev/null 2>&1 
 
 run-one: $(MAIN)
 	cd $(CURDIR)/test && \
-	echo "Reading ${FILE}.4-ssa-xml.quad and ${FILE}.4-xml.clr"; \
-	$(MAIN) "${FILE}"; \
-	cd .. > /dev/null 2>&1 
-
-run-one-fmj: $(MAIN)
-	cd $(CURDIR)/fmj_normal && \
-	echo "Reading ${FILE}.4-ssa-xml.quad and ${FILE}.4-xml.clr"; \
-	$(MAIN) "${FILE}"; \
-	cd .. > /dev/null 2>&1 
-
-run-one-assem: $(MAIN)
-	cd $(CURDIR)/fmj_normal && \
     arm-linux-gnueabihf-gcc -mcpu=cortex-a72 -Wall -Wextra --static -o "${FILE}" "${FILE}.s" ../vendor/libsysy/libsysy32.s -lm; \
 	echo "Running the final assembly program: ${FILE}........." ; \
 	qemu-arm -B 0x1000 ${FILE}; \

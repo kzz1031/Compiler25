@@ -26,7 +26,8 @@ c3$m1:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 c3$m1$L100: 
-         mov r2, r0
+         mov r0, #4
+         bl malloc
          sub sp, fp, #32
          pop {r4-r10, fp, pc}
 

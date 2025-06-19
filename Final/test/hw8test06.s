@@ -48,9 +48,16 @@ C$next:
          push {r4-r10, fp, lr}
          add fp, sp, #32
 C$next$L105: 
-         str r1, [r4, #0]
+         mov r5, r1
+         mov r0, #12
+         bl malloc
+         mov r4, r0
+         add r0, r4, #8
+         ldr r1, =C$next
+         str r1, [r0]
+         str r5, [r4, #0]
          mov r0, #100
-         cmp r1, r0
+         cmp r5, r0
          blt C$next$L102
 C$next$L103: 
          add r1, r4, #0
@@ -63,7 +70,7 @@ C$next$L104:
          pop {r4-r10, fp, pc}
 C$next$L102: 
          ldr r2, [r4, #8]
-         add r1, r1, #1
+         add r1, r5, #1
          add r5, r4, #4
          mov r0, r4
          blx r2

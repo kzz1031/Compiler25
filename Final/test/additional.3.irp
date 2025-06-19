@@ -17,6 +17,14 @@
             <Block entry_label="100">
                 <Sequence>
                     <Label label="100"/>
+                    <Move>
+                        <Temp type="PTR" temp="101"/>
+                        <ExtCall extfun="malloc" type="PTR">
+                            <Arguments>
+                                <Const value="4"/>
+                            </Arguments>
+                        </ExtCall>
+                    </Move>
                     <Return>
                         <Temp type="PTR" temp="101"/>
                     </Return>

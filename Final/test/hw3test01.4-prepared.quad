@@ -65,7 +65,7 @@ Function _^main^_^main() last_label=107 last_temp=147:
   Block: Entry Label: L103
     Exit labels: L102 
     LABEL L103; def: use: 
-    MOVE_BINOP t12600:PTR <- (+, t10600:PTR, t10701:INT); def: 12600 use: 10600 10701 
+    MOVE_BINOP t12600:PTR <- (+, t10600:PTR, t10701:INT); def: 12600 use: 10701 10600 
     MOVE_BINOP t12700:PTR <- (+, t10000:PTR, t10701:INT); def: 12700 use: 10000 10701 
     LOAD t12800:INT <- Mem(t12700:PTR); def: 12800 use: 12700 
     MOVE_BINOP t12900:PTR <- (+, t10100:PTR, t10701:INT); def: 12900 use: 10100 10701 

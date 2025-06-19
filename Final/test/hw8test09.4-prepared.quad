@@ -58,23 +58,41 @@ Function C^m(t0) last_label=100 last_temp=103:
     EXTCALL putch(t0:INT); def: 0 1 2 3 use: 0 
     MOVE t0:INT <- Const:0; def: 0 use: 
     RETURN t0:INT; def: use: 0 
-Function C^f(t0, t1) last_label=106 last_temp=108:
+Function C^f(t0, t1) last_label=106 last_temp=118:
   Block: Entry Label: L106
     Exit labels: L103 L104 
     LABEL L106; def: use: 
     MOVE t105:INT <- t1:INT; def: 105 use: 1 
     MOVE t102:INT <- t0:INT; def: 102 use: 0 
-    MOVE t108:INT <- Const:0; def: 108 use: 
-    CJUMP > t105:INT t108:INT? L103 : L104; def: use: 105 108 
+    MOVE t0:INT <- Const:8; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10300:PTR <- t0:PTR; def: 10300 use: 0 
+    MOVE_BINOP t11000:PTR <- (+, t10300:PTR, Const:0); def: 11000 use: 10300 
+    LOAD t114:INT <- Mem(Name:C^f); def: 114 use: 
+    STORE t114:INT -> Mem(t11000:PTR); def: use: 11000 114 
+    MOVE_BINOP t11100:PTR <- (+, t10300:PTR, Const:4); def: 11100 use: 10300 
+    LOAD t115:INT <- Mem(Name:C^m); def: 115 use: 
+    STORE t115:INT -> Mem(t11100:PTR); def: use: 11100 115 
+    MOVE t0:INT <- Const:8; def: 0 use: 
+    MOVE_EXTCALL t0:PTR <- malloc(t0:INT); def: 0 1 2 3 use: 0 
+    MOVE t10400:PTR <- t0:PTR; def: 10400 use: 0 
+    MOVE_BINOP t11200:PTR <- (+, t10400:PTR, Const:4); def: 11200 use: 10400 
+    LOAD t116:INT <- Mem(Name:C1^m); def: 116 use: 
+    STORE t116:INT -> Mem(t11200:PTR); def: use: 11200 116 
+    MOVE_BINOP t11300:PTR <- (+, t10400:PTR, Const:0); def: 11300 use: 10400 
+    LOAD t117:INT <- Mem(Name:C^f); def: 117 use: 
+    STORE t117:INT -> Mem(t11300:PTR); def: use: 11300 117 
+    MOVE t118:INT <- Const:0; def: 118 use: 
+    CJUMP > t105:INT t118:INT? L103 : L104; def: use: 105 118 
   Block: Entry Label: L103
     Exit labels: 
     LABEL L103; def: use: 
-    MOVE t0:INT <- t103:PTR; def: 0 use: 103 
+    MOVE t0:INT <- t10300:PTR; def: 0 use: 10300 
     RETURN t0:INT; def: use: 0 
   Block: Entry Label: L104
     Exit labels: 
     LABEL L104; def: use: 
-    MOVE t0:INT <- t104:PTR; def: 0 use: 104 
+    MOVE t0:INT <- t10400:PTR; def: 0 use: 10400 
     RETURN t0:INT; def: use: 0 
 Function C1^m(t0) last_label=107 last_temp=111:
   Block: Entry Label: L107

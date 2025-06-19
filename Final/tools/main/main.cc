@@ -59,10 +59,11 @@ int main(int argc, const char *argv[]) {
     string file_quad_xml = file + ".4-xml.quad";
     string file_quad_ssa = file + ".4-ssa.quad";
 
-    // boilerplate output filenames (used throughout the compiler pipeline)
     string file_quad_prepared = file + ".4-prepared.quad";
     string file_quad_color_xml = file + ".4-xml.clr";
     string file_rpi = file + ".s";
+
+    
     // step 1: parse the source file and generate the AST
     cout << "------Parsing fmj source file: " << file_fmj << "------------" << endl;
     std::ifstream fmjfile(file_fmj);
